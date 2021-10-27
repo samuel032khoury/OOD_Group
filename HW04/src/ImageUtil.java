@@ -67,7 +67,7 @@ public class ImageUtil {
           filename = args[0];
       }
       else {
-          filename = "sample.ppm";
+          filename = "/Users/SamuelJ/Library/Mobile Documents/com~apple~CloudDocs/21FL/CS 3500/IJ/group/HW04/out/production/HW04/sample.ppm";
       }
       
       ImageUtil.readPPM(filename);
