@@ -76,7 +76,7 @@ public class ImageUtil {
     StringBuilder out = new StringBuilder();
     Objects.requireNonNull(img);
     Objects.requireNonNull(img[0]);
-
+    
     int height = img.length;
     int width = img[0].length;
 

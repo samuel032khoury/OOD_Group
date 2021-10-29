@@ -17,7 +17,7 @@ public class PPMImageProcessModel implements ImageProcessModel{
   }
 
   @Override
-  public void vertiFlip(String imageName) {
+  public void vertiFlip(String imageName) throws IllegalArgumentException{
     Color[][] image = findImageByName(imageName);
     for (int row = 0; row < image.length / 2; row++) {
         Color[] temp = image[row];
@@ -27,7 +27,7 @@ public class PPMImageProcessModel implements ImageProcessModel{
   }
 
   @Override
-  public void horizFlip(String imageName) {
+  public void horizFlip(String imageName) throws IllegalArgumentException{
     Color[][] image = findImageByName(imageName);
     for (int row = 0; row < image.length; row++) {
       Color[] currRow = image[row];
