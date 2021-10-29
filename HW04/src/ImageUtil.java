@@ -1,8 +1,13 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -19,7 +24,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
  */
 public class ImageUtil {
 
-  public static BufferedImage readPPMIMG(String filename) {
+  public static Color[][] readPPMIMG(String filename) {
     Scanner sc;
 
     try {
@@ -49,8 +54,9 @@ public class ImageUtil {
     }
     int width = sc.nextInt();
     int height = sc.nextInt();
+    int maxValue = sc.nextInt();
 
-    BufferedImage image = new BufferedImage(width, height, TYPE_INT_ARGB);
+    Color[][] image = new Color[height][width];
 
     for (int i=0;i<height;i++) {
       for (int j=0;j<width;j++) {
@@ -58,60 +64,98 @@ public class ImageUtil {
         int g = sc.nextInt();
         int b = sc.nextInt();
         Color color = new Color(r,g,b);
-        image.setRGB(j, i, color.getRGB());
+        image[i][j] = color;
       }
     }
     return image;
   }
 
-  public static void savePPM(String filename, BufferedImage img){
-    File outputFile = new File(filename);
-    FileWriter myWriter = null;
+  public static void savePPM(String filename, Color[][] img){
+    BufferedWriter myWriter = null;
     StringBuilder out = new StringBuilder();
-     try {
-      if (outputFile.createNewFile()) {
-        System.out.println("File created: " + outputFile.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-    } catch (IOException e) {
-      System.out.println("An error occurred");
-      e.printStackTrace();
-    }
 
-    int height = img.getHeight();
-    int width = img.getWidth();
+    int height = img.length;
+    int width = img[0].length;
 
     try {
-      myWriter = new FileWriter(filename);
+      myWriter = new BufferedWriter(new FileWriter(filename));;
       myWriter.write("P3\n");
       myWriter.write("# ppm - RGB");
       myWriter.write(String.format("%d %d", width, height));
+      myWriter.write("PlaceHolderForMax");
 
     } catch (IOException e) {
       System.out.println("An error occurred");
       e.printStackTrace();
     }
 
-
+    int maxColor = 0;
 
     for (int i=0;i<height;i++) {
       for (int j=0;j<width;j++) {
-        int rgb = img.getRGB(j,i);
-        Color color = new Color(rgb);
+        Color color = img[i][j];
         try {
-          myWriter.write(color.getRed());
-          myWriter.write(color.getGreen());
-          myWriter.write(color.getBlue());
+          int red = color.getRed();
+          int green = color.getGreen();
+          int blue = color.getBlue();
+          assert myWriter != null;
+          myWriter.write(red);
+          myWriter.write(green);
+          myWriter.write(blue);
+          maxColor = Math.max(Math.max(maxColor, red), Math.max(green, blue));
         } catch (IOException e) {
-
+            throw new RuntimeException("Can't write");
         }
       }
     }
 
+    try {
+      assert myWriter != null;
+      myWriter.close();
+    } catch (IOException e) {
+      throw new RuntimeException("Can't write");
+    }
 
+    String tmpFileName = "tmp.ppm";
+
+    BufferedReader br = null;
+    BufferedWriter bw = null;
+    try {
+      br = new BufferedReader(new FileReader(filename));
+      bw = new BufferedWriter(new FileWriter(tmpFileName));
+      String line;
+      while ((line = br.readLine()) != null) {
+        if (line.contains("PlaceHolderForMax"))
+          line = line.replace("PlaceHolderForMax", ""+maxColor);
+        bw.write(line+"\n");
+      }
+    } catch (Exception e) {
+      return;
+    } finally {
+      try {
+        if(br != null)
+          br.close();
+      } catch (IOException e) {
+        //
+      }
+      try {
+        if(bw != null)
+          bw.close();
+      } catch (IOException e) {
+        //
+      }
+    }
+    // Once everything is complete, delete old file..
+    File oldFile = new File(filename);
+    oldFile.delete();
+
+    // And rename tmp file's name to old file name
+    File newFile = new File(tmpFileName);
+    newFile.renameTo(oldFile);
 
   }
+
+
 
 
   /**
@@ -166,18 +210,11 @@ public class ImageUtil {
 
   //demo main
   public static void main(String []args) throws IOException {
-      String filename;
+      String filename = "/Users/eric/Documents/CS stuff/cs3500github/OOD_Group/HW04/exampleRes/Koala.ppm";
+
       
-      if (args.length>0) {
-          filename = args[0];
-      }
-      else {
-          filename = filename;
-      }
-      
-      BufferedImage img = ImageUtil.readPPMIMG(filename);
-      File outputfile = new File("saved.png");
-      ImageIO.write(img, "png", outputfile);
+      Color[][] img = ImageUtil.readPPMIMG(filename);
+      savePPM("save.ppm", img);
   }
 }
 
