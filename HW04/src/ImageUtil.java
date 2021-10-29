@@ -70,7 +70,7 @@ public class ImageUtil {
     return image;
   }
 
-  public static void savePPM(String filename, Color[][] img){
+  public static void savePPM(String filename, Color[][] img) {
     BufferedWriter myWriter = null;
     StringBuilder out = new StringBuilder();
 
@@ -78,11 +78,12 @@ public class ImageUtil {
     int width = img[0].length;
 
     try {
-      myWriter = new BufferedWriter(new FileWriter(filename));;
+      myWriter = new BufferedWriter(new FileWriter(filename));
+      ;
       myWriter.write("P3\n");
-      myWriter.write("# ppm - RGB");
-      myWriter.write(String.format("%d %d", width, height));
-      myWriter.write("PlaceHolderForMax");
+      myWriter.write("# ppm - RGB\n");
+      myWriter.write(String.format("%d %d\n", width, height));
+      myWriter.write("PlaceHolderForMax\n");
 
     } catch (IOException e) {
       System.out.println("An error occurred");
@@ -91,22 +92,31 @@ public class ImageUtil {
 
     int maxColor = 0;
 
-    for (int i=0;i<height;i++) {
-      for (int j=0;j<width;j++) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         Color color = img[i][j];
         try {
           int red = color.getRed();
           int green = color.getGreen();
           int blue = color.getBlue();
           assert myWriter != null;
-          myWriter.write(red);
-          myWriter.write(green);
-          myWriter.write(blue);
+          myWriter.write(String.valueOf(red));
+          myWriter.write(" ");
+          myWriter.write(String.valueOf(green));
+          myWriter.write(" ");
+          myWriter.write(String.valueOf(blue));
+          myWriter.write(" ");
           maxColor = Math.max(Math.max(maxColor, red), Math.max(green, blue));
         } catch (IOException e) {
-            throw new RuntimeException("Can't write");
+          throw new RuntimeException("Can't write");
         }
       }
+      try {
+        myWriter.write("\n");
+      } catch (IOException e) {
+        throw new RuntimeException("Can't write");
+      }
+
     }
 
     try {
@@ -115,6 +125,7 @@ public class ImageUtil {
     } catch (IOException e) {
       throw new RuntimeException("Can't write");
     }
+
 
     String tmpFileName = "tmp.ppm";
 
