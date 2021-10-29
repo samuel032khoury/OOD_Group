@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -73,6 +74,8 @@ public class ImageUtil {
   public static void savePPM(String filename, Color[][] img) {
     BufferedWriter myWriter = null;
     StringBuilder out = new StringBuilder();
+    Objects.requireNonNull(img);
+    Objects.requireNonNull(img[0]);
 
     int height = img.length;
     int width = img[0].length;
