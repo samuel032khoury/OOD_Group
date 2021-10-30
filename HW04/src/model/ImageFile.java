@@ -5,6 +5,6 @@ public interface ImageFile extends ReadOnlyImageFile{
   ImageFile horizFlip() ;
   ImageFile brighten(int value);
   ImageFile darken(int value);
-  ImageFile greyscale(IChannelOperator pixelChannel) throws IllegalArgumentException;
+  ImageFile greyscale(IChannelOperator operator) throws IllegalArgumentException;
   ImageFile copyImage();
 }
