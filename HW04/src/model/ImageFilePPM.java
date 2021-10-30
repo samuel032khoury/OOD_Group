@@ -117,6 +117,11 @@ public class ImageFilePPM implements ImageFile {
   }
 
   @Override
+  public ImageFile copyImage() {
+    return new ImageFilePPM(this.pixels);
+  }
+
+  @Override
   public int getHeight() {
     return this.height;
   }
@@ -127,7 +132,7 @@ public class ImageFilePPM implements ImageFile {
   }
 
   @Override
-  public ReadOnlyImageFile copy() {
-    return new ImageFilePPM(this.pixels);
+  public ReadOnlyImageFile copyReadOnlyImageFile() {
+    return this.copyImage();
   }
 }

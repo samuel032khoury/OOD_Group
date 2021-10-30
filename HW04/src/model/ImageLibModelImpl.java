@@ -16,12 +16,17 @@ public class ImageLibModelImpl implements ImageLibModel{
   }
 
   @Override
+  public ImageFile get(String imageName) {
+    return imageLib.get(imageName).copyImage();
+  }
+
+  @Override
   public int getLibSize() {
     return imageLib.size();
   }
 
   @Override
   public ReadOnlyImageFile peek(String imageName) {
-    return imageLib.get(imageName).copy();
+    return imageLib.get(imageName).copyReadOnlyImageFile();
   }
 }
