@@ -2,11 +2,14 @@ package model;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ImageFilePPM implements ImageFile {
   private final Color[][] pixels;
   private final int height;
   private final int width;
+  private final Map<PixelChannel, IGetChannelFunction> channelOperation;
 
   public ImageFilePPM(Color[][] pixels) {
     if (pixels == null || pixels.length <= 0 || pixels[0].length <= 0
@@ -16,6 +19,33 @@ public class ImageFilePPM implements ImageFile {
     this.pixels = pixels;
     this.height = pixels.length;
     this.width = pixels[0].length;
+    this.channelOperation = new HashMap<>() {{
+      put(PixelChannel.Red, (c -> {
+        int red = c.getRed();
+        return new Color(red, red, red);
+      }));
+      put(PixelChannel.Blue, (c -> {
+        int blue = c.getBlue();
+        return new Color(blue, blue, blue);
+      }));
+      put(PixelChannel.Green, (c -> {
+        int green = c.getGreen();
+        return new Color(green, green, green);
+      }));
+      put(PixelChannel.Intensity, (c -> {
+        int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+        return new Color(intensity, intensity, intensity);
+      }));
+      put(PixelChannel.Value, (c -> {
+        int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
+        return new Color(value, value, value);
+      }));
+      put(PixelChannel.Luma, (c -> {
+        int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen() + 0.0722 * c.getBlue());
+        return new Color(luma,luma,luma);
+      }));
+    }};
+
   }
 
   private boolean TwoDColorContainsNull(Color[][] pixels) {
@@ -68,7 +98,7 @@ public class ImageFilePPM implements ImageFile {
         int newR = Math.max(0, Math.min(255, currColor.getRed() + value));
         int newG = Math.max(0, Math.min(255, currColor.getGreen() + value));
         int newB = Math.max(0, Math.min(255, currColor.getBlue() + value));
-        adjusted[row][col] = new Color(newR,newG,newB);
+        adjusted[row][col] = new Color(newR, newG, newB);
       }
     }
     return new ImageFilePPM(adjusted);
@@ -76,7 +106,15 @@ public class ImageFilePPM implements ImageFile {
 
   @Override
   public ImageFile greyscale(PixelChannel pixelChannel) {
-    return null;
+    Color[][] greyScaled = new Color[this.height][this.width];
+    for (int row = 0; row < this.height; row++) {
+      for (int col = 0; col < this.width; col++) {
+        Color currColor = pixels[row][col];
+        Color scaledColor = channelOperation.get(pixelChannel).apply(currColor);
+        greyScaled[row][col] = scaledColor;
+      }
+    }
+    return new ImageFilePPM(greyScaled);
   }
 
   @Override
