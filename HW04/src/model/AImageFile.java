@@ -64,7 +64,7 @@ public abstract class AImageFile implements ImageFile {
     for (int row = 0; row < this.height; row++) {
       vertiFlipped[row] = pixels[this.height - 1 - row];
     }
-    return new ImageFilePPM(vertiFlipped);
+    return new ImageFileNoAlpha(vertiFlipped);
   }
 
   @Override
@@ -76,7 +76,7 @@ public abstract class AImageFile implements ImageFile {
         horizFlipped[row][col] = currRow[this.width - 1 - col];
       }
     }
-    return new ImageFilePPM(horizFlipped);
+    return new ImageFileNoAlpha(horizFlipped);
   }
 
   @Override
@@ -100,12 +100,12 @@ public abstract class AImageFile implements ImageFile {
         adjusted[row][col] = new Color(newR, newG, newB);
       }
     }
-    return new ImageFilePPM(adjusted);
+    return new ImageFileNoAlpha(adjusted);
   }
 
   @Override
   public ImageFile copyImage() {
-    return new ImageFilePPM(this.pixels);
+    return new ImageFileNoAlpha(this.pixels);
   }
 
   @Override
@@ -137,6 +137,6 @@ public abstract class AImageFile implements ImageFile {
         greyScaled[row][col] = scaledColor;
       }
     }
-    return new ImageFilePPM(greyScaled);
+    return new ImageFileNoAlpha(greyScaled);
   }
 }
