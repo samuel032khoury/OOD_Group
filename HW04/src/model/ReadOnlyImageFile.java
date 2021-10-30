@@ -1,6 +1,6 @@
 package model;
 
 public interface ReadOnlyImageFile {
-  public int getHeight();
-  public int getWidth();
+  int getHeight();
+  int getWidth();
 }

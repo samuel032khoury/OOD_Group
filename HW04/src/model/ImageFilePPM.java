@@ -9,7 +9,7 @@ public class ImageFilePPM implements ImageFile {
   private final Color[][] pixels;
   private final int height;
   private final int width;
-  private final Map<PixelChannel, IGetChannelFunction> channelOperation;
+  private Map<IChannelOperator, IGetChannelFunction> channelOperation;
 
   public ImageFilePPM(Color[][] pixels) {
     if (pixels == null || pixels.length <= 0 || pixels[0].length <= 0
@@ -20,32 +20,31 @@ public class ImageFilePPM implements ImageFile {
     this.height = pixels.length;
     this.width = pixels[0].length;
     this.channelOperation = new HashMap<>() {{
-      put(PixelChannel.Red, (c -> {
+      put(CommonChannelOperator.Red, (c -> {
         int red = c.getRed();
         return new Color(red, red, red);
       }));
-      put(PixelChannel.Blue, (c -> {
+      put(CommonChannelOperator.Blue, (c -> {
         int blue = c.getBlue();
         return new Color(blue, blue, blue);
       }));
-      put(PixelChannel.Green, (c -> {
+      put(CommonChannelOperator.Green, (c -> {
         int green = c.getGreen();
         return new Color(green, green, green);
       }));
-      put(PixelChannel.Intensity, (c -> {
+      put(CommonChannelOperator.Intensity, (c -> {
         int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
         return new Color(intensity, intensity, intensity);
       }));
-      put(PixelChannel.Value, (c -> {
+      put(CommonChannelOperator.Value, (c -> {
         int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
         return new Color(value, value, value);
       }));
-      put(PixelChannel.Luma, (c -> {
+      put(CommonChannelOperator.Luma, (c -> {
         int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen() + 0.0722 * c.getBlue());
         return new Color(luma,luma,luma);
       }));
     }};
-
   }
 
   private boolean TwoDColorContainsNull(Color[][] pixels) {
@@ -105,7 +104,7 @@ public class ImageFilePPM implements ImageFile {
   }
 
   @Override
-  public ImageFile greyscale(PixelChannel pixelChannel) {
+  public ImageFile greyscale(IChannelOperator pixelChannel) throws IllegalArgumentException{
     Color[][] greyScaled = new Color[this.height][this.width];
     for (int row = 0; row < this.height; row++) {
       for (int col = 0; col < this.width; col++) {

@@ -1,10 +1,10 @@
 package model;
 
 public interface ImageFile extends ReadOnlyImageFile{
-  public ImageFile vertiFlip();
-  public ImageFile horizFlip() ;
-  public ImageFile brighten(int value);
-  public ImageFile darken(int value);
-  public ImageFile greyscale(PixelChannel pixelChannel);
-  public ReadOnlyImageFile copy();
+  ImageFile vertiFlip();
+  ImageFile horizFlip() ;
+  ImageFile brighten(int value);
+  ImageFile darken(int value);
+  ImageFile greyscale(IChannelOperator pixelChannel) throws IllegalArgumentException;
+  ReadOnlyImageFile copy();
 }
