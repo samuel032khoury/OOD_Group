@@ -6,6 +6,5 @@ public interface ImageFile extends ReadOnlyImageFile{
   public ImageFile brighten(int value);
   public ImageFile darken(int value);
   public ImageFile greyscale(PixelChannel pixelChannel);
-  public ImageFile getImage();
   public ReadOnlyImageFile copy();
 }

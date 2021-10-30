@@ -128,11 +128,6 @@ public class ImageFilePPM implements ImageFile {
   }
 
   @Override
-  public ImageFile getImage() {
-    return this;
-  }
-
-  @Override
   public ReadOnlyImageFile copy() {
     return new ImageFilePPM(this.pixels);
   }
