@@ -9,7 +9,7 @@ public class ImageFilePPM implements ImageFile {
   private final Color[][] pixels;
   private final int height;
   private final int width;
-  private Map<IChannelOperator, IGetChannelFunction> channelOperation;
+  private Map<IChannelOperator, IGetChannelFunction> channelOperations;
 
   public ImageFilePPM(Color[][] pixels) {
     if (pixels == null || pixels.length <= 0 || pixels[0].length <= 0
@@ -19,7 +19,7 @@ public class ImageFilePPM implements ImageFile {
     this.pixels = pixels;
     this.height = pixels.length;
     this.width = pixels[0].length;
-    this.channelOperation = new HashMap<>() {{
+    this.channelOperations = new HashMap<>() {{
       put(CommonChannelOperator.Red, (c -> {
         int red = c.getRed();
         return new Color(red, red, red);
@@ -109,7 +109,7 @@ public class ImageFilePPM implements ImageFile {
     for (int row = 0; row < this.height; row++) {
       for (int col = 0; col < this.width; col++) {
         Color currColor = pixels[row][col];
-        Color scaledColor = channelOperation.get(pixelChannel).apply(currColor);
+        Color scaledColor = channelOperations.get(pixelChannel).apply(currColor);
         greyScaled[row][col] = scaledColor;
       }
     }
