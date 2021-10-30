@@ -1,8 +1,10 @@
-package model;
+package model.Legacy;
 
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+
+import model.PixelChannel;
 
 public class PPMImageProcessModel implements ImageProcessModel{
   private Map<String, Color[][]> images;
@@ -40,17 +42,17 @@ public class PPMImageProcessModel implements ImageProcessModel{
   }
 
   @Override
-  public void brighten(String imageName) {
+  public void brighten(String imageName, int value) {
 
   }
 
   @Override
-  public void darken(String imageName) {
+  public void darken(String imageName, int value) {
 
   }
 
   @Override
-  public void greyscale(String imageName) {
+  public void greyscale(String imageName, PixelChannel channel) {
 
   }
 
