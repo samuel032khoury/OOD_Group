@@ -1,10 +1,16 @@
-package controller;
+package controller.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
+import controller.command.BrightenCommand;
+import controller.command.FlipCommand;
+import controller.command.GreyCommand;
+import controller.command.ICommand;
+import controller.command.LoadCommand;
 import model.library.ImageLibModel;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
@@ -47,13 +53,13 @@ public class ControllerImpl implements IControllerModel {
 
       if (cmd != null) {
         try {
-          cmd.execute(this.model, scanner);
-        } catch (Exception e) {
-          this.view.renderMessage(e.getMessage());
+          cmd.execute(this.model, scanner, this.view);
+        } catch (NoSuchElementException e) {
+          throw new IllegalStateException("Input is not enough!");
         }
 
       } else {
-        this.view.renderMessage("command not found");
+        this.view.renderError("command not found");
       }
     }
   }

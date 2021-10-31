@@ -1,16 +1,16 @@
-package controller;
+package controller.utils;
 
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import controller.utils.IWriter;
 import model.imageFile.ImageFile;
 
-public class PPMWriter implements IWriter{
+public class PPMWriter implements IWriter {
 
   @Override
   public void write(ImageFile img, String filename) {

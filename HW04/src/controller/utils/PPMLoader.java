@@ -1,14 +1,15 @@
-package controller;
+package controller.utils;
 
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import controller.utils.ILoader;
 import model.imageFile.ImageFile;
 import model.imageFile.ImageFileNoAlpha;
 
-public class PPMLoader implements ILoader{
+public class PPMLoader implements ILoader {
   public ImageFile load(String filename) throws FileNotFoundException {
     Scanner sc;
 
