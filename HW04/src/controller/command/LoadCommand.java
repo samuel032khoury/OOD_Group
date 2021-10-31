@@ -1,13 +1,13 @@
 package controller.command;
 
-import java.io.FileNotFoundException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
+import java.io.FileNotFoundException;
 
 import controller.utils.ILoader;
 import controller.utils.LoadManager;
-import model.library.ImageLibModel;
 import model.imageFile.ImageFile;
+import model.library.ImageLibModel;
 import view.IView;
 
 public class LoadCommand implements ICommand {

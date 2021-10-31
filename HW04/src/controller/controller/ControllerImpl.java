@@ -1,15 +1,14 @@
 package controller.controller;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-import controller.command.AdjustBrightnessCommand;
-import controller.command.FlipCommand;
-import controller.command.GreyCommand;
 import controller.command.ICommand;
+import controller.command.FlipCommand;
+import controller.command.AdjustBrightnessCommand;
+import controller.command.GreyCommand;
 import controller.command.LoadCommand;
 import controller.command.SaveCommand;
 import model.library.ImageLibModel;
@@ -27,19 +26,20 @@ public class ControllerImpl implements IControllerModel {
     this.model = model;
     this.input = input;
     this.view = view;
-    this.cmdMap = new HashMap<>();
-    this.cmdMap.put("vertical-flip", () -> new FlipCommand(true));
-    this.cmdMap.put("horizontal-flip", () -> new FlipCommand(false));
-    this.cmdMap.put("brighten", () -> new AdjustBrightnessCommand(true));
-    this.cmdMap.put("darken", () -> new AdjustBrightnessCommand(false));
-    this.cmdMap.put("blue-component", () -> new GreyCommand(SingleChannelOperator.Blue));
-    this.cmdMap.put("red-component", () -> new GreyCommand(SingleChannelOperator.Red));
-    this.cmdMap.put("green-component", () -> new GreyCommand(SingleChannelOperator.Green));
-    this.cmdMap.put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
-    this.cmdMap.put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
-    this.cmdMap.put("intensity-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
-    this.cmdMap.put("save", SaveCommand::new);
-    this.cmdMap.put("load", LoadCommand::new);
+    this.cmdMap = new HashMap<>() {{
+      put("vertical-flip", () -> new FlipCommand(true));
+      put("horizontal-flip", () -> new FlipCommand(false));
+      put("brighten", () -> new AdjustBrightnessCommand(true));
+      put("darken", () -> new AdjustBrightnessCommand(false));
+      put("blue-component", () -> new GreyCommand(SingleChannelOperator.Blue));
+      put("red-component", () -> new GreyCommand(SingleChannelOperator.Red));
+      put("green-component", () -> new GreyCommand(SingleChannelOperator.Green));
+      put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
+      put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
+      put("intensity-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
+      put("load", LoadCommand::new);
+      put("save", SaveCommand::new);
+    }};
   }
 
   @Override

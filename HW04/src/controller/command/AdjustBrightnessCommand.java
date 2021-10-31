@@ -1,8 +1,8 @@
 package controller.command;
 
+import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import model.imageFile.ImageFile;
 import model.library.ImageLibModel;

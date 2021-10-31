@@ -1,11 +1,11 @@
 package controller.command;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
-import model.operation.IChannelOperator;
 import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
+import model.operation.IChannelOperator;
 import view.IView;
 
 public class GreyCommand implements ICommand {

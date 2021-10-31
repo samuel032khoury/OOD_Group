@@ -1,13 +1,12 @@
 package controller.utils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import controller.utils.IWriter;
 import model.imageFile.ImageFile;
 
 public class PPMWriter implements IWriter {
@@ -22,7 +21,6 @@ public class PPMWriter implements IWriter {
 
     try {
       myWriter = new BufferedWriter(new FileWriter(filename));
-      ;
       myWriter.write("P3\n");
       myWriter.write("# ppm - RGB\n");
       myWriter.write(String.format("%d %d\n", width, height));

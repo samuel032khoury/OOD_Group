@@ -1,7 +1,7 @@
 package controller.command;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 import controller.utils.IWriter;
 import controller.utils.WriteManager;

@@ -1,11 +1,10 @@
 package controller.utils;
 
-
-import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class AManager<T> implements IManager<T>{
-  HashMap<String, Supplier<T>> availableLoaders;
+  Map<String, Supplier<T>> availableLoaders;
 
   @Override
   public T provide(String suffix) {
