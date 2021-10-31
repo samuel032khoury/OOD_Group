@@ -7,10 +7,12 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 
 import controller.command.BrightenCommand;
+import controller.command.DarkenCommand;
 import controller.command.FlipCommand;
 import controller.command.GreyCommand;
 import controller.command.ICommand;
 import controller.command.LoadCommand;
+import controller.command.SaveCommand;
 import model.library.ImageLibModel;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
@@ -35,7 +37,9 @@ public class ControllerImpl implements IControllerModel {
     this.cmdMap.put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
     this.cmdMap.put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
     this.cmdMap.put("intensity-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
+    this.cmdMap.put("save", SaveCommand::new);
     this.cmdMap.put("brighten", BrightenCommand::new);
+    this.cmdMap.put("darken", DarkenCommand::new);
     this.cmdMap.put("load", LoadCommand::new);
   }
 
