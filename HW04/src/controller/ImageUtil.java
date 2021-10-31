@@ -17,16 +17,15 @@ import java.io.FileInputStream;
  * This class contains utility methods to read a PPM image from file and simply print its contents.
  * Feel free to change this method as required.
  */
-public class ImageUtil {
+public class  ImageUtil {
 
-  public static Color[][] readPPMIMG(String filename) {
+  public static Color[][] readPPMIMG(String filename) throws FileNotFoundException {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
-      System.out.println("File " + filename + " not found!");
-      return null;
+      throw new FileNotFoundException("filename" + filename + "not found!");
     }
     StringBuilder builder = new StringBuilder();
     //read the file line by line, and populate a string. This will throw away any comment lines

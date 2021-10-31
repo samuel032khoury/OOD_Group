@@ -6,6 +6,8 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 
 import model.ImageLibModel;
+import model.SimpleArithmeticChannelOperator;
+import model.SingleChannelOperator;
 import view.IView;
 
 public class ControllerImpl implements IControllerModel {
@@ -19,8 +21,14 @@ public class ControllerImpl implements IControllerModel {
     this.input = input;
     this.view = view;
     this.cmdMap = new HashMap<String, Supplier<ICommand>>();
-    this.cmdMap.put("flip", FilpCommand::new);
-    this.cmdMap.put("greyscale", GreyCommand::new);
+    this.cmdMap.put("vertical-flip", () -> new FlipCommand(true));
+    this.cmdMap.put("horizontal-flip", () -> new FlipCommand(false));
+    this.cmdMap.put("blue-component", () -> new GreyCommand(SingleChannelOperator.Blue));
+    this.cmdMap.put("red-component", () -> new GreyCommand(SingleChannelOperator.Red));
+    this.cmdMap.put("green-component", () -> new GreyCommand(SingleChannelOperator.Green));
+    this.cmdMap.put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
+    this.cmdMap.put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
+    this.cmdMap.put("intensity-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
     this.cmdMap.put("brighten", BrightenCommand::new);
     this.cmdMap.put("load", LoadCommand::new);
   }
@@ -38,7 +46,12 @@ public class ControllerImpl implements IControllerModel {
       }
 
       if (cmd != null) {
-        cmd.execute(this.model, scanner);
+        try {
+          cmd.execute(this.model, scanner);
+        } catch (Exception e) {
+          this.view.renderMessage(e.getMessage());
+        }
+
       } else {
         this.view.renderMessage("command not found");
       }
