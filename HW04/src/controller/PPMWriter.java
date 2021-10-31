@@ -7,9 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Objects;
 
-import model.ImageFile;
+import model.imageFile.ImageFile;
 
 public class PPMWriter implements IWriter{
 

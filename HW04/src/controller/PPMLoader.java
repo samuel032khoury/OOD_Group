@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import model.ImageFile;
-import model.ImageFileNoAlpha;
+import model.imageFile.ImageFile;
+import model.imageFile.ImageFileNoAlpha;
 
 public class PPMLoader implements ILoader{
   public ImageFile load(String filename) throws FileNotFoundException {

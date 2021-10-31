@@ -1,6 +1,6 @@
 package controller;
 
-import model.ImageFile;
+import model.imageFile.ImageFile;
 
 public interface IWriter {
   void write(ImageFile img, String filename);

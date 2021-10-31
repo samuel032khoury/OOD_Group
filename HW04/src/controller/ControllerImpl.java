@@ -20,7 +20,7 @@ public class ControllerImpl implements IControllerModel {
     this.model = model;
     this.input = input;
     this.view = view;
-    this.cmdMap = new HashMap<String, Supplier<ICommand>>();
+    this.cmdMap = new HashMap<>();
     this.cmdMap.put("vertical-flip", () -> new FlipCommand(true));
     this.cmdMap.put("horizontal-flip", () -> new FlipCommand(false));
     this.cmdMap.put("blue-component", () -> new GreyCommand(SingleChannelOperator.Blue));

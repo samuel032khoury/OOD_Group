@@ -6,10 +6,10 @@ import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
 
 public class FlipCommand implements ICommand {
-  // if false, that means a horizontal flip
-  Boolean verticalFlip = null;
+  // true when performing a vertical flip, false when performing a horizontal one.
+  final boolean verticalFlip;
 
-  public FlipCommand(Boolean verticalFlip) {
+  public FlipCommand(boolean verticalFlip) {
     this.verticalFlip = verticalFlip;
   }
 

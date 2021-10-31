@@ -111,21 +111,6 @@ public abstract class AImageFile implements ImageFile {
   }
 
   @Override
-  public ImageFile copyImage() {
-    return new ImageFileNoAlpha(this.pixels);
-  }
-
-  @Override
-  public int getHeight() {
-    return this.height;
-  }
-
-  @Override
-  public int getWidth() {
-    return this.width;
-  }
-
-  @Override
   public ImageFile greyscale(IChannelOperator operator) throws IllegalArgumentException{
     Color[][] greyScaled = new Color[this.height][this.width];
     if(!this.channelOperations.containsKey(operator)) {
@@ -140,5 +125,27 @@ public abstract class AImageFile implements ImageFile {
       }
     }
     return new ImageFileNoAlpha(greyScaled);
+  }
+
+  @Override
+  public ImageFile copyImage() {
+    return new ImageFileNoAlpha(this.pixels);
+  }
+
+  @Override
+  public int getHeight() {
+    return this.height;
+  }
+
+  @Override
+  public int getWidth() {
+    return this.width;
+  }
+
+
+  @Override
+  public Color getColorAt(int x, int y) {
+    Color selected = this.pixels[x][y];
+    return new Color(selected.getRGB());
   }
 }
