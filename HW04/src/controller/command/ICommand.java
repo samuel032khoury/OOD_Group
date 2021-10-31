@@ -1,6 +1,5 @@
 package controller.command;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import model.library.ImageLibModel;

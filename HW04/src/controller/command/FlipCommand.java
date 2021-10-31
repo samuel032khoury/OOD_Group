@@ -17,16 +17,20 @@ public class FlipCommand implements ICommand {
 
   @Override
   public void execute(ImageLibModel model, Scanner scanner, IView view)
-          throws NoSuchElementException {
-    String filename = scanner.next();
-    String fileNewName = scanner.next();
-    ImageFile file = model.get(filename);
-    ImageFile transformerFile;
-    if (verticalFlip) {
-      transformerFile = file.vertiFlip();
-    } else {
-      transformerFile = file.horizFlip();
+          throws IllegalStateException {
+    try{
+      String filename = scanner.next();
+      String fileNewName = scanner.next();
+      ImageFile file = model.get(filename);
+      ImageFile transformerFile;
+      if (verticalFlip) {
+        transformerFile = file.vertiFlip();
+      } else {
+        transformerFile = file.horizFlip();
+      }
+      model.load(fileNewName, transformerFile);
+    } catch(NoSuchElementException e) {
+      throw new IllegalStateException("Insufficient inputs to run!");
     }
-    model.load(fileNewName, transformerFile);
   }
 }

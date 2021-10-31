@@ -111,10 +111,10 @@ public abstract class AImageFile implements ImageFile {
   }
 
   @Override
-  public ImageFile greyscale(IChannelOperator operator) throws IllegalArgumentException{
+  public ImageFile greyscale(IChannelOperator operator) throws IllegalStateException{
     Color[][] greyScaled = new Color[this.height][this.width];
     if(!this.channelOperations.containsKey(operator)) {
-      throw new IllegalArgumentException("Operator cannot be found!");
+      throw new IllegalStateException("No such an operator can be found!");
     }
     final IChannelFunction function = this.channelOperations.get(operator);
     for (int row = 0; row < this.height; row++) {

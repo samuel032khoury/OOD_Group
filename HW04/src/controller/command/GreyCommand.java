@@ -3,7 +3,6 @@ package controller.command;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import controller.command.ICommand;
 import model.operation.IChannelOperator;
 import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
@@ -18,16 +17,15 @@ public class GreyCommand implements ICommand {
 
   @Override
   public void execute(ImageLibModel model, Scanner scanner, IView view)
-          throws NoSuchElementException {
-    String filename = scanner.next();
-    String newFilename = scanner.next();
-    ImageFile file = model.get(filename);
-    ImageFile newFile = null;
+          throws IllegalStateException{
     try {
-      newFile = file.greyscale(this.channel);
-    } catch (IllegalArgumentException e) {
-      view.renderError(e.getMessage());
+      String filename = scanner.next();
+      String newFilename = scanner.next();
+      ImageFile file = model.get(filename);
+      ImageFile newFile = file.greyscale(this.channel);
+      model.load(newFilename, newFile);
+    } catch(NoSuchElementException e) {
+      throw new IllegalStateException("Insufficient inputs to run!");
     }
-    model.load(newFilename, newFile);
   }
 }

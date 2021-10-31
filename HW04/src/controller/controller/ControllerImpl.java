@@ -7,8 +7,6 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 
 import controller.command.AdjustBrightnessCommand;
-import controller.command.BrightenCommand;
-import controller.command.DarkenCommand;
 import controller.command.FlipCommand;
 import controller.command.GreyCommand;
 import controller.command.ICommand;
@@ -20,10 +18,10 @@ import model.operation.SingleChannelOperator;
 import view.IView;
 
 public class ControllerImpl implements IControllerModel {
-  ImageLibModel model;
-  Readable input;
-  IView view;
-  Map<String, Supplier<ICommand>> cmdMap;
+  protected ImageLibModel model;
+  protected Readable input;
+  protected IView view;
+  protected Map<String, Supplier<ICommand>> cmdMap;
 
   public ControllerImpl(ImageLibModel model, Readable input, IView view) {
     this.model = model;

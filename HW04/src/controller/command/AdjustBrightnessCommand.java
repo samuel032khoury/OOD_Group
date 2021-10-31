@@ -20,9 +20,9 @@ public class AdjustBrightnessCommand implements ICommand{
   public void execute(ImageLibModel model, Scanner scanner, IView view)
           throws IllegalStateException {
     try{
-      int value = scanner.nextInt();;
-      String filename = scanner.next();;
-      String newFilename = scanner.next();;
+      int value = scanner.nextInt();
+      String filename = scanner.next();
+      String newFilename = scanner.next();
       ImageFile file = model.get(filename);
       ImageFile newFile;
       if(brighten) {
