@@ -18,7 +18,6 @@ public class FlipCommand implements ICommand {
   @Override
   public void execute(ImageLibModel model, Scanner scanner, IView view)
           throws NoSuchElementException {
-    // while (no need)
     String filename = scanner.next();
     String fileNewName = scanner.next();
     ImageFile file = model.get(filename);
