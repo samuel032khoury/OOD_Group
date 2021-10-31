@@ -1,5 +1,6 @@
 package controller.command;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import controller.command.ICommand;
@@ -16,7 +17,8 @@ public class GreyCommand implements ICommand {
   }
 
   @Override
-  public void execute(ImageLibModel model, Scanner scanner, IView view) {
+  public void execute(ImageLibModel model, Scanner scanner, IView view)
+          throws NoSuchElementException {
     String filename = scanner.next();
     String newFilename = scanner.next();
     ImageFile file = model.get(filename);

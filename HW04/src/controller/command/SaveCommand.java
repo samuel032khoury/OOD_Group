@@ -1,5 +1,6 @@
 package controller.command;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import controller.utils.IWriter;
@@ -11,7 +12,8 @@ import view.IView;
 public class SaveCommand implements ICommand{
 
   @Override
-  public void execute(ImageLibModel model, Scanner scanner, IView view) {
+  public void execute(ImageLibModel model, Scanner scanner, IView view)
+          throws NoSuchElementException {
     String pathName = scanner.next();
     String filename = scanner.next();
     ImageFile img = model.get(filename);

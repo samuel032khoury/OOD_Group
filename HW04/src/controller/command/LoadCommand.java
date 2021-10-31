@@ -1,6 +1,7 @@
 package controller.command;
 
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import controller.utils.ILoader;
@@ -11,7 +12,8 @@ import view.IView;
 
 public class LoadCommand implements ICommand {
   @Override
-  public void execute(ImageLibModel model, Scanner scanner,  IView view) {
+  public void execute(ImageLibModel model, Scanner scanner,  IView view)
+          throws NoSuchElementException {
     String pathname = scanner.next();
     String filename = scanner.next();
     String[] splitList = pathname.split("\\.");

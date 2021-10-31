@@ -1,5 +1,6 @@
 package controller.command;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import model.imageFile.ImageFile;
@@ -8,7 +9,8 @@ import view.IView;
 
 public class BrightenCommand implements ICommand {
   @Override
-  public void execute(ImageLibModel model, Scanner scanner,  IView view) {
+  public void execute(ImageLibModel model, Scanner scanner, IView view)
+          throws NoSuchElementException {
     int value = scanner.nextInt();
     String filename = scanner.next();
     String newFilename = scanner.next();
