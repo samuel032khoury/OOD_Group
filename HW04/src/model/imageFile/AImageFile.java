@@ -1,14 +1,21 @@
-package model;
+package model.imageFile;
 
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.operation.IChannelFunction;
+import model.operation.IChannelOperator;
+import model.operation.SimpleArithmeticChannelOperator;
+import model.operation.SingleChannelOperator;
+
 public abstract class AImageFile implements ImageFile {
   protected final Color[][] pixels;
   protected final int height;
   protected final int width;
+  protected boolean alphaChannel;
+
   protected Map<IChannelOperator, IChannelFunction> channelOperations;
 
   public AImageFile(Color[][] pixels) {
@@ -116,11 +123,6 @@ public abstract class AImageFile implements ImageFile {
   @Override
   public int getWidth() {
     return this.width;
-  }
-
-  @Override
-  public ReadOnlyImageFile copyReadOnlyImageFile() {
-    return this.copyImage();
   }
 
   @Override

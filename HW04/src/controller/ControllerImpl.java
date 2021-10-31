@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-import model.ImageLibModel;
+import model.library.ImageLibModel;
 import view.IView;
 
 public class ControllerImpl implements IControllerModel {

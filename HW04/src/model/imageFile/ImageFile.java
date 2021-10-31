@@ -1,6 +1,8 @@
-package model;
+package model.imageFile;
 
-public interface ImageFile extends ReadOnlyImageFile{
+import model.operation.IChannelOperator;
+
+public interface ImageFile extends ReadOnlyImageFile {
   ImageFile vertiFlip();
   ImageFile horizFlip() ;
   ImageFile brighten(int value);

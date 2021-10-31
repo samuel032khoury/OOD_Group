@@ -2,7 +2,7 @@ package controller;
 
 import java.util.Scanner;
 
-import model.ImageLibModel;
+import model.library.ImageLibModel;
 
 public class BrightenCommand implements ICommand{
   @Override

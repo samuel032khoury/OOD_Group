@@ -1,9 +1,12 @@
-package model;
+package model.library;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ImageLibModelImpl implements ImageLibModel{
+import model.imageFile.ImageFile;
+import model.imageFile.ReadOnlyImageFile;
+
+public class ImageLibModelImpl implements ImageLibModel {
   private Map<String, ImageFile> imageLib;
 
   public ImageLibModelImpl() {
@@ -27,6 +30,6 @@ public class ImageLibModelImpl implements ImageLibModel{
 
   @Override
   public ReadOnlyImageFile peek(String imageName) {
-    return imageLib.get(imageName).copyReadOnlyImageFile();
+    return imageLib.get(imageName);
   }
 }
