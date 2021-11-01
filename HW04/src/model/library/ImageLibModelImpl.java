@@ -21,7 +21,7 @@ public class ImageLibModelImpl implements ImageLibModel {
   @Override
   public ImageFile get(String imageName) throws IllegalStateException {
     if (!this.imageLib.containsKey(imageName)) {
-      throw new IllegalStateException("No such an image can be found!");
+      throw new IllegalStateException("No such an image named " + imageName + " can be found!");
     }
     return imageLib.get(imageName).copyImage();
   }

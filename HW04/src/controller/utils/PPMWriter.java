@@ -12,7 +12,6 @@ public class PPMWriter implements IWriter {
   @Override
   public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
     BufferedWriter myWriter;
-
     int height = img.getHeight();
     int width = img.getWidth();
     int maxColorVal = img.getMaxColorVal();
