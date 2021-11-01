@@ -4,17 +4,30 @@
 
 - Files/Directories in `HW4/`
     - Starter Code is in  `src/`
+      - `controller/`
+        - `controller/`
+        - `command/`
+        - `util/`
+      - `model/`
+        - `library/`
+        - `imageFile/`
+        - `operation/`
+      - `view/`
     - (Starter) Test is in `test/`
     - Images provided by class are in `exampleRes/`
     - Images found online are in `res/`
     - Class Diagram will be saved in `diag/` by the end of design.
-    - README file is named as `README.md`
-    - Script of commands is named as `ImagProcScript.sh`
-
+    - README file is named as `README.md`and will be updated later the Monday
+    - Text-based script of commands is named as `ImagProcScript.txt` and will be updated later the Monday
+    
 - Implementation Notes
-  - Adherence to an MVC design
-  - Design of interface(s), in terms of clarity, flexibility, and how plausibly it will support needed functionality
-  - Appropriateness of your representation choices for the data
-  - Adequacy of any documented class invariants 
-  - Use of abstraction
+  - [x] Adherence to an MVC design
+
+  - [x] Design of interface(s), in terms of clarity, flexibility, and how plausibly it will support needed functionality
+
+  - [x] Appropriateness of your representation choices for the data
+
+  - [ ] Adequacy of any documented class invariants 
+
+  - [x] Use of abstraction
 

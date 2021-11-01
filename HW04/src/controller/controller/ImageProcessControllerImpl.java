@@ -51,13 +51,19 @@ public class ImageProcessControllerImpl implements IImageProcessController {
     while (scanner.hasNextLine()) {
       Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split(" ")));
       boolean prompt = true;
-      if (currCommand.peek() != null) {
-        if (currCommand.peek().equals("QUIT")) {
-          view.renderMessage("Program is quit.");
-          return;
-        }
-        if (currCommand.peek().equals("")) {
-          continue;
+      if (currCommand.size() == 1) {
+        switch (currCommand.peek()) {
+          case "QUIT":
+            view.renderMessage("Program is quit.");
+            return;
+          case "SIZE":
+            view.renderMessage("There are " + model.getLibSize() + " images in the library!");
+            this.exhaustInvalidCommand(currCommand);
+            break;
+          case "":
+            continue;
+          default:
+            break;
         }
       }
 
@@ -76,18 +82,23 @@ public class ImageProcessControllerImpl implements IImageProcessController {
           }
           try {
             cmd.execute(this.model, currCommand, this.view);
-            currCommand.poll();
+            this.exhaustInvalidCommand(currCommand);
           } catch (IllegalStateException e) {
             this.view.renderError(e.getMessage());
-            while (!currCommand.isEmpty()) {
-              if (currCommand.poll().equals("&")) {
-                break;
-              }
-            }
+            this.exhaustInvalidCommand(currCommand);
           }
         } else {
           this.view.renderError("command not found!");
+          this.exhaustInvalidCommand(currCommand);
         }
+      }
+    }
+  }
+
+  private void exhaustInvalidCommand(Queue<String> commandQueue) {
+    while (!commandQueue.isEmpty()) {
+      if (commandQueue.poll().equals("&")) {
+        break;
       }
     }
   }
