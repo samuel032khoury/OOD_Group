@@ -30,7 +30,7 @@ public abstract class AImageProcessView implements IImageProcessView {
   @Override
   public void renderMessage(String message) throws IllegalStateException {
     try {
-      this.output.append(message).append("\n");
+      this.output.append("> ").append(message).append("\n");
     } catch (IOException e) {
       throw new IllegalStateException("View is unable to render messages!");
     }
