@@ -52,11 +52,11 @@ public class ImageProcessControllerImpl implements IImageProcessController {
       Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split(" ")));
       boolean prompt = true;
       if (currCommand.peek() != null) {
-        if(currCommand.peek().equals("QUIT")) {
+        if (currCommand.peek().equals("QUIT")) {
           view.renderMessage("Program is quit.");
           return;
         }
-        if(currCommand.peek().equals("")) {
+        if (currCommand.peek().equals("")) {
           continue;
         }
       }
@@ -70,7 +70,7 @@ public class ImageProcessControllerImpl implements IImageProcessController {
         }
 
         if (cmd != null) {
-          if(prompt) {
+          if (prompt) {
             view.renderMessage("Processing, please wait!");
             prompt = false;
           }
@@ -79,8 +79,8 @@ public class ImageProcessControllerImpl implements IImageProcessController {
             currCommand.poll();
           } catch (IllegalStateException e) {
             this.view.renderError(e.getMessage());
-            while(!currCommand.isEmpty()) {
-              if(currCommand.poll().equals("&")) {
+            while (!currCommand.isEmpty()) {
+              if (currCommand.poll().equals("&")) {
                 break;
               }
             }

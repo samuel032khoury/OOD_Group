@@ -116,9 +116,9 @@ public abstract class AImageFile implements ImageFile {
   }
 
   @Override
-  public ImageFile greyscale(IChannelOperator operator) throws IllegalStateException{
+  public ImageFile greyscale(IChannelOperator operator) throws IllegalStateException {
     Color[][] greyScaled = new Color[this.height][this.width];
-    if(!this.channelOperations.containsKey(operator)) {
+    if (!this.channelOperations.containsKey(operator)) {
       throw new IllegalStateException("No such an operator can be found!");
     }
     final IChannelFunction function = this.channelOperations.get(operator);
@@ -148,10 +148,14 @@ public abstract class AImageFile implements ImageFile {
   }
 
   @Override
-  public boolean alpha() {return this.alphaChannel;}
+  public boolean alpha() {
+    return this.alphaChannel;
+  }
 
   @Override
-  public int getMaxColorVal() {return this.maxColorVal;}
+  public int getMaxColorVal() {
+    return this.maxColorVal;
+  }
 
   @Override
   public Color getColorAt(int x, int y) {

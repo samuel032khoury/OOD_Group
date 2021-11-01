@@ -1,5 +1,5 @@
 package model.operation;
 
-public enum SingleChannelOperator implements IChannelOperator{
-  Red,Green,Blue
+public enum SingleChannelOperator implements IChannelOperator {
+  Red, Green, Blue
 }

@@ -15,12 +15,12 @@ public class ImageLibModelImpl implements ImageLibModel {
 
   @Override
   public void loadImage(String imageName, ImageFile imageFile) {
-    imageLib.put(imageName,imageFile);
+    imageLib.put(imageName, imageFile);
   }
 
   @Override
-  public ImageFile get(String imageName) throws IllegalStateException{
-    if(!this.imageLib.containsKey(imageName)) {
+  public ImageFile get(String imageName) throws IllegalStateException {
+    if (!this.imageLib.containsKey(imageName)) {
       throw new IllegalStateException("No such an image can be found!");
     }
     return imageLib.get(imageName).copyImage();

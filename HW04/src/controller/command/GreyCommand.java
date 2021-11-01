@@ -17,7 +17,7 @@ public class GreyCommand implements ICommand {
 
   @Override
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
-          throws IllegalStateException{
+          throws IllegalStateException {
     try {
       String fileName = currCommand.remove();
       String newFileName = currCommand.remove();
@@ -26,7 +26,7 @@ public class GreyCommand implements ICommand {
       model.loadImage(newFileName, newImageFile);
       view.renderMessage(channel.toString() + "-component image of " + fileName + " has been "
               + "created and is named " + fileName + ".");
-    } catch(NoSuchElementException e) {
+    } catch (NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }
   }

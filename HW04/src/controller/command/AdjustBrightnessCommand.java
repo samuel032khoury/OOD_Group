@@ -30,7 +30,7 @@ public class AdjustBrightnessCommand implements ICommand {
         newImageFile = imageFile.darken(value);
       }
       model.loadImage(newFileName, newImageFile);
-      String adjustment = brighten? "Brightened" : "Darkened";
+      String adjustment = brighten ? "Brightened" : "Darkened";
       view.renderMessage(adjustment + " image (value: " + value + ") of " + fileName + " has been"
               + " created and is named " + newFileName + ".");
     } catch (NumberFormatException e) {

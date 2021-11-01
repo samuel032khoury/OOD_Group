@@ -10,7 +10,7 @@ import model.imageFile.ImageFile;
 public class PPMWriter implements IWriter {
 
   @Override
-  public void write(ImageFile img, String filename) throws IllegalStateException {
+  public void write(ImageFile img, String fileName) throws IllegalStateException {
     BufferedWriter myWriter;
 
     int height = img.getHeight();
@@ -18,7 +18,7 @@ public class PPMWriter implements IWriter {
     int maxColorVal = img.getMaxColorVal();
 
     try {
-      myWriter = new BufferedWriter(new FileWriter(filename));
+      myWriter = new BufferedWriter(new FileWriter(fileName));
       myWriter.write("P3\n");
       myWriter.write("# ppm - RGB\n");
       myWriter.write(String.format("%d %d\n", width, height));

@@ -2,7 +2,6 @@ package controller.command;
 
 import java.util.Queue;
 import java.util.NoSuchElementException;
-import java.io.FileNotFoundException;
 
 import controller.utils.ILoader;
 import controller.utils.LoadManager;
@@ -22,11 +21,11 @@ public class LoadCommand extends InOutCommand {
         ImageFile img = loader.loadFile(pathName);
         model.loadImage(fileName, img);
         view.renderMessage("Image file found at " + pathName + " has been imported and"
-              + " is named " + fileName + ".");
+                + " is named " + fileName + ".");
       } catch (IllegalStateException e) {
         view.renderError(e.getMessage());
       }
-    } catch(NoSuchElementException e) {
+    } catch (NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }
   }

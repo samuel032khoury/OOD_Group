@@ -11,12 +11,12 @@ public abstract class InOutCommand implements ICommand {
   public abstract void execute(ImageLibModel model, Queue<String> currCommand,
                                IImageProcessView view) throws IllegalStateException;
 
-  protected String getValidSuffix(String pathName) throws IllegalStateException{
+  protected String getValidSuffix(String pathName) throws IllegalStateException {
     String fileName = new File(pathName).getName();
     String[] splitList = fileName.split("\\.");
-    if(!fileName.contains(".") || fileName.endsWith(".")) {
+    if (!fileName.contains(".") || fileName.endsWith(".")) {
       throw new IllegalStateException("Please specify the file format followed by '.'!");
-    } else if(fileName.startsWith(".") && splitList.length < 3) {
+    } else if (fileName.startsWith(".") && splitList.length < 3) {
       throw new IllegalStateException("Invalid File Name!");
     }
     return splitList[splitList.length - 1];
