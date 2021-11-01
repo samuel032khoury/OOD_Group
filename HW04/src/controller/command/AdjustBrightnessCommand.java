@@ -34,7 +34,8 @@ public class AdjustBrightnessCommand implements ICommand {
       view.renderMessage(adjustment + " image (value: " + value + ") of " + fileName + " has been"
               + " created and is named " + newFileName + ".");
     } catch (NumberFormatException e) {
-      throw new IllegalStateException("Expect an integer but input is a string, try again!");
+      throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
+              "but input is a string, try again!");
     } catch (NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!!");
     }
