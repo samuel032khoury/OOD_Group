@@ -1,6 +1,5 @@
 package controller.utils;
 
-import model.imageFile.ImageFile;
 import model.imageFile.ReadOnlyImageFile;
 
 public interface IWriter {

@@ -7,7 +7,7 @@ import model.imageFile.ImageFile;
 import model.imageFile.ReadOnlyImageFile;
 
 public class ImageLibModelImpl implements ImageLibModel {
-  private Map<String, ImageFile> imageLib;
+  private final Map<String, ImageFile> imageLib;
 
   public ImageLibModelImpl() {
     this.imageLib = new HashMap<>();

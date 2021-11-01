@@ -7,7 +7,7 @@ import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
-public class FlipCommand extends ACommand{
+public class FlipCommand extends ACommand {
   // true when performing a vertical flip, false when performing a horizontal one.
   final boolean verticalFlip;
 

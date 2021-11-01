@@ -18,9 +18,9 @@ public class SaveCommand extends InOutCommand {
       String pathName = super.getValidArgs(currCommand);
       String imageName = super.getValidArgs(currCommand);
       ReadOnlyImageFile img = model.peek(imageName);
-      if(img == null) {
-      throw new IllegalStateException(
-              "Unable to save because image " + imageName + " cannot be found!");
+      if (img == null) {
+        throw new IllegalStateException(
+                "Unable to save because image " + imageName + " cannot be found!");
       }
       IWriter writer = new WriteManager().provide(getValidSuffix(pathName));
       writer.write(img, pathName);

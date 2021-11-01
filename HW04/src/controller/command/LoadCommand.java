@@ -17,11 +17,12 @@ public class LoadCommand extends InOutCommand {
       String pathName = super.getValidArgs(currCommand);
       String imageName = super.getValidArgs(currCommand);
       ILoader loader = new LoadManager().provide(getValidSuffix(pathName));
+      String connection = (model.peek(imageName) == null)? " is named " : " has overwritten ";
       try {
         ImageFile img = loader.loadFile(pathName);
         model.loadImage(imageName, img);
         view.renderMessage("Image file found at " + pathName + " has been imported and"
-                + " is named " + imageName + ".");
+                + connection + imageName + ".");
       } catch (IllegalStateException e) {
         view.renderError(e.getMessage());
       }

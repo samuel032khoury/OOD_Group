@@ -17,7 +17,6 @@ import controller.command.LoadCommand;
 import controller.command.SaveCommand;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
-import model.library.ImageLibState;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
 import view.IImageProcessView;
@@ -42,7 +41,7 @@ public class ImageProcessControllerImpl implements IImageProcessController {
   }
 
   public ImageProcessControllerImpl(ImageLibModel model, Readable input, IImageProcessView view) {
-    if(model == null || input == null || view == null) {
+    if (model == null || input == null || view == null) {
       throw new IllegalArgumentException("Illegal inputs for generating a new image process " +
               "controller");
     }

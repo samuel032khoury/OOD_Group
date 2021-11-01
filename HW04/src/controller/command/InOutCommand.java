@@ -1,10 +1,6 @@
 package controller.command;
 
 import java.io.File;
-import java.util.Queue;
-
-import model.library.ImageLibModel;
-import view.IImageProcessView;
 
 public abstract class InOutCommand extends ACommand {
   protected String getValidSuffix(String pathName) throws IllegalStateException {
