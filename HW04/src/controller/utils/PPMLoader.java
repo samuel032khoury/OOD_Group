@@ -1,6 +1,6 @@
 package controller.utils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -37,6 +37,7 @@ public class PPMLoader implements ILoader {
     }
     int width = sc.nextInt();
     int height = sc.nextInt();
+    //TODO: pass maxValue
     int maxValue = sc.nextInt();
 
     Color[][] image = new Color[height][width];

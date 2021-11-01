@@ -19,5 +19,4 @@ public abstract class AManager<T> implements IManager<T>{
     }
     return util;
   }
-
 }

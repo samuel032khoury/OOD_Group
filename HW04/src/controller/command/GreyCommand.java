@@ -1,12 +1,12 @@
 package controller.command;
 
-import java.util.Scanner;
+import java.util.Queue;
 import java.util.NoSuchElementException;
 
 import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
 import model.operation.IChannelOperator;
-import view.IView;
+import view.IImageProcessView;
 
 public class GreyCommand implements ICommand {
   private final IChannelOperator channel;
@@ -16,16 +16,16 @@ public class GreyCommand implements ICommand {
   }
 
   @Override
-  public void execute(ImageLibModel model, Scanner scanner, IView view)
+  public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException{
     try {
-      String filename = scanner.next();
-      String newFilename = scanner.next();
+      String filename = currCommand.remove();
+      String newFilename = currCommand.remove();
       ImageFile file = model.get(filename);
       ImageFile newFile = file.greyscale(this.channel);
       model.load(newFilename, newFile);
     } catch(NoSuchElementException e) {
-      throw new IllegalStateException("Insufficient inputs to run!");
+      throw new IllegalStateException("Insufficient argument, try again!");
     }
   }
 }

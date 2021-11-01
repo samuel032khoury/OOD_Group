@@ -1,21 +1,21 @@
 package controller.command;
 
 import java.io.File;
-import java.util.Scanner;
+import java.util.Queue;
 
 import model.library.ImageLibModel;
-import view.IView;
+import view.IImageProcessView;
 
 public abstract class InOutCommand implements ICommand {
   @Override
-  public abstract void execute(ImageLibModel model, Scanner scanner, IView view)
-          throws IllegalStateException;
+  public abstract void execute(ImageLibModel model, Queue<String> currCommand,
+                               IImageProcessView view) throws IllegalStateException;
 
   protected String getValidSuffix(String pathName) throws IllegalStateException{
     String fileName = new File(pathName).getName();
     String[] splitList = fileName.split("\\.");
     if(!fileName.contains(".") || fileName.endsWith(".")) {
-      throw new IllegalStateException("Please specify a file format followed by '.'!");
+      throw new IllegalStateException("Please specify the file format followed by '.'!");
     } else if(fileName.startsWith(".") && splitList.length < 3) {
       throw new IllegalStateException("Invalid File Name!");
     }

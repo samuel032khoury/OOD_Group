@@ -1,12 +1,11 @@
 package controller.command;
 
-import java.util.Scanner;
-import java.util.InputMismatchException;
+import java.util.Queue;
 import java.util.NoSuchElementException;
 
 import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
-import view.IView;
+import view.IImageProcessView;
 
 public class AdjustBrightnessCommand implements ICommand{
   // true when try to brighten an image, false when try to darken an image.
@@ -17,12 +16,12 @@ public class AdjustBrightnessCommand implements ICommand{
   }
 
   @Override
-  public void execute(ImageLibModel model, Scanner scanner, IView view)
+  public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
     try{
-      int value = scanner.nextInt();
-      String filename = scanner.next();
-      String newFilename = scanner.next();
+      int value = Integer.parseInt(currCommand.remove());
+      String filename = currCommand.remove();
+      String newFilename = currCommand.remove();
       ImageFile file = model.get(filename);
       ImageFile newFile;
       if(brighten) {
@@ -31,10 +30,10 @@ public class AdjustBrightnessCommand implements ICommand{
         newFile = file.darken(value);
       }
       model.load(newFilename, newFile);
-    } catch(InputMismatchException e) {
-      throw new IllegalStateException("Expect an integer but input is a String");
+    } catch(NumberFormatException e) {
+      throw new IllegalStateException("Expect an integer but input is a string");
     } catch(NoSuchElementException e) {
-      throw new IllegalStateException("Insufficient inputs to run!");
+      throw new IllegalStateException("Insufficient argument, try again!!");
     }
   }
 }

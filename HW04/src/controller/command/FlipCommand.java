@@ -1,11 +1,11 @@
 package controller.command;
 
-import java.util.Scanner;
+import java.util.Queue;
 import java.util.NoSuchElementException;
 
 import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
-import view.IView;
+import view.IImageProcessView;
 
 public class FlipCommand implements ICommand {
   // true when performing a vertical flip, false when performing a horizontal one.
@@ -16,11 +16,11 @@ public class FlipCommand implements ICommand {
   }
 
   @Override
-  public void execute(ImageLibModel model, Scanner scanner, IView view)
+  public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
     try{
-      String filename = scanner.next();
-      String fileNewName = scanner.next();
+      String filename = currCommand.remove();
+      String fileNewName = currCommand.remove();
       ImageFile file = model.get(filename);
       ImageFile transformerFile;
       if (verticalFlip) {
@@ -30,7 +30,7 @@ public class FlipCommand implements ICommand {
       }
       model.load(fileNewName, transformerFile);
     } catch(NoSuchElementException e) {
-      throw new IllegalStateException("Insufficient inputs to run!");
+      throw new IllegalStateException("Insufficient argument, try again!");
     }
   }
 }
