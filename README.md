@@ -16,7 +16,7 @@
     - (Starter) Test is in `test/`
     - Images provided by class are in `exampleRes/`
     - Images found online are in `res/`
-    - Class Diagram will be saved in `diag/` by the end of design.
+    - Class Diagram is saved in `diag/`.
     - README file is named as `README.md`and will be updated later the Monday
     - Text-based script of commands is named as `ImagProcScript.txt` and will be updated later the Monday
     

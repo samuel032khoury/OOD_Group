@@ -1,5 +1,6 @@
 package controller.controller;
 
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Map;
@@ -15,17 +16,36 @@ import controller.command.GreyCommand;
 import controller.command.LoadCommand;
 import controller.command.SaveCommand;
 import model.library.ImageLibModel;
+import model.library.ImageLibModelImpl;
+import model.library.ImageLibState;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
 import view.IImageProcessView;
+import view.SimpleImageProcessViewImpl;
 
 public class ImageProcessControllerImpl implements IImageProcessController {
-  protected ImageLibModel model;
+  protected final ImageLibModel model;
   protected Readable input;
   protected IImageProcessView view;
   protected Map<String, Supplier<ICommand>> cmdMap;
 
+  public ImageProcessControllerImpl() {
+    this(new ImageLibModelImpl());
+  }
+
+  public ImageProcessControllerImpl(ImageLibModel model) {
+    this(model, new InputStreamReader(System.in));
+  }
+
+  public ImageProcessControllerImpl(ImageLibModel model, Readable input) {
+    this(model, input, new SimpleImageProcessViewImpl(model));
+  }
+
   public ImageProcessControllerImpl(ImageLibModel model, Readable input, IImageProcessView view) {
+    if(model == null || input == null || view == null) {
+      throw new IllegalArgumentException("Illegal inputs for generating a new image process " +
+              "controller");
+    }
     this.model = model;
     this.input = input;
     this.view = view;

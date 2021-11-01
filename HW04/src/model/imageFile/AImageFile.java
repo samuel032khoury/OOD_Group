@@ -22,7 +22,10 @@ public abstract class AImageFile implements ImageFile {
   public AImageFile(Color[][] pixels, int maxColorVal) {
     if (pixels == null || pixels.length <= 0 || pixels[0].length <= 0
             || this.TwoDColorContainsNull(pixels)) {
-      throw new IllegalArgumentException("Invalid Image");
+      throw new IllegalArgumentException("Invalid Image!");
+    }
+    if (maxColorVal < 0) {
+      throw new IllegalArgumentException("Invalid maximum color value for images!");
     }
     this.pixels = pixels;
     this.height = pixels.length;

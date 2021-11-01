@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 
+import model.library.ImageLibModelImpl;
 import model.library.ImageLibState;
 
 public abstract class AImageProcessView implements IImageProcessView {
@@ -11,8 +12,8 @@ public abstract class AImageProcessView implements IImageProcessView {
   Appendable output;
   ImageLibState model;
 
-  public AImageProcessView(Appendable output, ImageLibState model) throws IllegalArgumentException{
-    if(output == null || model == null) {
+  public AImageProcessView(Appendable output, ImageLibState model) throws IllegalArgumentException {
+    if (output == null || model == null) {
       throw new IllegalArgumentException();
     }
     this.output = output;
@@ -20,11 +21,11 @@ public abstract class AImageProcessView implements IImageProcessView {
   }
 
   public AImageProcessView(ImageLibState model) {
-    if(model == null) {
-      throw new IllegalArgumentException();
-    }
-    this.output = System.out;
-    this.model = model;
+    this(System.out, model);
+  }
+
+  public AImageProcessView() {
+    this(System.out, new ImageLibModelImpl());
   }
 
   @Override

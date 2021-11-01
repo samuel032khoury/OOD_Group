@@ -10,4 +10,8 @@ public class SimpleImageProcessViewImpl extends AImageProcessView {
   public SimpleImageProcessViewImpl(ImageLibState model) {
     super(model);
   }
+
+  public SimpleImageProcessViewImpl() {
+    super();
+  }
 }

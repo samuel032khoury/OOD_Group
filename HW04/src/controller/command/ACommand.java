@@ -10,7 +10,7 @@ public abstract class ACommand implements ICommand{
                                IImageProcessView view) throws IllegalStateException;
 
   protected String getValidArgs(Queue<String> currCommand) {
-    if(currCommand.peek().equals("&")) {
+    if(currCommand.peek() == null || currCommand.peek().equals("&")) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }
     return currCommand.remove();
