@@ -15,13 +15,13 @@ public class LoadCommand extends InOutCommand {
           throws IllegalStateException {
     try {
       String pathName = currCommand.remove();
-      String fileName = currCommand.remove();
+      String imageName = currCommand.remove();
       ILoader loader = new LoadManager().provide(getValidSuffix(pathName));
       try {
         ImageFile img = loader.loadFile(pathName);
-        model.loadImage(fileName, img);
+        model.loadImage(imageName, img);
         view.renderMessage("Image file found at " + pathName + " has been imported and"
-                + " is named " + fileName + ".");
+                + " is named " + imageName + ".");
       } catch (IllegalStateException e) {
         view.renderError(e.getMessage());
       }

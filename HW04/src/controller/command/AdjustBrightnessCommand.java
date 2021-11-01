@@ -20,19 +20,19 @@ public class AdjustBrightnessCommand implements ICommand {
           throws IllegalStateException {
     try {
       int value = Integer.parseInt(currCommand.remove());
-      String fileName = currCommand.remove();
-      String newFileName = currCommand.remove();
-      ImageFile imageFile = model.get(fileName);
+      String imageName = currCommand.remove();
+      String newImageName = currCommand.remove();
+      ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile;
       if (brighten) {
         newImageFile = imageFile.brighten(value);
       } else {
         newImageFile = imageFile.darken(value);
       }
-      model.loadImage(newFileName, newImageFile);
+      model.loadImage(newImageName, newImageFile);
       String adjustment = brighten ? "Brightened" : "Darkened";
-      view.renderMessage(adjustment + " image (value: " + value + ") of " + fileName + " has been"
-              + " created and is named " + newFileName + ".");
+      view.renderMessage(adjustment + " image (value: " + value + ") of " + imageName + " has been"
+              + " created and is named " + newImageName + ".");
     } catch (NumberFormatException e) {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
               "but input is a string, try again!");

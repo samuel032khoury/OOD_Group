@@ -2,6 +2,7 @@ package model.imageFile;
 
 import java.awt.Color;
 
+
 public class ImageFileNoAlpha extends AImageFile {
 
   public ImageFileNoAlpha(Color[][] pixels) {
@@ -12,7 +13,7 @@ public class ImageFileNoAlpha extends AImageFile {
     super(pixels, maxColorVal);
   }
 
-  protected boolean supportAlpha() {
+  public boolean alpha() {
     return false;
   }
 }

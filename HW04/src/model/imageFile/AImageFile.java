@@ -28,7 +28,7 @@ public abstract class AImageFile implements ImageFile {
     this.height = pixels.length;
     this.width = pixels[0].length;
     this.maxColorVal = maxColorVal;
-    this.alphaChannel = this.supportAlpha();
+    this.alphaChannel = this.alpha();
     this.channelOperations = new HashMap<>() {{
       put(SingleChannelOperator.Red, (c -> {
         final int red = c.getRed();
@@ -56,8 +56,6 @@ public abstract class AImageFile implements ImageFile {
       }));
     }};
   }
-
-  protected abstract boolean supportAlpha();
 
   private boolean TwoDColorContainsNull(Color[][] pixels) {
     boolean nullDetected = false;
@@ -148,9 +146,7 @@ public abstract class AImageFile implements ImageFile {
   }
 
   @Override
-  public boolean alpha() {
-    return this.alphaChannel;
-  }
+  abstract public boolean alpha();
 
   @Override
   public int getMaxColorVal() {

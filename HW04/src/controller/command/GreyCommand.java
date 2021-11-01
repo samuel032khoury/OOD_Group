@@ -19,13 +19,13 @@ public class GreyCommand implements ICommand {
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
     try {
-      String fileName = currCommand.remove();
-      String newFileName = currCommand.remove();
-      ImageFile imageFile = model.get(fileName);
+      String imageName = currCommand.remove();
+      String newImageName = currCommand.remove();
+      ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile = imageFile.greyscale(this.channel);
-      model.loadImage(newFileName, newImageFile);
-      view.renderMessage(channel.toString() + "-component image of " + fileName + " has been "
-              + "created and is named " + fileName + ".");
+      model.loadImage(newImageName, newImageFile);
+      view.renderMessage(channel.toString() + "-component image of " + imageName + " has been "
+              + "created and is named " + imageName + ".");
     } catch (NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }

@@ -5,12 +5,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import model.imageFile.ImageFile;
+import model.imageFile.ReadOnlyImageFile;
 
 public class PPMWriter implements IWriter {
 
   @Override
-  public void write(ImageFile img, String fileName) throws IllegalStateException {
+  public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
     BufferedWriter myWriter;
 
     int height = img.getHeight();
