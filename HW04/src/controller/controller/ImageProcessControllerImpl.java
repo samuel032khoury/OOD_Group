@@ -50,29 +50,44 @@ public class ImageProcessControllerImpl implements IImageProcessController {
     Scanner scanner = new Scanner(input);
     while (scanner.hasNextLine()) {
       Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split(" ")));
-      if (currCommand.size() == 1) {
-          if(currCommand.remove().equals("QUIT")) {
-            return;
-          } else {
-            this.view.renderError("Insufficient argument, try again!");
-            continue;
-          }
-      }
-      ICommand cmd = null;
-      Supplier<ICommand> sup;
-      sup = cmdMap.getOrDefault(currCommand.poll(), null);
-      if (sup != null) {
-        cmd = sup.get();
+      boolean prompt = true;
+      if (currCommand.peek() != null) {
+        if(currCommand.peek().equals("QUIT")) {
+          view.renderMessage("Program is quit.");
+          return;
+        }
+        if(currCommand.peek().equals("")) {
+          continue;
+        }
       }
 
-      if (cmd != null) {
-        try {
-          cmd.execute(this.model, currCommand, this.view);
-        } catch (IllegalStateException e) {
-          this.view.renderError(e.getMessage());
+      while (!currCommand.isEmpty()) {
+        ICommand cmd = null;
+        Supplier<ICommand> sup;
+        sup = cmdMap.getOrDefault(currCommand.poll(), null);
+        if (sup != null) {
+          cmd = sup.get();
         }
-      } else {
-        this.view.renderError("command not found");
+
+        if (cmd != null) {
+          if(prompt) {
+            view.renderMessage("Processing, please wait!");
+            prompt = false;
+          }
+          try {
+            cmd.execute(this.model, currCommand, this.view);
+            currCommand.poll();
+          } catch (IllegalStateException e) {
+            this.view.renderError(e.getMessage());
+            while(!currCommand.isEmpty()) {
+              if(currCommand.poll().equals("&")) {
+                break;
+              }
+            }
+          }
+        } else {
+          this.view.renderError("command not found!");
+        }
       }
     }
   }

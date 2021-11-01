@@ -42,6 +42,7 @@ public class PPMWriter implements IWriter {
         }
       }
     }
+
     try {
       myWriter.close();
     } catch (IOException e) {

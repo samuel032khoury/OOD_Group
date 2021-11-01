@@ -1,3 +1,3 @@
-Image "Elephant" citation: Photo by https://unsplash.com/photos/qiPTr8GmhM0
+Image "elephant" citation: Photo by https://unsplash.com/photos/qiPTr8GmhM0
 
-Image "Painting" citation: Photo by https://unsplash.com/photos/JLfem8ViKVA
+Image "painting" citation: Photo by https://unsplash.com/photos/JLfem8ViKVA

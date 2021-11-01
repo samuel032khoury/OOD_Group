@@ -19,16 +19,19 @@ public class FlipCommand implements ICommand {
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
     try{
-      String filename = currCommand.remove();
-      String fileNewName = currCommand.remove();
-      ImageFile file = model.get(filename);
-      ImageFile transformerFile;
+      String fileName = currCommand.remove();
+      String newFileName = currCommand.remove();
+      ImageFile imageFile = model.get(fileName);
+      ImageFile newImageFile;
       if (verticalFlip) {
-        transformerFile = file.vertiFlip();
+        newImageFile = imageFile.vertiFlip();
       } else {
-        transformerFile = file.horizFlip();
+        newImageFile = imageFile.horizFlip();
       }
-      model.loadImage(fileNewName, transformerFile);
+      model.loadImage(newFileName, newImageFile);
+      String flipDirection = verticalFlip? "Vertical" : "Horizontal";
+      view.renderMessage(flipDirection + " flipped image of " + fileName + " has been created and"
+              + " is named " + newFileName + ".");
     } catch(NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }

@@ -21,9 +21,10 @@ public class LoadCommand extends InOutCommand {
       try {
         ImageFile img = loader.loadFile(pathName);
         model.loadImage(fileName, img);
-      } catch (FileNotFoundException e) {
-        view.renderError("Unable to find file " + pathName +"! Please check the fileName and the " +
-                "filepath are correct!");
+        view.renderMessage("Image file found at " + pathName + " has been imported and"
+              + " is named " + fileName + ".");
+      } catch (IllegalStateException e) {
+        view.renderError(e.getMessage());
       }
     } catch(NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");

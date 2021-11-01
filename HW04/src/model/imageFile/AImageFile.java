@@ -14,12 +14,12 @@ public abstract class AImageFile implements ImageFile {
   protected final Color[][] pixels;
   protected final int height;
   protected final int width;
-  protected final int maxColorVal = 255;
-  protected boolean alphaChannel;
+  protected final int maxColorVal;
+  protected final boolean alphaChannel;
 
   protected Map<IChannelOperator, IChannelFunction> channelOperations;
 
-  public AImageFile(Color[][] pixels) {
+  public AImageFile(Color[][] pixels, int maxColorVal) {
     if (pixels == null || pixels.length <= 0 || pixels[0].length <= 0
             || this.TwoDColorContainsNull(pixels)) {
       throw new IllegalArgumentException("Invalid Image");
@@ -27,6 +27,8 @@ public abstract class AImageFile implements ImageFile {
     this.pixels = pixels;
     this.height = pixels.length;
     this.width = pixels[0].length;
+    this.maxColorVal = maxColorVal;
+    this.alphaChannel = this.supportAlpha();
     this.channelOperations = new HashMap<>() {{
       put(SingleChannelOperator.Red, (c -> {
         final int red = c.getRed();
@@ -54,6 +56,8 @@ public abstract class AImageFile implements ImageFile {
       }));
     }};
   }
+
+  protected abstract boolean supportAlpha();
 
   private boolean TwoDColorContainsNull(Color[][] pixels) {
     boolean nullDetected = false;
@@ -145,6 +149,7 @@ public abstract class AImageFile implements ImageFile {
 
   @Override
   public boolean alpha() {return this.alphaChannel;}
+
   @Override
   public int getMaxColorVal() {return this.maxColorVal;}
 

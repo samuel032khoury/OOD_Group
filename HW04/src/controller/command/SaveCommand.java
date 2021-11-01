@@ -20,6 +20,7 @@ public class SaveCommand extends InOutCommand{
       ImageFile img = model.get(fileName);
       IWriter writer = new WriteManager().provide(getValidSuffix(pathName));
       writer.write(img, pathName);
+      view.renderMessage("Image " + fileName + " has been exported to " + pathName + ".");
     } catch(NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }
