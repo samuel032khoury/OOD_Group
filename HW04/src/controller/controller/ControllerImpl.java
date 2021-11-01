@@ -60,7 +60,6 @@ public class ControllerImpl implements IControllerModel {
         } catch (IllegalStateException e) {
           this.view.renderError(e.getMessage());
         }
-
       } else {
         this.view.renderError("command not found");
       }

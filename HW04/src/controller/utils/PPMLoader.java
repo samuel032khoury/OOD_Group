@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import controller.utils.ILoader;
 import model.imageFile.ImageFile;
 import model.imageFile.ImageFileNoAlpha;
 

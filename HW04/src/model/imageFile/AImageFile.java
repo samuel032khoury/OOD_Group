@@ -14,6 +14,7 @@ public abstract class AImageFile implements ImageFile {
   protected final Color[][] pixels;
   protected final int height;
   protected final int width;
+  protected final int maxColorVal = 255;
   protected boolean alphaChannel;
 
   protected Map<IChannelOperator, IChannelFunction> channelOperations;
@@ -142,6 +143,10 @@ public abstract class AImageFile implements ImageFile {
     return this.width;
   }
 
+  @Override
+  public boolean alpha() {return this.alphaChannel;}
+  @Override
+  public int getMaxColorVal() {return this.maxColorVal;}
 
   @Override
   public Color getColorAt(int x, int y) {

@@ -1,16 +1,24 @@
 package controller;
 
 import java.awt.*;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
+
+import controller.controller.ControllerImpl;
+import model.library.ImageLibModel;
+import model.library.ImageLibModelImpl;
+import view.ViewImpl;
 
 
 /**
@@ -169,9 +177,13 @@ public class  ImageUtil {
 
   //demo main
   public static void main(String[] args) throws IOException {
-    String filename = "/Users/eric/Documents/CS stuff/cs3500github/OOD_Group/HW04/exampleRes/Koala.ppm";
-
-
+//    String filename = "/Users/eric/Documents/CS stuff/cs3500github/OOD_Group/HW04/exampleRes/Koala.ppm";
+    String fileName = "/Users/SamuelJ/Library/Mobile Documents/com~apple~CloudDocs/21FL/CS " +
+            "3500/IJ/group/HW04/src/sample.ppm";
+    ImageLibModel m = new ImageLibModelImpl();
+    ControllerImpl c = new ControllerImpl(m, new InputStreamReader(System.in), new ViewImpl(System.out
+            , m));
+    c.run();
   }
 }
 
