@@ -89,6 +89,10 @@ public class ImageProcessControllerImpl implements IImageProcessController {
       while (!currCommand.isEmpty()) {
         ICommand cmd = null;
         Supplier<ICommand> sup;
+        if(currCommand.peek().equals("")) {
+          currCommand.poll();
+          continue;
+        }
         sup = cmdMap.getOrDefault(currCommand.poll(), null);
         if (sup != null) {
           cmd = sup.get();

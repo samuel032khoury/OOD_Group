@@ -22,6 +22,7 @@ public class AdjustBrightnessCommand extends ACommand {
       int value = Integer.parseInt(currCommand.remove());
       String imageName = super.getValidArgs(currCommand);
       String newImageName = super.getValidArgs(currCommand);
+      String connection = (model.peek(newImageName) == null)? " is named " : " has overwritten ";
       ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile;
       if (brighten) {
@@ -32,7 +33,7 @@ public class AdjustBrightnessCommand extends ACommand {
       model.loadImage(newImageName, newImageFile);
       String adjustment = brighten ? "Brightened" : "Darkened";
       view.renderMessage(adjustment + " image (value: " + value + ") of " + imageName + " has been"
-              + " created and is named " + newImageName + ".");
+              + " created and" + connection + newImageName + ".");
     } catch (NumberFormatException e) {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
               "but input is a string, try again!");

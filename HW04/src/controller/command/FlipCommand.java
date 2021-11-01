@@ -21,6 +21,7 @@ public class FlipCommand extends ACommand {
     try {
       String imageName = super.getValidArgs(currCommand);
       String newImageName = super.getValidArgs(currCommand);
+      String connection = (model.peek(newImageName) == null)? " is named " : " has overwritten ";
       ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile;
       if (verticalFlip) {
@@ -31,7 +32,7 @@ public class FlipCommand extends ACommand {
       model.loadImage(newImageName, newImageFile);
       String flipDirection = verticalFlip ? "Vertical" : "Horizontal";
       view.renderMessage(flipDirection + " flipped image of " + imageName + " has been created and"
-              + " is named " + newImageName + ".");
+              + connection + newImageName + ".");
     } catch (NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }

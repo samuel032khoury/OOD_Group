@@ -21,11 +21,12 @@ public class GreyCommand extends ACommand {
     try {
       String imageName = super.getValidArgs(currCommand);
       String newImageName = super.getValidArgs(currCommand);
+      String connection = (model.peek(newImageName) == null)? " is named " : " has overwritten ";
       ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile = imageFile.greyscale(this.channel);
       model.loadImage(newImageName, newImageFile);
       view.renderMessage(channel.toString() + "-component image of " + imageName + " has been "
-              + "created and is named " + imageName + ".");
+              + "created and" + connection + newImageName + ".");
     } catch (NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }
