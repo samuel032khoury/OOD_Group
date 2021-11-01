@@ -23,7 +23,7 @@ public class GreyCommand implements ICommand {
       String newFilename = currCommand.remove();
       ImageFile file = model.get(filename);
       ImageFile newFile = file.greyscale(this.channel);
-      model.load(newFilename, newFile);
+      model.loadImage(newFilename, newFile);
     } catch(NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }

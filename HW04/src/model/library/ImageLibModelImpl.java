@@ -14,7 +14,7 @@ public class ImageLibModelImpl implements ImageLibModel {
   }
 
   @Override
-  public void load(String imageName, ImageFile imageFile) {
+  public void loadImage(String imageName, ImageFile imageFile) {
     imageLib.put(imageName,imageFile);
   }
 

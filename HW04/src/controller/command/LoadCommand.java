@@ -19,11 +19,11 @@ public class LoadCommand extends InOutCommand {
       String fileName = currCommand.remove();
       ILoader loader = new LoadManager().provide(getValidSuffix(pathName));
       try {
-        ImageFile img = loader.load(pathName);
-        model.load(fileName, img);
+        ImageFile img = loader.loadFile(pathName);
+        model.loadImage(fileName, img);
       } catch (FileNotFoundException e) {
-        view.renderError("Unable to find file " + pathName +"! Please check the fileName or the " +
-                "filepath is correct!");
+        view.renderError("Unable to find file " + pathName +"! Please check the fileName and the " +
+                "filepath are correct!");
       }
     } catch(NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");

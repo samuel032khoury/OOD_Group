@@ -9,7 +9,7 @@ import model.imageFile.ImageFile;
 import model.imageFile.ImageFileNoAlpha;
 
 public class PPMLoader implements ILoader {
-  public ImageFile load(String filename) throws FileNotFoundException {
+  public ImageFile loadFile(String filename) throws FileNotFoundException {
     Scanner sc;
 
     try {

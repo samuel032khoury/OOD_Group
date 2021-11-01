@@ -29,9 +29,9 @@ public class AdjustBrightnessCommand implements ICommand{
       } else {
         newFile = file.darken(value);
       }
-      model.load(newFilename, newFile);
+      model.loadImage(newFilename, newFile);
     } catch(NumberFormatException e) {
-      throw new IllegalStateException("Expect an integer but input is a string");
+      throw new IllegalStateException("Expect an integer but input is a string, try again!");
     } catch(NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!!");
     }

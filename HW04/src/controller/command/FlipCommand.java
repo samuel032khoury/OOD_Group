@@ -28,7 +28,7 @@ public class FlipCommand implements ICommand {
       } else {
         transformerFile = file.horizFlip();
       }
-      model.load(fileNewName, transformerFile);
+      model.loadImage(fileNewName, transformerFile);
     } catch(NoSuchElementException e) {
       throw new IllegalStateException("Insufficient argument, try again!");
     }
