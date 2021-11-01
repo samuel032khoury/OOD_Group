@@ -7,7 +7,7 @@ import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
-public class FlipCommand implements ICommand {
+public class FlipCommand extends ACommand{
   // true when performing a vertical flip, false when performing a horizontal one.
   final boolean verticalFlip;
 
@@ -19,8 +19,8 @@ public class FlipCommand implements ICommand {
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
     try {
-      String imageName = currCommand.remove();
-      String newImageName = currCommand.remove();
+      String imageName = super.getValidArgs(currCommand);
+      String newImageName = super.getValidArgs(currCommand);
       ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile;
       if (verticalFlip) {

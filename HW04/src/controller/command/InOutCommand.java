@@ -6,11 +6,7 @@ import java.util.Queue;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
-public abstract class InOutCommand implements ICommand {
-  @Override
-  public abstract void execute(ImageLibModel model, Queue<String> currCommand,
-                               IImageProcessView view) throws IllegalStateException;
-
+public abstract class InOutCommand extends ACommand {
   protected String getValidSuffix(String pathName) throws IllegalStateException {
     String fileName = new File(pathName).getName();
     String[] splitList = fileName.split("\\.");

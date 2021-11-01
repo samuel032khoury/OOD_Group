@@ -8,7 +8,7 @@ import model.library.ImageLibModel;
 import model.operation.IChannelOperator;
 import view.IImageProcessView;
 
-public class GreyCommand implements ICommand {
+public class GreyCommand extends ACommand {
   private final IChannelOperator channel;
 
   public GreyCommand(IChannelOperator channel) {
@@ -19,8 +19,8 @@ public class GreyCommand implements ICommand {
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
     try {
-      String imageName = currCommand.remove();
-      String newImageName = currCommand.remove();
+      String imageName = super.getValidArgs(currCommand);
+      String newImageName = super.getValidArgs(currCommand);
       ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile = imageFile.greyscale(this.channel);
       model.loadImage(newImageName, newImageFile);

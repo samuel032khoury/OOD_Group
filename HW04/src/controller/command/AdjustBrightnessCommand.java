@@ -7,7 +7,7 @@ import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
-public class AdjustBrightnessCommand implements ICommand {
+public class AdjustBrightnessCommand extends ACommand {
   // true when try to brighten an image, false when try to darken an image.
   final boolean brighten;
 
@@ -20,8 +20,8 @@ public class AdjustBrightnessCommand implements ICommand {
           throws IllegalStateException {
     try {
       int value = Integer.parseInt(currCommand.remove());
-      String imageName = currCommand.remove();
-      String newImageName = currCommand.remove();
+      String imageName = super.getValidArgs(currCommand);
+      String newImageName = super.getValidArgs(currCommand);
       ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile;
       if (brighten) {
@@ -37,7 +37,7 @@ public class AdjustBrightnessCommand implements ICommand {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
               "but input is a string, try again!");
     } catch (NoSuchElementException e) {
-      throw new IllegalStateException("Insufficient argument, try again!!");
+      throw new IllegalStateException("Insufficient argument, try again!1");
     }
   }
 }

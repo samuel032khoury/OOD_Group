@@ -15,8 +15,8 @@ public class SaveCommand extends InOutCommand {
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
     try {
-      String pathName = currCommand.remove();
-      String imageName = currCommand.remove();
+      String pathName = super.getValidArgs(currCommand);
+      String imageName = super.getValidArgs(currCommand);
       ReadOnlyImageFile img = model.peek(imageName);
       if(img == null) {
       throw new IllegalStateException(
