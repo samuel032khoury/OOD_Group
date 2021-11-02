@@ -14,7 +14,7 @@ The key of the map is the name of an image as a String assigned by users. The va
 
 #### R/W Capbility
 
-Both `ImageLibModel` and `imageFile` are designed in a way that can limit write capability to avoid malicious/mistaken mutation/overwritten, by making these two interface respectively implement read-only interfaces `ImageLibModelState` and `ReadOnlyImageFile`. As overwritten an existing image in the image-library is allowed by design, all current methods are also restricted to not mutate a  ImageFile itself, but only generate a new copy of a modified object. Given the ability of getting the information/status of a library/image, the model doesn't tell any details about the concrete implementation as all the methods return abstractions and can only use public methods.
+Both `ImageLibModel` and `imageFile` are designed in a way that can limit write capability to avoid malicious/mistaken mutation/overwritten, by making these two interfaces respectively implement read-only interfaces `ImageLibModelState` and `ReadOnlyImageFile`. As overwritten an existing image in the image-library is allowed by design, all current methods for `ImageFile` are restricted to not mutate the provided  ImageFile itself, but only generate a new copy with modification. Given the ability of getting the information/status of a library/image, the model doesn't tell any details about the concrete implementation as all methods return abstraction and can only use public methods.
 
 ## View
 

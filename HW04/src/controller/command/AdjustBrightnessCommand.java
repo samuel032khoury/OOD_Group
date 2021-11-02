@@ -38,7 +38,7 @@ public class AdjustBrightnessCommand extends ACommand {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
               "but input is a string, try again!");
     } catch (NoSuchElementException e) {
-      throw new IllegalStateException("Insufficient argument, try again!1");
+      throw new IllegalStateException("Insufficient argument, try again!");
     }
   }
 }
