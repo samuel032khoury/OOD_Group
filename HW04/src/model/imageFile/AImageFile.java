@@ -1,4 +1,4 @@
-package model.imageFile;
+package model.imagefile;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -164,13 +164,23 @@ public abstract class AImageFile implements ImageFile {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     AImageFile that = (AImageFile) o;
 
-    if (height != that.height) return false;
-    if (width != that.width) return false;
+    if (height != that.height) {
+      return false;
+    }
+
+    if (width != that.width) {
+      return false;
+    }
     return Arrays.deepEquals(pixels, that.pixels);
   }
 
