@@ -15,7 +15,6 @@ public abstract class AImageFile implements ImageFile {
   protected final int height;
   protected final int width;
   protected final int maxColorVal;
-  protected final boolean alphaChannel;
 
   protected Map<IChannelOperator, IChannelFunction> channelOperations;
 
@@ -31,7 +30,6 @@ public abstract class AImageFile implements ImageFile {
     this.height = pixels.length;
     this.width = pixels[0].length;
     this.maxColorVal = maxColorVal;
-    this.alphaChannel = this.alpha();
     this.channelOperations = new HashMap<>() {{
       put(SingleChannelOperator.Red, (c -> {
         final int red = c.getRed();
@@ -149,7 +147,9 @@ public abstract class AImageFile implements ImageFile {
   }
 
   @Override
-  abstract public boolean alpha();
+  public boolean alpha() {
+    return false;
+  }
 
   @Override
   public int getMaxColorVal() {

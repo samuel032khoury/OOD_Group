@@ -12,8 +12,4 @@ public class ImageFileNoAlpha extends AImageFile {
   public ImageFileNoAlpha(Color[][] pixels, int maxColorVal) {
     super(pixels, maxColorVal);
   }
-
-  public boolean alpha() {
-    return false;
-  }
 }

@@ -23,10 +23,10 @@ import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;
 
 public class ImageProcessControllerImpl implements IImageProcessController {
-  protected final ImageLibModel model;
-  protected Readable input;
-  protected IImageProcessView view;
-  protected Map<String, Supplier<ICommand>> cmdMap;
+  private final ImageLibModel model;
+  private Readable input;
+  private IImageProcessView view;
+  private Map<String, Supplier<ICommand>> cmdMap;
 
   public ImageProcessControllerImpl() {
     this(new ImageLibModelImpl());
