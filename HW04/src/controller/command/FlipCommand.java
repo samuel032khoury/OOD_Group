@@ -24,17 +24,17 @@ public class FlipCommand extends ACommand {
   /**
    * To flip a picture in the model.
    * @param model the model to mutate.
-   * @param currCommand a queue of current unprocessed commands as strings.
+   * @param commandQueue a queue of current unprocessed commands as strings.
    * @param view the view to send output to.
    * @throws IllegalStateException if the command is too much or too few.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
-    String imageName = super.getValidArgs(currCommand, this.flipDirection.toLowerCase());
-    String newImageName = super.getValidArgs(currCommand, this.flipDirection.toLowerCase());
-    this.expectNoMoreArgs(currCommand, this.flipDirection.toLowerCase());
-    String connection = (model.peek(newImageName) == null) ? " is named " : " has overwritten ";
+    String imageName = super.getValidArgs(commandQueue);
+    String newImageName = super.getValidArgs(commandQueue);
+    super.expectNoMoreArgs(commandQueue);
+    String connection = super.getConnection(model.peek(newImageName));
     ImageFile imageFile = model.get(imageName);
     ImageFile newImageFile;
     if (verticalFlip) {
@@ -45,5 +45,10 @@ public class FlipCommand extends ACommand {
     model.loadImage(newImageName, newImageFile);
     view.renderMessage(this.flipDirection + " flipped image of " + imageName + " has been " +
             "created and" + connection + newImageName + ".");
+  }
+
+  @Override
+  protected String currCommand() {
+    return this.flipDirection;
   }
 }

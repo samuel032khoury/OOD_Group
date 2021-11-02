@@ -25,7 +25,7 @@ public abstract class AManager<T> implements IManager<T> {
       util = sup.get();
     }
     if (util == null) {
-      throw new IllegalStateException("this file extension is not supported");
+      throw new IllegalStateException("This file extension is not supported!");
     }
     return util;
   }

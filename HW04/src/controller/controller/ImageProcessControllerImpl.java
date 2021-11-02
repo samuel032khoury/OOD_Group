@@ -24,9 +24,9 @@ import view.SimpleImageProcessViewImpl;
 
 public class ImageProcessControllerImpl implements IImageProcessController {
   private final ImageLibModel model;
-  private Readable input;
-  private IImageProcessView view;
-  private Map<String, Supplier<ICommand>> cmdMap;
+  private final Readable input;
+  private final IImageProcessView view;
+  private final Map<String, Supplier<ICommand>> cmdMap;
 
   public ImageProcessControllerImpl() {
     this(new ImageLibModelImpl());
@@ -68,16 +68,17 @@ public class ImageProcessControllerImpl implements IImageProcessController {
   public void run() {
     Scanner scanner = new Scanner(input);
     while (scanner.hasNextLine()) {
-      Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split("\\s+")));
+      Queue<String> commandQueue =
+              new ArrayDeque<>(Arrays.asList(scanner.nextLine().split("\\s+")));
       boolean waitPrompt = true;
 
-      if (!currCommand.isEmpty()) {
-        switch (currCommand.peek()) {
+      if (!commandQueue.isEmpty()) {
+        switch (commandQueue.peek()) {
           case "QUIT":
             view.renderMessage("Program is quit.");
             return;
           case "SIZE":
-            if (currCommand.size() > 1) {
+            if (commandQueue.size() > 1) {
               view.renderError("SIZE expect no arguments while provide at least one, try again!");
             } else {
               view.renderMessage("There are " + model.getLibSize() + " images in the library!");
@@ -88,14 +89,14 @@ public class ImageProcessControllerImpl implements IImageProcessController {
           default:
             break;
         }
-        if (currCommand.peek().startsWith("#")) {
+        if (commandQueue.peek().startsWith("#")) {
           continue;
         }
       }
 
-      while (!currCommand.isEmpty()) {
+      while (!commandQueue.isEmpty()) {
         ICommand cmd = null;
-        Supplier<ICommand> sup = cmdMap.getOrDefault(currCommand.poll(), null);
+        Supplier<ICommand> sup = cmdMap.getOrDefault(commandQueue.poll(), null);
 
         if (sup != null) {
           cmd = sup.get();
@@ -107,15 +108,15 @@ public class ImageProcessControllerImpl implements IImageProcessController {
             waitPrompt = false;
           }
           try {
-            cmd.execute(this.model, currCommand, this.view);
-            currCommand.poll();
+            cmd.execute(this.model, commandQueue, this.view);
+            commandQueue.poll();
           } catch (IllegalStateException e) {
             this.view.renderError(e.getMessage());
-            currCommand.clear();
+            commandQueue.clear();
           }
         } else {
-          this.view.renderError("command not found!");
-          currCommand.clear();
+          this.view.renderError("Command not found!");
+          commandQueue.clear();
         }
       }
     }

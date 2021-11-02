@@ -26,20 +26,20 @@ public class AdjustBrightnessCommand extends ACommand {
   /**
    * To adjust the brightness of a selected picture in the model.
    * @param model the model to mutate.
-   * @param currCommand a queue of current unprocessed commands as strings.
+   * @param commandQueue a queue of current unprocessed commands as strings.
    * @param view the view to send output to.
    * @throws IllegalStateException if parameters are too much, too few, the value to change is
    *         not an integer.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
     try {
-      int value = Integer.parseInt(getValidArgs(currCommand, this.adjustment.toLowerCase()));
-      String imageName = super.getValidArgs(currCommand, this.adjustment.toLowerCase());
-      String newImageName = super.getValidArgs(currCommand, this.adjustment.toLowerCase());
-      this.expectNoMoreArgs(currCommand, this.adjustment.toLowerCase());
-      String connection = (model.peek(newImageName) == null) ? " is named " : " has overwritten ";
+      int value = Integer.parseInt(super.getValidArgs(commandQueue));
+      String imageName = super.getValidArgs(commandQueue);
+      String newImageName = super.getValidArgs(commandQueue);
+      super.expectNoMoreArgs(commandQueue);
+      String connection = super.getConnection(model.peek(newImageName));
       ImageFile imageFile = model.get(imageName);
       ImageFile newImageFile;
       if (brighten) {
@@ -54,5 +54,10 @@ public class AdjustBrightnessCommand extends ACommand {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
               "but input is a string, try again!");
     }
+  }
+
+  @Override
+  protected String currCommand() {
+    return this.adjustment;
   }
 }

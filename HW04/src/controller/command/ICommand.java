@@ -13,11 +13,11 @@ public interface ICommand {
   /**
    * Modifies the model with the input from the user.
    * @param model the model to mutate.
-   * @param currCommand a queue of current unprocessed commands as strings.
+   * @param commandQueue a queue of current unprocessed commands as strings.
    * @param view the view to send output to.
    * @throws IllegalStateException determined by the specific implementation.
    */
-  void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
+  void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException;
 }
 

@@ -21,23 +21,26 @@ public class GreyCommand extends ACommand {
   /**
    * To produce a gray scale image in a model using given channel.
    * @param model the model to mutate.
-   * @param currCommand a queue of current unprocessed commands as strings.
+   * @param commandQueue a queue of current unprocessed commands as strings.
    * @param view the view to send output to.
    * @throws IllegalStateException if the argument is too much or too few,
    *         or the image channel is not compatible with the image.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
-    String componentName = channel.toString();
-    String imageName = super.getValidArgs(currCommand, componentName.toLowerCase());
-    String newImageName = super.getValidArgs(currCommand, componentName.toLowerCase());
-    this.expectNoMoreArgs(currCommand, componentName.toLowerCase());
-    String connection = (model.peek(newImageName) == null) ? " is named " : " has overwritten ";
+    String imageName = super.getValidArgs(commandQueue);
+    String newImageName = super.getValidArgs(commandQueue);
+    super.expectNoMoreArgs(commandQueue);
+    String connection = super.getConnection(model.peek(newImageName));
     ImageFile imageFile = model.get(imageName);
     ImageFile newImageFile = imageFile.greyscale(this.channel);
     model.loadImage(newImageName, newImageFile);
-    view.renderMessage(componentName + "-component image of " + imageName + " has been "
+    view.renderMessage(currCommand() + "-component image of " + imageName + " has been "
             + "created and" + connection + newImageName + ".");
+  }
+
+  protected String currCommand() {
+    return channel.toString();
   }
 }
