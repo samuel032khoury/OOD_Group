@@ -4,25 +4,26 @@ import org.junit.Test;
 import java.awt.*;
 
 import controller.command.ICommand;
-import controller.controller.IImageProcessController;
-import controller.controller.ImageProcessControllerImpl;
 import model.imageFile.ImageFile;
 import model.imageFile.ImageFileNoAlpha;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;
+
+import java.util.ArrayList;
 import java.util.Queue;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public abstract class ACommandTest {
 
 
   public abstract ICommand provideCommand();
-  public abstract Queue<String>[] provideInputs();
-  public abstract Queue<String>[] errorInputs();
+  public abstract ArrayList<Queue<String>> provideInputs();
+  public abstract ArrayList<Queue<String>> errorInputs();
   public abstract ImageFile[] provideOutputs();
   public abstract String[] viewOutputs();
   public abstract String outputName();
@@ -35,45 +36,57 @@ public abstract class ACommandTest {
   @Before
   public void setUp() throws Exception {
 
-    img = new ImageFileNoAlpha(new Color[][]{{new Color(10,11,12), new Color(20,21,22), new Color(30,31,32)},
-            {new Color(40,41,42), new Color(50,51,52), new Color(60,61,62)}} );
+    img = new ImageFileNoAlpha(new Color[][]{
+            {new Color(10,11,12), new Color(20,21,22), new Color(30,31,32)},
+            {new Color(40,41,42), new Color(50,51,52), new Color(60,61,62)}}
+    );
 
 
   }
 
   @Test
+  public void testConstructor() throws Exception {
+    try {
+      this.provideCommand();
+    } catch (Exception e){
+      fail();
+    }
+  }
+
+  @Test
   public void testGoodCommand() throws Exception {
-    Queue<String>[] inputs = this.provideInputs();
+    ArrayList<Queue<String>> inputs = this.provideInputs();
     ImageFile[] outputs = this.provideOutputs();
     ICommand command = this.provideCommand();
     String[] viewOutputs = this.viewOutputs();
 
-    for (int i = 0; i < inputs.length; i++) {
+    for (int i = 0; i < inputs.size(); i++) {
       model = new ImageLibModelImpl();
       out = new StringBuilder();
       view = new SimpleImageProcessViewImpl(out, model);
-      model.loadImage("testImg", img);
-      command.execute(this.model, inputs[i], this.view);
+      model.loadImage("testImg", img.copyImage());
+      command.execute(this.model, inputs.get(i), this.view);
       ImageFile newImageFile = this.model.get(this.outputName());
-      assertEquals(outputs[i], newImageFile);
+      assertTrue((outputs[i].equals(newImageFile)));
       assertEquals(viewOutputs[i], out.toString());
     }
   }
 
   @Test
   public void testExceptions() throws Exception {
-    Queue<String>[] inputs = this.errorInputs();
+    ArrayList<Queue<String>> inputs = this.errorInputs();
     ImageFile[] outputs = this.provideOutputs();
     ICommand command = this.provideCommand();
     String[] viewOutputs = this.viewOutputs();
 
-    for (int i = 0; i < inputs.length; i++) {
+    for (int i = 0; i < inputs.size(); i++) {
       model = new ImageLibModelImpl();
       out = new StringBuilder();
       view = new SimpleImageProcessViewImpl(out, model);
-      model.loadImage("testImg", img);
+      model.loadImage("testImg", img.copyImage());
       try {
-        command.execute(this.model, inputs[i], this.view);
+        command.execute(this.model, inputs.get(i), this.view);
+        System.out.println("fail at " + inputs.get(i));
         fail();
       } catch (IllegalStateException e) {
         System.out.println("you passed");
