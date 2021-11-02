@@ -21,6 +21,13 @@ public class PPMWriter implements IWriter {
    */
   @Override
   public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
+    if(img == null) {
+      throw new IllegalArgumentException("ImageFile does not exist!");
+    }
+
+    if(fileName == null) {
+      throw new IllegalArgumentException("File name is unspecified!");
+    }
     BufferedWriter myWriter;
     int height = img.getHeight();
     int width = img.getWidth();

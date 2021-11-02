@@ -20,5 +20,3 @@ public interface ICommand {
   void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException;
 }
-
-

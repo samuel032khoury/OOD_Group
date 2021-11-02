@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @param <T>
  */
 public abstract class AManager<T> implements IManager<T> {
-  protected Map<String, Supplier<T>> availableLoaders = new HashMap<>();
+  protected Map<String, Supplier<T>> availableSuffix = new HashMap<>();
 
   /**
    * Find the correct supplier for loader/writer based on the suffix.
@@ -19,8 +19,11 @@ public abstract class AManager<T> implements IManager<T> {
    */
   @Override
   public T provide(String suffix) throws IllegalStateException {
+    if(suffix == null) {
+      throw new IllegalArgumentException("Suffix is unspecified!");
+    }
     T util = null;
-    Supplier<T> sup = this.availableLoaders.getOrDefault(suffix, null);
+    Supplier<T> sup = this.availableSuffix.getOrDefault(suffix, null);
     if (sup != null) {
       util = sup.get();
     }

@@ -11,6 +11,12 @@ public abstract class ACommand implements ICommand {
   public abstract void execute(ImageLibModel model, Queue<String> commandQueue,
                                IImageProcessView view) throws IllegalStateException;
 
+  protected String getConnection(ReadOnlyImageFile newImageName) {
+    return newImageName == null? " is named " : " has overwritten ";
+  }
+
+  protected abstract String currCommand();
+
   // to check if arguments passed to command is a splitter & instead, which implies command may
   // have fewer arguments than needed and thus throw an IllegalStateException.
   protected String getValidArgs(Queue<String> commandQueue)
@@ -33,10 +39,4 @@ public abstract class ACommand implements ICommand {
   private boolean splitterOrNull(Queue<String> commandQueue) {
     return commandQueue.peek() == null || commandQueue.peek().equals("&");
   }
-
-  protected String getConnection(ReadOnlyImageFile newImageName) {
-    return newImageName == null? " is named " : " has overwritten ";
-  }
-
-  protected abstract String currCommand();
 }

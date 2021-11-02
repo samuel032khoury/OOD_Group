@@ -21,6 +21,9 @@ public class PPMLoader implements ILoader {
    *         the file is invalid, or if the file is broken.
    */
   public ImageFile loadFile(String pathName) throws IllegalStateException {
+    if(pathName == null) {
+      throw new IllegalArgumentException("Path name is unspecified!");
+    }
     Scanner sc;
 
     try {
