@@ -2,7 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
-import model.imageFile.ReadOnlyImageFile;
+import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
@@ -12,7 +12,7 @@ public abstract class ACommand implements ICommand {
                                IImageProcessView view) throws IllegalStateException;
 
   protected String getConnection(ReadOnlyImageFile newImageName) {
-    return newImageName == null? " is named " : " has overwritten ";
+    return newImageName == null ? " is named " : " has overwritten ";
   }
 
   protected abstract String currCommand();

@@ -5,14 +5,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.*;
+import java.awt.Color;
 
-import model.imageFile.ImageFile;
-import model.imageFile.ImageFileNoAlpha;
-import model.imageFile.ReadOnlyImageFile;
+import model.imagefile.ImageFile;
+import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ReadOnlyImageFile;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
 
+/**
+ * To test the model for the project, including {@link ImageFile} model
+ * and {@link model.library.ImageLibModel} model.
+ */
 public class ModelTest {
   Color c1;
   Color c2;

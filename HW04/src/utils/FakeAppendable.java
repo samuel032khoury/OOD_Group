@@ -1,8 +1,8 @@
-package Utils;
+package utils;
 
 import java.io.IOException;
 
-public class FakeAppendable implements Appendable{
+public class FakeAppendable implements Appendable {
   @Override
   public Appendable append(CharSequence csq) throws IOException {
     throw new IOException();

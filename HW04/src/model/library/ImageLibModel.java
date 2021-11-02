@@ -1,6 +1,6 @@
 package model.library;
 
-import model.imageFile.ImageFile;
+import model.imagefile.ImageFile;
 
 public interface ImageLibModel extends ImageLibState {
 

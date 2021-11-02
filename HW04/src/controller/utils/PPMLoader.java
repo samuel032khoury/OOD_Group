@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import model.imageFile.ImageFile;
-import model.imageFile.ImageFileNoAlpha;
+import model.imagefile.ImageFile;
+import model.imagefile.ImageFileNoAlpha;
 
 /**
  * A concrete class of loader, that can handle the loading of ppm file.
@@ -15,13 +15,14 @@ import model.imageFile.ImageFileNoAlpha;
 public class PPMLoader implements ILoader {
   /**
    * Load a file into imageFile object.
+   *
    * @param pathName the pathname of the file
    * @return a ImageFile that have the format of the file.
-   * @throws IllegalStateException if the file cannot be found,
-   *         the file is invalid, or if the file is broken.
+   * @throws IllegalStateException if the file cannot be found, the file is invalid, or if the file
+   *                               is broken.
    */
   public ImageFile loadFile(String pathName) throws IllegalStateException {
-    if(pathName == null) {
+    if (pathName == null) {
       throw new IllegalArgumentException("Path name is unspecified!");
     }
     Scanner sc;
@@ -29,8 +30,8 @@ public class PPMLoader implements ILoader {
     try {
       sc = new Scanner(new FileInputStream(pathName));
     } catch (FileNotFoundException e) {
-      throw new IllegalStateException("Unable to find PPM file named \"" + pathName + "\"! Please " +
-              "check the name or the path of the file is accurate and try again!");
+      throw new IllegalStateException("Unable to find PPM file named \"" + pathName + "\"! Please "
+              + "check the name or the path of the file is accurate and try again!");
     }
     StringBuilder builder = new StringBuilder();
     //read the file line by line, and populate a string. This will throw away any comment lines

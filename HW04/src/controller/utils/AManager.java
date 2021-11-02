@@ -6,20 +6,22 @@ import java.util.function.Supplier;
 
 /**
  * An abstract manager that manage the provision of loader/writer, based on the suffix supplied.
- * @param <T>
+ *
+ * @param <T> The type of object to manage.
  */
 public abstract class AManager<T> implements IManager<T> {
   protected Map<String, Supplier<T>> availableSuffix = new HashMap<>();
 
   /**
    * Find the correct supplier for loader/writer based on the suffix.
+   *
    * @param suffix the suffix to found.
    * @return a loader/writer according to the suffix
    * @throws IllegalStateException if the suffix cannot be found in the hashmap.
    */
   @Override
   public T provide(String suffix) throws IllegalStateException {
-    if(suffix == null) {
+    if (suffix == null) {
       throw new IllegalArgumentException("Suffix is unspecified!");
     }
     T util = null;

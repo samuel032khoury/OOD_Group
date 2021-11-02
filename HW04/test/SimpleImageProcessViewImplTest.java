@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import Utils.FakeAppendable;
+import utils.FakeAppendable;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IImageProcessView;

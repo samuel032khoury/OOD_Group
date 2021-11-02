@@ -2,7 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
-import model.imageFile.ImageFile;
+import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
@@ -48,11 +48,11 @@ public class AdjustBrightnessCommand extends ACommand {
         newImageFile = imageFile.darken(value);
       }
       model.loadImage(newImageName, newImageFile);
-      view.renderMessage(currCommand() + " image (value: " + value + ") of " + imageName +
-              " has been created and" + connection + newImageName + ".");
+      view.renderMessage(currCommand() + " image (value: " + value + ") of " + imageName
+              + " has been created and" + connection + newImageName + ".");
     } catch (NumberFormatException e) {
-      throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
-              "but input is a string, try again!");
+      throw new IllegalStateException("Expect an integer as the value for brightness adjustment, "
+              + "but input is a string, try again!");
     }
   }
 

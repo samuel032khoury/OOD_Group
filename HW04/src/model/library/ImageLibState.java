@@ -1,6 +1,6 @@
 package model.library;
 
-import model.imageFile.ReadOnlyImageFile;
+import model.imagefile.ReadOnlyImageFile;
 
 public interface ImageLibState {
   int getLibSize();

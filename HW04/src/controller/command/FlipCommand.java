@@ -2,7 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
-import model.imageFile.ImageFile;
+import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
@@ -43,8 +43,8 @@ public class FlipCommand extends ACommand {
       newImageFile = imageFile.horizFlip();
     }
     model.loadImage(newImageName, newImageFile);
-    view.renderMessage(currCommand() + " flipped image of " + imageName + " has been " +
-            "created and" + connection + newImageName + ".");
+    view.renderMessage(currCommand() + " flipped image of " + imageName + " has been "
+            + "created and" + connection + newImageName + ".");
   }
 
   @Override

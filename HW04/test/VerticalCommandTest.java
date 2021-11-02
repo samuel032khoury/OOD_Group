@@ -6,8 +6,8 @@ import java.util.Queue;
 
 import controller.command.FlipCommand;
 import controller.command.ICommand;
-import model.imageFile.ImageFile;
-import model.imageFile.ImageFileNoAlpha;
+import model.imagefile.ImageFile;
+import model.imagefile.ImageFileNoAlpha;
 
 public class VerticalCommandTest extends ACommandTest{
   @Override

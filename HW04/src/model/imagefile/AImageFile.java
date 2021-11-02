@@ -20,7 +20,7 @@ public abstract class AImageFile implements ImageFile {
 
   public AImageFile(Color[][] pixels, int maxColorVal) {
     if (pixels == null || pixels.length <= 0 || pixels[0].length <= 0
-            || this.twoDColorContainsNull(pixels)) {
+            || this.TwoDColorContainsNull(pixels)) {
       throw new IllegalArgumentException("Invalid Image!");
     }
     if (maxColorVal < 0) {
@@ -31,34 +31,34 @@ public abstract class AImageFile implements ImageFile {
     this.width = pixels[0].length;
     this.maxColorVal = maxColorVal;
     this.channelOperations = new HashMap<>() {{
-        put(SingleChannelOperator.Red, (c -> {
-          final int red = c.getRed();
-          return new Color(red, red, red);
+      put(SingleChannelOperator.Red, (c -> {
+        final int red = c.getRed();
+        return new Color(red, red, red);
       }));
-        put(SingleChannelOperator.Blue, (c -> {
-          final int blue = c.getBlue();
-          return new Color(blue, blue, blue);
+      put(SingleChannelOperator.Blue, (c -> {
+        final int blue = c.getBlue();
+        return new Color(blue, blue, blue);
       }));
-        put(SingleChannelOperator.Green, (c -> {
-          final int green = c.getGreen();
-          return new Color(green, green, green);
+      put(SingleChannelOperator.Green, (c -> {
+        final int green = c.getGreen();
+        return new Color(green, green, green);
       }));
-        put(SimpleArithmeticChannelOperator.Intensity, (c -> {
-          final int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
-          return new Color(intensity, intensity, intensity);
+      put(SimpleArithmeticChannelOperator.Intensity, (c -> {
+        final int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+        return new Color(intensity, intensity, intensity);
       }));
-        put(SimpleArithmeticChannelOperator.Value, (c -> {
-          final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
-          return new Color(value, value, value);
+      put(SimpleArithmeticChannelOperator.Value, (c -> {
+        final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
+        return new Color(value, value, value);
       }));
-        put(SimpleArithmeticChannelOperator.Luma, (c -> {
-          final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen() + 0.0722 * c.getBlue());
-          return new Color(luma, luma, luma);
+      put(SimpleArithmeticChannelOperator.Luma, (c -> {
+        final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen() + 0.0722 * c.getBlue());
+        return new Color(luma, luma, luma);
       }));
     }};
   }
 
-  private boolean twoDColorContainsNull(Color[][] pixels) {
+  private boolean TwoDColorContainsNull(Color[][] pixels) {
     boolean nullDetected = false;
     for (Color[] pixel : pixels) {
       if (pixel == null || nullDetected) {
@@ -160,5 +160,35 @@ public abstract class AImageFile implements ImageFile {
   public Color getColorAt(int row, int col) {
     Color selected = this.pixels[row][col];
     return new Color(selected.getRGB());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    AImageFile that = (AImageFile) o;
+
+    if (height != that.height) {
+      return false;
+    }
+
+    if (width != that.width) {
+      return false;
+    }
+    return Arrays.deepEquals(pixels, that.pixels);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Arrays.deepHashCode(pixels);
+    result = 31 * result + height;
+    result = 31 * result + width;
+    return result;
   }
 }
