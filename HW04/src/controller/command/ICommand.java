@@ -7,7 +7,7 @@ import view.IImageProcessView;
 
 /**
  * An interface for command, which is a function modifies the model.
- * Different command will have different representation of the execute.
+ * Different command will have different representation in {@link #execute}.
  */
 public interface ICommand {
   /**
