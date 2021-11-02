@@ -68,15 +68,20 @@ public class ImageProcessControllerImpl implements IImageProcessController {
   public void run() {
     Scanner scanner = new Scanner(input);
     while (scanner.hasNextLine()) {
-      Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split(" ")));
-      boolean prompt = true;
+      Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split("\\s+")));
+      boolean waitPrompt = true;
+
       if (!currCommand.isEmpty()) {
         switch (currCommand.peek()) {
           case "QUIT":
             view.renderMessage("Program is quit.");
             return;
           case "SIZE":
-            view.renderMessage("There are " + model.getLibSize() + " images in the library!");
+            if(currCommand.size() > 1) {
+              view.renderError("SIZE expect no arguments while provide at least one, try again!");
+            } else {
+              view.renderMessage("There are " + model.getLibSize() + " images in the library!");
+            }
             continue;
           case "":
             continue;
@@ -101,9 +106,9 @@ public class ImageProcessControllerImpl implements IImageProcessController {
         }
 
         if (cmd != null) {
-          if (prompt) {
+          if (waitPrompt) {
             view.renderMessage("Processing, please wait!");
-            prompt = false;
+            waitPrompt = false;
           }
           try {
             cmd.execute(this.model, currCommand, this.view);

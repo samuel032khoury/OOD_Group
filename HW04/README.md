@@ -25,6 +25,7 @@ Both `ImageLibModel` and `ImageFile` are designed in a way that can limit the ca
 ## How to Run
 
 - If one wants to have a text-based script as input, they should put "-f" as the first argument, indicating they will pass a (f)ile to the program. The file path should be the second argument. Once the file is read by the program, it will perform load/process/save operation line by line, comment line starts with "#" will be ignored.
+- 
 
 ---
 
