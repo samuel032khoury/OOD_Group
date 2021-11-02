@@ -68,62 +68,55 @@ public class ImageProcessControllerImpl implements IImageProcessController {
   public void run() {
     Scanner scanner = new Scanner(input);
     while (scanner.hasNextLine()) {
-      Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split(" ")));
-      boolean prompt = true;
+      Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split("\\s+")));
+      boolean waitPrompt = true;
+
       if (!currCommand.isEmpty()) {
         switch (currCommand.peek()) {
           case "QUIT":
             view.renderMessage("Program is quit.");
             return;
           case "SIZE":
-            view.renderMessage("There are " + model.getLibSize() + " images in the library!");
+            if (currCommand.size() > 1) {
+              view.renderError("SIZE expect no arguments while provide at least one, try again!");
+            } else {
+              view.renderMessage("There are " + model.getLibSize() + " images in the library!");
+            }
             continue;
           case "":
             continue;
           default:
             break;
         }
-        if(currCommand.peek().startsWith("#")) {
+        if (currCommand.peek().startsWith("#")) {
           continue;
         }
       }
 
       while (!currCommand.isEmpty()) {
         ICommand cmd = null;
-        Supplier<ICommand> sup;
-        if(currCommand.peek().equals("")) {
-          currCommand.poll();
-          continue;
-        }
-        sup = cmdMap.getOrDefault(currCommand.poll(), null);
+        Supplier<ICommand> sup = cmdMap.getOrDefault(currCommand.poll(), null);
+
         if (sup != null) {
           cmd = sup.get();
         }
 
         if (cmd != null) {
-          if (prompt) {
+          if (waitPrompt) {
             view.renderMessage("Processing, please wait!");
-            prompt = false;
+            waitPrompt = false;
           }
           try {
             cmd.execute(this.model, currCommand, this.view);
-            this.exhaustInvalidCommand(currCommand);
+            currCommand.poll();
           } catch (IllegalStateException e) {
             this.view.renderError(e.getMessage());
-            this.exhaustInvalidCommand(currCommand);
+            currCommand.clear();
           }
         } else {
           this.view.renderError("command not found!");
-          this.exhaustInvalidCommand(currCommand);
+          currCommand.clear();
         }
-      }
-    }
-  }
-
-  private void exhaustInvalidCommand(Queue<String> commandQueue) {
-    while (!commandQueue.isEmpty()) {
-      if (commandQueue.poll().equals("&")) {
-        break;
       }
     }
   }

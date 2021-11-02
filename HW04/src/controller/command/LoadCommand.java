@@ -1,7 +1,6 @@
 package controller.command;
 
 import java.util.Queue;
-import java.util.NoSuchElementException;
 
 import controller.utils.ILoader;
 import controller.utils.LoadManager;
@@ -20,21 +19,14 @@ public class LoadCommand extends InOutCommand {
   @Override
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
-    try {
-      String pathName = super.getValidArgs(currCommand);
-      String imageName = super.getValidArgs(currCommand);
+    String pathName = super.getValidArgs(currCommand, "load");
+    String imageName = super.getValidArgs(currCommand, "load");
+    this.expectNoMoreArgs(currCommand, "load");
       ILoader loader = new LoadManager().provide(getValidSuffix(pathName));
-      String connection = (model.peek(imageName) == null)? " is named " : " has overwritten ";
-      try {
-        ImageFile img = loader.loadFile(pathName);
-        model.loadImage(imageName, img);
-        view.renderMessage("Image file found at " + pathName + " has been imported and"
-                + connection + imageName + ".");
-      } catch (IllegalStateException e) {
-        view.renderError(e.getMessage());
-      }
-    } catch (NoSuchElementException e) {
-      throw new IllegalStateException("Insufficient argument, try again!");
-    }
+      String connection = (model.peek(imageName) == null) ? " is named " : " has overwritten ";
+      ImageFile img = loader.loadFile(pathName);
+      model.loadImage(imageName, img);
+      view.renderMessage("Image file found at " + pathName + " has been imported and"
+              + connection + imageName + ".");
   }
 }
