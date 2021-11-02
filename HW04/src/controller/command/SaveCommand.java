@@ -11,6 +11,14 @@ import view.IImageProcessView;
 
 public class SaveCommand extends InOutCommand {
 
+  /**
+   * Try to export a picture into a file.
+   * @param model the model to mutate.
+   * @param currCommand a queue of current unprocessed commands as strings.
+   * @param view the view to send output to.
+   * @throws IllegalStateException if there is too much or too less arguement, the view is unable to
+   * render message. The image cannot be found.
+   */
   @Override
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {

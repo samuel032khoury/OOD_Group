@@ -7,8 +7,18 @@ import java.io.IOException;
 
 import model.imageFile.ReadOnlyImageFile;
 
+/**
+ * A concrete class of writer, that can handle the writing of ppm file.
+ */
 public class PPMWriter implements IWriter {
 
+  /**
+   * writing the ImageFile into a file.
+   * @param img the image file.
+   * @param fileName the path to store the file.
+   * @throws IllegalStateException if unable to create destination file,
+   *         written process is corrupted,
+   */
   @Override
   public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
     BufferedWriter myWriter;

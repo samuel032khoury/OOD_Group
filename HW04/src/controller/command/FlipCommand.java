@@ -11,10 +11,22 @@ public class FlipCommand extends ACommand {
   // true when performing a vertical flip, false when performing a horizontal one.
   final boolean verticalFlip;
 
+  /**
+   * To construct a model of flipCommand.
+   * @param verticalFlip true when performing a vertical flip,
+   *                     false when performing a horizontal one.
+   */
   public FlipCommand(boolean verticalFlip) {
     this.verticalFlip = verticalFlip;
   }
 
+  /**
+   * To flip a picture in the model.
+   * @param model the model to mutate.
+   * @param currCommand a queue of current unprocessed commands as strings.
+   * @param view the view to send output to.
+   * @throws IllegalStateException if the command is too much or too few.
+   */
   @Override
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
