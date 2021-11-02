@@ -43,7 +43,7 @@ public class FlipCommand extends ACommand {
       newImageFile = imageFile.horizFlip();
     }
     model.loadImage(newImageName, newImageFile);
-    view.renderMessage(this.flipDirection + " flipped image of " + imageName + " has been " +
+    view.renderMessage(currCommand() + " flipped image of " + imageName + " has been " +
             "created and" + connection + newImageName + ".");
   }
 

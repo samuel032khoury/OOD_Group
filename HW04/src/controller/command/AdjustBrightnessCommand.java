@@ -48,7 +48,7 @@ public class AdjustBrightnessCommand extends ACommand {
         newImageFile = imageFile.darken(value);
       }
       model.loadImage(newImageName, newImageFile);
-      view.renderMessage(this.adjustment + " image (value: " + value + ") of " + imageName +
+      view.renderMessage(currCommand() + " image (value: " + value + ") of " + imageName +
               " has been created and" + connection + newImageName + ".");
     } catch (NumberFormatException e) {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, " +
