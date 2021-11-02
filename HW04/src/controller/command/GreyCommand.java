@@ -1,7 +1,6 @@
 package controller.command;
 
 import java.util.Queue;
-import java.util.NoSuchElementException;
 
 import model.imageFile.ImageFile;
 import model.library.ImageLibModel;

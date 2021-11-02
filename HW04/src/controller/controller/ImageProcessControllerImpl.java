@@ -77,7 +77,7 @@ public class ImageProcessControllerImpl implements IImageProcessController {
             view.renderMessage("Program is quit.");
             return;
           case "SIZE":
-            if(currCommand.size() > 1) {
+            if (currCommand.size() > 1) {
               view.renderError("SIZE expect no arguments while provide at least one, try again!");
             } else {
               view.renderMessage("There are " + model.getLibSize() + " images in the library!");
@@ -88,19 +88,15 @@ public class ImageProcessControllerImpl implements IImageProcessController {
           default:
             break;
         }
-        if(currCommand.peek().startsWith("#")) {
+        if (currCommand.peek().startsWith("#")) {
           continue;
         }
       }
 
       while (!currCommand.isEmpty()) {
         ICommand cmd = null;
-        Supplier<ICommand> sup;
-        if(currCommand.peek().equals("")) {
-          currCommand.poll();
-          continue;
-        }
-        sup = cmdMap.getOrDefault(currCommand.poll(), null);
+        Supplier<ICommand> sup = cmdMap.getOrDefault(currCommand.poll(), null);
+
         if (sup != null) {
           cmd = sup.get();
         }
@@ -112,23 +108,15 @@ public class ImageProcessControllerImpl implements IImageProcessController {
           }
           try {
             cmd.execute(this.model, currCommand, this.view);
-            this.exhaustInvalidCommand(currCommand);
+            currCommand.poll();
           } catch (IllegalStateException e) {
             this.view.renderError(e.getMessage());
-            this.exhaustInvalidCommand(currCommand);
+            currCommand.clear();
           }
         } else {
           this.view.renderError("command not found!");
-          this.exhaustInvalidCommand(currCommand);
+          currCommand.clear();
         }
-      }
-    }
-  }
-
-  private void exhaustInvalidCommand(Queue<String> commandQueue) {
-    while (!commandQueue.isEmpty()) {
-      if (commandQueue.poll().equals("&")) {
-        break;
       }
     }
   }

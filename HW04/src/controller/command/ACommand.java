@@ -1,6 +1,5 @@
 package controller.command;
 
-import java.util.ArrayDeque;
 import java.util.Queue;
 
 import model.library.ImageLibModel;
@@ -15,7 +14,6 @@ public abstract class ACommand implements ICommand {
   protected String getValidArgs(Queue<String> currCommand, String currAction)
           throws IllegalStateException {
     if (this.splitterOrNull(currCommand)) {
-      currCommand.clear();
       throw new IllegalStateException("Insufficient argument to " + currAction + ", try again!");
     }
     return currCommand.remove();
@@ -24,7 +22,6 @@ public abstract class ACommand implements ICommand {
   protected void expectNoMoreArgs(Queue<String> currCommand, String currAction)
           throws IllegalStateException {
     if (!this.splitterOrNull(currCommand)) {
-      currCommand.clear();
       throw new IllegalStateException("Invalid Syntax: Too much arguments provided for "
               + currAction + ", try again!");
     }
