@@ -12,5 +12,5 @@ public interface ReadOnlyImageFile {
 
   int getMaxColorVal();
 
-  Color getColorAt(int x, int y);
+  Color getColorAt(int row, int col);
 }

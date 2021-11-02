@@ -157,8 +157,8 @@ public abstract class AImageFile implements ImageFile {
   }
 
   @Override
-  public Color getColorAt(int x, int y) {
-    Color selected = this.pixels[x][y];
+  public Color getColorAt(int row, int col) {
+    Color selected = this.pixels[row][col];
     return new Color(selected.getRGB());
   }
 }
