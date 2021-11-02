@@ -9,7 +9,17 @@ import java.util.Scanner;
 import model.imageFile.ImageFile;
 import model.imageFile.ImageFileNoAlpha;
 
+/**
+ * A concrete class of loader, that can handle the loading of ppm file.
+ */
 public class PPMLoader implements ILoader {
+  /**
+   * Load a file into imageFile object.
+   * @param pathName the pathname of the file
+   * @return a ImageFile that have the format of the file.
+   * @throws IllegalStateException if the file cannot be found,
+   *         the file is invalid, or if the file is broken.
+   */
   public ImageFile loadFile(String pathName) throws IllegalStateException {
     Scanner sc;
 

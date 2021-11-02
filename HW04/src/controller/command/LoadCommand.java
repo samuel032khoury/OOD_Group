@@ -9,6 +9,13 @@ import model.library.ImageLibModel;
 import view.IImageProcessView;
 
 public class LoadCommand extends InOutCommand {
+  /**
+   * Load a image into the library
+   * @param model the model to mutate.
+   * @param currCommand a queue of current unprocessed commands as strings.
+   * @param view the view to send output to.
+   * @throws IllegalStateException if the argument is too much or too little.
+   */
   @Override
   public void execute(ImageLibModel model, Queue<String> currCommand, IImageProcessView view)
           throws IllegalStateException {
