@@ -70,19 +70,21 @@ public class ImageProcessControllerImpl implements IImageProcessController {
     while (scanner.hasNextLine()) {
       Queue<String> currCommand = new ArrayDeque<>(Arrays.asList(scanner.nextLine().split(" ")));
       boolean prompt = true;
-      if (currCommand.size() == 1) {
+      if (!currCommand.isEmpty()) {
         switch (currCommand.peek()) {
           case "QUIT":
             view.renderMessage("Program is quit.");
             return;
           case "SIZE":
             view.renderMessage("There are " + model.getLibSize() + " images in the library!");
-            this.exhaustInvalidCommand(currCommand);
-            break;
+            continue;
           case "":
             continue;
           default:
             break;
+        }
+        if(currCommand.peek().startsWith("#")) {
+          continue;
         }
       }
 
