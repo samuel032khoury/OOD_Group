@@ -3,7 +3,7 @@ package utils;
 import java.awt.*;
 import java.io.IOException;
 
-import model.imageFile.ImageFile;
+import model.imagefile.ImageFile;
 import model.operation.IChannelOperator;
 
 public class MockImage implements ImageFile {

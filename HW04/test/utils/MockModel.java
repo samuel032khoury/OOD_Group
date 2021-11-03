@@ -2,8 +2,8 @@ package utils;
 
 import java.io.IOException;
 
-import model.imageFile.ImageFile;
-import model.imageFile.ReadOnlyImageFile;
+import model.imagefile.ImageFile;
+import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 
 public class MockModel implements ImageLibModel{
