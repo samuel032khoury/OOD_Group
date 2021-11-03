@@ -2,7 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
-import model.imagefile.ImageFile;
+import model.imageFile.ImageFile;
 import model.library.ImageLibModel;
 import model.operation.IChannelOperator;
 import view.IImageProcessView;

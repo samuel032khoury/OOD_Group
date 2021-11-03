@@ -1,6 +1,6 @@
 package controller.utils;
 
-import model.imagefile.ImageFile;
+import model.imageFile.ImageFile;
 
 /**
  * An interface for loading file into imageFile object.

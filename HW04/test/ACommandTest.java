@@ -4,8 +4,8 @@ import org.junit.Test;
 import java.awt.Color;
 
 import controller.command.ICommand;
-import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imageFile.ImageFile;
+import model.imageFile.ImageFileNoAlpha;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IImageProcessView;
