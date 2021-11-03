@@ -19,6 +19,7 @@ public interface ICommand {
    * @param commandQueue a queue of current unprocessed commands as strings.
    * @param view         the view to send output to.
    * @throws IllegalStateException determined by the specific implementation.
+   * @throws QuitExecution when a {@link QuitCommand} is executing.
    */
   void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException, QuitExecution;

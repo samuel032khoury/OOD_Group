@@ -5,6 +5,9 @@ import java.io.IOException;
 import model.library.ImageLibModelImpl;
 import model.library.ImageLibState;
 
+/**
+ *
+ */
 public abstract class AImageProcessView implements IImageProcessView {
   protected static final String ANSI_RED = "\u001B[31m";
   protected static final String ANSI_RESET = "\u001B[0m";
