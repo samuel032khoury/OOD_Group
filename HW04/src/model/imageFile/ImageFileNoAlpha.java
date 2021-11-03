@@ -2,7 +2,9 @@ package model.imagefile;
 
 import java.awt.Color;
 
-
+/**
+ * To represent a simple image file that has no alpha channel.
+ */
 public class ImageFileNoAlpha extends AImageFile {
 
   public ImageFileNoAlpha(Color[][] pixels) {

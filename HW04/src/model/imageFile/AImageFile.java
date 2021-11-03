@@ -10,6 +10,10 @@ import model.operation.IChannelOperator;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
 
+/**
+ * To represent an abstract image file using a 2-D Color array for data storing. It has a
+ * {@code channelOperations} map to store operations that can be applied to each Color object.
+ */
 public abstract class AImageFile implements ImageFile {
   protected final Color[][] pixels;
   protected final int height;
@@ -31,30 +35,30 @@ public abstract class AImageFile implements ImageFile {
     this.width = pixels[0].length;
     this.maxColorVal = maxColorVal;
     this.channelOperations = new HashMap<>() {{
-      put(SingleChannelOperator.Red, (c -> {
-        final int red = c.getRed();
-        return new Color(red, red, red);
-      }));
-      put(SingleChannelOperator.Blue, (c -> {
-        final int blue = c.getBlue();
-        return new Color(blue, blue, blue);
-      }));
-      put(SingleChannelOperator.Green, (c -> {
-        final int green = c.getGreen();
-        return new Color(green, green, green);
-      }));
-      put(SimpleArithmeticChannelOperator.Intensity, (c -> {
-        final int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
-        return new Color(intensity, intensity, intensity);
-      }));
-      put(SimpleArithmeticChannelOperator.Value, (c -> {
-        final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
-        return new Color(value, value, value);
-      }));
-      put(SimpleArithmeticChannelOperator.Luma, (c -> {
-        final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen() + 0.0722 * c.getBlue());
-        return new Color(luma, luma, luma);
-      }));
+        put(SingleChannelOperator.Red, (c -> {
+          final int red = c.getRed();
+          return new Color(red, red, red);
+        }));
+        put(SingleChannelOperator.Blue, (c -> {
+          final int blue = c.getBlue();
+          return new Color(blue, blue, blue);
+        }));
+        put(SingleChannelOperator.Green, (c -> {
+          final int green = c.getGreen();
+          return new Color(green, green, green);
+        }));
+        put(SimpleArithmeticChannelOperator.Intensity, (c -> {
+          final int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+          return new Color(intensity, intensity, intensity);
+        }));
+        put(SimpleArithmeticChannelOperator.Value, (c -> {
+          final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
+          return new Color(value, value, value);
+        }));
+        put(SimpleArithmeticChannelOperator.Luma, (c -> {
+          final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen() + 0.0722 * c.getBlue());
+          return new Color(luma, luma, luma);
+        }));
     }};
   }
 

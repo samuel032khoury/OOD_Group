@@ -6,6 +6,10 @@ import java.util.Map;
 import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
+/**
+ * To represent a concrete Image Library implementation using a Map mapping from String (image
+ * name) to a {@link ImageFile}.
+ */
 public class ImageLibModelImpl implements ImageLibModel {
   private final Map<String, ImageFile> imageLib;
 

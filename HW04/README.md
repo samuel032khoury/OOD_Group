@@ -34,6 +34,8 @@ The current implementation for view is only responsible to render prompts after 
 
 ## Controller
 
+The Controller is in charge of commands user inputs in, and interact with view so that it view can correctly render feedback messages. Any additional commond can be added by 1) first implement `ICommand` interface (or extends the current `ACommand` abstract class), and 2) put the new command into supported map by extends the current `ImageProcessControllerImpl` class. Controller is also designed to be open for more file type. To support a new suffix of a image, simply 1) implements ILoader (how to load an image, i.e. how to convert a particular image file to a 2-D color array), 2) implements IWritter (how to save an image, i.e. how to convert back given a 2-D Color array to the target file type), and finally 3) add the two implementations to `availableSuffix` map in the `AManager<T>` by directly or indirectly extends it. The `provide` method will supply the cotroller the suitable way to convert back and forth from the observable file type to machine-processable data type.
+
 ---
 
 ## How to Run
@@ -49,7 +51,30 @@ The current implementation for view is only responsible to render prompts after 
 
 #### Program Level Input
 
-##### Error Handling
+- Currently this tool supports the following commands, and user must follow the syntax to use.
+  - laod [sorce] [name]
+  - save [dest] [name]
+  - brighten [var] [name] [name for modified]
+  - darken [var] [name] [name for modified]
+  - [red/green/blue/value/intensity/luma]-component [name] [name for modified]
+  - [horizontal/vertical]-flip  [name] [name for modified]
+- Command can be typed in line by line. User can also give multiple command on the same line, using splitter `&` to separate. The command goes linearly and if one fails, the error message will be thrown immediately, letting correct the syntax and try again, and no longer processe the following commands. 
+
+- **Graders: can run the program followed by `-f ImageProcScript.txt` to run the script, or can also use `-m` to run the program and manually input commands provided.**
+
+##### Error Handling - All print allert message without quit the program and allows users to try again.
+
+- Insufficient arguments for a command.
+- Too much arguments  for a command.
+- User type in an unknown command.
+- User doesn't specify the file type when load.
+- User gives a invalid fail name which starts with "." and immediately followed by a file type when load.
+- User load a image with unsupported image type.
+- User provide an image that cannot be found from the machine's file system.
+- User try to processing an non-existing file in the library.
+- When darkening/brightened an image, users fail to specify the value they want to adjust
+- Save to a read-only directory.
+- Save is interrupted.
 
 ---
 
