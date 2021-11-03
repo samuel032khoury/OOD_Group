@@ -13,6 +13,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+/**
+ * Tests that test {@code ImageLibModelImpl}
+ */
 public class LibraryTest {
   ImageFile img;
   HashMap<String, ImageFile> map;

@@ -13,10 +13,17 @@ import model.imagefile.ReadOnlyImageFile;
 public class ImageLibModelImpl implements ImageLibModel {
   private final Map<String, ImageFile> imageLib;
 
+  /**
+   * A simple constructor.
+   */
   public ImageLibModelImpl() {
     this.imageLib = new HashMap<>();
   }
 
+  /**
+   * A constructor that can set the map object of the library.
+   * @param map the map to be set initially.
+   */
   public ImageLibModelImpl(HashMap<String, ImageFile> map) {
     if (map == null) {
       throw new IllegalArgumentException("map is null");

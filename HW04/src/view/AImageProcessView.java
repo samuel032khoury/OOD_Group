@@ -17,6 +17,12 @@ public abstract class AImageProcessView implements IImageProcessView {
   ImageLibState model;
 
 
+  /**
+   * A fully customizable constructor.
+   * @param output the appendable to write message.
+   * @param model the model to take in.
+   * @throws IllegalArgumentException if output or model is null.
+   */
   public AImageProcessView(Appendable output, ImageLibState model) throws IllegalArgumentException {
     if (output == null || model == null) {
       throw new IllegalArgumentException();
@@ -25,10 +31,17 @@ public abstract class AImageProcessView implements IImageProcessView {
     this.model = model;
   }
 
+  /**
+   * A constructor that can set the model to take in.
+   * @param model the model to take in.
+   */
   public AImageProcessView(ImageLibState model) {
     this(System.out, model);
   }
 
+  /**
+   * A simple constructor.
+   */
   public AImageProcessView() {
     this(System.out, new ImageLibModelImpl());
   }
