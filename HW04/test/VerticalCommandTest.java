@@ -7,8 +7,8 @@ import java.util.Queue;
 
 import controller.command.FlipCommand;
 import controller.command.ICommand;
-import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imageFile.ImageFile;
+import model.imageFile.ImageFileNoAlpha;
 
 /**
  * Class tests the {@code vertical-flip} command.

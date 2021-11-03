@@ -6,8 +6,8 @@ import java.util.Queue;
 
 import controller.command.AdjustBrightnessCommand;
 import controller.command.ICommand;
-import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imageFile.ImageFile;
+import model.imageFile.ImageFileNoAlpha;
 
 /**
  * Class that tests the {@code brighten} command.

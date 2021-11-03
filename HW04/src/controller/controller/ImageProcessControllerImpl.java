@@ -31,18 +31,38 @@ public class ImageProcessControllerImpl implements IImageProcessController {
   private final IImageProcessView view;
   private final Map<String, Supplier<ICommand>> cmdMap;
 
+  /**
+   * A quick constructor that build a new controller using a new model.
+   */
   public ImageProcessControllerImpl() {
     this(new ImageLibModelImpl());
   }
 
+  /**
+   * A constructor that new controller using a given model.
+   * Uses system.in and system.out for input.
+   * @param model the model for the controller to take in.
+   */
   public ImageProcessControllerImpl(ImageLibModel model) {
     this(model, new InputStreamReader(System.in));
   }
 
+  /**
+   * A constructor that new controller using a given model and a given input.
+   * Uses system.out for output.
+   * @param model the model for the controller to take in.
+   * @param input the readable for the controller to read inputs.
+   */
   public ImageProcessControllerImpl(ImageLibModel model, Readable input) {
     this(model, input, new SimpleImageProcessViewImpl(model));
   }
 
+  /**
+   * A constructor that new controller using a given model and a given input and given output.
+   * @param model the model for the controller to take in.
+   * @param input the readable for the controller to read inputs.
+   * @param view the appendable for the controller to write outputs.
+   */
   public ImageProcessControllerImpl(ImageLibModel model, Readable input, IImageProcessView view) {
     if (model == null || input == null || view == null) {
       throw new IllegalArgumentException("Illegal inputs for generating a new image process "
@@ -70,6 +90,11 @@ public class ImageProcessControllerImpl implements IImageProcessController {
       }};
   }
 
+  /**
+   * The core of the controller.
+   * It will need to handle user input, deal with errors, process the model via the model
+   * and send necessary information through view.
+   */
   @Override
   public void run() {
     Scanner scanner = new Scanner(input);
