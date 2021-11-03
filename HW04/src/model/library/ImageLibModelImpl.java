@@ -18,6 +18,9 @@ public class ImageLibModelImpl implements ImageLibModel {
   }
 
   public ImageLibModelImpl(HashMap<String, ImageFile> map) {
+    if (map == null) {
+      throw new IllegalArgumentException("map is null");
+    }
     this.imageLib = map;
   }
 

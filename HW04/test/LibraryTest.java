@@ -11,6 +11,7 @@ import model.library.ImageLibModelImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class LibraryTest {
   ImageFile img;
@@ -26,6 +27,21 @@ public class LibraryTest {
      map = new HashMap<String, ImageFile>();
 
      model = new ImageLibModelImpl(map);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSuccessFulConstructor() throws Exception {
+    try {
+      ImageLibModel model0 = new ImageLibModelImpl();
+      ImageLibModel model1 = new ImageLibModelImpl(map);
+    } catch (Exception e) {
+      fail();
+    }
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testLibEx() {
+    new ImageLibModelImpl(null);
   }
 
   @Test
@@ -50,7 +66,6 @@ public class LibraryTest {
 
   @Test
   public void testGetLibSize1() {
-
     assertEquals(0, model.getLibSize());
   }
 }
