@@ -7,8 +7,8 @@ import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
- * To represent a concrete Image Library implementation using a Map mapping from String (image
- * name) to a {@link ImageFile}.
+ * To represent a concrete Image Library implementation using a Map mapping from String (image name)
+ * to a {@link ImageFile}.
  */
 public class ImageLibModelImpl implements ImageLibModel {
   private final Map<String, ImageFile> imageLib;
@@ -17,11 +17,26 @@ public class ImageLibModelImpl implements ImageLibModel {
     this.imageLib = new HashMap<>();
   }
 
+  /**
+   * load an {@link ImageFile} with an identifiable name into the {@link #imageLib}.
+   *
+   * @param imageName the image name assigned to the {@link ImageFile}
+   * @param imageFile a {@link ImageFile} being loaded
+   */
   @Override
   public void loadImage(String imageName, ImageFile imageFile) {
     imageLib.put(imageName, imageFile);
   }
 
+  /**
+   * get a copiable {@link ImageFile} from the {@link #imageLib} by the provided identifiable image
+   * name.
+   *
+   * @param imageName an identifiable image name to search a particular {@link ImageFile} in the
+   *                  {@link #imageLib}.
+   * @return a {@link ImageFile} linked to the provided {@code imageName} if such an image exists.
+   * @throws IllegalStateException if the image cannot be found.
+   */
   @Override
   public ImageFile get(String imageName) throws IllegalStateException {
     if (!this.imageLib.containsKey(imageName)) {
@@ -30,11 +45,22 @@ public class ImageLibModelImpl implements ImageLibModel {
     return imageLib.get(imageName).copyImage();
   }
 
+  /**
+   * get the size of (the number of image loaded to) the {@link #imageLib}.
+   *
+   * @return the size of the {@link #imageLib}
+   */
   @Override
   public int getLibSize() {
     return imageLib.size();
   }
 
+  /**
+   * get a {@link ReadOnlyImageFile} object stored in the {@link #imageLib} by the image name.
+   *
+   * @param imageName the image name of the {@link ReadOnlyImageFile} being looking for.
+   * @return a {@link ReadOnlyImageFile} if the search succeed, null if there isn't such an image.
+   */
   @Override
   public ReadOnlyImageFile peek(String imageName) {
     return imageLib.get(imageName);

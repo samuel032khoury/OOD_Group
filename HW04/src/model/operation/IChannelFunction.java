@@ -7,5 +7,10 @@ import java.awt.Color;
  * {@link Color} by the defined rules.
  */
 public interface IChannelFunction {
+  /**
+   * convert the provided {@link Color} to a new {@link Color} by the specific implemented rules.
+   * @param c the original color being consumed
+   * @return a new {@link Color} modified by the specific implemented rules.
+   */
   Color apply(Color c);
 }

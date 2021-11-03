@@ -5,5 +5,8 @@ package controller.controller;
  * image process to the target image.
  */
 public interface IImageProcessController {
+  /**
+   * To run the controller, input/error handling depends on specific implementation.
+   */
   void run();
 }

@@ -24,6 +24,7 @@ import model.operation.SingleChannelOperator;
 import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;
 
+// TODO
 public class ImageProcessControllerImpl implements IImageProcessController {
   private final ImageLibModel model;
   private final Readable input;
