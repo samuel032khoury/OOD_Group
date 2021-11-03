@@ -7,9 +7,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
-import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
-import model.imagefile.ReadOnlyImageFile;
+import model.imageFile.ImageFile;
+import model.imageFile.ImageFileNoAlpha;
+import model.imageFile.ReadOnlyImageFile;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
 

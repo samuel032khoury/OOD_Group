@@ -44,7 +44,7 @@ public class ImageProcessControllerImpl implements IImageProcessController {
 
   /**
    * An {@link ImageLibModelImpl}-customizable constructor for building an image process
-   * controller.
+   * controller. Use default {@code system.in} and {@code system.out} for input/view destination.
    *
    * @param model the customized library model for controller to use
    * @throws IllegalArgumentException when the provided {@code model} is null
@@ -84,22 +84,22 @@ public class ImageProcessControllerImpl implements IImageProcessController {
     this.input = input;
     this.view = view;
     this.cmdMap = new HashMap<>() {{
-      put("vertical-flip", () -> new FlipCommand(true));
-      put("horizontal-flip", () -> new FlipCommand(false));
-      put("brighten", () -> new AdjustBrightnessCommand(true));
-      put("darken", () -> new AdjustBrightnessCommand(false));
-      put("blue-component", () -> new GreyCommand(SingleChannelOperator.Blue));
-      put("red-component", () -> new GreyCommand(SingleChannelOperator.Red));
-      put("green-component", () -> new GreyCommand(SingleChannelOperator.Green));
-      put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
-      put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
-      put("intensity-component",
-              () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
-      put("load", LoadCommand::new);
-      put("save", SaveCommand::new);
-      put("size", SizeCommand::new);
-      put("QUIT", QuitCommand::new);
-    }};
+        put("vertical-flip", () -> new FlipCommand(true));
+        put("horizontal-flip", () -> new FlipCommand(false));
+        put("brighten", () -> new AdjustBrightnessCommand(true));
+        put("darken", () -> new AdjustBrightnessCommand(false));
+        put("blue-component", () -> new GreyCommand(SingleChannelOperator.Blue));
+        put("red-component", () -> new GreyCommand(SingleChannelOperator.Red));
+        put("green-component", () -> new GreyCommand(SingleChannelOperator.Green));
+        put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
+        put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
+        put("intensity-component",
+            () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
+        put("load", LoadCommand::new);
+        put("save", SaveCommand::new);
+        put("size", SizeCommand::new);
+        put("QUIT", QuitCommand::new);
+      }};
   }
 
   /**
