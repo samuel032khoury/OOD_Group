@@ -1,14 +1,18 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import utils.FakeAppendable;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
+import utils.FakeAppendable;
 import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+/**
+ * Class that tests view.
+ */
 public class SimpleImageProcessViewImplTest {
 
   ImageLibModel model;
@@ -16,58 +20,58 @@ public class SimpleImageProcessViewImplTest {
   IImageProcessView viewT;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     model = new ImageLibModelImpl();
     out = new StringBuilder();
     viewT = new SimpleImageProcessViewImpl(out, model);
   }
 
   @Test
-  public void testConstructor() throws Exception {
+  public void testConstructor() {
     try {
-      IImageProcessView view = new SimpleImageProcessViewImpl();
-      IImageProcessView view1 = new SimpleImageProcessViewImpl(model);
-      IImageProcessView view2 = new SimpleImageProcessViewImpl(out, model);
+      new SimpleImageProcessViewImpl();
+      new SimpleImageProcessViewImpl(model);
+      new SimpleImageProcessViewImpl(out, model);
     } catch (Exception e) {
       fail();
     }
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testConstructorEx1() throws Exception {
+  public void testConstructorEx1() {
     new SimpleImageProcessViewImpl(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testConstructorEx2() throws Exception {
+  public void testConstructorEx2() {
     new SimpleImageProcessViewImpl(null, model);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testConstructorEx3() throws Exception {
+  public void testConstructorEx3() {
     new SimpleImageProcessViewImpl(null, null);
   }
 
   @Test
-  public void testRenderMessage() throws Exception {
+  public void testRenderMessage() {
     this.viewT.renderMessage("hi");
     assertEquals("> hi\n", this.out.toString());
   }
 
   @Test(expected = IllegalStateException.class)
-  public void testRenderMessageException() throws Exception {
+  public void testRenderMessageException() {
     IImageProcessView view123 = new SimpleImageProcessViewImpl(new FakeAppendable(), model);
     view123.renderMessage("hi");
   }
 
   @Test
-  public void testRenderError() throws Exception {
+  public void testRenderError() {
     this.viewT.renderError("hi");
     assertEquals("\u001B[31mhi\u001B[0m\n", this.out.toString());
   }
 
   @Test(expected = IllegalStateException.class)
-  public void testRenderErrorException() throws Exception {
+  public void testRenderErrorException() {
     IImageProcessView view123 = new SimpleImageProcessViewImpl(new FakeAppendable(), model);
     view123.renderError("hi");
   }

@@ -7,7 +7,7 @@ import model.library.ImageLibModel;
 import view.IImageProcessView;
 
 /**
- * A command to adjust brightness of an image.
+ * A command to adjust brightness of an image. With a boolean indicating the adjustment direction.
  */
 public class AdjustBrightnessCommand extends ACommand {
   // true when try to brighten an image, false when try to darken an image.
@@ -16,6 +16,7 @@ public class AdjustBrightnessCommand extends ACommand {
 
   /**
    * Setting the function the command in creating objects.
+   *
    * @param brighten ture if try to brighten an image, false when try to darken an image.
    */
   public AdjustBrightnessCommand(boolean brighten) {
@@ -24,12 +25,14 @@ public class AdjustBrightnessCommand extends ACommand {
   }
 
   /**
-   * To adjust the brightness of a selected picture in the model.
-   * @param model the model to mutate.
+   * To adjust the brightness of a selected image in the model, according to the {@code brighten}
+   * value.
+   *
+   * @param model        the image library.
    * @param commandQueue a queue of current unprocessed commands as strings.
-   * @param view the view to send output to.
-   * @throws IllegalStateException if parameters are too much, too few, the value to change is
-   *         not an integer.
+   * @param view         the view to send output to.
+   * @throws IllegalStateException if there are extra/insufficient arguments, or the value to change
+   *                               is not an integer.
    */
   @Override
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
@@ -56,6 +59,11 @@ public class AdjustBrightnessCommand extends ACommand {
     }
   }
 
+  /**
+   * To have current performing {@code adjustment} command as a String.
+   *
+   * @return a string indicating command that being performed
+   */
   @Override
   protected String currCommand() {
     return this.adjustment;

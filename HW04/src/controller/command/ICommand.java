@@ -6,15 +6,17 @@ import model.library.ImageLibModel;
 import view.IImageProcessView;
 
 /**
- * An interface for command, which is a function modifies the model.
- * Different command will have different representation in {@link #execute}.
+ * An interface for command, which is a function modifies the {@link model.imagefile.ImageFile}
+ * model. Different command depends on the implementation for {@link #execute} in concrete classes.
  */
 public interface ICommand {
   /**
-   * Modifies the model with the input from the user.
-   * @param model the model to mutate.
+   * execute a particular operation specified by the {@code commandQueue} with the access to the
+   * model and view.
+   *
+   * @param model        the image library.
    * @param commandQueue a queue of current unprocessed commands as strings.
-   * @param view the view to send output to.
+   * @param view         the view to send output to.
    * @throws IllegalStateException determined by the specific implementation.
    */
   void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)

@@ -61,12 +61,12 @@ public class ImageProcessControllerImpl implements IImageProcessController {
         put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
         put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
         put("intensity-component",
-                () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
+            () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
         put("load", LoadCommand::new);
         put("save", SaveCommand::new);
         put("size", SizeCommand::new);
         put("QUIT", QuitCommand::new);
-    }};
+      }};
   }
 
   @Override
@@ -77,10 +77,10 @@ public class ImageProcessControllerImpl implements IImageProcessController {
               new ArrayDeque<>(Arrays.asList(scanner.nextLine().split("\\s+")));
       boolean waitPrompt = true;
 
-      if (!commandQueue.isEmpty() &&
-              (commandQueue.peek().equals("") || commandQueue.peek().startsWith("#"))) {
-            continue;
-        }
+      if (!commandQueue.isEmpty()
+              && (commandQueue.peek().equals("") || commandQueue.peek().startsWith("#"))) {
+        continue;
+      }
 
 
       while (!commandQueue.isEmpty()) {
@@ -93,7 +93,7 @@ public class ImageProcessControllerImpl implements IImageProcessController {
 
         if (cmd != null) {
           if (waitPrompt) {
-            view.renderMessage("Processing, please wait!");
+            view.renderMessage("Processing command, please wait!");
             waitPrompt = false;
           }
           try {

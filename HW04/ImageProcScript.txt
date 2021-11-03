@@ -5,37 +5,37 @@
 
 load res/painting.ppm painting
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # > Image file found at res/painting.ppm has been imported and is named painting.
 
 red-component painting painting-red & load res/elephant.ppm elephant 
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # > Red-component image of painting has been created and is named painting-red.
 # > Image file found at res/elephant.ppm has been imported and is named elephant.
 
 vertical-flip painting painting-vertical-flipped & save res/painting-vertical-flipped.ppm painting-vertical-flipped & vertical-flip painting painting-vertical-flipped
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # > Vertical flipped image of painting has been created and is named painting-vertical-flipped.
 # > Image painting-vertical-flipped has been exported to res/painting-vertical-flipped.ppm.
 # > Vertical flipped image of painting has been created and has overwritten painting-vertical-flipped.
 
 value-component elephant elephant-value & save res/elephant-value.ppm elephant-value
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # > Value-component image of elephant has been created and is named elephant-value.
 # > Image elephant-value has been exported to res/elephant-value.ppm.
 
 darken 50 painting painting-darkened & save res/painting-darkened.ppm painting-darkened
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # > Darkened image (value: 50) of painting has been created and is named painting-darkened.
 # > Image painting-darkened has been exported to res/painting-darkened.ppm.
 
 brighten 50 elephant elephant-brightened & save res/elephant-brightened.ppm elephant-brightened
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # > Brightened image (value: 50) of painting has been created and is named elephant-brightened.
 # > Image elephant-brightened has been exported to res/elephant-brightened.ppm.
 
@@ -49,38 +49,38 @@ size
 
 load
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Insufficient argument for load, try again!
 
 load res/painting pic
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Please specify the file format followed by '.'!
 
 load res/painting.png pic
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # This file extension is not supported!
 
 load res/non-exiting.ppm impossible
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Unable to find PPM file named "res/non-exiting.ppm"! Please check the name or the path of the file is accurate and try again!
 
 load res/.ppm impossible
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Invalid File Name!
 
 load res/.hiddenFileHoweverIsValid.ppm butTheresNoSuchAFile
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Unable to find PPM file named "res/.hiddenFileHoweverIsValid.ppm"! Please check the name or the path of the file is accurate and try again!
 
 load res/painting.ppm pic TOOMUCHELEMENTS
 
-# > Processing, please wait!
-# Invalid Syntax: Too much arguments provided for load, try again!
+# > Processing command, please wait!
+# Too much arguments provided for load, try again!
 
 loud res/painting.ppm pic
 
@@ -88,46 +88,47 @@ loud res/painting.ppm pic
 
 red-component non-exiting impossible
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # No such an image named non-exiting can be found!
 
 brighten 10 pic
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Insufficient argument for brightened, try again!
 
 brighten pic new
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Expect an integer as the value for brightness adjustment, but input is a string, try again!
 
 red-component painting painting-red & save res/painting-red painting-red & horizontal-flip painting-red thisWillNotPerformAsThePreviousCommandFails & NeitherWouldThis
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # > Red-component image of painting has been created and has overwritten painting-red.
 # Please specify the file format followed by '.'!
 
 save /painting-red.ppm painting-red
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Unable to create the destination file!
 
 save res/noSuchImage.ppm noSuchImage
 
-# > Processing, please wait!
+# > Processing command, please wait!
 # Unable to save because image noSuchImage cannot be found!
 
 size
-# > Processing, please wait!
+# > Processing command, please wait!
 # > There are 7 images in the library!
 
 size this would fail because too much arguments
-# > Processing, please wait!
-# Invalid Syntax: Too much arguments provided for size, try again!
+# > Processing command, please wait!
+# Too much arguments provided for size, try again!
 
-QUIT this too
+QUIT & save /painting-red.ppm painting-red
+QUIT & save /painting-red.ppm painting-red
 # QUIT should be the last argument, try again!
 
 QUIT
-# > Processing, please wait!
-# > Quitting, please wait!
+# > Processing command, please wait!
+# > The program is quit!

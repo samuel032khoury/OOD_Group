@@ -7,11 +7,16 @@ import model.library.ImageLibModel;
 import model.operation.IChannelOperator;
 import view.IImageProcessView;
 
+/**
+ * A command to greyscale an image by unifying all channels with a value derived by performing the
+ * given {@link IChannelOperator}.
+ */
 public class GreyCommand extends ACommand {
   private final IChannelOperator channel;
 
   /**
    * To construct a GreyCommand.
+   *
    * @param channel select which channel the GreyCommand will use to change to grayscale.
    */
   public GreyCommand(IChannelOperator channel) {
@@ -19,12 +24,13 @@ public class GreyCommand extends ACommand {
   }
 
   /**
-   * To produce a gray scale image in a model using given channel.
-   * @param model the model to mutate.
+   * To produce a grayscale image in a model using the given {@link IChannelOperator}.
+   *
+   * @param model        the image library.
    * @param commandQueue a queue of current unprocessed commands as strings.
-   * @param view the view to send output to.
-   * @throws IllegalStateException if the argument is too much or too few,
-   *         or the image channel is not compatible with the image.
+   * @param view         the view to send output to.
+   * @throws IllegalStateException if there are extra/insufficient arguments, or the provided {@link
+   *                               IChannelOperator} is unsupported.
    */
   @Override
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
@@ -40,6 +46,11 @@ public class GreyCommand extends ACommand {
             + "created and" + connection + newImageName + ".");
   }
 
+  /**
+   * To have current performing {@code greyscale} command as a String.
+   *
+   * @return a string indicating command that being performed
+   */
   protected String currCommand() {
     return channel.toString();
   }

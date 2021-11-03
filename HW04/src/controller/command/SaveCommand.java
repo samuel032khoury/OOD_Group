@@ -8,16 +8,20 @@ import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
+/**
+ * A command to save an image from the program's library to the user's machine.
+ */
 public class SaveCommand extends InOutCommand {
 
   /**
    * Try to export a picture into a file.
    *
-   * @param model        the model to mutate.
+   * @param model        the image library.
    * @param commandQueue a queue of current unprocessed commands as strings.
    * @param view         the view to send output to.
-   * @throws IllegalStateException if there is too much or too less argument, the view is unable to
-   *                               render message. The image cannot be found.
+   * @throws IllegalStateException if there are extra/insufficient arguments, if the view fails to
+   *                               render message, if the image cannot be found in the library, or
+   *                               the save process failed.
    */
   @Override
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
@@ -35,6 +39,11 @@ public class SaveCommand extends InOutCommand {
     view.renderMessage("Image " + imageName + " has been exported to " + pathName + ".");
   }
 
+  /**
+   * To have current performing command {@code save} as a String.
+   *
+   * @return a string indicating command that being performed
+   */
   @Override
   protected String currCommand() {
     return "save";

@@ -3,15 +3,16 @@ package controller.command;
 import java.io.File;
 
 /**
- * This is an abstract class that have defined common functionality to use in the save command
- * and the load command.
+ * An abstract class that have defined common functionality to use in the save command and the load
+ * command.
  */
 public abstract class InOutCommand extends ACommand {
   /**
    * To get the suffix for a filename.
+   *
    * @param pathName the pathname of the file
    * @return the suffix of the given pathname.
-   * @throws IllegalStateException if the file does not have a suffix and the filename is invalid.
+   * @throws IllegalStateException if the file does not have a suffix or the filename is invalid.
    */
   protected String getValidSuffix(String pathName) throws IllegalStateException {
     String fileName = new File(pathName).getName();

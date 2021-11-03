@@ -8,8 +8,13 @@ import controller.controller.ImageProcessControllerImpl;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 
+/**
+ * The main class to run the Image Processing program.
+ */
 public class ImageProcess {
-
+  /**
+   * Entry to the Image Processing program.
+   */
   public static void main(String[] args) {
     if (args.length < 1) {
       throw new IllegalArgumentException("Insufficient Arguments! Use -f to run a text-based "

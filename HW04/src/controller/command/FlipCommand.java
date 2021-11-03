@@ -6,6 +6,9 @@ import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
+/**
+ * A command to flip an image. With a boolean indicating the flip direction.
+ */
 public class FlipCommand extends ACommand {
   // true when performing a vertical flip, false when performing a horizontal one.
   private final boolean verticalFlip;
@@ -13,8 +16,9 @@ public class FlipCommand extends ACommand {
 
   /**
    * To construct a model of flipCommand.
-   * @param verticalFlip true when performing a vertical flip,
-   *                     false when performing a horizontal one.
+   *
+   * @param verticalFlip true when performing a vertical flip, false when performing a horizontal
+   *                     one.
    */
   public FlipCommand(boolean verticalFlip) {
     this.verticalFlip = verticalFlip;
@@ -22,11 +26,13 @@ public class FlipCommand extends ACommand {
   }
 
   /**
-   * To flip a picture in the model.
-   * @param model the model to mutate.
+   * To flip an image selected in the model,  the flip direction is determined by {@code
+   * verticalFlip}.
+   *
+   * @param model        the image library.
    * @param commandQueue a queue of current unprocessed commands as strings.
-   * @param view the view to send output to.
-   * @throws IllegalStateException if the command is too much or too few.
+   * @param view         the view to send output to.
+   * @throws IllegalStateException if there are extra/insufficient arguments.
    */
   @Override
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
@@ -47,6 +53,11 @@ public class FlipCommand extends ACommand {
             + "created and" + connection + newImageName + ".");
   }
 
+  /**
+   * To have current performing {@code flipping} command as a String.
+   *
+   * @return a string indicating command that being performed
+   */
   @Override
   protected String currCommand() {
     return this.flipDirection;

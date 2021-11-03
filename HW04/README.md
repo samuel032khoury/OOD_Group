@@ -51,36 +51,33 @@ The Controller is in charge of commands user inputs in and interacts with the vi
 
 #### Program Level Input
 
-- Image Processing Command
-  - Currently this tool supports the following Image Processing commands, and user must follow the syntax to use them.
-    - laod [sorce] [name]
+- Supported Commands
+  - Currently this program supports the following commands, and user must follow the syntax to use them.
+    - load [sorce] [name]
+
     - save [dest] [name]
+
     - brighten [var] [name] [name for modified]
+
     - darken [var] [name] [name for modified]
+
     - [red/green/blue/value/intensity/luma]-component [name] [name for modified]
+
     - [horizontal/vertical]-flip  [name] [name for modified]
-  - Image Processing Command can be typed in line by line, with comment line starts with `#` be ignored. User can also give multiple command on the same line, using splitter `&` to separate. In this case, the command are passed linearly, and if one fails, the error message will be thrown immediately, asking users to correct the syntax and try again, and no longer processe the following commands.
-  - Notes: multiple spaces between arguments are allowed and will be ignored, number of arguments need to be exact, both extra/insufficient input will cause a complain from the program. 
 
-- Library/Program State Command
+    - size
 
-  - Currently we support two commands
+      \# This will inform users the size of the library.
+  - Commands above can be typed in line by line, with comment line starts with `#` be ignored. User can also give multiple command on the same line, using splitter `&` to separate. In this case, the command will be executed linearly, and if one fails, the error message will be thrown immediately and no longer processe the remaining commands, asking users to correct the syntax and try again.
+  - Notes: multiple spaces between arguments are allowed and will be ignored, number of arguments need to be exact, both extra/insufficient input will cause a complaint from the program. 
 
-    - QUIT
+- †Quit Command
 
-      \# to quit the program
-
-    - SIZE
-
-      \# to inspect the size (number of image loaded) of the library
-
-  - Library level command need to be capitalized and can only be perforemed on a new line, i.e., same line multiple command seperated by `&` would not apply here.
-
-  - Current library level command does not expect any extra arguments and will complain if this restriction is failed.
+  - To minimize the chance that user accidentally quit the program or throw away the unperformed operations, we ask user to use the capitalized `QUIT ` to quit the program, and this operation has to be the **last** argument on a line.
 
 - **Graders: can run the program followed by `-f ImageProcScript.txt` to run the script, or can also use `-m` to run the program and manually input commands provided.**
 
-##### Error Handling - All print specific informative message without quit the program and allows users to try again.
+##### Error Handling - All of the following will cause a complaint from the program. The program will print specific informative message without quit itself and allows users to try again.
 
 - Insufficient arguments for a command.
 - Too much arguments  for a command.
