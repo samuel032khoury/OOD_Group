@@ -120,5 +120,11 @@ save res/noSuchImage.ppm noSuchImage
 SIZE
 # > There are 7 images in the library!
 
-QUIT
+SIZE this would fail because too much arguments
+# SIZE expect no arguments while provide at least one, try again!
+
+QUIT this too
+# QUIT expect no arguments while provide at least one, try again!
+
+# QUIT
 # > Program is quit.

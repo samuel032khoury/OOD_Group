@@ -22,9 +22,14 @@ public abstract class AImageFile implements ImageFile {
 
   protected Map<IChannelOperator, IChannelFunction> channelOperations;
 
+  /**
+   * To construct an image file that using a 2-D Color array present an image.
+   * @param pixels the 2-D Color array that stores the data information for an image
+   * @param maxColorVal the maximum value for value of the Color
+   */
   public AImageFile(Color[][] pixels, int maxColorVal) {
     if (pixels == null || pixels.length <= 0 || pixels[0].length <= 0
-            || this.TwoDColorContainsNull(pixels)) {
+            || this.twoDColorContainsNull(pixels)) {
       throw new IllegalArgumentException("Invalid Image!");
     }
     if (maxColorVal < 0) {
@@ -56,13 +61,14 @@ public abstract class AImageFile implements ImageFile {
           return new Color(value, value, value);
         }));
         put(SimpleArithmeticChannelOperator.Luma, (c -> {
-          final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen() + 0.0722 * c.getBlue());
+          final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen()
+                  + 0.0722 * c.getBlue());
           return new Color(luma, luma, luma);
         }));
-    }};
+      }};
   }
 
-  private boolean TwoDColorContainsNull(Color[][] pixels) {
+  private boolean twoDColorContainsNull(Color[][] pixels) {
     boolean nullDetected = false;
     for (Color[] pixel : pixels) {
       if (pixel == null || nullDetected) {

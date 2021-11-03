@@ -76,8 +76,13 @@ public class ImageProcessControllerImpl implements IImageProcessController {
       if (!commandQueue.isEmpty()) {
         switch (commandQueue.peek()) {
           case "QUIT":
-            view.renderMessage("Program is quit.");
-            return;
+            if (commandQueue.size() > 1) {
+              view.renderError("QUIT expect no arguments while provide at least one, try again!");
+            } else {
+              view.renderMessage("Program is quit.");
+              return;
+            }
+            continue;
           case "SIZE":
             if (commandQueue.size() > 1) {
               view.renderError("SIZE expect no arguments while provide at least one, try again!");
