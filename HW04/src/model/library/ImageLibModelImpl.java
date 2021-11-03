@@ -17,6 +17,10 @@ public class ImageLibModelImpl implements ImageLibModel {
     this.imageLib = new HashMap<>();
   }
 
+  public ImageLibModelImpl(HashMap<String, ImageFile> map) {
+    this.imageLib = map;
+  }
+
   /**
    * load an {@link ImageFile} with an identifiable name into the {@link #imageLib}.
    *

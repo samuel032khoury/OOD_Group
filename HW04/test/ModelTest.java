@@ -12,6 +12,7 @@ import model.imagefile.ImageFileNoAlpha;
 import model.imagefile.ReadOnlyImageFile;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
+import utils.MockChannelOperator;
 
 /**
  * To test the model for the project, including {@link ImageFile} model
@@ -226,6 +227,11 @@ public class ModelTest {
     Color[][] expectedLuma = new Color[][]{loc1Luma, loc2Luma, loc3Luma};
     ReadOnlyImageFile actualLuma = imgF.greyscale(SimpleArithmeticChannelOperator.Luma);
     assertTrue(sameContents(expectedLuma, actualLuma));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void TestEx(){
+    imgF.greyscale(MockChannelOperator.mock);
   }
 
   @Test
