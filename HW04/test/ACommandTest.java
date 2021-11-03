@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.awt.Color;
 
 import controller.command.ICommand;
+import controller.utils.QuitExecution;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileNoAlpha;
 import model.library.ImageLibModel;
@@ -73,7 +74,12 @@ public abstract class ACommandTest {
       out = new StringBuilder();
       view = new SimpleImageProcessViewImpl(out, model);
       model.loadImage("testImg", img.copyImage());
-      command.execute(this.model, inputs.get(i), this.view);
+      try{
+        command.execute(this.model, inputs.get(i), this.view);
+
+      } catch (QuitExecution e) {
+        fail("Program should not quit!");
+      }
       ImageFile newImageFile = this.model.get(this.outputName());
       assertEquals(outputs[i], newImageFile);
       assertEquals(viewOutputs[i], out.toString());
@@ -96,6 +102,8 @@ public abstract class ACommandTest {
         fail();
       } catch (IllegalStateException e) {
         System.out.println("you passed");
+      } catch (QuitExecution e) {
+        fail("Program should not quit!");
       }
 
     }

@@ -2,6 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
+import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
@@ -20,5 +21,5 @@ public interface ICommand {
    * @throws IllegalStateException determined by the specific implementation.
    */
   void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
-          throws IllegalStateException;
+          throws IllegalStateException, QuitExecution;
 }

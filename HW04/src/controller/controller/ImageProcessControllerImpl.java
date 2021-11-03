@@ -17,6 +17,7 @@ import controller.command.LoadCommand;
 import controller.command.QuitCommand;
 import controller.command.SaveCommand;
 import controller.command.SizeCommand;
+import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import model.operation.SimpleArithmeticChannelOperator;
@@ -142,6 +143,8 @@ public class ImageProcessControllerImpl implements IImageProcessController {
           } catch (IllegalStateException e) {
             this.view.renderError(e.getMessage());
             commandQueue.clear();
+          } catch (QuitExecution e) {
+            return;
           }
         } else {
           this.view.renderError("Command not found!");

@@ -2,6 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
+import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
@@ -20,12 +21,12 @@ public class QuitCommand implements ICommand {
    */
   @Override
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
-          throws IllegalStateException {
+          throws IllegalStateException, QuitExecution{
     if (commandQueue.peek() != null) {
       throw new IllegalStateException(
               "QUIT should be the last argument, try again!");
     }
     view.renderMessage("The program is quit!");
-    System.exit(0);
+    throw new QuitExecution();
   }
 }

@@ -107,7 +107,7 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("QUIT");
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("> Program is quit.\n", out.toString());
+    assertEquals("> Processing command, please wait!\n> The program is quit!\n", out.toString());
   }
 
   @Test
