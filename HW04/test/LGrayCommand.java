@@ -10,7 +10,7 @@ import model.imagefile.ImageFile;
 import model.imagefile.ImageFileNoAlpha;
 import model.operation.SimpleArithmeticChannelOperator;
 
-public class LGrayCommand extends ACommandTest{
+public class LGrayCommand extends ACommandTest {
   @Override
   public ICommand provideCommand() {
     return new GreyCommand(SimpleArithmeticChannelOperator.Luma);

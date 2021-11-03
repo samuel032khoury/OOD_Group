@@ -14,7 +14,9 @@ import controller.command.FlipCommand;
 import controller.command.AdjustBrightnessCommand;
 import controller.command.GreyCommand;
 import controller.command.LoadCommand;
+import controller.command.QuitCommand;
 import controller.command.SaveCommand;
+import controller.command.SizeCommand;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import model.operation.SimpleArithmeticChannelOperator;
@@ -62,6 +64,8 @@ public class ImageProcessControllerImpl implements IImageProcessController {
                 () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
         put("load", LoadCommand::new);
         put("save", SaveCommand::new);
+        put("size", SizeCommand::new);
+        put("QUIT", QuitCommand::new);
     }};
   }
 
@@ -73,32 +77,11 @@ public class ImageProcessControllerImpl implements IImageProcessController {
               new ArrayDeque<>(Arrays.asList(scanner.nextLine().split("\\s+")));
       boolean waitPrompt = true;
 
-      if (!commandQueue.isEmpty()) {
-        switch (commandQueue.peek()) {
-          case "QUIT":
-            if (commandQueue.size() > 1) {
-              view.renderError("QUIT expect no arguments while provide at least one, try again!");
-            } else {
-              view.renderMessage("Program is quit.");
-              return;
-            }
+      if (!commandQueue.isEmpty() &&
+              (commandQueue.peek().equals("") || commandQueue.peek().startsWith("#"))) {
             continue;
-          case "SIZE":
-            if (commandQueue.size() > 1) {
-              view.renderError("SIZE expect no arguments while provide at least one, try again!");
-            } else {
-              view.renderMessage("There are " + model.getLibSize() + " images in the library!");
-            }
-            continue;
-          case "":
-            continue;
-          default:
-            break;
         }
-        if (commandQueue.peek().startsWith("#")) {
-          continue;
-        }
-      }
+
 
       while (!commandQueue.isEmpty()) {
         ICommand cmd = null;

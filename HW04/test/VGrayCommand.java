@@ -9,9 +9,8 @@ import controller.command.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileNoAlpha;
 import model.operation.SimpleArithmeticChannelOperator;
-import model.operation.SingleChannelOperator;
 
-public class VGrayCommand extends ACommandTest{
+public class VGrayCommand extends ACommandTest {
   @Override
   public ICommand provideCommand() {
     return new GreyCommand(SimpleArithmeticChannelOperator.Value);

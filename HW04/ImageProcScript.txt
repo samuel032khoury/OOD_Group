@@ -39,7 +39,7 @@ brighten 50 elephant elephant-brightened & save res/elephant-brightened.ppm elep
 # > Brightened image (value: 50) of painting has been created and is named elephant-brightened.
 # > Image elephant-brightened has been exported to res/elephant-brightened.ppm.
 
-SIZE
+size
 
 # > There are 7 images in the library!
 
@@ -117,14 +117,17 @@ save res/noSuchImage.ppm noSuchImage
 # > Processing, please wait!
 # Unable to save because image noSuchImage cannot be found!
 
-SIZE
+size
+# > Processing, please wait!
 # > There are 7 images in the library!
 
-SIZE this would fail because too much arguments
-# SIZE expect no arguments while provide at least one, try again!
+size this would fail because too much arguments
+# > Processing, please wait!
+# Invalid Syntax: Too much arguments provided for size, try again!
 
 QUIT this too
-# QUIT expect no arguments while provide at least one, try again!
+# QUIT should be the last argument, try again!
 
-# QUIT
-# > Program is quit.
+QUIT
+# > Processing, please wait!
+# > Quitting, please wait!

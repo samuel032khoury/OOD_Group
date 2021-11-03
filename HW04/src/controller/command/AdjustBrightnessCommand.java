@@ -60,4 +60,5 @@ public class AdjustBrightnessCommand extends ACommand {
   protected String currCommand() {
     return this.adjustment;
   }
+
 }

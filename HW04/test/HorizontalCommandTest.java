@@ -9,7 +9,7 @@ import controller.command.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileNoAlpha;
 
-public class HorizontalCommandTest extends ACommandTest{
+public class HorizontalCommandTest extends ACommandTest {
   @Override
   public ICommand provideCommand() {
     return new FlipCommand(false);

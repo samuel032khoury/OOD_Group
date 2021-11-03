@@ -9,7 +9,7 @@ import controller.command.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileNoAlpha;
 
-public class DarkingCommandTest extends ACommandTest{
+public class DarkingCommandTest extends ACommandTest {
   @Override
   public ICommand provideCommand() {
     return new AdjustBrightnessCommand(false);

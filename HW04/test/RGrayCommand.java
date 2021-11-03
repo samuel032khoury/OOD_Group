@@ -10,7 +10,7 @@ import model.imagefile.ImageFile;
 import model.imagefile.ImageFileNoAlpha;
 import model.operation.SingleChannelOperator;
 
-public class RGrayCommand extends ACommandTest{
+public class RGrayCommand extends ACommandTest {
   @Override
   public ICommand provideCommand() {
     return new GreyCommand(SingleChannelOperator.Red);
