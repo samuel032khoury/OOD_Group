@@ -2,7 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
-import model.imagefile.ReadOnlyImageFile;
+import model.imageFile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 

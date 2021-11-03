@@ -3,8 +3,8 @@ package model.library;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.imagefile.ImageFile;
-import model.imagefile.ReadOnlyImageFile;
+import model.imageFile.ImageFile;
+import model.imageFile.ReadOnlyImageFile;
 
 /**
  * To represent a concrete Image Library implementation using a Map mapping from String (image name)
