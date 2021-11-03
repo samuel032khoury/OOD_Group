@@ -112,29 +112,31 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testSize() {
-    in = new StringReader("SIZE");
+    in = new StringReader("size");
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("> There are 0 images in the library!\n", out.toString());
+    assertEquals("> Processing command, please wait!\n> There are 0 images in the library!\n",
+            out.toString());
   }
 
   @Test
   public void testSize1() {
-    in = new StringReader("SIZE");
+    in = new StringReader("size");
     model.loadImage("img1", img);
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("> There are 1 images in the library!\n", out.toString());
+    assertEquals("> Processing command, please wait!\n> There are 1 images in the library!\n",
+            out.toString());
   }
 
   @Test
   public void testSizeError() {
-    in = new StringReader("SIZE w");
+    in = new StringReader("size w");
     model.loadImage("img1", img);
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("\u001B[31mSIZE expect no arguments while provide at least one,"
-            + " try again!\u001B[0m\n", out.toString());
+    assertEquals("> Processing command, please wait!\n[31mToo much arguments provided for size, "
+            + "try again![0m\n", out.toString());
   }
 
   @Test
@@ -267,7 +269,7 @@ public class ImageProcessControllerImplTest {
     IImageProcessController controller
             = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("loaded mockPeek mock", output.toString());
+    assertEquals("loaded mockpeek mock", output.toString());
   }
 
   @Test
