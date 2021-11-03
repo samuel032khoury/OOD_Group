@@ -6,7 +6,8 @@ import model.library.ImageLibModelImpl;
 import model.library.ImageLibState;
 
 /**
- *
+ * To represent an abstracted view for image process, it can access to a {@link ImageLibState},
+ * getting information by command if needed and provide feedback to the output.
  */
 public abstract class AImageProcessView implements IImageProcessView {
   protected static final String ANSI_RED = "\u001B[31m";
@@ -14,6 +15,7 @@ public abstract class AImageProcessView implements IImageProcessView {
 
   Appendable output;
   ImageLibState model;
+
 
   public AImageProcessView(Appendable output, ImageLibState model) throws IllegalArgumentException {
     if (output == null || model == null) {
@@ -31,6 +33,11 @@ public abstract class AImageProcessView implements IImageProcessView {
     this(System.out, new ImageLibModelImpl());
   }
 
+  /**
+   * To render a message {@code message} on the given {@link #output}.
+   * @param message the message being rendered
+   * @throws IllegalStateException if the render process fails
+   */
   @Override
   public void renderMessage(String message) throws IllegalStateException {
     try {
@@ -40,6 +47,11 @@ public abstract class AImageProcessView implements IImageProcessView {
     }
   }
 
+  /**
+   * To render a error message {@code message} on the given {@link #output}.
+   * @param message the error being rendered
+   * @throws IllegalStateException if the render process fails
+   */
   @Override
   public void renderError(String message) throws IllegalStateException {
     try {
