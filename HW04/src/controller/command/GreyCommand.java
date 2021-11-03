@@ -17,7 +17,8 @@ public class GreyCommand extends ACommand {
   /**
    * To construct a GreyCommand.
    *
-   * @param channel select which channel the GreyCommand will use to change to grayscale.
+   * @param channel A {@link IChannelOperator}, expected by {@link #execute} for getting a
+   *                value to be applied to all channels
    */
   public GreyCommand(IChannelOperator channel) {
     this.channel = channel;

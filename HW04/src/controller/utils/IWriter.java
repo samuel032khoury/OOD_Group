@@ -1,5 +1,6 @@
 package controller.utils;
 
+import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
@@ -7,8 +8,9 @@ import model.imagefile.ReadOnlyImageFile;
  */
 public interface IWriter {
   /**
-   * writing the ImageFile into a file.
-   * @param img the image file.
+   * convert a {@link ImageFile} to a file and write into machine's file system.
+   *
+   * @param img      the image file.
    * @param fileName the path to store the file.
    * @throws IllegalStateException if the file cannot to be written.
    */

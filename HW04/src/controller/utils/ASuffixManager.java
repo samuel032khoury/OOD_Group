@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  *
  * @param <T> The type of object to manage.
  */
-public abstract class AManager<T> implements IManager<T> {
+public abstract class ASuffixManager<T> implements IManager<T> {
   protected Map<String, Supplier<T>> availableSuffix = new HashMap<>();
 
   /**

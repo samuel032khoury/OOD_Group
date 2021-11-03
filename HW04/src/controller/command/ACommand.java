@@ -12,7 +12,7 @@ import view.IImageProcessView;
 public abstract class ACommand implements ICommand {
 
   /**
-   * execute a particular operation specified by the {@code commandQueue} with the access to the
+   * execute a particular operation specified by the {@code commandQueue}, with the access to the
    * model and view.
    *
    * @param model        the image library.
@@ -25,7 +25,8 @@ public abstract class ACommand implements ICommand {
                                IImageProcessView view) throws IllegalStateException;
 
   /**
-   * To have current performing {@link ICommand} (or subcommand if supported)as a String.
+   * To have current performing {@link ICommand} (or more detailed sub-command if supported)as a
+   * String.
    *
    * @return a string indicating command that being performed
    */

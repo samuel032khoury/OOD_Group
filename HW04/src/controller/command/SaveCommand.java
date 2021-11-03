@@ -3,7 +3,7 @@ package controller.command;
 import java.util.Queue;
 
 import controller.utils.IWriter;
-import controller.utils.WriteManager;
+import controller.utils.WriteSuffixManager;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
@@ -34,7 +34,7 @@ public class SaveCommand extends InOutCommand {
       throw new IllegalStateException(
               "Unable to save because image " + imageName + " cannot be found!");
     }
-    IWriter writer = new WriteManager().provide(getValidSuffix(pathName));
+    IWriter writer = new WriteSuffixManager().provide(getValidSuffix(pathName));
     writer.write(img, pathName);
     view.renderMessage("Image " + imageName + " has been exported to " + pathName + ".");
   }

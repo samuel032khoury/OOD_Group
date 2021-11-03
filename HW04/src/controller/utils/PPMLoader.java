@@ -10,11 +10,11 @@ import model.imagefile.ImageFile;
 import model.imagefile.ImageFileNoAlpha;
 
 /**
- * A concrete class of loader, that can handle the loading of ppm file.
+ * A concrete class of loader, with support to load a ppm file.
  */
 public class PPMLoader implements ILoader {
   /**
-   * Load a file into imageFile object.
+   * load a ppm file from the machine's file system as a {@link ImageFile} object.
    *
    * @param pathName the pathname of the file
    * @return a ImageFile that have the format of the file.

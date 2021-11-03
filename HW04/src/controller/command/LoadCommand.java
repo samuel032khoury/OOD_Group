@@ -3,7 +3,7 @@ package controller.command;
 import java.util.Queue;
 
 import controller.utils.ILoader;
-import controller.utils.LoadManager;
+import controller.utils.LoadSuffixManager;
 import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
@@ -28,7 +28,7 @@ public class LoadCommand extends InOutCommand {
     String pathName = super.getValidArgs(commandQueue);
     String imageName = super.getValidArgs(commandQueue);
     super.expectNoMoreArgs(commandQueue);
-    ILoader loader = new LoadManager().provide(getValidSuffix(pathName));
+    ILoader loader = new LoadSuffixManager().provide(getValidSuffix(pathName));
     String connection = super.getConnection(model.peek(imageName));
     ImageFile img = loader.loadFile(pathName);
     model.loadImage(imageName, img);

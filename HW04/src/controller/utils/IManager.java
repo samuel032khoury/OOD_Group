@@ -1,10 +1,17 @@
 package controller.utils;
 
 /**
- * An interface for Managing loaders/writers, are needed to provide the correct writer/loader.
+ * An interface for providing appropriate objected {@code T} based on an input/key word.
  *
  * @param <T> The type of object to manage.
  */
 public interface IManager<T> {
-  T provide(String suffix);
+  /**
+   * Provide a {@code T} based on the input.
+   *
+   * @param input the key word to search for a needed object being provided
+   * @return an object being provided
+   * @throws IllegalStateException if the search failed, meaning the object cannot be found
+   */
+  T provide(String input);
 }

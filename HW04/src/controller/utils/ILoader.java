@@ -7,7 +7,8 @@ import model.imagefile.ImageFile;
  */
 public interface ILoader {
   /**
-   * Load a file into imageFile object.
+   * load a file from the machine's file system as a {@link ImageFile} object.
+   *
    * @param fileName the pathname of the file
    * @return a ImageFile that have the format of the file.
    * @throws IllegalStateException if the file cannot be loaded.

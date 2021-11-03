@@ -12,7 +12,7 @@ Keys of the map are names of images as Strings assigned by users. The values of 
 
 Current abstract implementation of `ImageFile`, `AImageFile`, uses a 2-D array of Color to store (RGB) image (with no alpha channel) information, regardless of their original image format. `AImageFile` will also record the maximum value for Color. There's a map in `AImageFile`, mapping from an `IChannelOperator` to `IChannelFunction` (see below Operation Section), which already contains several basic operations. Inherited concrete classes can expand the map per its demand.
 
-As overwritten an existing image in the image library is allowed by design, all current methods for `ImageFile` are restricted not to mutate the provided  `ImageFile` itself, but only generate a new copy with modification. If users want to "mutate" the original image, they can simply overwrite the value of which the key they used to retrieve an imge to process.
+As overwritten an existing image in the image library is allowed by design, all current methods for `ImageFile` are restricted not to mutate the provided  `ImageFile` itself, but only generate a new copy with modification. If users want to "mutate" the original image, they can simply overwrite the value of which the key they used to retrieve an image to process.
 
 #### Operation
 
@@ -20,7 +20,7 @@ Operation package contains an interface `IChannelOperator` for enum classes. Eve
 
 Notes: It’s (safely) assumed that implementors would expand the map correctly, meaning the new operation added must make sense to the images stored in a particular inherited class. For example, implementors should realize it's meaningless to put an alpha-related operation into the map of the class that represents images that only have RBG information.
 
-#### R/W Capbility
+#### R/W Capability
 
 Both `ImageLibModel` and `ImageFile` are designed in a way that can limit (specifically in view package) the capability of performing malicious/mistaken mutation or overwritten. Specifically, we make these two interfaces implement the read-only interfaces `ImageLibModelState` and `ReadOnlyImageFile` that only have methods for inspecting information about models. On the other hand, given the ability to retrieve the information/status of a library/image, the model doesn't tell any details about the concrete implementation as all methods return abstraction and can only use public methods.
 
@@ -34,7 +34,7 @@ The current implementation for view is only responsible to render prompts after 
 
 ## Controller
 
-The Controller is in charge of commands user inputs in and interacts with the view so that the view can correctly render feedback messages. Any additional command can be added by 1) first implementing the `ICommand` interface (or extending the current `ACommand` abstract class), and 2) putting the new command into the supported map by extending the current `ImageProcessControllerImpl` class. The controller is also designed to be open for more file types. To support a new suffix of an image, simply 1) implements ILoader (how to load an image, i.e., how to convert a particular image file to a 2-D color array), 2) implements IWritter (how to save an image, i.e., how to convert back given a 2-D Color array to the target file type), and finally 3) add the two implementations to `availableSuffix` map in the `AManager<T>` by directly or indirectly extends it. The `provide` method will supply the controller with a suitable way to convert back and forth from the human-readble file type to machine-processable data type.
+The Controller is in charge of commands user inputs in and interacts with the view so that the view can correctly render feedback messages. Any additional command can be added by 1) first implementing the `ICommand` interface (or extending the current `ACommand` abstract class), and 2) putting the new command into the supported map by extending the current `ImageProcessControllerImpl` class. The controller is also designed to be open for more file types. To support a new suffix of an image, simply 1) implements ILoader (how to load an image, i.e., how to convert a particular image file to a 2-D color array), 2) implements IWriter (how to save an image, i.e., how to convert back given a 2-D Color array to the target file type), and finally 3) add the two implementations to `availableSuffix` map in the `AManager<T>` by directly or indirectly extends it. The `provide` method will supply the controller with a suitable way to convert back and forth from the human-readable file type to machine-processable data type.
 
 ---
 
@@ -52,8 +52,8 @@ The Controller is in charge of commands user inputs in and interacts with the vi
 #### Program Level Input
 
 - Supported Commands
-  - Currently this program supports the following commands, and user must follow the syntax to use them.
-    - load [sorce] [name]
+  - Currently, this program supports the following commands, and user must follow the syntax to use them.
+    - load [source] [name]
 
     - save [dest] [name]
 
@@ -68,7 +68,7 @@ The Controller is in charge of commands user inputs in and interacts with the vi
     - size
 
       \# This will inform users the size of the library.
-  - Commands above can be typed in line by line, with comment line starts with `#` be ignored. User can also give multiple command on the same line, using splitter `&` to separate. In this case, the command will be executed linearly, and if one fails, the error message will be thrown immediately and no longer processe the remaining commands, asking users to correct the syntax and try again.
+  - Commands above can be typed in line by line, with comment line starts with `#` be ignored. User can also give multiple command on the same line, using splitter `&` to separate. In this case, the command will be executed linearly, and if one fails, the error message will be thrown immediately and no longer process the remaining commands, asking users to correct the syntax and try again.
   - Notes: multiple spaces between arguments are allowed and will be ignored, number of arguments need to be exact, both extra/insufficient input will cause a complaint from the program. 
 
 - †Quit Command
@@ -77,16 +77,17 @@ The Controller is in charge of commands user inputs in and interacts with the vi
 
 - **Graders: can run the program followed by `-f ImageProcScript.txt` to run the script, or can also use `-m` to run the program and manually input commands provided.**
 
-##### Error Handling - All of the following will cause a complaint from the program. The program will print specific informative message without quit itself and allows users to try again.
+##### Error Handling - All the following will cause a complaint from the program. The program will print specific informative message without quitting itself and allows users to try again.
 
 - Insufficient arguments for a command.
-- Too much arguments  for a command.
+- Too many arguments  for a command.
 - User types in an unknown command.
-- User doesn't specify the type of the image file when load.
-- User gives a invalid fail name which starts with "." and immediately followed by a file type when load.
-- User load a image with unsupported image type.
+- User doesn't specify the type of the image file when loading.
+- User gives an invalid fail name which starts with "." and immediately followed by a file type 
+  when loading.
+- User load an image with unsupported image type.
 - User provide an image that cannot be found from the machine's file system.
-- User try to processing an non-existing file in the library.
+- User try to process a non-existing file in the library.
 - When darkening/brightened an image, users fail to specify the value they want to adjust.
 - Try to save a file to a read-only directory.
 - Save is interrupted.

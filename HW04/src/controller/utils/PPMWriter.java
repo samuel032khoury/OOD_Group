@@ -5,20 +5,21 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
- * A concrete class of writer, that can handle the writing of ppm file.
+ * A concrete class of loader, with support to write a ppm file.
  */
 public class PPMWriter implements IWriter {
 
   /**
-   * writing the ImageFile into a file.
+   * convert a {@link ImageFile} to a ppm file and write into machine's file system.
    *
    * @param img      the image file.
    * @param fileName the path to store the file.
    * @throws IllegalStateException if unable to create destination file, written process is
-   *                               corrupted,
+   *                               corrupted.
    */
   @Override
   public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
