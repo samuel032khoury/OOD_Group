@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import model.imageFile.ImageFile;
-import model.imageFile.ImageFileNoAlpha;
+import model.imagefile.ImageFile;
+import model.imagefile.ImageFileNoAlpha;
 
 /**
  * A concrete class of loader, with support to load a ppm file.

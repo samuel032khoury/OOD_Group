@@ -1,7 +1,7 @@
 package controller.utils;
 
-import model.imageFile.ImageFile;
-import model.imageFile.ReadOnlyImageFile;
+import model.imagefile.ImageFile;
+import model.imagefile.ReadOnlyImageFile;
 
 /**
  * An interface for writing the ImageFile into a file.

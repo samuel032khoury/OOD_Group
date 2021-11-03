@@ -4,7 +4,7 @@ import java.util.Queue;
 
 import controller.utils.ILoader;
 import controller.utils.LoadSuffixManager;
-import model.imageFile.ImageFile;
+import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 

@@ -1,4 +1,4 @@
-package model.imageFile;
+package model.imagefile;
 
 import java.awt.Color;
 import java.util.Arrays;

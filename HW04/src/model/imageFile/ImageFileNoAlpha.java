@@ -1,6 +1,6 @@
-package model.imageFile;
+package model.imagefile;
 
-import model.imageFile.AImageFile;
+import model.imagefile.AImageFile;
 
 import java.awt.Color;
 

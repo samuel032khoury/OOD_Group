@@ -5,8 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import model.imageFile.ImageFile;
-import model.imageFile.ReadOnlyImageFile;
+import model.imagefile.ImageFile;
+import model.imagefile.ReadOnlyImageFile;
 
 /**
  * A concrete class of loader, with support to write a ppm file.

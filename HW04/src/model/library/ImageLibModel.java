@@ -1,6 +1,6 @@
 package model.library;
 
-import model.imageFile.ImageFile;
+import model.imagefile.ImageFile;
 
 /**
  * To represent an Image Library that stored all the images has been loaded into the program.
