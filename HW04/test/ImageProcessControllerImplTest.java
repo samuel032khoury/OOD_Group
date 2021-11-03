@@ -269,7 +269,7 @@ public class ImageProcessControllerImplTest {
     IImageProcessController controller
             = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("loaded mockPeek mock", output.toString());
+    assertEquals("loaded mockpeek mock", output.toString());
   }
 
   @Test
