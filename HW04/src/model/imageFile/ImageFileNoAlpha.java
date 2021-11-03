@@ -1,7 +1,5 @@
 package model.imagefile;
 
-import model.imagefile.AImageFile;
-
 import java.awt.Color;
 
 /**

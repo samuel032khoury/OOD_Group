@@ -6,7 +6,10 @@ import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 
-public class MockModel implements ImageLibModel{
+/**
+ * To represent a mock {@link ImageLibModel} for testing purpose.
+ */
+public class MockModel implements ImageLibModel {
   private final Appendable output;
 
   public MockModel(Appendable output) {

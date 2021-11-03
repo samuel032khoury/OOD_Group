@@ -5,21 +5,24 @@ import controller.utils.ILoader;
 import controller.utils.IManager;
 import controller.utils.LoadSuffixManager;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
+/**
+ * To test LoadSuffixManager class.
+ */
 public class LoadSuffixManagerTest {
 
   IManager<ILoader> manager;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     manager = new LoadSuffixManager();
   }
 
   @Test
   public void testNormalLoad() {
     try {
-      ILoader loader = manager.provide("ppm");
+      manager.provide("ppm");
     } catch (Exception e) {
       fail();
     }
@@ -27,11 +30,11 @@ public class LoadSuffixManagerTest {
 
   @Test(expected = IllegalStateException.class)
   public void testEx1() {
-    ILoader loader = manager.provide("png");
+    manager.provide("png");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testEx2() {
-    ILoader loader = manager.provide(null);
+    manager.provide(null);
   }
 }

@@ -70,6 +70,11 @@ public abstract class AImageFile implements ImageFile {
       }};
   }
 
+  /**
+   * to inspect if a 2-D Color array representing an image is broken (i.e. contains null)
+   * @param pixels the 2-D Color array stores Color information for an image
+   * @return true if the 2-D Color array contains {@code null}
+   */
   private boolean twoDColorContainsNull(Color[][] pixels) {
     boolean nullDetected = false;
     for (Color[] pixel : pixels) {

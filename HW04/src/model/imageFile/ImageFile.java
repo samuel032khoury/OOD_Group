@@ -1,6 +1,5 @@
 package model.imagefile;
 
-import model.imagefile.ReadOnlyImageFile;
 import model.operation.IChannelOperator;
 
 /**

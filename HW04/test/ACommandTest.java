@@ -83,9 +83,7 @@ public abstract class ACommandTest {
   @Test
   public void testExceptions() {
     ArrayList<Queue<String>> inputs = this.errorInputs();
-    ImageFile[] outputs = this.provideOutputs();
     ICommand command = this.provideCommand();
-    String[] viewOutputs = this.viewOutputs();
 
     for (Queue<String> input : inputs) {
       model = new ImageLibModelImpl();

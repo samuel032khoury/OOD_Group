@@ -1,11 +1,14 @@
 package utils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 
 import model.imagefile.ImageFile;
 import model.operation.IChannelOperator;
 
+/**
+ * To represent a mock {@link ImageFile} for testing purpose.
+ */
 public class MockImage implements ImageFile {
   private final Appendable output;
 

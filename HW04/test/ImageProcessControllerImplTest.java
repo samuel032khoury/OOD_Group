@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.StringReader;
 
 import utils.MockImage;
@@ -15,8 +15,12 @@ import model.library.ImageLibModelImpl;
 import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
+/**
+ * To test the {@link ImageProcessControllerImpl} class.
+ */
 public class ImageProcessControllerImplTest {
   ImageLibModel model;
   ImageFile img;
@@ -25,7 +29,7 @@ public class ImageProcessControllerImplTest {
   Readable in;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     model = new ImageLibModelImpl();
     img = new ImageFileNoAlpha(new Color[][]{
             {new Color(10,11,12), new Color(20,21,22), new Color(30,31,32)},
@@ -39,10 +43,10 @@ public class ImageProcessControllerImplTest {
   @Test
   public void testConstructor() {
     try {
-      IImageProcessController controller1 = new ImageProcessControllerImpl();
-      IImageProcessController controller2 = new ImageProcessControllerImpl(model);
-      IImageProcessController controller3 = new ImageProcessControllerImpl(model, in);
-      IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+      new ImageProcessControllerImpl();
+      new ImageProcessControllerImpl(model);
+      new ImageProcessControllerImpl(model, in);
+      new ImageProcessControllerImpl(model, in, view);
     } catch (Exception e) {
       fail();
     }
@@ -50,52 +54,52 @@ public class ImageProcessControllerImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx1() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(null);
+    new ImageProcessControllerImpl(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx2() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(null, in);
+    new ImageProcessControllerImpl(null, in);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx3() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(model, null);
+    new ImageProcessControllerImpl(model, null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx4() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(model, in, null);
+    new ImageProcessControllerImpl(model, in, null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx5() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(model, null, view);
+    new ImageProcessControllerImpl(model, null, view);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx6() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(null, in, view);
+    new ImageProcessControllerImpl(null, in, view);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx7() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(null, null, view);
+    new ImageProcessControllerImpl(null, null, view);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx8() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(null, in, null);
+    new ImageProcessControllerImpl(null, in, null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx9() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(model, null, null);
+    new ImageProcessControllerImpl(model, null, null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorEx10() {
-    IImageProcessController controller2 = new ImageProcessControllerImpl(null, null, null);
+    new ImageProcessControllerImpl(null, null, null);
   }
 
   @Test
@@ -129,13 +133,13 @@ public class ImageProcessControllerImplTest {
     model.loadImage("img1", img);
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("\u001B[31mSIZE expect no arguments while provide at least one," +
-            " try again!\u001B[0m\n", out.toString());
+    assertEquals("\u001B[31mSIZE expect no arguments while provide at least one,"
+            + " try again!\u001B[0m\n", out.toString());
   }
 
   @Test
   public void testCommandNotFound() {
-    in = new StringReader("isurew w");
+    in = new StringReader("isNew w");
     model.loadImage("img1", img);
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
@@ -144,7 +148,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection() {
-    in = new StringReader("vertical-flip mock mocknew");
+    in = new StringReader("vertical-flip mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -154,7 +158,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection1() {
-    in = new StringReader("horizontal-flip mock mocknew");
+    in = new StringReader("horizontal-flip mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -164,7 +168,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection2() {
-    in = new StringReader("brighten 20 mock mocknew");
+    in = new StringReader("brighten 20 mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -174,7 +178,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection3() {
-    in = new StringReader("darken 20 mock mocknew");
+    in = new StringReader("darken 20 mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -184,7 +188,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection4() {
-    in = new StringReader("blue-component mock mocknew");
+    in = new StringReader("blue-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -194,7 +198,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection5() {
-    in = new StringReader("red-component mock mocknew");
+    in = new StringReader("red-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -204,7 +208,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection6() {
-    in = new StringReader("green-component mock mocknew");
+    in = new StringReader("green-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -214,7 +218,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection7() {
-    in = new StringReader("luma-component mock mocknew");
+    in = new StringReader("luma-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -224,7 +228,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection8() {
-    in = new StringReader("value-component mock mocknew");
+    in = new StringReader("value-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -234,7 +238,7 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection9() {
-    in = new StringReader("intensity-component mock mocknew");
+    in = new StringReader("intensity-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
@@ -263,23 +267,23 @@ public class ImageProcessControllerImplTest {
     IImageProcessController controller
             = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("loaded mockPeek mock", output.toString());
   }
 
   @Test
-  public void testLineMutilCommand() {
-    in = new StringReader("value-component mock mocknew & intensity-component mock mocknew");
+  public void testLineMultiCommand() {
+    in = new StringReader("value-component mock mockNew & intensity-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Value" +
-            "did greyscale with operator Intensity", output.toString());
+    assertEquals("did greyscale with operator Value"
+            + "did greyscale with operator Intensity", output.toString());
   }
 
   @Test
   public void testGoThrough() {
-    in = new StringReader("value-component img imgnew");
+    in = new StringReader("value-component img imgNew");
     model.loadImage("img", img);
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
 
@@ -287,7 +291,7 @@ public class ImageProcessControllerImplTest {
     assertEquals(new ImageFileNoAlpha(new Color[][]{
             {new Color(12,12,12), new Color(22,22,22), new Color(32,32,32)},
             {new Color(42,42,42), new Color(52,52,52), new Color(62,62,62)}
-    }), model.get("imgnew"));
+    }), model.get("imgNew"));
   }
 
 }

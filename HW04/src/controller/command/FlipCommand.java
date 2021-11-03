@@ -10,7 +10,7 @@ import view.IImageProcessView;
  * A command to flip an image. With a boolean indicating the flip direction.
  */
 public class FlipCommand extends ACommand {
-  // true when performing a vertical flip, false when performing a horizontal one.
+  // true when try to perform a vertical flip, false when a horizontal one.
   private final boolean verticalFlip;
   private final String flipDirection;
 
