@@ -48,7 +48,7 @@ public abstract class AImageProcessView implements IImageProcessView {
   }
 
   /**
-   * To render a error message {@code message} on the given {@link #output}.
+   * To render an error message {@code message} on the given {@link #output}.
    * @param message the error being rendered
    * @throws IllegalStateException if the render process fails
    */
