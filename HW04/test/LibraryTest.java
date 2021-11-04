@@ -27,7 +27,7 @@ public class LibraryTest {
             {new Color(10, 11, 12), new Color(20, 21, 22), new Color(30, 31, 32)},
             {new Color(40, 41, 42), new Color(50, 51, 52), new Color(60, 61, 62)}}
     );
-    map = new HashMap<String, ImageFile>();
+    map = new HashMap<>();
 
     model = new ImageLibModelImpl(map);
   }
