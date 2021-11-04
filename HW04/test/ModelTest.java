@@ -230,7 +230,7 @@ public class ModelTest {
   }
 
   @Test(expected = IllegalStateException.class)
-  public void TestEx(){
+  public void TestEx() {
     imgF.greyscale(MockChannelOperator.mock);
   }
 

@@ -74,7 +74,7 @@ public abstract class ACommandTest {
       out = new StringBuilder();
       view = new SimpleImageProcessViewImpl(out, model);
       model.loadImage("testImg", img.copyImage());
-      try{
+      try {
         command.execute(this.model, inputs.get(i), this.view);
 
       } catch (QuitExecution e) {
