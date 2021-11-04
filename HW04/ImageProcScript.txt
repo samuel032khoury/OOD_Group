@@ -126,7 +126,6 @@ size this would fail because too much arguments
 # Too much arguments provided for size, try again!
 
 QUIT & save /painting-red.ppm painting-red
-QUIT & save /painting-red.ppm painting-red
 # QUIT should be the last argument, try again!
 
 QUIT

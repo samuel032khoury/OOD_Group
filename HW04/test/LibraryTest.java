@@ -33,10 +33,10 @@ public class LibraryTest {
   }
 
   @Test
-  public void testSuccessFulConstructor() throws Exception {
+  public void testSuccessFulConstructor() {
     try {
-      ImageLibModel model0 = new ImageLibModelImpl();
-      ImageLibModel model1 = new ImageLibModelImpl(map);
+      new ImageLibModelImpl();
+      new ImageLibModelImpl(map);
     } catch (Exception e) {
       fail();
     }
