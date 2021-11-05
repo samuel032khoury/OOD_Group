@@ -16,7 +16,7 @@
     - Tests are in `test/`
     - Images provided by class are in `exampleRes/`
     - Images found online are in `res/`
-    - Class Diagram is saved in `diag/`.
+    - Updated Class Diagram will be saved in `diag/` by the end of design.
     - README file is in `README.md`.
     - USEME file is in named `USEME.md` and will be **updated** by the end of implementation.
     - Text-based script of commands is in `ImagProcScript.txt`.
