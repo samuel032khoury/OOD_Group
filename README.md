@@ -1,8 +1,8 @@
 # Group Repo For OOD in Fall21
 
-## HW04 Due on Nov 02
+## HW05 Due on Nov 11
 
-- Files/Directories in `HW4/`
+- Files/Directories in `HW5/`
     - Starter Code is in  `src/`
       - `controller/`
         - `controller/`
@@ -27,7 +27,7 @@
 
   - [x] Appropriateness of your representation choices for the data
 
-  - [ ] Adequacy of any documented class invariants 
+  - [x] Adequacy of any documented class invariants 
 
   - [x] Use of abstraction
 
