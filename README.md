@@ -3,7 +3,7 @@
 ## HW05 Due on Nov 11
 
 - Files/Directories in `HW5/`
-    - Starter Code is in  `src/`
+    - Source Code are in  `src/`
       - `controller/`
         - `controller/`
         - `command/`
@@ -13,12 +13,13 @@
         - `imageFile/`
         - `operation/`
       - `view/`
-    - (Starter) Test is in `test/`
+    - Tests are in `test/`
     - Images provided by class are in `exampleRes/`
     - Images found online are in `res/`
     - Class Diagram is saved in `diag/`.
-    - README file is named as `README.md`and will be updated later the Monday
-    - Text-based script of commands is named as `ImagProcScript.txt` and will be updated later the Monday
+    - README file is in `README.md`.
+    - USEME file is in named `USEME.md` and will be **updated** by the end of implementation.
+    - Text-based script of commands is in `ImagProcScript.txt`.
     
 - Implementation Notes
   - [x] Adherence to an MVC design
