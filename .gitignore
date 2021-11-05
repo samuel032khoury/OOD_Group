@@ -8,7 +8,7 @@
 *.ctxt
 
 # IntelliJ files
-*.iml
+#*.iml
 .idea/
 out/
 
