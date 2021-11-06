@@ -16,13 +16,11 @@ public class ImageProcess {
    * Entry to the Image Processing program.
    */
   public static void main(String[] args) {
+    InputStream targetStream = null;
+    // TODO : ADD JUSTIFICATION FOR SUPPORT EMPTY COMMAND LEVEL ARGS
     if (args.length < 1) {
-      throw new IllegalArgumentException("Insufficient Arguments! Use -f to run a text-based "
-              + "script (f)ile or use -m to (m)anually manage and process images!");
-    }
-
-    InputStream targetStream;
-    if (args[0].equals("-f")) {
+      targetStream = System.in;
+    } else if (args[0].equals("-f")) {
       try {
         String filePath = args[1];
         File file = new File(filePath);
@@ -34,15 +32,15 @@ public class ImageProcess {
         throw new IllegalArgumentException("Unable to find the provided file! Please "
                 + "check the name or the path of the file is accurate and try again!");
       }
-    } else if (args[0].equals("-m")) {
-      targetStream = System.in;
-    } else {
-      targetStream = null;
-    }
-
+    } //else if (args[0].equals("-m")) {
+//      targetStream = System.in;
+//    } else {
+//      targetStream = null;
+//    }
+    // TODO: justification for editing error message
     if (targetStream == null) {
-      throw new IllegalArgumentException("Unsupported input type! Use either -f to run a "
-              + "text-based script (f)ile or use -m to (m)anually manage and process images!");
+      throw new IllegalArgumentException("Unknown arguments! Use -f to run a "
+              + "text-based script (f)ile or enter interactive mode by providing no arguments!");
     }
 
     ImageLibModel model = new ImageLibModelImpl();
