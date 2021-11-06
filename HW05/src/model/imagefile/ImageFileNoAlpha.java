@@ -27,4 +27,20 @@ public class ImageFileNoAlpha extends AImageFile {
   public ImageFileNoAlpha(Color[][] pixels, int maxColorVal) {
     super(pixels, maxColorVal);
   }
+
+  public static class ImageFileNoAlphaBuilder extends ImageFileBuilder<ImageFileNoAlphaBuilder> {
+
+    @Override
+    protected ImageFile build() {
+      if (this.image == null ) {
+        throw new IllegalStateException("Fail to build: No image received!");
+      }
+      return new ImageFileNoAlpha(this.image, maxVal);
+    }
+
+    @Override
+    protected ImageFileNoAlphaBuilder returnBuilder() {
+      return this;
+    }
+  }
 }

@@ -98,6 +98,7 @@ public abstract class AImageFile implements ImageFile {
       vertiFlipped[row] = pixels[this.height - 1 - row];
     }
     return new ImageFileNoAlpha(vertiFlipped);
+    // return new Image
   }
 
   /**
