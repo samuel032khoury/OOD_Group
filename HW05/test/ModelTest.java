@@ -78,8 +78,8 @@ public class ModelTest {
   @Test
   public void TestVertiFlip() {
     Color[][] expected = new Color[][]{this.loc3, this.loc2, this.loc1};
-    this.imgF.vertiFlip();
-    assertTrue(sameContents(expected, imgF));
+    ReadOnlyImageFile actual = this.imgF.vertiFlip();
+    assertTrue(sameContents(expected, actual));
   }
 
   @Test
@@ -88,8 +88,8 @@ public class ModelTest {
     Color[] loc2Flip = new Color[]{this.c6, this.c5, this.c4};
     Color[] loc3Flip = new Color[]{this.c9, this.c8, this.c7};
     Color[][] expected = new Color[][]{loc1Flip, loc2Flip, loc3Flip};
-    this.imgF.horizFlip();
-    assertTrue(sameContents(expected, imgF));
+    ReadOnlyImageFile actual = this.imgF.horizFlip();
+    assertTrue(sameContents(expected, actual));
   }
 
   @Test

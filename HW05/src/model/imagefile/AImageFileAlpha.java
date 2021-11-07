@@ -13,16 +13,6 @@ public class AImageFileAlpha extends AImageFilePro implements ImageFileAlpha {
     super(pixels, maxColorVal);
   }
 
-  /**
-   * generate an identical copy of the image to which this method applies.
-   *
-   * @return an identical {@link ImageFile}.
-   */
-  @Override
-  public ImageFileAlpha copyImage() {
-    return new AImageFileAlpha(super.deepCopyPixels(super.pixels));
-  }
-
   @Override
   public boolean alpha() {
     return true;

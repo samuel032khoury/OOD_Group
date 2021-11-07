@@ -17,21 +17,23 @@ public class MockImage implements ImageFile {
   }
 
   @Override
-  public void vertiFlip() {
+  public ImageFile vertiFlip() {
     try {
       output.append("did vertiFlip");
     } catch (IOException e) {
       throw new RuntimeException("can't write");
     }
+    return null;
   }
 
   @Override
-  public void horizFlip() {
+  public ImageFile horizFlip() {
     try {
       output.append("did horizFlip");
     } catch (IOException e) {
       throw new RuntimeException("can't write");
     }
+    return null;
   }
 
   @Override

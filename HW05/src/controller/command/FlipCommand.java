@@ -42,11 +42,11 @@ public class FlipCommand extends ACommand {
     super.expectNoMoreArgs(commandQueue);
     String connection = super.getConnection(model.peek(newImageName));
     ImageFile imageFile = model.get(imageName);
-    ImageFile newImageFile = imageFile.copyImage();
+    ImageFile newImageFile;
     if (verticalFlip) {
-      newImageFile.vertiFlip();
+      newImageFile = imageFile.vertiFlip();
     } else {
-      newImageFile.horizFlip();
+      newImageFile = imageFile.horizFlip();
     }
     model.loadImage(newImageName, newImageFile);
     view.renderMessage(currCommand() + " flipped image of " + imageName + " has been "

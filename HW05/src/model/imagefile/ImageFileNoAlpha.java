@@ -27,14 +27,4 @@ public class ImageFileNoAlpha extends AImageFile {
   public ImageFileNoAlpha(Color[][] pixels, int maxColorVal) {
     super(pixels, maxColorVal);
   }
-
-  /**
-   * generate an identical copy of the image to which this method applies.
-   *
-   * @return an identical {@link ImageFile}.
-   */
-  @Override
-  public ImageFile copyImage() {
-    return new ImageFileNoAlpha(super.deepCopyPixels(this.pixels));
-  }
 }
