@@ -30,10 +30,10 @@ import view.SimpleImageProcessViewImpl;
  * update the model according to the valid command.
  */
 public class ImageProcessControllerImpl implements IImageProcessController {
-  protected final ImageLibModel model;
-  protected final Readable input;
-  protected final IImageProcessView view;
-  protected final Map<String, Supplier<ICommand>> cmdMap;
+  private final ImageLibModel model;
+  private final Readable input;
+  private final IImageProcessView view;
+  private final Map<String, Supplier<ICommand>> cmdMap;
 
   /**
    * A convenient constructor for building an image process controller with a default {@link
