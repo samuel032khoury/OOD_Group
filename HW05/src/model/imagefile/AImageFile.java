@@ -42,36 +42,37 @@ public abstract class AImageFile implements ImageFile {
     this.width = pixels[0].length;
     this.maxColorVal = maxColorVal;
     this.channelOperations = new HashMap<>() {{
-        put(SingleChannelOperator.Red, (c -> {
-          final int red = c.getRed();
-          return new Color(red, red, red);
-        }));
-        put(SingleChannelOperator.Blue, (c -> {
-          final int blue = c.getBlue();
-          return new Color(blue, blue, blue);
-        }));
-        put(SingleChannelOperator.Green, (c -> {
-          final int green = c.getGreen();
-          return new Color(green, green, green);
-        }));
-        put(SimpleArithmeticChannelOperator.Intensity, (c -> {
-          final int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
-          return new Color(intensity, intensity, intensity);
-        }));
-        put(SimpleArithmeticChannelOperator.Value, (c -> {
-          final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
-          return new Color(value, value, value);
-        }));
-        put(SimpleArithmeticChannelOperator.Luma, (c -> {
-          final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen()
-                  + 0.0722 * c.getBlue());
-          return new Color(luma, luma, luma);
-        }));
-      }};
+      put(SingleChannelOperator.Red, (c -> {
+        final int red = c.getRed();
+        return new Color(red, red, red);
+      }));
+      put(SingleChannelOperator.Blue, (c -> {
+        final int blue = c.getBlue();
+        return new Color(blue, blue, blue);
+      }));
+      put(SingleChannelOperator.Green, (c -> {
+        final int green = c.getGreen();
+        return new Color(green, green, green);
+      }));
+      put(SimpleArithmeticChannelOperator.Intensity, (c -> {
+        final int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+        return new Color(intensity, intensity, intensity);
+      }));
+      put(SimpleArithmeticChannelOperator.Value, (c -> {
+        final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
+        return new Color(value, value, value);
+      }));
+      put(SimpleArithmeticChannelOperator.Luma, (c -> {
+        final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen()
+                + 0.0722 * c.getBlue());
+        return new Color(luma, luma, luma);
+      }));
+    }};
   }
 
   /**
    * to inspect if a 2-D Color array representing an image is broken (i.e. contains null)
+   *
    * @param pixels the 2-D Color array stores Color information for an image
    * @return true if the 2-D Color array contains {@code null}
    */
@@ -87,35 +88,31 @@ public abstract class AImageFile implements ImageFile {
   }
 
   /**
-   * generate a new vertical flipped copy of the image to which this method applies.
-   *
-   * @return a vertical flipped {@link ImageFile}.
+   * Vertical flip the provided image.
    */
   @Override
-  public ImageFile vertiFlip() {
-    Color[][] vertiFlipped = new Color[this.height][];
-    for (int row = 0; row < this.height; row++) {
-      vertiFlipped[row] = pixels[this.height - 1 - row];
+  public void vertiFlip() {
+    int j = this.height - 1;
+    for (int i = 0; i < this.height / 2; i++, j--) {
+      Color[] temp = this.pixels[i];
+      this.pixels[i] = this.pixels[j];
+      this.pixels[j] = temp;
     }
-    return new ImageFileNoAlpha(vertiFlipped);
-    // return new Image
   }
 
   /**
    * generate a new horizontal flipped copy of the image to which this method applies.
-   *
-   * @return a horizontal flipped {@link ImageFile}.
    */
   @Override
-  public ImageFile horizFlip() {
-    Color[][] horizFlipped = new Color[this.height][this.width];
-    for (int row = 0; row < this.height; row++) {
-      Color[] currRow = pixels[row];
-      for (int col = 0; col < this.width; col++) {
-        horizFlipped[row][col] = currRow[this.width - 1 - col];
+  public void horizFlip() {
+    for (Color[] currRow : this.pixels) {
+      int j = this.width - 1;
+      for (int i = 0; i < this.width / 2; i++, j--) {
+        Color temp = currRow[i];
+        currRow[i] = currRow[j];
+        currRow[j] = temp;
       }
     }
-    return new ImageFileNoAlpha(horizFlipped);
   }
 
   /**
@@ -169,7 +166,7 @@ public abstract class AImageFile implements ImageFile {
    *
    * @param operator a {@link IChannelOperator} being applied on the original image.
    * @return a greyscale {@link ImageFile} derived by applying the provided {@link IChannelOperator}
-   *              to the original image
+   * to the original image
    * @throws IllegalArgumentException if the {@link IChannelOperator} is unsupported
    */
   @Override
@@ -195,8 +192,17 @@ public abstract class AImageFile implements ImageFile {
    * @return an identical {@link ImageFile}.
    */
   @Override
-  public ImageFile copyImage() {
-    return new ImageFileNoAlpha(this.pixels);
+  public abstract ImageFile copyImage();
+
+  protected Color[][] deepCopyPixels(Color[][] c) {
+    Color[][] deepCopy = new Color[this.height][this.width];
+    for(int row = 0; row  < this.height; row ++) {
+      Color[] currRow = this.pixels[row];
+      for (int col = 0; col < this.width; col ++) {
+        deepCopy[row][col] = new Color(currRow[col].getRGB());
+      }
+    }
+    return deepCopy;
   }
 
   /**

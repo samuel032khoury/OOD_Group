@@ -11,16 +11,14 @@ public interface ImageFile extends ReadOnlyImageFile {
   /**
    * generate a new vertical flipped copy of the image to which this method applies.
    *
-   * @return a vertical flipped {@link ImageFile}.
    */
-  ImageFile vertiFlip();
+  void vertiFlip();
 
   /**
    * generate a new horizontal flipped copy of the image to which this method applies.
    *
-   * @return a horizontal flipped {@link ImageFile}.
    */
-  ImageFile horizFlip();
+  void horizFlip();
 
   /**
    * generate a new brightened copy of the image to which this method applies, with adjusted
