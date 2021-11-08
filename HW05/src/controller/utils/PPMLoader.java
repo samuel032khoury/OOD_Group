@@ -12,7 +12,7 @@ import model.imagefile.ImageFileImpl;
 /**
  * A concrete class of loader, with support to load a ppm file.
  */
-public class PPMLoader<T extends ImageFile<T>> implements ILoader<T> {
+public class PPMLoader implements ILoader {
   /**
    * load a ppm file from the machine's file system as a {@link ImageFile} object.
    *
@@ -21,7 +21,7 @@ public class PPMLoader<T extends ImageFile<T>> implements ILoader<T> {
    * @throws IllegalStateException if the file cannot be found, the file is invalid, or if the file
    *                               is broken.
    */
-  public T loadFile(String pathName) throws IllegalStateException {
+  public ImageFile loadFile(String pathName) throws IllegalStateException {
     if (pathName == null) {
       throw new IllegalArgumentException("Path name is unspecified!");
     }

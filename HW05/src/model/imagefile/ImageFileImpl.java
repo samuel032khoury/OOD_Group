@@ -31,7 +31,14 @@ public final class ImageFileImpl implements ImageFile {
   }
 
 //  protected Map<IChannelOperator, IChannelFunction> channelOperations;
+  public ImageFileImpl(Color[][] pixels) {
+    this(pixels, 255, false);
+  }
 
+  public ImageFileImpl(Color[][] pixels, int maxColorVal) {
+    this(pixels, maxColorVal, false);
+  }
+  
   /**
    * To construct an image file that using a 2-D Color array present an image.
    *
