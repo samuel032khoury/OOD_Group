@@ -5,4 +5,5 @@ package model.operation;
  * corresponding {@link IChannelFunction} implemented.
  */
 public interface IChannelOperator {
+  double[][] getMatrix();
 }

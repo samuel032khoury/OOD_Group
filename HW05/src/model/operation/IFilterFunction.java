@@ -1,5 +1,7 @@
 package model.operation;
 
-public interface IFilterFunction {
+import java.awt.*;
 
+public interface IFilterFunction {
+  public Color apply(Color[][] loc);
 }

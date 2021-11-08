@@ -20,6 +20,7 @@ import controller.command.SizeCommand;
 import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
+import model.operation.ColorTransOperator;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
 import view.IImageProcessView;
@@ -93,7 +94,6 @@ public class ImageProcessControllerImpl implements IImageProcessController {
         put("red-component", () -> new GreyCommand(SingleChannelOperator.Red));
         put("green-component", () -> new GreyCommand(SingleChannelOperator.Green));
         put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
-        put("value-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Value));
         put("intensity-component",
             () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
         put("load", LoadCommand::new);

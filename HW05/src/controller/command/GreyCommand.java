@@ -3,6 +3,7 @@ package controller.command;
 import java.util.Queue;
 
 import model.imagefile.ImageFile;
+import model.imageoperation.ColorTransformOperation;
 import model.imageoperation.GreyscaleOperation;
 import model.library.ImageLibModel;
 import model.operation.IChannelOperator;
@@ -43,6 +44,7 @@ public class GreyCommand extends ACommand {
     String connection = super.getConnection(model.peek(newImageName));
     ImageFile imageFile = model.get(imageName);
     ImageFile newImageFile = imageFile.applyOperation(new GreyscaleOperation(this.operator));
+//    ImageFile newImageFile = imageFile.applyOperation(new ColorTransformOperation(this.operator));
     model.loadImage(newImageName, newImageFile);
     view.renderMessage(currCommand() + "-component image of " + imageName + " has been "
             + "created and" + connection + newImageName + ".");

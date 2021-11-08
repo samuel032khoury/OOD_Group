@@ -1,6 +1,8 @@
 package controller.controller;
 
+import controller.command.GreyCommand;
 import model.library.ImageLibModel;
+import model.operation.ColorTransOperator;
 import view.IImageProcessView;
 
 public class ImageProcessControllerV2 extends ImageProcessControllerImpl{
@@ -24,6 +26,6 @@ public class ImageProcessControllerV2 extends ImageProcessControllerImpl{
     this.cmdMap.put("blur", null);
     this.cmdMap.put("sharpen", null);
     this.cmdMap.put("greyscale", null);
-    this.cmdMap.put("sepia", null);
+    this.cmdMap.put("sepia", () -> new GreyCommand(ColorTransOperator.Sepia));
   }
 }

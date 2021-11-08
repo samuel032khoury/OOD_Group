@@ -12,5 +12,5 @@ public interface IChannelFunction {
    * @param c the original color being consumed
    * @return a new {@link Color} modified by the specific implemented rules.
    */
-  Color apply(Color c);
+  Color apply(Color c, double[][] transformMatrix);
 }
