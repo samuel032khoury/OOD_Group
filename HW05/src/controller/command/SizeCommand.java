@@ -2,13 +2,14 @@ package controller.command;
 
 import java.util.Queue;
 
+import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
 /**
  * A command to get the size of (image loaded to) the library.
  */
-public class SizeCommand extends ACommand {
+public class SizeCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> extends ACommand<T,K> {
 
   /**
    * Try to get the size of (image loaded to) the library.
@@ -19,7 +20,7 @@ public class SizeCommand extends ACommand {
    * @throws IllegalStateException if there is extra argument followed.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(K model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
     expectNoMoreArgs(commandQueue);
     view.renderMessage("There are " + model.getLibSize() + " images in the library!");
@@ -31,6 +32,6 @@ public class SizeCommand extends ACommand {
    */
   @Override
   protected String currCommand() {
-    return "size";
+    return "Size";
   }
 }

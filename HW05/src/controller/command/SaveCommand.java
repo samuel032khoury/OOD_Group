@@ -4,6 +4,7 @@ import java.util.Queue;
 
 import controller.utils.IWriter;
 import controller.utils.WriteSuffixManager;
+import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
@@ -11,7 +12,7 @@ import view.IImageProcessView;
 /**
  * A command to save an image from the program's library to the user's machine.
  */
-public class SaveCommand extends InOutCommand {
+public class SaveCommand <T extends ImageFile<T>, K extends ImageLibModel<T>> extends InOutCommand<T,K>  {
 
   /**
    * Try to export a picture into a file.
@@ -24,7 +25,7 @@ public class SaveCommand extends InOutCommand {
    *                               the save process failed.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(K model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
     String pathName = super.getValidArgs(commandQueue);
     String imageName = super.getValidArgs(commandQueue);
@@ -46,6 +47,6 @@ public class SaveCommand extends InOutCommand {
    */
   @Override
   protected String currCommand() {
-    return "save";
+    return "Save";
   }
 }

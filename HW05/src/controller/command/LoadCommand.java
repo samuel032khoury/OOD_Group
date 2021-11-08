@@ -11,7 +11,7 @@ import view.IImageProcessView;
 /**
  * A command to load an image from the user's machine to the program's library .
  */
-public class LoadCommand extends InOutCommand {
+public class LoadCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> extends InOutCommand<T,K> {
   /**
    * Try to load an image into the library.
    *
@@ -23,14 +23,14 @@ public class LoadCommand extends InOutCommand {
    *                               system.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(K model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
     String pathName = super.getValidArgs(commandQueue);
     String imageName = super.getValidArgs(commandQueue);
     super.expectNoMoreArgs(commandQueue);
-    ILoader loader = new LoadSuffixManager().provide(getValidSuffix(pathName));
+    ILoader<T> loader = new LoadSuffixManager().provide(getValidSuffix(pathName));
     String connection = super.getConnection(model.peek(imageName));
-    ImageFile img = loader.loadFile(pathName);
+    T img = loader.loadFile(pathName);
     model.loadImage(imageName, img);
     view.renderMessage("Image file found at " + pathName + " has been imported and"
             + connection + imageName + ".");
@@ -43,6 +43,6 @@ public class LoadCommand extends InOutCommand {
    */
   @Override
   protected String currCommand() {
-    return "load";
+    return "Load";
   }
 }

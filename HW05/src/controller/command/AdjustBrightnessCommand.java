@@ -3,6 +3,7 @@ package controller.command;
 import java.util.Queue;
 
 import model.imagefile.ImageFile;
+import model.imageoperation.BrightnessOperation;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
@@ -12,7 +13,6 @@ import view.IImageProcessView;
 public class AdjustBrightnessCommand extends ACommand {
   // true when try to brighten an image, false when try to darken an image.
   private final boolean brighten;
-  private final String adjustment;
 
   /**
    * Setting the function the command in creating objects.
@@ -21,7 +21,6 @@ public class AdjustBrightnessCommand extends ACommand {
    */
   public AdjustBrightnessCommand(boolean brighten) {
     this.brighten = brighten;
-    this.adjustment = brighten ? "Brightened" : "Darkened";
   }
 
   /**
@@ -44,12 +43,7 @@ public class AdjustBrightnessCommand extends ACommand {
       super.expectNoMoreArgs(commandQueue);
       String connection = super.getConnection(model.peek(newImageName));
       ImageFile imageFile = model.get(imageName);
-      ImageFile newImageFile;
-      if (brighten) {
-        newImageFile = imageFile.brighten(value);
-      } else {
-        newImageFile = imageFile.darken(value);
-      }
+      ImageFile newImageFile = imageFile.applyOperation(new BrightnessOperation(brighten,value));
       model.loadImage(newImageName, newImageFile);
       view.renderMessage(currCommand() + " image (value: " + value + ") of " + imageName
               + " has been created and" + connection + newImageName + ".");
@@ -66,7 +60,7 @@ public class AdjustBrightnessCommand extends ACommand {
    */
   @Override
   protected String currCommand() {
-    return this.adjustment;
+    return brighten ? "Brightened" : "Darkened";
   }
 
 }

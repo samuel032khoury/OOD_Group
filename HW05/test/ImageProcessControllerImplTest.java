@@ -9,7 +9,7 @@ import utils.MockModel;
 import controller.controller.IImageProcessController;
 import controller.controller.ImageProcessControllerImpl;
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IImageProcessView;
@@ -31,7 +31,7 @@ public class ImageProcessControllerImplTest {
   @Before
   public void setUp() {
     model = new ImageLibModelImpl();
-    img = new ImageFileNoAlpha(new Color[][]{
+    img = new ImageFileImpl(new Color[][]{
             {new Color(10,11,12), new Color(20,21,22), new Color(30,31,32)},
             {new Color(40,41,42), new Color(50,51,52), new Color(60,61,62)}}
     );
@@ -290,7 +290,7 @@ public class ImageProcessControllerImplTest {
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
 
     controller.run();
-    assertEquals(new ImageFileNoAlpha(new Color[][]{
+    assertEquals(new ImageFileImpl(new Color[][]{
             {new Color(12,12,12), new Color(22,22,22), new Color(32,32,32)},
             {new Color(42,42,42), new Color(52,52,52), new Color(62,62,62)}
     }), model.get("imgNew"));

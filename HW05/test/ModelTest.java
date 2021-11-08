@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 import model.imagefile.ReadOnlyImageFile;
 import model.operation.SimpleArithmeticChannelOperator;
 import model.operation.SingleChannelOperator;
@@ -49,30 +49,30 @@ public class ModelTest {
     loc2 = new Color[]{c4, c5, c6};
     loc3 = new Color[]{c7, c8, c9};
     imgL = new Color[][]{loc1, loc2, loc3};
-    imgF = new ImageFileNoAlpha(imgL);
+    imgF = new ImageFileImpl(imgL);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void TestConstructExceptionNullImage() {
-    new ImageFileNoAlpha(null);
+    new ImageFileImpl(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void TestConstructExceptionNegMaxVal() {
-    new ImageFileNoAlpha(this.imgL, -100);
+    new ImageFileImpl(this.imgL, -100);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void TestConstructExceptionNullColorRow() {
     Color[][] imgLAlt = new Color[][]{this.loc1, this.loc2, null};
-    new ImageFileNoAlpha(imgLAlt);
+    new ImageFileImpl(imgLAlt);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void TestConstructExceptionNullColorEle() {
     this.loc3 = new Color[]{c7, null, c9};
     Color[][] imgLAlt = new Color[][]{this.loc1, this.loc2, this.loc3};
-    new ImageFileNoAlpha(imgLAlt);
+    new ImageFileImpl(imgLAlt);
   }
 
   @Test
@@ -238,7 +238,7 @@ public class ModelTest {
   public void TestGetHeight() {
     assertEquals(3, imgF.getHeight());
     Color[][] imgLAlt = new Color[][]{loc1, loc2, loc3, loc1, loc2, loc3};
-    ReadOnlyImageFile imgFAlt = new ImageFileNoAlpha(imgLAlt);
+    ReadOnlyImageFile imgFAlt = new ImageFileImpl(imgLAlt);
     assertEquals(6, imgFAlt.getHeight());
   }
 
@@ -249,13 +249,13 @@ public class ModelTest {
     Color[] loc2DoubleLength = new Color[]{c4, c5, c6, c4, c5, c6};
     Color[] loc3DoubleLength = new Color[]{c7, c8, c9, c7, c8, c9};
     Color[][] imgLAlt = new Color[][]{loc1DoubleLength, loc2DoubleLength, loc3DoubleLength};
-    ReadOnlyImageFile imgFAlt = new ImageFileNoAlpha(imgLAlt);
+    ReadOnlyImageFile imgFAlt = new ImageFileImpl(imgLAlt);
     assertEquals(6, imgFAlt.getWidth());
   }
 
   @Test
   public void TestAlpha() {
-    ReadOnlyImageFile imgFAlt = new ImageFileNoAlpha(this.imgL, 20);
+    ReadOnlyImageFile imgFAlt = new ImageFileImpl(this.imgL, 20);
     assertFalse(imgF.alpha());
     assertFalse(imgFAlt.alpha());
   }
@@ -263,7 +263,7 @@ public class ModelTest {
   @Test
   public void TestGetMaxColorVal() {
     assertEquals(255, imgF.getMaxColorVal());
-    ReadOnlyImageFile imgFAlt = new ImageFileNoAlpha(this.imgL, 20);
+    ReadOnlyImageFile imgFAlt = new ImageFileImpl(this.imgL, 20);
     assertEquals(20, imgFAlt.getMaxColorVal());
   }
 

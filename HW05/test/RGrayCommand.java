@@ -8,7 +8,7 @@ import java.util.Queue;
 import controller.command.GreyCommand;
 import controller.command.ICommand;
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 import model.operation.SingleChannelOperator;
 
 /**
@@ -38,7 +38,7 @@ public class RGrayCommand extends ACommandTest {
 
   @Override
   public ImageFile[] provideOutputs() {
-    return new ImageFile[]{new ImageFileNoAlpha(new Color[][]{
+    return new ImageFile[]{new ImageFileImpl(new Color[][]{
             {new Color(10, 10, 10), new Color(20, 20, 20), new Color(30, 30, 30)},
             {new Color(40, 40, 40), new Color(50, 50, 50), new Color(60, 60, 60)}
     })};

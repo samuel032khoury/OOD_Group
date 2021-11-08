@@ -3,13 +3,14 @@ package controller.command;
 import java.util.Queue;
 
 import controller.utils.QuitExecution;
+import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
 /**
  * A command to quit the program.
  */
-public class QuitCommand implements ICommand {
+public class QuitCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> implements ICommand<T,K> {
 
   /**
    * Try to quit the program.
@@ -21,7 +22,7 @@ public class QuitCommand implements ICommand {
    * @throws QuitExecution         when a {@link QuitCommand} is executing.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(K model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException, QuitExecution {
     if (commandQueue.peek() != null) {
       throw new IllegalStateException(

@@ -7,7 +7,7 @@ import java.util.Queue;
 import controller.command.AdjustBrightnessCommand;
 import controller.command.ICommand;
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 
 /**
  * Class that tests the {@code darken} command.
@@ -37,7 +37,7 @@ public class DarkeningCommandTest extends ACommandTest {
 
   @Override
   public ImageFile[] provideOutputs() {
-    return new ImageFile[]{new ImageFileNoAlpha(new Color[][]{
+    return new ImageFile[]{new ImageFileImpl(new Color[][]{
             {new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)},
             {new Color(0, 0, 0), new Color(0, 1, 2), new Color(10, 11, 12)}})};
   }

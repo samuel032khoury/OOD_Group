@@ -3,6 +3,7 @@ package controller.command;
 import java.util.Queue;
 
 import model.imagefile.ImageFile;
+import model.imageoperation.FlipOperation;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
 
@@ -12,7 +13,6 @@ import view.IImageProcessView;
 public class FlipCommand extends ACommand {
   // true when try to perform a vertical flip, false when a horizontal one.
   private final boolean verticalFlip;
-  private final String flipDirection;
 
   /**
    * To construct a model of flipCommand.
@@ -22,7 +22,6 @@ public class FlipCommand extends ACommand {
    */
   public FlipCommand(boolean verticalFlip) {
     this.verticalFlip = verticalFlip;
-    this.flipDirection = verticalFlip ? "Vertical" : "Horizontal";
   }
 
   /**
@@ -35,19 +34,15 @@ public class FlipCommand extends ACommand {
    * @throws IllegalStateException if there are extra/insufficient arguments.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(ImageLibModel model, Queue<String> commandQueue,
+                      IImageProcessView view)
           throws IllegalStateException {
     String imageName = super.getValidArgs(commandQueue);
     String newImageName = super.getValidArgs(commandQueue);
     super.expectNoMoreArgs(commandQueue);
     String connection = super.getConnection(model.peek(newImageName));
     ImageFile imageFile = model.get(imageName);
-    ImageFile newImageFile;
-    if (verticalFlip) {
-      newImageFile = imageFile.vertiFlip();
-    } else {
-      newImageFile = imageFile.horizFlip();
-    }
+    ImageFile newImageFile = imageFile.applyOperation(new FlipOperation(verticalFlip));
     model.loadImage(newImageName, newImageFile);
     view.renderMessage(currCommand() + " flipped image of " + imageName + " has been "
             + "created and" + connection + newImageName + ".");
@@ -60,6 +55,6 @@ public class FlipCommand extends ACommand {
    */
   @Override
   protected String currCommand() {
-    return this.flipDirection;
+    return verticalFlip ? "Vertical" : "Horizontal";
   }
 }

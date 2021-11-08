@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.imagefile.ImageFile;
+import model.imagefile.ImageFileImpl;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
@@ -38,7 +39,7 @@ public class ImageLibModelImpl implements ImageLibModel {
    * @param imageFile a {@link ImageFile} being loaded
    */
   @Override
-  public void loadImage(String imageName, ImageFile imageFile) {
+  public void loadImage(String imageName, ImageFile imageFile){
     imageLib.put(imageName, imageFile);
   }
 
@@ -56,7 +57,8 @@ public class ImageLibModelImpl implements ImageLibModel {
     if (!this.imageLib.containsKey(imageName)) {
       throw new IllegalStateException("No such an image named " + imageName + " can be found!");
     }
-    return imageLib.get(imageName).copyImage();
+//    return imageLib.get(imageName).copyImage();
+    return null;
   }
 
   /**

@@ -3,6 +3,7 @@ package controller.command;
 import java.util.Queue;
 
 import model.imagefile.ImageFile;
+import model.imageoperation.GreyscaleOperation;
 import model.library.ImageLibModel;
 import model.operation.IChannelOperator;
 import view.IImageProcessView;
@@ -12,16 +13,16 @@ import view.IImageProcessView;
  * given {@link IChannelOperator}.
  */
 public class GreyCommand extends ACommand {
-  private final IChannelOperator channel;
+  private final IChannelOperator operator;
 
   /**
    * To construct a GreyCommand.
    *
-   * @param channel A {@link IChannelOperator}, expected by {@link #execute} for getting a
+   * @param operator A {@link IChannelOperator}, expected by {@link #execute} for getting a
    *                value to be applied to all channels
    */
-  public GreyCommand(IChannelOperator channel) {
-    this.channel = channel;
+  public GreyCommand(IChannelOperator operator) {
+    this.operator = operator;
   }
 
   /**
@@ -41,7 +42,7 @@ public class GreyCommand extends ACommand {
     super.expectNoMoreArgs(commandQueue);
     String connection = super.getConnection(model.peek(newImageName));
     ImageFile imageFile = model.get(imageName);
-    ImageFile newImageFile = imageFile.greyscale(this.channel);
+    ImageFile newImageFile = imageFile.applyOperation(new GreyscaleOperation(this.operator));
     model.loadImage(newImageName, newImageFile);
     view.renderMessage(currCommand() + "-component image of " + imageName + " has been "
             + "created and" + connection + newImageName + ".");
@@ -53,6 +54,6 @@ public class GreyCommand extends ACommand {
    * @return a string indicating command that being performed
    */
   protected String currCommand() {
-    return channel.toString();
+    return operator.toString();
   }
 }

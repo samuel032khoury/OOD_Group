@@ -7,12 +7,12 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 
 /**
  * A concrete class of loader, with support to load a ppm file.
  */
-public class PPMLoader implements ILoader {
+public class PPMLoader<T extends ImageFile<T>> implements ILoader<T> {
   /**
    * load a ppm file from the machine's file system as a {@link ImageFile} object.
    *
@@ -21,7 +21,7 @@ public class PPMLoader implements ILoader {
    * @throws IllegalStateException if the file cannot be found, the file is invalid, or if the file
    *                               is broken.
    */
-  public ImageFile loadFile(String pathName) throws IllegalStateException {
+  public T loadFile(String pathName) throws IllegalStateException {
     if (pathName == null) {
       throw new IllegalArgumentException("Path name is unspecified!");
     }
@@ -65,7 +65,7 @@ public class PPMLoader implements ILoader {
           image[i][j] = color;
         }
       }
-      return new ImageFileNoAlpha(image, maxValue);
+      return new ImageFileImpl(image, maxValue);
     } catch (NoSuchElementException e) {
       throw new IllegalStateException("The image cannot be imported because it's broken!");
     }

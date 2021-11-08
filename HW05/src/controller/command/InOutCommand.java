@@ -2,11 +2,14 @@ package controller.command;
 
 import java.io.File;
 
+import model.imagefile.ImageFile;
+import model.library.ImageLibModel;
+
 /**
  * An abstract class that have defined common functionality to use in the save command and the load
  * command.
  */
-public abstract class InOutCommand extends ACommand {
+public abstract class InOutCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> extends ACommand<T, K> {
   /**
    * To get the suffix for a filename.
    *

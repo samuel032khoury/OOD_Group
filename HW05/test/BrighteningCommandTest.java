@@ -7,7 +7,7 @@ import java.util.Queue;
 import controller.command.AdjustBrightnessCommand;
 import controller.command.ICommand;
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 
 /**
  * Class that tests the {@code brighten} command.
@@ -37,7 +37,7 @@ public class BrighteningCommandTest extends ACommandTest {
 
   @Override
   public ImageFile[] provideOutputs() {
-    return new ImageFile[]{new ImageFileNoAlpha(new Color[][]{
+    return new ImageFile[]{new ImageFileImpl(new Color[][]{
             {new Color(60, 61, 62), new Color(70, 71, 72), new Color(80, 81, 82)},
             {new Color(90, 91, 92), new Color(100, 101, 102), new Color(110, 111, 112)}})};
   }

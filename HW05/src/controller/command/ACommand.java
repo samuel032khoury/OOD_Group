@@ -2,6 +2,7 @@ package controller.command;
 
 import java.util.Queue;
 
+import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
@@ -33,12 +34,12 @@ public abstract class ACommand implements ICommand {
   protected abstract String currCommand();
 
   /**
-   * get the connection word for prompt, which indicates whether the given image is newly added
-   * into the library or is overwriting existing images.
+   * get the connection word for prompt, which indicates whether the given image is newly added into
+   * the library or is overwriting existing images.
    *
    * @param newImageName the {@link ReadOnlyImageFile} inspected in the library.
    * @return "is named" when the imageFile is newly added, or "has overwritten" if the imageFile has
-   *          been loaded before
+   * been loaded before
    */
   protected String getConnection(ReadOnlyImageFile newImageName) {
     return newImageName == null ? " is named " : " has overwritten ";

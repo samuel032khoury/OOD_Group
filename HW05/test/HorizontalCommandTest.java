@@ -8,7 +8,7 @@ import java.util.Queue;
 import controller.command.FlipCommand;
 import controller.command.ICommand;
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 
 /**
  * Class that tests the {@code horizontal-flip} command.
@@ -37,7 +37,7 @@ public class HorizontalCommandTest extends ACommandTest {
 
   @Override
   public ImageFile[] provideOutputs() {
-    return new ImageFile[]{new ImageFileNoAlpha(new Color[][]{
+    return new ImageFile[]{new ImageFileImpl(new Color[][]{
             {new Color(30, 31, 32), new Color(20, 21, 22), new Color(10, 11, 12)},
             {new Color(60, 61, 62), new Color(50, 51, 52), new Color(40, 41, 42)}})};
   }

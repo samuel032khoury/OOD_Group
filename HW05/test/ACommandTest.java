@@ -6,7 +6,7 @@ import java.awt.Color;
 import controller.command.ICommand;
 import controller.utils.QuitExecution;
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileNoAlpha;
+import model.imagefile.ImageFileImpl;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IImageProcessView;
@@ -45,7 +45,7 @@ public abstract class ACommandTest {
   @Before
   public void setUp() {
 
-    img = new ImageFileNoAlpha(new Color[][]{
+    img = new ImageFileImpl(new Color[][]{
             {new Color(10, 11, 12), new Color(20, 21, 22), new Color(30, 31, 32)},
             {new Color(40, 41, 42), new Color(50, 51, 52), new Color(60, 61, 62)}}
     );
