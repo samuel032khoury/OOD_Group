@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Queue;
 
-import controller.command.AdjustBrightnessCommand;
-import controller.command.ICommand;
+import controller.command.visual.AdjustBrightnessCommand;
+import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 

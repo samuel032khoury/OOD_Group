@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
 
-import controller.command.GreyCommand;
-import controller.command.ICommand;
+import controller.command.color.GreyCommand;
+import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
-import model.operation.SingleChannelOperator;
+import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
 
 /**
  * Class that tests the {@code green-component} command.
@@ -17,7 +17,7 @@ import model.operation.SingleChannelOperator;
 public class GGrayCommand extends ACommandTest {
   @Override
   public ICommand provideCommand() {
-    return new GreyCommand(SingleChannelOperator.Green);
+    return new GreyCommand(SingleChannelGreyscaleOperator.Green);
   }
 
   @Override

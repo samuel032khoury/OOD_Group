@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
 
-import controller.command.FlipCommand;
-import controller.command.ICommand;
+import controller.command.visual.FlipCommand;
+import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 
