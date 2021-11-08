@@ -8,12 +8,19 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import model.imagefile.ImageFile;
+import model.imagefile.ImageFileImpl;
+
+import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
+import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR_PRE;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
 
 public class UniLoader implements ILoader{
 
   @Override
   public ImageFile loadFile(String fileName) throws IllegalStateException {
-    BufferedImage img = null;
+    BufferedImage img;
+    boolean alpha = false;
 
     try {
       img = ImageIO.read(new File(fileName));
@@ -23,6 +30,12 @@ public class UniLoader implements ILoader{
 
     if (img == null) {
       throw new IllegalStateException("unable to read the image");
+    }
+
+    int type = img.getType();
+    if (type == TYPE_INT_ARGB || type == TYPE_INT_ARGB_PRE || type == TYPE_4BYTE_ABGR
+            || type == TYPE_4BYTE_ABGR_PRE) {
+      alpha = true;
     }
 
     int height = img.getHeight();
@@ -36,6 +49,7 @@ public class UniLoader implements ILoader{
       }
     }
 
-    return new SomethingImage();
+    // TODO: explain the 255
+    return new ImageFileImpl(pixels, 255, alpha);
   }
 }
