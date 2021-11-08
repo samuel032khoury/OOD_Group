@@ -1,5 +1,9 @@
 package controller.controller;
 
+import controller.command.LoadCommand;
+import controller.command.LoadCommandV2;
+import controller.command.SaveCommand;
+import controller.command.SaveCommandV2;
 import controller.command.GreyCommand;
 import model.library.ImageLibModel;
 import model.operation.ColorTransOperator;
@@ -27,5 +31,7 @@ public class ImageProcessControllerV2 extends ImageProcessControllerImpl{
     this.cmdMap.put("sharpen", null);
     this.cmdMap.put("greyscale", null);
     this.cmdMap.put("sepia", () -> new GreyCommand(ColorTransOperator.Sepia));
+    this.cmdMap.put("save", SaveCommandV2::new);
+    this.cmdMap.put("load", LoadCommandV2::new);
   }
 }
