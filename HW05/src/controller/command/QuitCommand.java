@@ -10,7 +10,7 @@ import view.IImageProcessView;
 /**
  * A command to quit the program.
  */
-public class QuitCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> implements ICommand<T,K> {
+public class QuitCommand implements ICommand {
 
   /**
    * Try to quit the program.
@@ -22,7 +22,7 @@ public class QuitCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> imp
    * @throws QuitExecution         when a {@link QuitCommand} is executing.
    */
   @Override
-  public void execute(K model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException, QuitExecution {
     if (commandQueue.peek() != null) {
       throw new IllegalStateException(

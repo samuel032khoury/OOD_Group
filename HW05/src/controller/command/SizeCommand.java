@@ -9,7 +9,7 @@ import view.IImageProcessView;
 /**
  * A command to get the size of (image loaded to) the library.
  */
-public class SizeCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> extends ACommand<T,K> {
+public class SizeCommand extends ACommand {
 
   /**
    * Try to get the size of (image loaded to) the library.
@@ -20,7 +20,7 @@ public class SizeCommand<T extends ImageFile<T>, K extends ImageLibModel<T>> ext
    * @throws IllegalStateException if there is extra argument followed.
    */
   @Override
-  public void execute(K model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
     expectNoMoreArgs(commandQueue);
     view.renderMessage("There are " + model.getLibSize() + " images in the library!");

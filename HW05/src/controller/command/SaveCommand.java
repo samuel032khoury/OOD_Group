@@ -12,7 +12,7 @@ import view.IImageProcessView;
 /**
  * A command to save an image from the program's library to the user's machine.
  */
-public class SaveCommand <T extends ImageFile<T>, K extends ImageLibModel<T>> extends InOutCommand<T,K>  {
+public class SaveCommand extends InOutCommand  {
 
   /**
    * Try to export a picture into a file.
@@ -25,7 +25,7 @@ public class SaveCommand <T extends ImageFile<T>, K extends ImageLibModel<T>> ex
    *                               the save process failed.
    */
   @Override
-  public void execute(K model, Queue<String> commandQueue, IImageProcessView view)
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
     String pathName = super.getValidArgs(commandQueue);
     String imageName = super.getValidArgs(commandQueue);
