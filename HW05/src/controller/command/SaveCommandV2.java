@@ -3,7 +3,6 @@ package controller.command;
 import java.util.Queue;
 
 import controller.utils.IWriter;
-import controller.utils.WriteSuffixManager;
 import controller.utils.WriteSuffixManagerV2;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;

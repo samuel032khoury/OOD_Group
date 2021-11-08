@@ -3,7 +3,6 @@ package controller.command;
 import java.util.Queue;
 
 import controller.utils.ILoader;
-import controller.utils.LoadSuffixManager;
 import controller.utils.LoadSuffixManagerV2;
 import model.imagefile.ImageFile;
 import model.library.ImageLibModel;

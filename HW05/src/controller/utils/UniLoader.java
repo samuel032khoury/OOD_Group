@@ -15,8 +15,19 @@ import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR_PRE;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
 
+/**
+ * A concrete class of ILoader, with support to load most of the file formats.
+ */
 public class UniLoader implements ILoader{
 
+  /**
+   * load a file from the machine's file system as a {@link ImageFile} object.
+   *
+   * @param fileName the pathname of the file
+   * @return a ImageFile that have the format of the file.
+   * @throws IllegalStateException if the file cannot be found, the file is invalid, or if the file
+   *                               is broken.
+   */
   @Override
   public ImageFile loadFile(String fileName) throws IllegalStateException {
     BufferedImage img;
