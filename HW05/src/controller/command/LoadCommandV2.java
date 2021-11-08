@@ -27,11 +27,12 @@ public class LoadCommandV2 extends InOutCommand{
   @Override
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
-    String pathName = super.getValidArgs(commandQueue);
-    String imageName = super.getValidArgs(commandQueue);
-    super.expectNoMoreArgs(commandQueue);
+    CommandUtil util = new CommandUtil(currCommand());
+    String pathName = util.getValidArgs(commandQueue);
+    String imageName = util.getValidArgs(commandQueue);
+    util.expectNoMoreArgs(commandQueue);
     ILoader loader = new LoadSuffixManagerV2().provide(getValidSuffix(pathName));
-    String connection = super.getConnection(model.peek(imageName));
+    String connection = util.getConnection(model.peek(imageName));
     ImageFile img = loader.loadFile(pathName);
     model.loadImage(imageName, img);
     view.renderMessage("Image file found at " + pathName + " has been imported and"

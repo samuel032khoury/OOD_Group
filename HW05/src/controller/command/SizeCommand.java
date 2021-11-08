@@ -9,7 +9,7 @@ import view.IImageProcessView;
 /**
  * A command to get the size of (image loaded to) the library.
  */
-public class SizeCommand extends ACommand {
+public class SizeCommand implements ICommand {
 
   /**
    * Try to get the size of (image loaded to) the library.
@@ -22,16 +22,8 @@ public class SizeCommand extends ACommand {
   @Override
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
-    expectNoMoreArgs(commandQueue);
+    CommandUtil util = new CommandUtil("Size");
+    util.expectNoMoreArgs(commandQueue);
     view.renderMessage("There are " + model.getLibSize() + " images in the library!");
-  }
-
-  /**
-   * To have current performing command {@code size} as a String.
-   * @return a string indicating command that being performed
-   */
-  @Override
-  protected String currCommand() {
-    return "Size";
   }
 }

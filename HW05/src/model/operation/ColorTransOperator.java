@@ -6,10 +6,7 @@ public enum ColorTransOperator implements IChannelOperator{
   private final double[][] transformMatrix;
 
   ColorTransOperator(double[][] transformMatrix) {
-    if (transformMatrix.length != 3 || transformMatrix[0].length != 3
-            || transformMatrix[1].length != 3 || transformMatrix[2].length != 3) {
-      throw new IllegalArgumentException("The Provided Color transformation matrix is invalid!");
-    }
+    OperationUtil.checkColorTransformMatrix(transformMatrix);
     this.transformMatrix = transformMatrix;
   }
 

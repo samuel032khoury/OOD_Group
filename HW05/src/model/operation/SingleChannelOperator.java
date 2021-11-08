@@ -12,6 +12,7 @@ public enum SingleChannelOperator implements IChannelOperator {
   private final double[][] transformMatrix;
 
   SingleChannelOperator(double[][] transformMatrix) {
+    OperationUtil.checkColorTransformMatrix(transformMatrix);
     this.transformMatrix = transformMatrix;
   }
 

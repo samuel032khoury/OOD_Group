@@ -37,15 +37,18 @@ public class FlipCommand extends ACommand {
   public void execute(ImageLibModel model, Queue<String> commandQueue,
                       IImageProcessView view)
           throws IllegalStateException {
-    String imageName = super.getValidArgs(commandQueue);
-    String newImageName = super.getValidArgs(commandQueue);
-    super.expectNoMoreArgs(commandQueue);
-    String connection = super.getConnection(model.peek(newImageName));
-    ImageFile imageFile = model.get(imageName);
-    ImageFile newImageFile = imageFile.applyOperation(new FlipOperation(verticalFlip));
-    model.loadImage(newImageName, newImageFile);
-    view.renderMessage(currCommand() + " flipped image of " + imageName + " has been "
-            + "created and" + connection + newImageName + ".");
+    CommandUtil util = new CommandUtil(currCommand());
+    String descriptionOfEdit = currCommand() + " flipped image";
+    super.perform(util, new FlipOperation(verticalFlip),model,commandQueue,view, descriptionOfEdit);
+//    String imageName = util.getValidArgs(commandQueue);
+//    String newImageName = util.getValidArgs(commandQueue);
+//    util.expectNoMoreArgs(commandQueue);
+//    String connection = util.getConnection(model.peek(newImageName));
+//    ImageFile imageFile = model.get(imageName);
+//    ImageFile newImageFile = imageFile.applyOperation(new FlipOperation(verticalFlip));
+//    model.loadImage(newImageName, newImageFile);
+//    view.renderMessage(currCommand() + " flipped image of " + imageName + " has been "
+//            + "created and" + connection + newImageName + ".");
   }
 
   /**

@@ -37,16 +37,20 @@ public class AdjustBrightnessCommand extends ACommand {
   public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
           throws IllegalStateException {
     try {
-      int value = Integer.parseInt(super.getValidArgs(commandQueue));
-      String imageName = super.getValidArgs(commandQueue);
-      String newImageName = super.getValidArgs(commandQueue);
-      super.expectNoMoreArgs(commandQueue);
-      String connection = super.getConnection(model.peek(newImageName));
-      ImageFile imageFile = model.get(imageName);
-      ImageFile newImageFile = imageFile.applyOperation(new BrightnessOperation(brighten,value));
-      model.loadImage(newImageName, newImageFile);
-      view.renderMessage(currCommand() + " image (value: " + value + ") of " + imageName
-              + " has been created and" + connection + newImageName + ".");
+      CommandUtil util = new CommandUtil(brighten ? "Brighten" : "Darken");
+      int value = Integer.parseInt(util.getValidArgs(commandQueue));
+//      String imageName = util.getValidArgs(commandQueue);
+//      String newImageName = util.getValidArgs(commandQueue);
+//      util.expectNoMoreArgs(commandQueue);
+//      String connection = util.getConnection(model.peek(newImageName));
+//      ImageFile imageFile = model.get(imageName);
+//      ImageFile newImageFile = imageFile.applyOperation(new BrightnessOperation(brighten,value));
+//      model.loadImage(newImageName, newImageFile);
+//      view.renderMessage(currCommand() + " image (value: " + value + ") of " + imageName
+//              + " has been created and" + connection + newImageName + ".");
+      String descriptionOfEdit = currCommand() + " image (value: " + value + ")";
+      super.perform(util, new BrightnessOperation(brighten,value), model, commandQueue, view,
+              descriptionOfEdit);
     } catch (NumberFormatException e) {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, "
               + "but input is a string, try again!");
