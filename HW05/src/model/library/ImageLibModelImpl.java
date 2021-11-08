@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.imagefile.ImageFile;
-import model.imagefile.ImageFileImpl;
 import model.imagefile.ReadOnlyImageFile;
-import model.imageoperation.CopyImageOperation;
+import model.operation.visual.CopyImageOperation;
 
 /**
  * To represent a concrete Image Library implementation using a Map mapping from String (image name)

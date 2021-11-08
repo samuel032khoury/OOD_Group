@@ -2,15 +2,9 @@ package model.imagefile;
 
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-import model.imageoperation.IImageOperation;
-import model.operation.IChannelFunction;
-import model.operation.IChannelOperator;
-import model.operation.SimpleArithmeticChannelOperator;
-import model.operation.SingleChannelOperator;
+import model.operation.IImageOperation;
 
 /**
  * To represent an abstract image file using a 2-D Color array for data storing. It has a {@code
