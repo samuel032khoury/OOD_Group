@@ -6,6 +6,7 @@ import java.util.Map;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 import model.imagefile.ReadOnlyImageFile;
+import model.imageoperation.CopyImageOperation;
 
 /**
  * To represent a concrete Image Library implementation using a Map mapping from String (image name)
@@ -57,8 +58,7 @@ public class ImageLibModelImpl implements ImageLibModel {
     if (!this.imageLib.containsKey(imageName)) {
       throw new IllegalStateException("No such an image named " + imageName + " can be found!");
     }
-//    return imageLib.get(imageName).copyImage();
-    return null;
+    return imageLib.get(imageName).applyOperation(new CopyImageOperation());
   }
 
   /**

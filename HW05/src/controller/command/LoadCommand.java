@@ -29,7 +29,7 @@ public class LoadCommand extends InOutCommand {
     String pathName = super.getValidArgs(commandQueue);
     String imageName = super.getValidArgs(commandQueue);
     super.expectNoMoreArgs(commandQueue);
-    ILoader<ImageFile> loader = new LoadSuffixManager().provide(getValidSuffix(pathName));
+    ILoader loader = new LoadSuffixManager().provide(getValidSuffix(pathName));
     String connection = super.getConnection(model.peek(imageName));
     ImageFile img = loader.loadFile(pathName);
     model.loadImage(imageName, img);

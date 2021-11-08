@@ -38,7 +38,7 @@ public final class ImageFileImpl implements ImageFile {
   public ImageFileImpl(Color[][] pixels, int maxColorVal) {
     this(pixels, maxColorVal, false);
   }
-  
+
   /**
    * To construct an image file that using a 2-D Color array present an image.
    *

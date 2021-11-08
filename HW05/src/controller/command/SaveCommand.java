@@ -4,7 +4,6 @@ import java.util.Queue;
 
 import controller.utils.IWriter;
 import controller.utils.WriteSuffixManager;
-import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IImageProcessView;
