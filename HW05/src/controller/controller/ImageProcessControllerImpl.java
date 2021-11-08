@@ -9,20 +9,19 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-import controller.command.ICommand;
-import controller.command.FlipCommand;
-import controller.command.AdjustBrightnessCommand;
-import controller.command.GreyCommand;
-import controller.command.LoadCommand;
-import controller.command.QuitCommand;
-import controller.command.SaveCommand;
-import controller.command.SizeCommand;
+import controller.command.macro.ICommand;
+import controller.command.visual.FlipCommand;
+import controller.command.visual.AdjustBrightnessCommand;
+import controller.command.color.GreyCommand;
+import controller.command.library.LoadCommand;
+import controller.command.macro.QuitCommand;
+import controller.command.library.SaveCommand;
+import controller.command.library.SizeCommand;
 import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
-import model.operation.ColorTransOperator;
-import model.operation.SimpleArithmeticChannelOperator;
-import model.operation.SingleChannelOperator;
+import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
+import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
 import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;
 
@@ -90,12 +89,12 @@ public class ImageProcessControllerImpl implements IImageProcessController {
         put("horizontal-flip", () -> new FlipCommand(false));
         put("brighten", () -> new AdjustBrightnessCommand(true));
         put("darken", () -> new AdjustBrightnessCommand(false));
-        put("blue-component", () -> new GreyCommand(SingleChannelOperator.Blue));
-        put("red-component", () -> new GreyCommand(SingleChannelOperator.Red));
-        put("green-component", () -> new GreyCommand(SingleChannelOperator.Green));
-        put("luma-component", () -> new GreyCommand(SimpleArithmeticChannelOperator.Luma));
+        put("blue-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Blue));
+        put("red-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Red));
+        put("green-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Green));
+        put("luma-component", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
         put("intensity-component",
-            () -> new GreyCommand(SimpleArithmeticChannelOperator.Intensity));
+            () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
         put("load", LoadCommand::new);
         put("save", SaveCommand::new);
         put("size", SizeCommand::new);

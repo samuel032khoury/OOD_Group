@@ -4,7 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import controller.controller.ImageProcessControllerImpl;
+import controller.controller.IImageProcessController;
+import controller.controller.ImageProcessControllerImplV2;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 
@@ -48,7 +49,7 @@ public class ImageProcess {
 
     // controller uses default view with System.out as output destination and give model for
     // which it renders.
-    ImageProcessControllerImpl c = new ImageProcessControllerImpl(model, input);
+    IImageProcessController c = new ImageProcessControllerImplV2(model, input);
     c.run();
   }
 }
