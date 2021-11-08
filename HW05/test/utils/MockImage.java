@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 
 import model.imagefile.ImageFile;
-import model.operation.IChannelOperator;
+import model.operation.IImageOperation;
 
 /**
  * To represent a mock {@link ImageFile} for testing purpose.
@@ -17,58 +17,8 @@ public class MockImage implements ImageFile {
   }
 
   @Override
-  public ImageFile vertiFlip() {
-    try {
-      output.append("did vertiFlip");
-    } catch (IOException e) {
-      throw new RuntimeException("can't write");
-    }
+  public ImageFile applyOperation(IImageOperation operation) {
     return null;
-  }
-
-  @Override
-  public ImageFile horizFlip() {
-    try {
-      output.append("did horizFlip");
-    } catch (IOException e) {
-      throw new RuntimeException("can't write");
-    }
-    return null;
-  }
-
-  @Override
-  public ImageFile brighten(int value) {
-    try {
-      output.append("did brighten with value " + value);
-    } catch (IOException e) {
-      throw new RuntimeException("can't write");
-    }
-    return null;
-  }
-
-  @Override
-  public ImageFile darken(int value) {
-    try {
-      output.append("did darken with value " + value);
-    } catch (IOException e) {
-      throw new RuntimeException("can't write");
-    }
-    return null;
-  }
-
-  @Override
-  public ImageFile greyscale(IChannelOperator operator) throws IllegalArgumentException {
-    try {
-      output.append("did greyscale with operator " + operator);
-    } catch (IOException e) {
-      throw new RuntimeException("can't write");
-    }
-    return null;
-  }
-
-  @Override
-  public ImageFile copyImage() {
-    return this;
   }
 
   @Override
@@ -95,4 +45,5 @@ public class MockImage implements ImageFile {
   public Color getColorAt(int row, int col) {
     return null;
   }
+
 }

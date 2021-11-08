@@ -9,7 +9,7 @@ import model.library.ImageLibModel;
 /**
  * To represent a mock {@link ImageLibModel} for testing purpose.
  */
-public class MockModel<T extends ImageFile<T>> implements ImageLibModel<T> {
+public class MockModel implements ImageLibModel {
   private final Appendable output;
 
   public MockModel(Appendable output) {
@@ -27,7 +27,7 @@ public class MockModel<T extends ImageFile<T>> implements ImageLibModel<T> {
   }
 
   @Override
-  public T get(String imageName) throws IllegalStateException {
+  public ImageFile get(String imageName) throws IllegalStateException {
     return null;
   }
 
