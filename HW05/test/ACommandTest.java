@@ -3,11 +3,11 @@ import org.junit.Test;
 
 import java.awt.Color;
 
-import controller.command.ICommand;
+import controller.command.macro.ICommand;
 import controller.utils.QuitExecution;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
-import model.imageoperation.CopyImageOperation;
+import model.operation.visual.CopyImageOperation;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IImageProcessView;

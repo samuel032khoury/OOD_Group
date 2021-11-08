@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
 
-import controller.command.GreyCommand;
-import controller.command.ICommand;
+import controller.command.color.GreyCommand;
+import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
-import model.operation.SimpleArithmeticChannelOperator;
+import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
 
 /**
  * Class that tests the {@code intensity-component} command.
@@ -17,7 +17,7 @@ import model.operation.SimpleArithmeticChannelOperator;
 public class IGrayCommand extends ACommandTest {
   @Override
   public ICommand provideCommand() {
-    return new GreyCommand(SimpleArithmeticChannelOperator.Intensity);
+    return new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity);
   }
 
   @Override
