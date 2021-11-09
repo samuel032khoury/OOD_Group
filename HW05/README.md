@@ -11,15 +11,26 @@ This program uses a (hash)map for its upper-level model, representing an image l
 Keys of the map are names of images as Strings assigned by users. The values of the map are objects (lower-level model) that directly or indirectly implement the `ImageFile` interface. 
 
 Current abstract implementation of `ImageFile`, `AImageFile`, uses a 2-D array of Color to store 
-(RGB) image (with no alpha channel) information, regardless of their original image format. 
-`AImageFile` will also record the possible maximum value for Color. There's a map in `AImageFile`, 
-mapping from an `IChannelOperator` to `IChannelFunction` (see below Operation Section), which already contains several basic operations. Inherited concrete classes can expand the map per its demand.
+(RGB) image ~~(with no alpha channel)~~ with choices of alpha channel. information, regardless of their original image format. 
+`AImageFile` will also record the possible maximum value for Color. ~~There's a map in `AImageFile`,~~ 
+~~mapping from an `IChannelOperator` to `IChannelFunction` (see below Operation Section), which already contains several basic operations. Inherited concrete classes can expand the map per its demand.~~
+Currently `IImageOperation` contains all the operations that can be preformed on the `ImageFile` which the interface have a method to take in a operation and produce a new image.
 
-As overwritten an existing image in the image library is allowed by design, all current methods for `ImageFile` are restricted not to mutate the provided  `ImageFile` itself, but only generate a new copy with modification. If users want to "mutate" the original image, they can simply overwrite the value of which the key they used to retrieve an image to process.
-
+~~As overwritten an existing image in the image library is allowed by design, all current methods for `ImageFile` are restricted not to mutate the provided  `ImageFile` itself, but only generate a new copy with modification. If users want to "mutate" the original image, they can simply overwrite the value of which the key they used to retrieve an image to process.~~
+Currently, our design of the `ImageFile` doesn't allow for overwrite it. However, there is no need to overwrite it as now the functions/operations are seperated from the ImageFile
 #### Operation
 
-Operation package contains an interface `IChannelOperator` for enum classes. Every enum member should be the name of a particular operation to convert a Color, by some defined rules, to another, which may have a modified RGB(A) value. Rules can either be implemented by creating a new concrete class that implements the `IChannelFunction` interface and overwrite the `apply` method or use lambda to create an anonymous subclass that implements this interface. Eventually, the name and the mechanism of the operation need to be matched up and put in the `channelOperations` map located in `AImageFile` or its concrete classes.
+Operation.operator.colortrans package contains an interface `IColorTransOperator` for enum classes. 
+Every enum member should be the name of a particular operation to convert a Color, by some defined rules, to another, which may have a modified RGB(A) value.
+Each `IColorTransOperator` contains a matrix that records the color transfer for a particular pixels. The matrix is defined in the enum creation and can be retrieved by calling getMatrix().
+Currently, `GreyscaleOperation` are able to use all the matrix declared.
+
+Operation.operator.filter package contains an interface `IFilterOperator` for enum classes.
+Each `IFilterOperator` contains a odd matrix that 
+
+~~Rules can either be implemented by creating a new concrete class that implements the `IColorTransOperator` interface and overwrite the `apply` method or use lambda to create an anonymous subclass that implements this interface.~~
+~~Eventually, the name and the mechanism of the operation need to be matched up and put in the `channelOperations` map located in `AImageFile` or its concrete classes.~~
+
 
 Notes: It’s (safely) assumed that implementors would expand the map correctly, meaning the new operation added must make sense to the images stored in a particular inherited class. For example, implementors should realize it's meaningless to put an alpha-related operation into the map of the class that represents images that only have RBG information.
 
