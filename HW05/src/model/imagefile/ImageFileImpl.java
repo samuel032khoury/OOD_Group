@@ -54,16 +54,16 @@ public final class ImageFileImpl implements ImageFile {
     return new ImageFileImpl(newPixels, newMaxColorVal, newAlphaChannel);
   }
 
-  @Override
-  public ImageFile copy() {
-    Color[][] copied = new Color[this.height][width];
-    for (int i = 0; i < this.height; i++) {
-      for (int j = 0; j < this.width; j++) {
-        copied[i][j] = new Color(pixels[i][j].getRGB());
-      }
-    }
-    return new ImageFileImpl(copied, this.maxColorVal, this.alphaChannel);
-  }
+//  @Override
+//  public ImageFile copy() {
+//    Color[][] copied = new Color[this.height][width];
+//    for (int i = 0; i < this.height; i++) {
+//      for (int j = 0; j < this.width; j++) {
+//        copied[i][j] = new Color(pixels[i][j].getRGB());
+//      }
+//    }
+//    return new ImageFileImpl(copied, this.maxColorVal, this.alphaChannel);
+//  }
 
   /**
    * to inspect if a 2-D Color array representing an image is broken (i.e. contains null)

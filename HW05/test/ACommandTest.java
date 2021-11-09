@@ -7,7 +7,6 @@ import controller.command.macro.ICommand;
 import controller.utils.QuitExecution;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
-import model.operation.visual.CopyImageOperation;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IImageProcessView;
@@ -74,7 +73,7 @@ public abstract class ACommandTest {
       model = new ImageLibModelImpl();
       out = new StringBuilder();
       view = new SimpleImageProcessViewImpl(out, model);
-      model.loadImage("testImg", img.applyOperation(new CopyImageOperation()));
+      model.loadImage("testImg", img);
       try {
         command.execute(this.model, inputs.get(i), this.view);
 
@@ -96,7 +95,7 @@ public abstract class ACommandTest {
       model = new ImageLibModelImpl();
       out = new StringBuilder();
       view = new SimpleImageProcessViewImpl(out, model);
-      model.loadImage("testImg", img.applyOperation(new CopyImageOperation()));
+      model.loadImage("testImg", img);
       try {
         command.execute(this.model, input, this.view);
         System.out.println("fail at " + input);

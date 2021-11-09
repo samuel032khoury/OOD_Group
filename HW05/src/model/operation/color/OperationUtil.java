@@ -35,7 +35,6 @@ public class OperationUtil {
   }
 
   public static Color transform(Color c, double[][] transformMatrix) {
-//    checkColorTransformMatrix(transformMatrix);
     int[] result = new int[3];
     int red = c.getRed();
     int blue = c.getBlue();

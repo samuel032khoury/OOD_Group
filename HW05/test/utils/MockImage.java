@@ -21,6 +21,11 @@ public class MockImage implements ImageFile {
     return null;
   }
 
+//  @Override
+//  public ImageFile copy() {
+//    return null;
+//  }
+
   @Override
   public int getHeight() {
     return 0;

@@ -9,5 +9,5 @@ import model.operation.IImageOperation;
 public interface ImageFile extends ReadOnlyImageFile {
   ImageFile applyOperation(IImageOperation operation);
 
-  ImageFile copy();
+//  ImageFile copy();
 }
