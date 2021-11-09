@@ -1,25 +1,42 @@
 package controller.utils;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
+/**
+ * A concrete class of IWriter, with support to load most of the file formats.
+ */
 public class UniWriter implements IWriter{
 
   boolean alpha;
 
+  /**
+   * The constructor of a UniWriter, with options to specify whether the writer is going
+   * to generate an image with alpha or not.
+   * @param alpha true if the image supports alpha format, false otherwise.
+   */
   public UniWriter(boolean alpha) {
     this.alpha = alpha;
   }
 
+
+  /**
+   * convert a {@link ImageFile} to a file and write into machine's file system.
+   *
+   * @param img      the image file.
+   * @param fileName the path to store the file.
+   * @throws IllegalStateException if unable to create destination file, written process is
+   *                               corrupted.
+   */
   @Override
   public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
     int height = img.getHeight();
