@@ -56,11 +56,16 @@ public class UniLoader implements ILoader{
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixels[i][j] = new Color(img.getRGB(i,j));
+        pixels[i][j] = new Color(img.getRGB(j,i));
       }
     }
 
     // TODO: explain the 255
     return new ImageFileImpl(pixels, 255, alpha);
+  }
+
+  public static void main(String[] args) {
+    ImageFile img = new UniLoader().loadFile("/Users/eric/Downloads/serbia-1.jpeg");
+    new UniWriter(false).write(img, "hi.jpeg");
   }
 }
