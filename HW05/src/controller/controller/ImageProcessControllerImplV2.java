@@ -1,5 +1,6 @@
 package controller.controller;
 
+import controller.command.color.FilterCommand;
 import controller.command.color.GreyCommand;
 import controller.command.library.LoadCommandV2;
 import controller.command.library.SaveCommandV2;
@@ -7,6 +8,8 @@ import controller.command.color.TintingCommand;
 import model.library.ImageLibModel;
 import model.operation.opertor.colortrans.TiltingOperator;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
+import model.operation.opertor.filter.IFilterOperator;
+import model.operation.opertor.filter.SimpleFilterOperator;
 import view.IImageProcessView;
 
 /**
@@ -43,8 +46,8 @@ public class ImageProcessControllerImplV2 extends ImageProcessControllerImpl{
   }
 
   protected void addNewFunction(){
-    this.cmdMap.put("blur", null);
-    this.cmdMap.put("sharpen", null);
+    this.cmdMap.put("blur", () -> new FilterCommand(SimpleFilterOperator.Blur));
+    this.cmdMap.put("sharpen", () -> new FilterCommand(SimpleFilterOperator.Sharpening));
     this.cmdMap.put("greyscale", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
     this.cmdMap.put("sepia", () -> new TintingCommand(TiltingOperator.Sepia));
     this.cmdMap.put("save", SaveCommandV2::new);

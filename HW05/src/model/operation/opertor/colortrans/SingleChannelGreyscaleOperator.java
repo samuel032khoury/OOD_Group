@@ -1,6 +1,6 @@
 package model.operation.opertor.colortrans;
 
-import model.operation.color.ColorTransUtil;
+import model.operation.color.OperationUtil;
 
 /**
  * To represent a set of channel operations that grayscale a {@link java.awt.Color} by selecting one
@@ -14,7 +14,7 @@ public enum SingleChannelGreyscaleOperator implements IColorTransOperator {
   private final double[][] transformMatrix;
 
   SingleChannelGreyscaleOperator(double[][] transformMatrix) {
-    ColorTransUtil.checkColorTransformMatrix(transformMatrix);
+    OperationUtil.checkColorTransformMatrix(transformMatrix);
     this.transformMatrix = transformMatrix;
   }
 
