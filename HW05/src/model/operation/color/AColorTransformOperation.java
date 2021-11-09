@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.operation.ANoAlphaOperation;
-import model.operation.function.IChannelFunction;
+import model.operation.function.IColorTransformFunction;
 import model.operation.opertor.colortrans.IColorTransOperator;
 
 public abstract class AColorTransformOperation extends ANoAlphaOperation {
   protected final IColorTransOperator operator;
-  protected Map<IColorTransOperator, IChannelFunction> supportedOperation;
+  protected Map<IColorTransOperator, IColorTransformFunction> supportedOperation;
 
   public AColorTransformOperation(IColorTransOperator operator) {
     this.operator = operator;
@@ -23,7 +23,7 @@ public abstract class AColorTransformOperation extends ANoAlphaOperation {
     if (!this.supportedOperation.containsKey(operator)) {
       throw new IllegalStateException("No such an operator can be found!");
     }
-    final IChannelFunction function = this.supportedOperation.get(operator);
+    final IColorTransformFunction function = this.supportedOperation.get(operator);
     final double[][] transformMatrix = operator.getMatrix();
     for (int row = 0; row < this.height; row++) {
       for (int col = 0; col < this.width; col++) {

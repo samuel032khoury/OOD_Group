@@ -20,7 +20,7 @@ public class BrightnessOperation extends ANoAlphaOperation {
         int newR = Math.max(0, Math.min(255, currColor.getRed() + value));
         int newG = Math.max(0, Math.min(255, currColor.getGreen() + value));
         int newB = Math.max(0, Math.min(255, currColor.getBlue() + value));
-        adjusted[row][col] = new Color(newR, newG, newB);
+        adjusted[row][col] = new Color(newR, newG, newB, currColor.getAlpha());
       }
     }
     return adjusted;

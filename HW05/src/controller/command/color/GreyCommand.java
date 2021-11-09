@@ -41,16 +41,6 @@ public class GreyCommand extends ACommand {
     CommandUtil util = new CommandUtil(currCommand());
     String descriptionOfEdit = currCommand() + " image";
     super.perform(util, new GreyscaleOperation(this.operator),model,commandQueue,view, descriptionOfEdit);
-//    String imageName = util.getValidArgs(commandQueue);
-//    String newImageName = util.getValidArgs(commandQueue);
-//    util.expectNoMoreArgs(commandQueue);
-//    String connection = util.getConnection(model.peek(newImageName));
-//    ImageFile imageFile = model.get(imageName);
-//    ImageFile newImageFile = imageFile.applyOperation(new GreyscaleOperation(this.operator));
-////    ImageFile newImageFile = imageFile.applyOperation(new ColorTransformOperation(this.operator));
-//    model.loadImage(newImageName, newImageFile);
-//    view.renderMessage(currCommand() + "-component image of " + imageName + " has been "
-//            + "created and" + connection + newImageName + ".");
   }
 
   /**

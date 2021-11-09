@@ -6,7 +6,7 @@ import java.awt.Color;
  * A function interface that has a method consume a {@link Color} and convert it to a new
  * {@link Color} by the defined rules.
  */
-public interface IChannelFunction {
+public interface IColorTransformFunction {
   /**
    * convert the provided {@link Color} to a new {@link Color} by the specific implemented rules.
    * @param c the original color being consumed

@@ -45,7 +45,7 @@ public class UniLoader implements ILoader{
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixels[i][j] = new Color(img.getRGB(i,j));
+        pixels[i][j] = new Color(img.getRGB(j, i));
       }
     }
 

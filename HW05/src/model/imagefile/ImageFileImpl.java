@@ -17,14 +17,7 @@ public final class ImageFileImpl implements ImageFile {
   private final int maxColorVal;
   private final boolean alphaChannel;
 
-  public ImageFile applyOperation(IImageOperation operation) {
-    Color[][] newPixels = operation.apply(this.alphaChannel, this.pixels);
-    int newMaxColorVal = operation.updateMaxColorVal(this.maxColorVal);
-    boolean newAlphaChannel = operation.updateAlphaChannel(this.alphaChannel);
-    return new ImageFileImpl(newPixels, newMaxColorVal, newAlphaChannel);
-  }
-
-//  protected Map<IChannelOperator, IChannelFunction> channelOperations;
+//  protected Map<IChannelOperator, IColorTransformFunction> channelOperations;
   public ImageFileImpl(Color[][] pixels) {
     this(pixels, 255, false);
   }
@@ -52,33 +45,24 @@ public final class ImageFileImpl implements ImageFile {
     this.width = pixels[0].length;
     this.maxColorVal = maxColorVal;
     this.alphaChannel = alphaChannel;
-//    this.channelOperations = new HashMap<>() {{
-//        put(SingleChannelOperator.Red, (c -> {
-//          final int red = c.getRed();
-//          return new Color(red, red, red);
-//        }));
-//        put(SingleChannelOperator.Blue, (c -> {
-//          final int blue = c.getBlue();
-//          return new Color(blue, blue, blue);
-//        }));
-//        put(SingleChannelOperator.Green, (c -> {
-//          final int green = c.getGreen();
-//          return new Color(green, green, green);
-//        }));
-//        put(SimpleArithmeticChannelOperator.Intensity, (c -> {
-//          final int intensity = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
-//          return new Color(intensity, intensity, intensity);
-//        }));
-//        put(SimpleArithmeticChannelOperator.Value, (c -> {
-//          final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
-//          return new Color(value, value, value);
-//        }));
-//        put(SimpleArithmeticChannelOperator.Luma, (c -> {
-//          final int luma = (int) (0.2126 * c.getRed() + 0.7152 * c.getGreen()
-//                  + 0.0722 * c.getBlue());
-//          return new Color(luma, luma, luma);
-//        }));
-//      }};
+  }
+
+  public ImageFile applyOperation(IImageOperation operation) {
+    Color[][] newPixels = operation.apply(this.alphaChannel, this.pixels);
+    int newMaxColorVal = operation.updateMaxColorVal(this.maxColorVal);
+    boolean newAlphaChannel = operation.updateAlphaChannel(this.alphaChannel);
+    return new ImageFileImpl(newPixels, newMaxColorVal, newAlphaChannel);
+  }
+
+  @Override
+  public ImageFile copy() {
+    Color[][] copied = new Color[this.height][width];
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        copied[i][j] = new Color(pixels[i][j].getRGB());
+      }
+    }
+    return new ImageFileImpl(copied, this.maxColorVal, this.alphaChannel);
   }
 
   /**
@@ -97,120 +81,6 @@ public final class ImageFileImpl implements ImageFile {
     }
     return nullDetected;
   }
-//
-//  /**
-//   * generate a new vertical flipped copy of the image to which this method applies.
-//   *
-//   * @return a vertical flipped {@link ImageFile}.
-//   */
-//  @Override
-//  public T vertiFlip() {
-//    Color[][] vertiFlipped = new Color[this.height][];
-//    for (int row = 0; row < this.height; row++) {
-//      vertiFlipped[row] = pixels[this.height - 1 - row];
-//    }
-//    return this.genImage(vertiFlipped);
-//  }
-//
-//  /**
-//   * generate a new horizontal flipped copy of the image to which this method applies.
-//   *
-//   * @return a horizontal flipped {@link ImageFile}.
-//   */
-//  @Override
-//  public T horizFlip() {
-//    Color[][] horizFlipped = new Color[this.height][this.width];
-//    for (int row = 0; row < this.height; row++) {
-//      Color[] currRow = pixels[row];
-//      for (int col = 0; col < this.width; col++) {
-//        horizFlipped[row][col] = currRow[this.width - 1 - col];
-//      }
-//    }
-//    return this.genImage(horizFlipped);
-//  }
-//
-//  /**
-//   * generate a new brightened copy of the image to which this method applies, with adjusted
-//   * magnitude {@code value}.
-//   *
-//   * @param value the magnitude to adjust
-//   * @return a brightened {@link ImageFile} if the value is positive, darkened if it's negative
-//   */
-//  @Override
-//  public T brighten(int value) {
-//    return this.adjustBrightness(value);
-//  }
-//
-//  /**
-//   * generate a new darkened copy of the image to which this method applies, with adjust magnitude
-//   * {@code value}.
-//   *
-//   * @param value the magnitude to adjust
-//   * @return a darkened {@link ImageFile} if the value is positive, brightened if it's negative
-//   */
-//  @Override
-//  public T darken(int value) {
-//    return this.adjustBrightness(-value);
-//  }
-//
-//  /**
-//   * generate a new brightened/darkened copy of the image to which this method applies, with adjust
-//   * magnitude {@code value}.
-//   *
-//   * @param value the magnitude of brightness adjustment
-//   * @return a brightened/darkened {@link ImageFile} depends on the given value
-//   */
-//  private T adjustBrightness(int value) {
-//    Color[][] adjusted = new Color[this.height][this.width];
-//    for (int row = 0; row < this.height; row++) {
-//      for (int col = 0; col < this.width; col++) {
-//        Color currColor = pixels[row][col];
-//        int newR = Math.max(0, Math.min(255, currColor.getRed() + value));
-//        int newG = Math.max(0, Math.min(255, currColor.getGreen() + value));
-//        int newB = Math.max(0, Math.min(255, currColor.getBlue() + value));
-//        adjusted[row][col] = new Color(newR, newG, newB);
-//      }
-//    }
-//    return this.genImage(adjusted);
-//  }
-//
-//  /**
-//   * generate a new greyscale copy of the image to which this method applies, with the provided
-//   * {@link IChannelOperator} applied.
-//   *
-//   * @param operator a {@link IChannelOperator} being applied on the original image.
-//   * @return a greyscale {@link ImageFile} derived by applying the provided {@link IChannelOperator}
-//   *              to the original image
-//   * @throws IllegalArgumentException if the {@link IChannelOperator} is unsupported
-//   */
-//  @Override
-//  public T greyscale(IChannelOperator operator) throws IllegalStateException {
-//    Color[][] greyScaled = new Color[this.height][this.width];
-//    if (!this.channelOperations.containsKey(operator)) {
-//      throw new IllegalStateException("No such an operator can be found!");
-//    }
-//    final IChannelFunction function = this.channelOperations.get(operator);
-//    for (int row = 0; row < this.height; row++) {
-//      for (int col = 0; col < this.width; col++) {
-//        Color currColor = pixels[row][col];
-//        Color scaledColor = function.apply(currColor);
-//        greyScaled[row][col] = scaledColor;
-//      }
-//    }
-//    return this.genImage(greyScaled);
-//  }
-//
-//  /**
-//   * generate an identical copy of the image to which this method applies.
-//   *
-//   * @return an identical {@link ImageFile}.
-//   */
-//  @Override
-//  public T copyImage() {
-//    return this.genImage(this.pixels);
-//  }
-//
-//  public abstract T genImage(Color[][] data);
 
   /**
    * get the height of an image represented by {@link ReadOnlyImageFile}.
