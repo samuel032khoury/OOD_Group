@@ -18,6 +18,16 @@ public class MockImage implements ImageFile {
 
   @Override
   public ImageFile applyOperation(IImageOperation operation) {
+    try {
+      output.append("did "+ operation.getClass());
+    } catch (IOException e) {
+      throw new RuntimeException("cant write");
+    }
+    return null;
+  }
+
+  @Override
+  public ImageFile copy() {
     return null;
   }
 
@@ -50,5 +60,4 @@ public class MockImage implements ImageFile {
   public Color getColorAt(int row, int col) {
     return null;
   }
-
 }
