@@ -39,6 +39,11 @@ public class ImageLibModelImpl implements ImageLibModel {
    */
   @Override
   public void loadImage(String imageName, ImageFile imageFile){
+    for(int i = 0; i< imageFile.getHeight(); i++) {
+      for(int j = 0; j< imageFile.getWidth(); j++) {
+        System.out.println(imageFile.getColorAt(i,j).getAlpha());
+      }
+    }
     imageLib.put(imageName, imageFile);
   }
 

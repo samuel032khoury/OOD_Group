@@ -141,7 +141,7 @@ public final class ImageFileImpl implements ImageFile {
   @Override
   public Color getColorAt(int row, int col) {
     Color selected = this.pixels[row][col];
-    return new Color(selected.getRGB());
+    return new Color(selected.getRGB(), true);
   }
 
   /**
