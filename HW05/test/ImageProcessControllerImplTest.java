@@ -273,6 +273,54 @@ public class ImageProcessControllerImplTest {
   }
 
   @Test
+  public void testCommandSendCorrection12() {
+    in = new StringReader("blur mock mock");
+    Appendable output = new StringBuilder();
+    ImageLibModel model = new MockModel(output);
+    model.loadImage("mock", img);
+    IImageProcessController controller
+            = new ImageProcessControllerImpl(model, in, view);
+    controller.run();
+    assertEquals("loaded mockpeek mock", output.toString());
+  }
+
+  @Test
+  public void testCommandSendCorrection13() {
+    in = new StringReader("sharpen mock mock");
+    Appendable output = new StringBuilder();
+    ImageLibModel model = new MockModel(output);
+    model.loadImage("mock", img);
+    IImageProcessController controller
+            = new ImageProcessControllerImpl(model, in, view);
+    controller.run();
+    assertEquals("loaded mockpeek mock", output.toString());
+  }
+
+  @Test
+  public void testCommandSendCorrection14() {
+    in = new StringReader("greyscale mock mock");
+    Appendable output = new StringBuilder();
+    ImageLibModel model = new MockModel(output);
+    model.loadImage("mock", img);
+    IImageProcessController controller
+            = new ImageProcessControllerImpl(model, in, view);
+    controller.run();
+    assertEquals("loaded mockpeek mock", output.toString());
+  }
+
+  @Test
+  public void testCommandSendCorrection15() {
+    in = new StringReader("sepia mock mock");
+    Appendable output = new StringBuilder();
+    ImageLibModel model = new MockModel(output);
+    model.loadImage("mock", img);
+    IImageProcessController controller
+            = new ImageProcessControllerImpl(model, in, view);
+    controller.run();
+    assertEquals("loaded mockpeek mock", output.toString());
+  }
+
+  @Test
   public void testLineMultiCommand() {
     in = new StringReader("value-component mock mockNew & intensity-component mock mockNew");
     Appendable output = new StringBuilder();
