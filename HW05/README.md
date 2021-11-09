@@ -10,10 +10,8 @@ This program uses a (hash)map for its upper-level model, representing an image l
 
 Keys of the map are names of images as Strings assigned by users. The values of the map are objects (lower-level model) that directly or indirectly implement the `ImageFile` interface. 
 
-Current abstract implementation of `ImageFile`, `AImageFile`, uses a 2-D array of Color to store 
-(RGB) image ~~(with no alpha channel)~~ with choices of alpha channel. information, regardless of their original image format. 
-`AImageFile` will also record the possible maximum value for Color. ~~There's a map in `AImageFile`,~~ 
-~~mapping from an `IChannelOperator` to `IChannelFunction` (see below Operation Section), which already contains several basic operations. Inherited concrete classes can expand the map per its demand.~~
+Current implementation of `ImageFile`, `ImageFileImpl`, uses a 2-D array of Color to store 
+(RGBA) color information, with the option if a ImageFileImpl object should be considered has a alpha channel, regardless of their original image format. It will also record the possible maximum value for Color. 
 Currently `IImageOperation` contains all the operations that can be preformed on the `ImageFile` which the interface have a method to take in a operation and produce a new image.
 
 ~~As overwritten an existing image in the image library is allowed by design, all current methods for `ImageFile` are restricted not to mutate the provided  `ImageFile` itself, but only generate a new copy with modification. If users want to "mutate" the original image, they can simply overwrite the value of which the key they used to retrieve an image to process.~~

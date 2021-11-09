@@ -11,7 +11,7 @@ import view.IImageProcessView;
 
 /**
  * A command to save an image from the program's library to the user's machine.
- * Version2 loads with writeManagerV2
+ * This version (V2) uses {@link WriteSuffixManagerV2} as a Loader and supports more file extension.
  */
 public class SaveCommandV2 extends InOutCommand {
 

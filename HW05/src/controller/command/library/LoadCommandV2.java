@@ -11,7 +11,7 @@ import view.IImageProcessView;
 
 /**
  * A command to load an image from the user's machine to the program's library.
- * Version2 loads with loadManagerV2
+ * This version (V2) uses {@link LoadSuffixManagerV2} as a Loader and supports more file extension.
  */
 public class LoadCommandV2 extends InOutCommand {
   /**

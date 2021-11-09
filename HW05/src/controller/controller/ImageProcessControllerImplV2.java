@@ -1,51 +1,72 @@
 package controller.controller;
 
+import java.io.InputStreamReader;
+
 import controller.command.color.FilterCommand;
 import controller.command.color.GreyCommand;
 import controller.command.library.LoadCommandV2;
 import controller.command.library.SaveCommandV2;
 import controller.command.color.TintingCommand;
 import model.library.ImageLibModel;
+import model.library.ImageLibModelImpl;
 import model.operation.opertor.colortrans.TiltingOperator;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
-import model.operation.opertor.filter.IFilterOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 import view.IImageProcessView;
+import view.SimpleImageProcessViewImpl;
 
 /**
  * To represent an image process controller that has a command set to deal with user inputs, and
- * update the model according to the valid command.
- * The new controller supported more functions:
- * loading of pictures of png, bmp, jpg, jpeg
- * supported applying filers: blur, sharpen, grayscale, and sepia
+ * update the model according to the valid command. The new controller supported more
+ * functionalities: loading of pictures of png, bmp, jpg, jpeg supported applying filers: blur,
+ * sharpen, grayscale, and sepia
  */
-public class ImageProcessControllerImplV2 extends ImageProcessControllerImpl{
+public class ImageProcessControllerImplV2 extends ImageProcessControllerImpl {
 
   /**
-   * Simple constructor that initialize a new controller.
+   * A convenient constructor for building an image process controller (V2) with a default {@link
+   * ImageLibModelImpl}.
    */
   public ImageProcessControllerImplV2() {
-    super();
-    addNewFunction();
+    this(new ImageLibModelImpl());
   }
 
-
+  /**
+   * An {@link ImageLibModelImpl}-customizable constructor for building an image process controller
+   * (V2). Use default {@code system.in} and {@code system.out} for input/view destination.
+   *
+   * @param model the customized library model for controller to use
+   * @throws IllegalArgumentException when the provided {@code model} is null
+   */
   public ImageProcessControllerImplV2(ImageLibModel model) throws IllegalArgumentException {
-    super(model);
-    addNewFunction();
+    this(model, new InputStreamReader(System.in));
   }
 
-  public ImageProcessControllerImplV2(ImageLibModel model, Readable input) throws IllegalArgumentException {
-    super(model, input);
-    addNewFunction();
+  /**
+   * An {@link ImageLibModelImpl}-customizable constructor for building an image process controller
+   * (V2), with a specified {@link Readable} object.
+   *
+   * @param model the customized library model for controller to use
+   * @param input a specified {@link Readable} object
+   * @throws IllegalArgumentException when the provided {@code model} or {@code input} is null
+   */
+  public ImageProcessControllerImplV2(ImageLibModel model, Readable input)
+          throws IllegalArgumentException {
+    this(model, input, new SimpleImageProcessViewImpl(model));
   }
 
-  public ImageProcessControllerImplV2(ImageLibModel model, Readable input, IImageProcessView view) throws IllegalArgumentException {
+  /**
+   * A fully customizable constructor for building an image process controller (V2) with new
+   * functionalities.
+   *
+   * @param model the customized library model for controller to use
+   * @param input a specified {@link Readable} object
+   * @param view  a target {@link IImageProcessView} for view purpose
+   * @throws IllegalArgumentException when any of the provided arguments is null
+   */
+  public ImageProcessControllerImplV2(ImageLibModel model, Readable input, IImageProcessView view)
+          throws IllegalArgumentException {
     super(model, input, view);
-    addNewFunction();
-  }
-
-  protected void addNewFunction(){
     this.cmdMap.put("blur", () -> new FilterCommand(SimpleFilterOperator.Blur));
     this.cmdMap.put("sharpen", () -> new FilterCommand(SimpleFilterOperator.Sharpening));
     this.cmdMap.put("greyscale", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
