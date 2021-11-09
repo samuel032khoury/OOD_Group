@@ -35,7 +35,7 @@ public class FlipOperation extends ANoAlphaOperation {
     for (int row = 0; row < this.height; row++) {
       Color[] currRow = pixels[row];
       for (int col = 0; col < this.width; col++) {
-        horizFlipped[row][col] = new Color(currRow[this.width - 1 - col].getRGB());
+        horizFlipped[row][col] = currRow[this.width - 1 - col];
       }
     }
     return horizFlipped;

@@ -46,11 +46,71 @@ public class OperationUtil {
     result[2] = (int) (red * transformMatrix[2][0]
                     + green * transformMatrix[2][1] + blue * transformMatrix[2][2]);
     result = giveValidColorValue(result);
-    return new Color(result[0], result[1], result[2]);
+    return new Color(result[0], result[1], result[2], c.getAlpha());
+  }
+
+  public static Color[][] filtering(Color[][] original, double[][] kernel) {
+    int height = original.length;
+    int width = original[0].length;
+    Color[][] filtered = new Color[height][width];
+    int kernelHeight = kernel.length;
+    int vertiRadius = (kernelHeight - 1) / 2;
+    int kernelWidth = kernel[0].length;
+    int horizRadius = (kernelWidth - 1) / 2;
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+
+        int r = 0;
+        int g = 0;
+        int b = 0;
+
+        int[][] subImageR = new int[kernelHeight][kernelWidth];
+        int[][] subImageG = new int[kernelHeight][kernelWidth];
+        int[][] subImageB = new int[kernelHeight][kernelWidth];
+
+        int subImageRow = 0;
+        for (int k = i - vertiRadius; k <= i + vertiRadius; k++) {
+          if (k < 0) {
+            subImageRow++;
+            continue;
+          }
+          if (k > height - 1) {
+            break;
+          }
+          int subImageCol = 0;
+          for (int l = j - horizRadius; l <= j + horizRadius; l++) {
+            if (l < 0) {
+              subImageCol++;
+              continue;
+            }
+            if (l > width - 1) {
+              break;
+            }
+            subImageR[subImageRow][subImageCol] = original[k][l].getRed();
+            subImageG[subImageRow][subImageCol] = original[k][l].getGreen();
+            subImageB[subImageRow][subImageCol] = original[k][l].getBlue();
+            subImageCol++;
+          }
+          subImageRow++;
+        }
+
+        for (int m = 0; m < kernelHeight; m++) {
+          for (int n = 0; n < kernelWidth; n++) {
+            r += subImageR[m][n] * kernel[m][n];
+            g += subImageG[m][n] * kernel[m][n];
+            b += subImageB[m][n] * kernel[m][n];
+          }
+        }
+
+        int[] rgb = OperationUtil.giveValidColorValue((int) r, (int) g, (int) b);
+        filtered[i][j] = new Color(rgb[0], rgb[1], rgb[2], original[i][j].getAlpha());
+      }
+    }
+    return filtered;
   }
 
   public static int[] giveValidColorValue(int... rgb) {
-    for(int i = 0; i < 3; i ++) {
+    for(int i = 0; i < rgb.length; i ++) {
       rgb[i] = Math.max(1, Math.min(255, rgb[i]));
     }
     return rgb;

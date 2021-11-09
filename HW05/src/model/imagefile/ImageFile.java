@@ -9,5 +9,9 @@ import model.operation.IImageOperation;
 public interface ImageFile extends ReadOnlyImageFile {
   ImageFile applyOperation(IImageOperation operation);
 
-//  ImageFile copy();
+   /**
+   * Deep copy a {@link ImageFile} object with duplicated information.
+   * @return a copy of the image.
+   */
+  ImageFile copy();
 }

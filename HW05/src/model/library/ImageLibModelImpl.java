@@ -39,11 +39,6 @@ public class ImageLibModelImpl implements ImageLibModel {
    */
   @Override
   public void loadImage(String imageName, ImageFile imageFile){
-    for(int i = 0; i< imageFile.getHeight(); i++) {
-      for(int j = 0; j< imageFile.getWidth(); j++) {
-        System.out.println(imageFile.getColorAt(i,j).getAlpha());
-      }
-    }
     imageLib.put(imageName, imageFile);
   }
 
@@ -61,7 +56,7 @@ public class ImageLibModelImpl implements ImageLibModel {
     if (!this.imageLib.containsKey(imageName)) {
       throw new IllegalStateException("No such an image named " + imageName + " can be found!");
     }
-    return imageLib.get(imageName);
+    return imageLib.get(imageName).copy();
   }
 
   /**
