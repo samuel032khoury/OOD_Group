@@ -47,6 +47,11 @@ public final class ImageFileImpl implements ImageFile {
     this.alphaChannel = alphaChannel;
   }
 
+  /**
+   * Operate on an image base on the operation used.
+   * @param operation the operation used
+   * @return a new ImageFile with the operation done on the ImageFile matrix.
+   */
   public ImageFile applyOperation(IImageOperation operation) {
     Color[][] newPixels = operation.apply(this.alphaChannel, this.pixels);
     int newMaxColorVal = operation.updateMaxColorVal(this.maxColorVal);
@@ -54,6 +59,10 @@ public final class ImageFileImpl implements ImageFile {
     return new ImageFileImpl(newPixels, newMaxColorVal, newAlphaChannel);
   }
 
+  /**
+   * Copy an image.
+   * @return a copy of the image.
+   */
   @Override
   public ImageFile copy() {
     Color[][] copied = new Color[this.height][width];
