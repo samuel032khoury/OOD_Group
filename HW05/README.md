@@ -130,17 +130,13 @@ Image "painting" citation: Photo by https://unsplash.com/photos/JLfem8ViKVA
 
 #### Changes
 
-switch the return type of various methods from ImageFile to void
+ImagesFile do not include the operations within the object, the operations now moved to IImageOperation interface.
 
-ImagesFile have now includes a generic type. 
-
-changed the modifier in ImageProcessControllerImpl from private to protected
-
-change the code fo the main function to meet the criteria for starting a session
-
-
+restructure the package into smaller packages.
 
 changed the modifier in ImageProcessControllerImpl from private to protected
 
 change the code fo the main function to meet the criteria for starting a session
+
+
 
