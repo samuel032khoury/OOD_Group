@@ -8,15 +8,18 @@ import model.operation.ANoAlphaOperation;
 import model.operation.function.IColorTransformFunction;
 import model.operation.opertor.colortrans.IColorTransOperator;
 
+//TODO
 public abstract class AColorTransformOperation extends ANoAlphaOperation {
   protected final IColorTransOperator operator;
   protected final Map<IColorTransOperator, IColorTransformFunction> supportedOperation;
 
+  //TODO
   public AColorTransformOperation(IColorTransOperator operator) {
     this.operator = operator;
     supportedOperation = new HashMap<>();
   }
 
+  //TODO
   @Override
   protected Color[][] process(Color[][] pixels) {
     Color[][] greyScaled = new Color[this.height][this.width];

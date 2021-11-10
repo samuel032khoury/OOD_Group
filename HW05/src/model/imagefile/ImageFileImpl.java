@@ -7,8 +7,7 @@ import java.util.Objects;
 import model.operation.IImageOperation;
 
 /**
- * To represent an abstract image file using a 2-D Color array for data storing. It has a {@code
- * channelOperations} map to store operations that can be applied to each Color object.
+ * To represent an image file using a 2-D Color array for data storing. //TODO
  */
 public final class ImageFileImpl implements ImageFile {
   private final Color[][] pixels;
@@ -17,11 +16,12 @@ public final class ImageFileImpl implements ImageFile {
   private final int maxColorVal;
   private final boolean alphaChannel;
 
-//  protected Map<IChannelOperator, IColorTransformFunction> channelOperations;
+  //TODO
   public ImageFileImpl(Color[][] pixels) {
     this(pixels, 255, false);
   }
 
+  //TODO
   public ImageFileImpl(Color[][] pixels, int maxColorVal) {
     this(pixels, maxColorVal, false);
   }
@@ -49,6 +49,7 @@ public final class ImageFileImpl implements ImageFile {
 
   /**
    * Operate on an image base on the operation used.
+   *
    * @param operation the operation used
    * @return a new ImageFile with the operation done on the ImageFile matrix.
    */
@@ -60,7 +61,8 @@ public final class ImageFileImpl implements ImageFile {
   }
 
   /**
-   * Copy an image.
+   * Deep copy a {@link ImageFile} object with duplicated information.
+   *
    * @return a copy of the image.
    */
   @Override

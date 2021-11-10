@@ -12,6 +12,7 @@ import model.imagefile.ImageFileImpl;
 /**
  * A concrete class of loader, with support to load a ppm file.
  */
+//TODO
 public class PPMLoader implements ILoader {
 
   /**

@@ -2,6 +2,7 @@ package model.operation.opertor.filter;
 
 import model.operation.color.OperationUtil;
 
+//TODO
 public enum SimpleFilterOperator implements IFilterOperator {
   Blur(new double[][]{{1 / 16.0, 1 / 8.0, 1 / 16.0}, {1 / 8.0, 1 / 4.0, 1 / 8.0}, {1 / 16.0,
           1 / 8.0, 1 / 16.0}}),
@@ -14,11 +15,13 @@ public enum SimpleFilterOperator implements IFilterOperator {
 
   private final double[][] kernel;
 
+  //TODO
   SimpleFilterOperator(double[][] kernel) {
     OperationUtil.checkKernel(kernel);
     this.kernel = kernel;
   }
 
+  //TODO
   @Override
   public double[][] getKernel() {
     return this.kernel;

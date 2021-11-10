@@ -3,7 +3,7 @@ package model.imagefile;
 import java.awt.Color;
 
 /**
- * To represent an image that can only be viewed, but cannot be modified or be copied.
+ * To represent an image that can only be viewed, but cannot apply operations or be copied.
  */
 public interface ReadOnlyImageFile {
   /**

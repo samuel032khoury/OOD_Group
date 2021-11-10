@@ -11,6 +11,7 @@ import model.imagefile.ReadOnlyImageFile;
 /**
  * A concrete class of loader, with support to write a ppm file.
  */
+//TODO
 public class PPMWriter implements IWriter {
 
   /**

@@ -7,5 +7,7 @@ import model.operation.function.IColorTransformFunction;
  * corresponding {@link IColorTransformFunction} implemented.
  */
 public interface IColorTransOperator {
+
+  //TODO
   double[][] getMatrix();
 }

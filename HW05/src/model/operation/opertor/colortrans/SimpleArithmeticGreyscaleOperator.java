@@ -15,11 +15,14 @@ public enum SimpleArithmeticGreyscaleOperator implements IColorTransOperator {
 
   private final double[][] transformMatrix;
 
+
+  //TODO
   SimpleArithmeticGreyscaleOperator(double[][] transformMatrix) {
     OperationUtil.checkColorTransformMatrix(transformMatrix);
     this.transformMatrix = transformMatrix;
   }
 
+  //TODO
   @Override
   public double[][] getMatrix() {
     return this.transformMatrix;

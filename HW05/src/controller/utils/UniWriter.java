@@ -2,6 +2,7 @@ package controller.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -15,6 +16,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 /**
  * A concrete class of IWriter, with support to load most of the file formats.
  */
+//TODO
 public class UniWriter implements IWriter{
 
   private final boolean alpha;
@@ -39,10 +41,17 @@ public class UniWriter implements IWriter{
    */
   @Override
   public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
+    if (img == null) {
+      throw new IllegalArgumentException("ImageFile does not exist!");
+    }
+    if (fileName == null) {
+      throw new IllegalArgumentException("File name is unspecified!");
+    }
+
+    BufferedImage image;
     int height = img.getHeight();
     int width = img.getWidth();
 
-    BufferedImage image;
 
     if (alpha) {
       image = new BufferedImage(width, height, TYPE_4BYTE_ABGR);
@@ -57,12 +66,15 @@ public class UniWriter implements IWriter{
     }
 
     File file = new File(fileName);
+    if(!file.exists()) {
+      throw new IllegalStateException("Unable to create the destination file!");
+    }
     String[] list = fileName.split("\\.");
 
     try {
       ImageIO.write(image, list[list.length - 1], file);
     } catch (IOException e) {
-      throw new IllegalStateException("can't write");
+      throw new IllegalStateException("An error occurs when trying to save the file!");
     }
 
   }

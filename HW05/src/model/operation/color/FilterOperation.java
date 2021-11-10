@@ -3,7 +3,10 @@ package model.operation.color;
 import model.operation.opertor.filter.IFilterOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 
+//TODO
 public class FilterOperation extends AFilterOperation {
+
+  //TODO
   public FilterOperation(IFilterOperator filter) {
     super(filter);
     supportedFilter.put(SimpleFilterOperator.Blur, OperationUtil::filtering);
