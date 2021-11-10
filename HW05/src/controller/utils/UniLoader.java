@@ -78,7 +78,7 @@ public class UniLoader implements ILoader {
   }
 
   public static void main(String[] args) {
-    ImageFile img = new UniLoader().loadFile("/Users/eric/Downloads/p2.png");
+    ImageFile img = new UniLoader().loadFile("/Users/eric/Downloads/serbia-1.bmp ");
     new UniWriter(false).write(img, "hi.bmp");
   }
 }
