@@ -1,10 +1,10 @@
 package controller.utils;
 
 /**
- * A {@link ASuffixManager} that is able to provide whenever a .ppm file is going
- * to be loaded.
+ * A {@link ASuffixManager} that is able to provide {@link UniLoader} for various major image format
+ * loading given the demanded file extension.
  */
-public class LoadSuffixManagerV2 extends LoadSuffixManager{
+public class LoadSuffixManagerV2 extends LoadSuffixManager {
 
   /**
    * Construct an {@link ASuffixManager} for loading with support to bmp, jpg, png, jpeg format.

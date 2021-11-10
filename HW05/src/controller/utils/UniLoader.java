@@ -20,6 +20,16 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
  */
 public class UniLoader implements ILoader{
 
+  private final int maxColorVal;
+
+  public UniLoader() {
+    this(255);
+  }
+
+  public UniLoader(int maxColorVal) {
+    this.maxColorVal = maxColorVal;
+  }
+
   /**
    * load a file from the machine's file system as a {@link ImageFile} object.
    *
@@ -60,7 +70,6 @@ public class UniLoader implements ILoader{
       }
     }
 
-    // TODO: explain the 255
-    return new ImageFileImpl(pixels, 255, alpha);
+    return new ImageFileImpl(pixels, this.maxColorVal, alpha);
   }
 }

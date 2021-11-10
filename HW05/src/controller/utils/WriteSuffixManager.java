@@ -1,7 +1,10 @@
 package controller.utils;
 
+import model.imagefile.ImageFile;
+
 /**
- * A concrete class to manage writers.
+ * A {@link ASuffixManager} that is able to provide {@link PPMWriter} whenever a {@link ImageFile}
+ * is going to be saved as a .ppm file.
  */
 public class WriteSuffixManager extends ASuffixManager<IWriter> {
   /**
