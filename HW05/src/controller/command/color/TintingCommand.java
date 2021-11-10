@@ -4,7 +4,6 @@ import java.util.Queue;
 
 import controller.command.macro.ACommand;
 import controller.command.macro.CommandUtil;
-import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.operation.color.TintingOperation;
 import model.library.ImageLibModel;
@@ -12,7 +11,7 @@ import model.operation.opertor.colortrans.IColorTransOperator;
 import view.IImageProcessView;
 
 /**
- * A command to tint an image by performing a color transform rule.matrix provided by the given
+ * A command to tint an image by performing a color transform rule/matrix provided by the given
  * {@link IColorTransOperator}.
  */
 public class TintingCommand extends ACommand {
@@ -40,10 +39,12 @@ public class TintingCommand extends ACommand {
    *                               IColorTransOperator} is unsupported.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view) throws IllegalStateException {
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
+          throws IllegalStateException {
     CommandUtil util = new CommandUtil(currCommand());
     String descriptionOfEdit = currCommand() + " image";
-    super.perform(util, new TintingOperation(this.operator), model, commandQueue, view, descriptionOfEdit);
+    super.perform(util, new TintingOperation(this.operator), model, commandQueue,
+            view, descriptionOfEdit);
   }
 
   /**

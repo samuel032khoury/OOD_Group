@@ -17,7 +17,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  */
 public class UniWriter implements IWriter{
 
-  boolean alpha;
+  private final boolean alpha;
 
   /**
    * The constructor of a UniWriter, with options to specify whether the writer is going

@@ -13,6 +13,13 @@ import view.IImageProcessView;
  * A command to load an image from the user's machine to the program's library .
  */
 public class LoadCommand extends InOutCommand {
+
+  private final LoadSuffixManager loaderProvider;
+
+  public LoadCommand(LoadSuffixManager loaderProvider) {
+    this.loaderProvider = loaderProvider;
+  }
+
   /**
    * Try to load an image into the library.
    *
@@ -30,7 +37,7 @@ public class LoadCommand extends InOutCommand {
     String pathName = util.getValidArgs(commandQueue);
     String imageName = util.getValidArgs(commandQueue);
     util.expectNoMoreArgs(commandQueue);
-    ILoader loader = new LoadSuffixManager().provide(getValidSuffix(pathName));
+    ILoader loader = loaderProvider.provide(getValidSuffix(pathName));
     String connection = util.getConnection(model.peek(imageName));
     ImageFile img = loader.loadFile(pathName);
     model.loadImage(imageName, img);

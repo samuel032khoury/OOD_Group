@@ -14,6 +14,5 @@ public class WriteSuffixManagerV2 extends WriteSuffixManager{
     this.availableSuffix.put("png", () -> new UniWriter(true));
     this.availableSuffix.put("jpg", () -> new UniWriter(false));
     this.availableSuffix.put("jpeg", () -> new UniWriter(false));
-
   }
 }

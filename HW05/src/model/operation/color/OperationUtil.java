@@ -1,8 +1,6 @@
 package model.operation.color;
 
-import java.awt.*;
-
-import model.imagefile.ImageFile;
+import java.awt.Color;
 
 public class OperationUtil {
 

@@ -13,6 +13,11 @@ import view.IImageProcessView;
  * A command to save an image from the program's library to the user's machine.
  */
 public class SaveCommand extends InOutCommand {
+  private final WriteSuffixManager writerProvider;
+
+  public SaveCommand(WriteSuffixManager writerProvider) {
+    this.writerProvider = writerProvider;
+  }
 
   /**
    * Try to export a picture into a file.
@@ -36,7 +41,7 @@ public class SaveCommand extends InOutCommand {
       throw new IllegalStateException(
               "Unable to save because image " + imageName + " cannot be found!");
     }
-    IWriter writer = new WriteSuffixManager().provide(getValidSuffix(pathName));
+    IWriter writer = writerProvider.provide(getValidSuffix(pathName));
     writer.write(img, pathName);
     view.renderMessage("Image " + imageName + " has been exported to " + pathName + ".");
   }

@@ -1,7 +1,6 @@
 package model.operation.color;
 
-import java.awt.*;
-import java.util.Arrays;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +10,7 @@ import model.operation.opertor.filter.IFilterOperator;
 
 public class AFilterOperation extends ANoAlphaOperation {
   protected final IFilterOperator filter;
-  protected Map<IFilterOperator, IFilterFunction> supportedFilter;
+  protected final Map<IFilterOperator, IFilterFunction> supportedFilter;
 
   public AFilterOperation(IFilterOperator filter) {
     this.filter = filter;

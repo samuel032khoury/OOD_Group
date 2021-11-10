@@ -10,7 +10,7 @@ import controller.command.macro.ACommand;
  */
 public abstract class InOutCommand extends ACommand {
   /**
-   * To get the suffix for a filename.
+   * To get the lower case extension of a file.
    *
    * @param pathName the pathname of the file
    * @return the suffix of the given pathname.
@@ -24,6 +24,6 @@ public abstract class InOutCommand extends ACommand {
     } else if (fileName.startsWith(".") && splitList.length < 3) {
       throw new IllegalStateException("Invalid File Name!");
     }
-    return splitList[splitList.length - 1];
+    return splitList[splitList.length - 1].toLowerCase();
   }
 }

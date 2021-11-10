@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @param <T> The type of object to manage.
  */
 public abstract class ASuffixManager<T> implements IManager<T> {
-  protected Map<String, Supplier<T>> availableSuffix = new HashMap<>();
+  protected final Map<String, Supplier<T>> availableSuffix = new HashMap<>();
 
   /**
    * Find the correct supplier for loader/writer based on the suffix.

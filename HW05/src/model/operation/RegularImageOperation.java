@@ -1,6 +1,6 @@
 package model.operation;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Objects;
 
 public abstract class RegularImageOperation implements IImageOperation{

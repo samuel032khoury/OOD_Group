@@ -10,7 +10,7 @@ import model.operation.opertor.colortrans.IColorTransOperator;
 
 public abstract class AColorTransformOperation extends ANoAlphaOperation {
   protected final IColorTransOperator operator;
-  protected Map<IColorTransOperator, IColorTransformFunction> supportedOperation;
+  protected final Map<IColorTransOperator, IColorTransformFunction> supportedOperation;
 
   public AColorTransformOperation(IColorTransOperator operator) {
     this.operator = operator;

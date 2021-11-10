@@ -1,8 +1,5 @@
 package model.operation.color;
 
-import java.awt.*;
-
-import model.operation.ANoAlphaOperation;
 import model.operation.opertor.filter.IFilterOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 

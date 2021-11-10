@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Queue;
 
 import controller.command.color.FilterCommand;
-import controller.command.color.GreyCommand;
 import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
-import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 
 /**

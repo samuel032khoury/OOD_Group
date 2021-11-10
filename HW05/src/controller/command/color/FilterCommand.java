@@ -39,10 +39,12 @@ public class FilterCommand extends ACommand {
    *                               IFilterOperator} is unsupported.
    */
   @Override
-  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view) throws IllegalStateException {
+  public void execute(ImageLibModel model, Queue<String> commandQueue, IImageProcessView view)
+          throws IllegalStateException {
     CommandUtil util = new CommandUtil(currCommand());
     String descriptionOfEdit = currCommand() + " image";
-    super.perform(util, new FilterOperation(this.filter), model, commandQueue, view, descriptionOfEdit);
+    super.perform(util, new FilterOperation(this.filter), model, commandQueue,
+            view, descriptionOfEdit);
   }
 
   /**

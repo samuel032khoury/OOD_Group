@@ -7,5 +7,5 @@ import java.awt.Color;
  * {@link Color} by the defined rules.
  */
 public interface IFilterFunction {
-  public Color[][] apply(Color[][] original, double[][] kernel);
+  Color[][] apply(Color[][] original, double[][] kernel);
 }

@@ -17,7 +17,9 @@ import controller.command.library.LoadCommand;
 import controller.command.macro.QuitCommand;
 import controller.command.library.SaveCommand;
 import controller.command.library.SizeCommand;
+import controller.utils.LoadSuffixManager;
 import controller.utils.QuitExecution;
+import controller.utils.WriteSuffixManager;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
@@ -95,8 +97,8 @@ public class ImageProcessControllerImpl implements IImageProcessController {
         put("luma-component", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
         put("intensity-component",
             () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
-        put("load", LoadCommand::new);
-        put("save", SaveCommand::new);
+        put("load", () -> new LoadCommand(new LoadSuffixManager()));
+        put("save", () -> new SaveCommand(new WriteSuffixManager()));
         put("size", SizeCommand::new);
         put("QUIT", QuitCommand::new);
       }};

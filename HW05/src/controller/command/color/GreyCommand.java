@@ -43,7 +43,8 @@ public class GreyCommand extends ACommand {
           throws IllegalStateException {
     CommandUtil util = new CommandUtil(currCommand());
     String descriptionOfEdit = currCommand() + " image";
-    super.perform(util, new GreyscaleOperation(this.operator), model, commandQueue, view, descriptionOfEdit);
+    super.perform(util, new GreyscaleOperation(this.operator), model, commandQueue,
+            view, descriptionOfEdit);
   }
 
   /**

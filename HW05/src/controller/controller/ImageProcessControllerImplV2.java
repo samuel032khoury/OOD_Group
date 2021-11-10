@@ -4,9 +4,11 @@ import java.io.InputStreamReader;
 
 import controller.command.color.FilterCommand;
 import controller.command.color.GreyCommand;
-import controller.command.library.LoadCommandV2;
-import controller.command.library.SaveCommandV2;
+import controller.command.library.LoadCommand;
 import controller.command.color.TintingCommand;
+import controller.command.library.SaveCommand;
+import controller.utils.LoadSuffixManagerV2;
+import controller.utils.WriteSuffixManagerV2;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import model.operation.opertor.colortrans.TiltingOperator;
@@ -71,7 +73,7 @@ public class ImageProcessControllerImplV2 extends ImageProcessControllerImpl {
     this.cmdMap.put("sharpen", () -> new FilterCommand(SimpleFilterOperator.Sharpening));
     this.cmdMap.put("greyscale", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
     this.cmdMap.put("sepia", () -> new TintingCommand(TiltingOperator.Sepia));
-    this.cmdMap.put("save", SaveCommandV2::new);
-    this.cmdMap.put("load", LoadCommandV2::new);
+    this.cmdMap.put("save", () -> new SaveCommand(new WriteSuffixManagerV2()));
+    this.cmdMap.put("load", () -> new LoadCommand(new LoadSuffixManagerV2()));
   }
 }
