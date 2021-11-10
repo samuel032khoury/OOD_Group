@@ -14,6 +14,17 @@ red-component painting painting-red & load res/elephant.ppm elephant
 # > Red-component image of painting has been created and is named painting-red.
 # > Image file found at res/elephant.ppm has been imported and is named elephant.
 
+green-component painting painting-green & blue-component painting painting-blue
+
+# > Green-component image of painting has been created and is named painting-green.
+# > Blue-component image of painting has been created and is named painting-blue.
+
+save res/painting-red.ppm painting-red & save res/painting-blue.ppm painting-blue & save res/painting-green.ppm painting-green
+
+# > Image painting-red has been exported to res/painting-red.ppm.
+# > Image painting-blue has been exported to res/painting-blue.ppm.
+# > Image painting-green has been exported to res/painting-green.ppm.
+
 vertical-flip painting painting-vertical-flipped & save res/painting-vertical-flipped.ppm painting-vertical-flipped & vertical-flip painting painting-vertical-flipped
 
 # > Processing command, please wait!
@@ -27,6 +38,13 @@ value-component elephant elephant-value & save res/elephant-value.ppm elephant-v
 # > Value-component image of elephant has been created and is named elephant-value.
 # > Image elephant-value has been exported to res/elephant-value.ppm.
 
+luma-component elephant elephant-luma & save res/elephant-luma.ppm elephant-luma & intensity-component elephant elephant-intensity & save res/elephant-intensity.ppm elephant-intensity
+
+# > Luma-component image of elephant has been created and is named elephant-luma.
+# > Image elephant-luma has been exported to res/elephant-luma.ppm.
+# > Intensity-component image of elephant has been created and is named elephant-intensity.
+# > Image elephant-intensity has been exported to res/elephant-intensity.ppm.
+
 darken 50 painting painting-darkened & save res/painting-darkened.ppm painting-darkened
 
 # > Processing command, please wait!
@@ -39,11 +57,64 @@ brighten 50 elephant elephant-brightened & save res/elephant-brightened.ppm elep
 # > Brightened image (value: 50) of elephant has been created and is named elephant-brightened.
 # > Image elephant-brightened has been exported to res/elephant-brightened.ppm.
 
+
+load res/broken-painting.png broken-painting
+
+# > Processing command, please wait!
+# > Image file found at res/broken-painting.png has been imported and is named broken-painting.
+
+blur broken-painting blured-broken-painting
+
+# > Processing command, please wait!
+# > Blur image of broken-painting has been created and is named blured-broken-painting.
+
+sharpen elephant elephant-sharpen
+
+# > Processing command, please wait!
+# > Sharpening image of elephant has been created and is named elephant-sharpen.
+
+sepia painting sepia-painting
+
+# > Processing command, please wait!
+# > Sepia image of painting has been created and is named sepia-painting.
+
+greyscale painting greyscal-painting
+
+# > Processing command, please wait!
+# > Greyscale image of painting has been created and is named greyscal-painting.
+
+save res/blured-broken-painting.png blured-broken-painting & save res/elephant-sharpen.jpeg elephant-sharpen &
+save res/sepia-painting.bmp sepia-painting & save res/greyscal-painting.jpg greyscal-painting
+
+# > Processing command, please wait!
+# > Image blured-broken-painting has been exported to res/blured-broken-painting.png.
+# > Image elephant-sharpen has been exported to res/elephant-sharpen.jpeg.
+# > Processing command, please wait!
+# > Image sepia-painting has been exported to res/sepia-painting.bmp.
+# > Image greyscal-painting has been exported to res/greyscal-painting.jpg.
+
+brighten 100 broken-painting brighter-broken-painting & sepia brighter-broken-painting s-bbp & sharpen s-bbp ss-bbp & save res/ss-bbp.jpg ss-bbp
+
+# > Processing command, please wait!
+# > Brightened image (value: 100) of broken-painting has been created and is named brighter-broken-painting.
+# > Sepia image of brighter-broken-painting has been created and is named s-bbp.
+# > Sharpening image of s-bbp has been created and is named ss-bbp.
+# > Image ss-bbp has been exported to res/ss-bbp.jpg.
+
+load res/ss-bbp.jpg ss-bbp & load res/sepia-painting.bmp sepia-painting & load res/greyscal-painting.jpg greyscal-painting & load res/elephant-sharpen.jpeg elephant-sharpen
+
+# > Processing command, please wait!
+# > Image file found at res/ss-bbp.jpg has been imported and has overwritten ss-bbp.
+# > Image file found at res/sepia-painting.bmp has been imported and has overwritten sepia-painting.
+# > Image file found at res/greyscal-painting.jpg has been imported and has overwritten greyscal-painting.
+# > Image file found at res/elephant-sharpen.jpeg has been imported and has overwritten elephant-sharpen.
+
+save res/ss-bbp-copy.jpg ss-bbp & save res/sepia-painting-copy.bmp sepia-painting & save res/greyscal-painting-copy.jpg greyscal-painting & save res/elephant-sharpen-copy.jpeg elephant-sharpen
+
 size
 
 # > Processing command, please wait!
 # > There are 7 images in the library!
-
 
 ######### BAD INPUTS #########
 
@@ -123,10 +194,13 @@ size
 # > There are 7 images in the library!
 
 size this would fail because too much arguments
+
 # > Processing command, please wait!
 # Too much arguments provided for size, try again!
 
 QUIT & save /painting-red.ppm painting-red
+
+# > Processing command, please wait!
 # QUIT should be the last argument, try again!
 
 QUIT
