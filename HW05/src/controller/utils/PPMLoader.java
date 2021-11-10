@@ -10,7 +10,9 @@ import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 
 /**
- * A concrete class of loader, with support to load a ppm file.
+ * An implementation of {@link ILoader}, with support to convert a PPM file into a 2-D {@code Array}
+ * of {@link Color} and use that array information (along with other meta information retrieved from
+ * the PPM file) to build a {@link ImageFile}.
  */
 public class PPMLoader implements ILoader {
 

@@ -9,18 +9,21 @@ import model.operation.function.IColorTransformFunction;
 import model.operation.opertor.colortrans.IColorTransOperator;
 
 /**
- * An abstract class to process the color transform operations.
- * Put IColorTransformFunction in a map to keep the available color transform operations.
+ * An abstract class that has the shared method to process the color transform operations.
+ * A map has keys of {@link IColorTransOperator} is provided to retrieve appropriate
+ * {@link IColorTransformFunction} applied to the image.
  */
 public abstract class AColorTransformOperation extends ANoAlphaOperation {
   protected final IColorTransOperator operator;
   protected final Map<IColorTransOperator, IColorTransformFunction> supportedOperation;
 
+  //TODO
   public AColorTransformOperation(IColorTransOperator operator) {
     this.operator = operator;
     supportedOperation = new HashMap<>();
   }
 
+  //TODO
   @Override
   protected Color[][] process(Color[][] pixels) {
     Color[][] greyScaled = new Color[this.height][this.width];

@@ -4,13 +4,17 @@ import java.awt.Color;
 
 import model.operation.ANoAlphaOperation;
 
+
+//TODO
 public class BrightnessOperation extends ANoAlphaOperation {
   private final int value;
 
+  //TODO
   public BrightnessOperation(boolean brighten, int value) {
-    this.value = value * (brighten? 1 : -1);
+    this.value = value * (brighten ? 1 : -1);
   }
 
+  //TODO
   @Override
   protected Color[][] process(Color[][] pixels) {
     Color[][] adjusted = new Color[this.height][this.width];

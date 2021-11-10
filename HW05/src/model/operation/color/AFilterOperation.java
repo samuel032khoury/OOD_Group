@@ -8,19 +8,18 @@ import model.operation.ANoAlphaOperation;
 import model.operation.function.IFilterFunction;
 import model.operation.opertor.filter.IFilterOperator;
 
-/**
- * A abstract class to process the color filter operation.
- * Put IFilterFunction in a map to keep the available filters.
- */
-public abstract class AFilterOperation extends ANoAlphaOperation {
+//TODO
+public class AFilterOperation extends ANoAlphaOperation {
   protected final IFilterOperator filter;
   protected final Map<IFilterOperator, IFilterFunction> supportedFilter;
 
+  //TODO
   public AFilterOperation(IFilterOperator filter) {
     this.filter = filter;
     supportedFilter = new HashMap<>();
   }
 
+  //TODO
   @Override
   protected Color[][] process(Color[][] pixels) {
     Color[][] filtered = new Color[this.height][this.width];
@@ -30,6 +29,6 @@ public abstract class AFilterOperation extends ANoAlphaOperation {
     final IFilterFunction function = this.supportedFilter.get(filter);
     //The shape of the kernel has been restricted when it's constructed in enum class
     final double[][] kernel = filter.getKernel();
-    return function.apply(pixels,kernel);
+    return function.apply(pixels, kernel);
   }
 }

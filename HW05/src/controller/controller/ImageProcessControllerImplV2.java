@@ -71,7 +71,8 @@ public class ImageProcessControllerImplV2 extends ImageProcessControllerImpl {
     super(model, input, view);
     this.cmdMap.put("blur", () -> new FilterCommand(SimpleFilterOperator.Blur));
     this.cmdMap.put("sharpen", () -> new FilterCommand(SimpleFilterOperator.Sharpening));
-    this.cmdMap.put("greyscale", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
+    this.cmdMap.put("greyscale", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma,
+            "Greyscale"));
     this.cmdMap.put("sepia", () -> new TintingCommand(TiltingOperator.Sepia));
     this.cmdMap.put("save", () -> new SaveCommand(new WriteSuffixManagerV2()));
     this.cmdMap.put("load", () -> new LoadCommand(new LoadSuffixManagerV2()));

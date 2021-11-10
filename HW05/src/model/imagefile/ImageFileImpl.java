@@ -17,8 +17,6 @@ public final class ImageFileImpl implements ImageFile {
   private final int maxColorVal;
   private final boolean alphaChannel;
 
-//  protected Map<IChannelOperator, IColorTransformFunction> channelOperations;
-
   /**
    * Create a image with customized pixels.
    * @param pixels the 2-D Color array that stores the data information for an image
@@ -28,7 +26,7 @@ public final class ImageFileImpl implements ImageFile {
   }
 
   /**
-   * A constructor with customized pixels and maxcolor.
+   * A constructor with customized pixels and possible maximum color value.
    * @param pixels the 2-D Color array that stores the data information for an image
    * @param maxColorVal the possible maximum value for image's color channel
    */
@@ -59,6 +57,7 @@ public final class ImageFileImpl implements ImageFile {
 
   /**
    * Operate on an image base on the operation used.
+   *
    * @param operation the operation used
    * @return a new ImageFile with the operation done on the ImageFile matrix.
    */
@@ -70,7 +69,8 @@ public final class ImageFileImpl implements ImageFile {
   }
 
   /**
-   * Copy an image.
+   * Deep copy a {@link ImageFile} object with duplicated information.
+   *
    * @return a copy of the image.
    */
   @Override

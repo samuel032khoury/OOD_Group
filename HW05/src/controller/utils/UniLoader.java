@@ -3,6 +3,8 @@ package controller.utils;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,9 +18,11 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
 
 /**
- * A concrete class of ILoader, with support to load most of the file formats.
+ * An implementation of {@link ILoader}, with support to convert a conventional image file into a
+ * 2-D {@code Array} of {@link Color} and use that array information (along with other meta
+ * information retrieved from the image) to build a {@link ImageFile}.
  */
-public class UniLoader implements ILoader{
+public class UniLoader implements ILoader {
 
   private final int maxColorVal;
 
@@ -33,24 +37,24 @@ public class UniLoader implements ILoader{
   /**
    * load a file from the machine's file system as a {@link ImageFile} object.
    *
-   * @param fileName the pathname of the file
+   * @param pathName the path name of the file
    * @return a ImageFile that have the format of the file.
    * @throws IllegalStateException if the file cannot be found, the file is invalid, or if the file
    *                               is broken.
    */
   @Override
-  public ImageFile loadFile(String fileName) throws IllegalStateException {
+  public ImageFile loadFile(String pathName) throws IllegalStateException {
     BufferedImage img;
     boolean alpha = false;
 
     try {
-      img = ImageIO.read(new File(fileName));
+      new FileInputStream(pathName);
+      img = ImageIO.read(new File(pathName));
+    } catch (FileNotFoundException e) {
+      throw new IllegalStateException("Unable to find an image file named \"" + pathName + "\"! "
+              + "Please check the name or the path of the file is accurate and try again!");
     } catch (IOException e) {
-      throw new IllegalStateException("unable to read the image");
-    }
-
-    if (img == null) {
-      throw new IllegalStateException("unable to read the image");
+      throw new IllegalStateException("An error occurs when loading a file!");
     }
 
     int type = img.getType();
@@ -66,7 +70,7 @@ public class UniLoader implements ILoader{
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixels[i][j] = new Color(img.getRGB(j,i), true);
+        pixels[i][j] = new Color(img.getRGB(j, i), true);
       }
     }
 

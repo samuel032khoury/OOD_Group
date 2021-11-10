@@ -7,14 +7,15 @@ import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
- * To represent a concrete Image Library implementation using a Map mapping from String (image name)
- * to a {@link ImageFile}.
+ * To represent an Image Library implementation using a Map mapping from String (image name)
+ * to a {@link ImageFile}. The library can be expanded by performing {@link #loadImage}, and the
+ * data in it can be retrieved by {@link #get} or {@link #peek}.
  */
 public class ImageLibModelImpl implements ImageLibModel {
   private final Map<String, ImageFile> imageLib;
 
   /**
-   * A simple constructor.
+   * A simple constructor that create an empty library.
    */
   public ImageLibModelImpl() {
     this.imageLib = new HashMap<>();
@@ -43,7 +44,7 @@ public class ImageLibModelImpl implements ImageLibModel {
   }
 
   /**
-   * get a copiable {@link ImageFile} from the {@link #imageLib} by the provided identifiable image
+   * get a copy of {@link ImageFile} from the {@link #imageLib} by the provided identifiable image
    * name.
    *
    * @param imageName an identifiable image name to search a particular {@link ImageFile} in the

@@ -10,5 +10,7 @@ import model.operation.function.IColorTransformFunction;
  * pixels.
  */
 public interface IColorTransOperator {
+
+  //TODO
   double[][] getMatrix();
 }

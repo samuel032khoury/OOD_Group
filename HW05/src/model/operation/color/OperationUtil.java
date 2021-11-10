@@ -2,11 +2,13 @@ package model.operation.color;
 
 import java.awt.Color;
 
+//TODO
 /**
  * Useful helper functions that will be used during image processing.
  */
 public class OperationUtil {
 
+  //TODO
   /**
    * Check if the color transform matrix provided is a valid one.
    * @param transformMatrix the matrix to check.
@@ -18,6 +20,8 @@ public class OperationUtil {
       throw new IllegalArgumentException("The Provided Color transformation matrix is invalid!");
     }
   }
+
+  //TODO
 
   /**
    * Check if the filter kernel matrix provided is a valid one.
@@ -46,6 +50,7 @@ public class OperationUtil {
     }
   }
 
+  //TODO
   /**
    * Transform a pixel of color into another pixel of color, using color transform matrix.
    * @param c the input pixel of color.
@@ -58,15 +63,16 @@ public class OperationUtil {
     int blue = c.getBlue();
     int green = c.getGreen();
     result[0] = (int) (red * transformMatrix[0][0]
-                    + green * transformMatrix[0][1] + blue * transformMatrix[0][2]);
+            + green * transformMatrix[0][1] + blue * transformMatrix[0][2]);
     result[1] = (int) (red * transformMatrix[1][0]
-                    + green * transformMatrix[1][1] + blue * transformMatrix[1][2]);
+            + green * transformMatrix[1][1] + blue * transformMatrix[1][2]);
     result[2] = (int) (red * transformMatrix[2][0]
-                    + green * transformMatrix[2][1] + blue * transformMatrix[2][2]);
+            + green * transformMatrix[2][1] + blue * transformMatrix[2][2]);
     result = giveValidColorValue(result);
     return new Color(result[0], result[1], result[2], c.getAlpha());
   }
 
+  //TODO
   /**
    * Transform a 2D array of color pixels into another 2D array of color pixels.
    * This will be done using a filter kernel.
@@ -134,8 +140,9 @@ public class OperationUtil {
     return filtered;
   }
 
+  //TODO
   public static int[] giveValidColorValue(int... rgb) {
-    for(int i = 0; i < rgb.length; i ++) {
+    for (int i = 0; i < rgb.length; i++) {
       rgb[i] = Math.max(1, Math.min(255, rgb[i]));
     }
     return rgb;

@@ -1,5 +1,6 @@
 package controller.utils;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +15,9 @@ import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 /**
- * A concrete class of IWriter, with support to load most of the file formats.
+ * An implementation of {@link IWriter}, with support to convert a 2-D {@code Array} of {@link
+ * Color}, and other meta information of an image, stored in a {@link ReadOnlyImageFile} object,
+ * into an image file in a format corresponding to the provided extension.
  */
 public class UniWriter implements IWriter{
 
@@ -40,10 +43,17 @@ public class UniWriter implements IWriter{
    */
   @Override
   public void write(ReadOnlyImageFile img, String fileName) throws IllegalStateException {
+    if (img == null) {
+      throw new IllegalArgumentException("ImageFile does not exist!");
+    }
+    if (fileName == null) {
+      throw new IllegalArgumentException("File name is unspecified!");
+    }
+
+    BufferedImage image;
     int height = img.getHeight();
     int width = img.getWidth();
 
-    BufferedImage image;
 
     if (alpha) {
       image = new BufferedImage(width, height, TYPE_4BYTE_ABGR);
@@ -58,6 +68,9 @@ public class UniWriter implements IWriter{
     }
 
     File file = new File(fileName);
+    if(!file.exists()) {
+      throw new IllegalStateException("Unable to create the destination file!");
+    }
     String[] list = fileName.split("\\.");
 
      String format = list[list.length - 1];
@@ -69,7 +82,7 @@ public class UniWriter implements IWriter{
     try {
       System.out.println(ImageIO.write(image, format , file));
     } catch (IOException e) {
-      throw new IllegalStateException("can't write");
+      throw new IllegalStateException("An error occurs when trying to save the file!");
     }
 
   }
