@@ -7,10 +7,8 @@ import java.awt.Color;
  */
 public class OperationUtil {
 
-  //TODO
-
   /**
-   * Check if the color transform matrix provided is a valid one.
+   * Check if the color transform matrix provided is a valid one, meaning it's a 3 x 3 matrix.
    *
    * @param transformMatrix the matrix to check.
    * @throws IllegalArgumentException if the color transform matrix is not 3*3
@@ -22,13 +20,12 @@ public class OperationUtil {
     }
   }
 
-  //TODO
-
   /**
    * Check if the filter kernel matrix provided is a valid one.
    *
    * @param kernel the matrix to check.
-   * @throws IllegalArgumentException filter kernel matrix is not a square odd matrix.
+   * @throws IllegalArgumentException filter kernel matrix is not a rectangular matrix with odd
+   * rows and columns.
    */
   public static void checkKernel(double[][] kernel) throws IllegalArgumentException {
     boolean valid = false;
@@ -52,8 +49,6 @@ public class OperationUtil {
     }
   }
 
-  //TODO
-
   /**
    * Transform a pixel of color into another pixel of color, using color transform matrix.
    *
@@ -76,15 +71,13 @@ public class OperationUtil {
     return new Color(result[0], result[1], result[2], c.getAlpha());
   }
 
-  //TODO
-
   /**
    * Transform a 2D array of color pixels into another 2D array of color pixels. This will be done
    * using a filter kernel.
    *
    * @param original the input 2D array of color pixels
    * @param kernel   the filter kernel
-   * @return a transformed 2D arrays.
+   * @return a filtered image represented by a 2D {@code Array} of {@link Color}.
    */
   public static Color[][] filtering(Color[][] original, double[][] kernel) {
     int height = original.length;
@@ -148,6 +141,7 @@ public class OperationUtil {
 
   /**
    * To bound the value of color components between 0-255.
+   *
    * @param rgb a sequence of value of color components, in an order of rgb(a, if have).
    * @return a list of valid (bounded between 0-255) values for color components.
    */
