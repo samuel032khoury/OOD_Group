@@ -28,7 +28,7 @@ public class MockImage implements ImageFile {
 
   @Override
   public ImageFile copy() {
-    return null;
+    return this;
   }
 
   @Override

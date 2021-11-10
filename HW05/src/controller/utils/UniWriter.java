@@ -3,6 +3,7 @@ package controller.utils;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -59,8 +60,14 @@ public class UniWriter implements IWriter{
     File file = new File(fileName);
     String[] list = fileName.split("\\.");
 
+     String format = list[list.length - 1];
+
+     if (Objects.equals(format, "bmp")) {
+       format = "BMP";
+     }
+
     try {
-      ImageIO.write(image, list[list.length - 1], file);
+      System.out.println(ImageIO.write(image, format , file));
     } catch (IOException e) {
       throw new IllegalStateException("can't write");
     }

@@ -72,4 +72,9 @@ public class UniLoader implements ILoader{
 
     return new ImageFileImpl(pixels, this.maxColorVal, alpha);
   }
+
+  public static void main(String[] args) {
+    ImageFile img = new UniLoader().loadFile("/Users/eric/Downloads/p2.png");
+    new UniWriter(false).write(img, "hi.bmp");
+  }
 }

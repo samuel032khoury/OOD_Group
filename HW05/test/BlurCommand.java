@@ -39,15 +39,15 @@ public class BlurCommand extends ACommandTest {
   @Override
   public ImageFile[] provideOutputs() {
     return new ImageFile[]{new ImageFileImpl(new Color[][]{
-            {new Color(12, 12, 12), new Color(22, 22, 22), new Color(32, 32, 32)},
-            {new Color(42, 42, 42), new Color(52, 52, 52), new Color(62, 62, 62)}
+            {new Color(12, 12, 13), new Color(20, 20, 21), new Color(19, 19, 20)},
+            {new Color(18, 18, 18), new Color(27, 27, 29), new Color(25, 25, 26)}
     })};
   }
 
   @Override
   public String[] viewOutputs() {
     return new String[]{
-        "> Blue-component image of testImg has been created and is named resultImg.\n"};
+        "> Blur image of testImg has been created and is named resultImg.\n"};
   }
 
   @Override
