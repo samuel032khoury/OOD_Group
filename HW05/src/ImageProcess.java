@@ -18,7 +18,6 @@ public class ImageProcess {
    */
   public static void main(String[] args) {
     InputStream targetStream = null;
-    // TODO : ADD JUSTIFICATION FOR SUPPORT EMPTY COMMAND LEVEL ARGS
     if (args.length < 1) {
       targetStream = System.in;
     } else if (args[0].equals("-f")) {
@@ -33,12 +32,8 @@ public class ImageProcess {
         throw new IllegalArgumentException("Unable to find the provided file! Please "
                 + "check the name or the path of the file is accurate and try again!");
       }
-    } //else if (args[0].equals("-m")) {
-//      targetStream = System.in;
-//    } else {
-//      targetStream = null;
-//    }
-    // TODO: justification for editing error message
+    }
+
     if (targetStream == null) {
       throw new IllegalArgumentException("Unknown arguments! Use -f to run a "
               + "text-based script (f)ile or enter interactive mode by providing no arguments!");

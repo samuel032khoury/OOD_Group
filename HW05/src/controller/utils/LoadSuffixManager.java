@@ -1,7 +1,8 @@
 package controller.utils;
 
 /**
- * A concrete class to manage loaders.
+ * A {@link ASuffixManager} that is able to provide {@link PPMLoader} whenever a .ppm file is going
+ * to be loaded.
  */
 public class LoadSuffixManager extends ASuffixManager<ILoader> {
   /**

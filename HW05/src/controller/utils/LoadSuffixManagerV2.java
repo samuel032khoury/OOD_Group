@@ -1,7 +1,8 @@
 package controller.utils;
+
 /**
- * A concrete class to manage loaders.
- * The new version supports loading bmp, jpg, png, jpeg format.
+ * A {@link ASuffixManager} that is able to provide whenever a .ppm file is going
+ * to be loaded.
  */
 public class LoadSuffixManagerV2 extends LoadSuffixManager{
 
