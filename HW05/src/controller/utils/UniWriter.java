@@ -1,8 +1,8 @@
 package controller.utils;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -15,9 +15,10 @@ import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 /**
- * A concrete class of IWriter, with support to load most of the file formats.
+ * An implementation of {@link IWriter}, with support to convert a 2-D {@code Array} of {@link
+ * Color}, and other meta information of an image, stored in a {@link ReadOnlyImageFile} object,
+ * into an image file in a format corresponding to the provided extension.
  */
-//TODO
 public class UniWriter implements IWriter{
 
   private final boolean alpha;

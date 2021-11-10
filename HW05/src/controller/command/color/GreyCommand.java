@@ -16,6 +16,7 @@ import view.IImageProcessView;
  */
 public class GreyCommand extends ACommand {
   private final IColorTransOperator operator;
+  private final String alternativeName;
 
   /**
    * To construct a GreyCommand.
@@ -25,7 +26,20 @@ public class GreyCommand extends ACommand {
    *                 ImageFile}.
    */
   public GreyCommand(IColorTransOperator operator) {
+    this(operator, "");
+  }
+
+  /**
+   * To construct a GreyCommand with an alternative operation name.
+   *
+   * @param operator A {@link IColorTransOperator}, expected by {@link #execute} for getting a color
+   *                 transform rule ({@code transformMatrix}) to be applied to the targeting {@link
+   *                 ImageFile}.
+   * @param alternativeName the alternative name for the command.
+   */
+  public GreyCommand(IColorTransOperator operator, String alternativeName) {
     this.operator = operator;
+    this.alternativeName = alternativeName;
   }
 
   /**
@@ -53,6 +67,6 @@ public class GreyCommand extends ACommand {
    * @return a string indicating command that being performed
    */
   protected String currCommand() {
-    return operator.toString() + "-component";
+    return alternativeName.equals("") ? operator.toString() + "-component" : alternativeName;
   }
 }

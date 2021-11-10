@@ -1,9 +1,18 @@
 package model.operation;
 
-//TODO
+import java.awt.*;
+
+/**
+ * To represent all {@link RegularImageOperation} that does not change the alpha value of an 
+ * image in the method of {@link #process(Color[][])};
+ */
 public abstract class ANoAlphaOperation extends RegularImageOperation {
 
-  //TODO
+  /**
+   * To determine if a {@link RegularImageOperation} is an alpha related operation.
+   *
+   * @return false all the time as all the extending class should not process alpha channel value.
+   */
   protected final boolean alphaRelated() {
     return false;
   }

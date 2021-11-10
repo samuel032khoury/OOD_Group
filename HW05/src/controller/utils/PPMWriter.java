@@ -9,9 +9,10 @@ import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
- * A concrete class of loader, with support to write a ppm file.
+ * An implementation of {@link IWriter}, with support to convert a 2-D {@code Array} of {@link
+ * Color}, and other meta information of an image, stored in a {@link ReadOnlyImageFile} object into
+ * a PPM file.
  */
-//TODO
 public class PPMWriter implements IWriter {
 
   /**

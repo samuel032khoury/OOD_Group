@@ -18,10 +18,11 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
 
 /**
- * A concrete class of ILoader, with support to load most of the file formats.
+ * An implementation of {@link ILoader}, with support to convert a conventional image file into a
+ * 2-D {@code Array} of {@link Color} and use that array information (along with other meta
+ * information retrieved from the image) to build a {@link ImageFile}.
  */
-//TODO
-public class UniLoader implements ILoader{
+public class UniLoader implements ILoader {
 
   private final int maxColorVal;
 
@@ -47,6 +48,7 @@ public class UniLoader implements ILoader{
     boolean alpha = false;
 
     try {
+      new FileInputStream(pathName);
       img = ImageIO.read(new File(pathName));
     } catch (FileNotFoundException e) {
       throw new IllegalStateException("Unable to find an image file named \"" + pathName + "\"! "
@@ -68,7 +70,7 @@ public class UniLoader implements ILoader{
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixels[i][j] = new Color(img.getRGB(j,i), true);
+        pixels[i][j] = new Color(img.getRGB(j, i), true);
       }
     }
 
