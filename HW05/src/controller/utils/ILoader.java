@@ -3,7 +3,7 @@ package controller.utils;
 import model.imagefile.ImageFile;
 
 /**
- * An interface for loading file into imageFile object.
+ * An interface for loading a file and convert it into an {@link ImageFile} object.
  */
 public interface ILoader {
   /**

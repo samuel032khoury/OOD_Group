@@ -46,8 +46,8 @@ public class ImageProcessControllerImpl implements IImageProcessController {
   }
 
   /**
-   * An {@link ImageLibModelImpl}-customizable constructor for building an image process
-   * controller. Use default {@code system.in} and {@code system.out} for input/view destination.
+   * An {@link ImageLibModelImpl}-customizable constructor for building an image process controller.
+   * Use default {@code system.in} and {@code system.out} for input/view destination.
    *
    * @param model the customized library model for controller to use
    * @throws IllegalArgumentException when the provided {@code model} is null
@@ -74,7 +74,7 @@ public class ImageProcessControllerImpl implements IImageProcessController {
    *
    * @param model the customized library model for controller to use
    * @param input a specified {@link Readable} object
-   * @param view a target {@link IImageProcessView} for view purpose
+   * @param view  a target {@link IImageProcessView} for view purpose
    * @throws IllegalArgumentException when any of the provided arguments is null
    */
   public ImageProcessControllerImpl(ImageLibModel model, Readable input, IImageProcessView view)
@@ -87,29 +87,28 @@ public class ImageProcessControllerImpl implements IImageProcessController {
     this.input = input;
     this.view = view;
     this.cmdMap = new HashMap<>() {{
-        put("vertical-flip", () -> new FlipCommand(true));
-        put("horizontal-flip", () -> new FlipCommand(false));
-        put("brighten", () -> new AdjustBrightnessCommand(true));
-        put("darken", () -> new AdjustBrightnessCommand(false));
-        put("blue-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Blue));
-        put("red-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Red));
-        put("green-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Green));
-        put("luma-component", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
-        put("intensity-component",
-            () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
-        put("load", () -> new LoadCommand(new LoadSuffixManager()));
-        put("save", () -> new SaveCommand(new WriteSuffixManager()));
-        put("size", SizeCommand::new);
-        put("QUIT", QuitCommand::new);
-      }};
+      put("vertical-flip", () -> new FlipCommand(true));
+      put("horizontal-flip", () -> new FlipCommand(false));
+      put("brighten", () -> new AdjustBrightnessCommand(true));
+      put("darken", () -> new AdjustBrightnessCommand(false));
+      put("blue-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Blue));
+      put("red-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Red));
+      put("green-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Green));
+      put("luma-component", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
+      put("intensity-component",
+              () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
+      put("load", () -> new LoadCommand(new LoadSuffixManager()));
+      put("save", () -> new SaveCommand(new WriteSuffixManager()));
+      put("size", SizeCommand::new);
+      put("QUIT", QuitCommand::new);
+    }};
   }
 
   /**
    * This method runs the program, expecting user's input from the {@link Readable}, updates the
-   * {@link ImageLibModel} model and let view print feedback message according to the received
-   * valid command. Whenever the command is not valid (unsupported behavior/ unmatched arguments
-   * for a supported command), it tells view to print informative error message and let user try
-   * again.
+   * {@link ImageLibModel} model and let view print feedback message according to the received valid
+   * command. Whenever the command is not valid (unsupported behavior/ unmatched arguments for a
+   * supported command), it tells view to print informative error message and let user try again.
    */
   @Override
   public void run() {

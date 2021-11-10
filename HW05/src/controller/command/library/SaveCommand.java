@@ -15,6 +15,13 @@ import view.IImageProcessView;
 public class SaveCommand extends InOutCommand {
   private final WriteSuffixManager writerProvider;
 
+  /**
+   * Construct a SaveCommand that saves images from the library to user's machine.
+   *
+   * @param writerProvider the {@link WriteSuffixManager} that can provide an appropriate writer
+   *                       that transform a 2-D array to a machine recognizable image based on the
+   *                       file extension.
+   */
   public SaveCommand(WriteSuffixManager writerProvider) {
     this.writerProvider = writerProvider;
   }

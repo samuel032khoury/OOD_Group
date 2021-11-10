@@ -11,7 +11,7 @@ import model.operation.opertor.colortrans.IColorTransOperator;
 import view.IImageProcessView;
 
 /**
- * A command to tint an image by performing a color transform rule/matrix provided by the given
+ * A command that tints an image by performing a color transform rule/matrix provided by the given
  * {@link IColorTransOperator}.
  */
 public class TintingCommand extends ACommand {

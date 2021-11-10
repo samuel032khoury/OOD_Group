@@ -11,8 +11,8 @@ import model.operation.opertor.colortrans.IColorTransOperator;
 import view.IImageProcessView;
 
 /**
- * A command to greyscale an image by unifying all channels with a value derived by performing the
- * given {@link IColorTransOperator}.
+ * A command that greys an image by unifying all channels with a value provided by the given {@link
+ * IColorTransOperator}.
  */
 public class GreyCommand extends ACommand {
   private final IColorTransOperator operator;

@@ -11,7 +11,8 @@ public interface IManager<T> {
    *
    * @param input the key word to search for a needed object being provided
    * @return an object being provided
-   * @throws IllegalStateException if the search failed, meaning the object cannot be found
+   * @throws IllegalStateException if the search failed, meaning the corresponding object cannot be
+   *                               found
    */
   T provide(String input);
 }

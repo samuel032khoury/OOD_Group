@@ -4,7 +4,13 @@ import java.util.Queue;
 
 import model.imagefile.ReadOnlyImageFile;
 
+/**
+ * A Utility class that provides common functions for parsing command line inputs and generate
+ * appropriate feedback messages
+ */
 public class CommandUtil {
+  // this field stores the current command, aiming to provide precise feedback when the arguments
+  // are in a wrong size.
   private final String currCommand;
 
   /**

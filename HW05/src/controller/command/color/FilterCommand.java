@@ -11,7 +11,7 @@ import model.operation.opertor.filter.IFilterOperator;
 import view.IImageProcessView;
 
 /**
- * A command to apply a filter to an image by performing a kernel provided by the given {@link
+ * A command that applies a filter to an image by performing a kernel provided by the given {@link
  * IFilterOperator}.
  */
 public class FilterCommand extends ACommand {

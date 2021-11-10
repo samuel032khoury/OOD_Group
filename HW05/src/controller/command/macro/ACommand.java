@@ -27,7 +27,7 @@ public abstract class ACommand implements ICommand {
 
   /**
    * perform a standard procedure when dealing with most command execution, this method parse an
-   * {@code imageName} to be searched in the {@link ImageLibModel} and a (@code newImageName} as the
+   * {@code imageName} to be searched in the {@link ImageLibModel} and a {@code newImageName} as the
    * new name for the newly generated {@link ImageFile}, from the given {@code CommandQueue}. It's
    * also interacts with {@link IImageProcessView} to render standard operation message.
    *

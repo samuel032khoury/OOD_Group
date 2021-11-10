@@ -16,6 +16,13 @@ public class LoadCommand extends InOutCommand {
 
   private final LoadSuffixManager loaderProvider;
 
+  /**
+   * Construct a LoadCommand that loads the images to the library.
+   *
+   * @param loaderProvider the {@link LoadSuffixManager} that can provide an appropriate loader
+   *                       that transform an image from machine to a 2-D array based on the
+   *                       file extension.
+   */
   public LoadCommand(LoadSuffixManager loaderProvider) {
     this.loaderProvider = loaderProvider;
   }

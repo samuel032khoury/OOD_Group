@@ -1,7 +1,7 @@
 package controller.utils;
 
 /**
- * An exception that is specially for quitting.
+ * Exception signaling for quitting the program.
  */
 public class QuitExecution extends Throwable{
 }

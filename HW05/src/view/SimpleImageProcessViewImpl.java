@@ -3,7 +3,8 @@ package view;
 import model.library.ImageLibState;
 
 /**
- * A simple view class that extends that abstract class.
+ * A view that has access to a {@link ImageLibState} model. It interacts with the model by receiving
+ * messages or errors sent from it and rendering it to the output.
  */
 public class SimpleImageProcessViewImpl extends AImageProcessView {
   public SimpleImageProcessViewImpl(Appendable output, ImageLibState model) {

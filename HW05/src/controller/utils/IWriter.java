@@ -4,7 +4,8 @@ import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
- * An interface for writing the ImageFile into a file.
+ * An interface for converting an {@link ImageFile} into a file and writing it into machines file
+ * system.
  */
 public interface IWriter {
   /**
