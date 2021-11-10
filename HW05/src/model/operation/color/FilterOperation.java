@@ -1,16 +1,25 @@
 package model.operation.color;
 
+import java.awt.Color;
+
+import model.imagefile.ImageFile;
 import model.operation.opertor.filter.IFilterOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 
 /**
- * A concrete class of AFilterOperation, documented several available filters.
- * This will be operated on ImageFile to get a filtered version of images.
+ * An implementation of {@link AFilterOperation}, with several available filters added in the {@link
+ * #supportedFilter}, which can be applied to an {@link ImageFile} to get a filtered version of
+ * images.
  */
-//TODO
 public class FilterOperation extends AFilterOperation {
 
-  //TODO
+  /**
+   * To construct a {@link FilterOperation}, which adds available filters to the {@link
+   * #supportedFilter}.
+   *
+   * @param filter the demanded filter for {@link #process(Color[][])} to apply on a {@link
+   *               ImageFile}.
+   */
   public FilterOperation(IFilterOperator filter) {
     super(filter);
     supportedFilter.put(SimpleFilterOperator.Blur, OperationUtil::filtering);

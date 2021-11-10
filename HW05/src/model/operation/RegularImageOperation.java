@@ -6,7 +6,9 @@ import java.util.Objects;
 /**
  * To represent an implementation of {@link IImageOperation}, with the restriction that if an {@link
  * RegularImageOperation} is alpha related, then the image that doesn't have an alpha channel should
- * not be processed by that operation.
+ * not be processed by that operation. Any operations that extending {@link RegularImageOperation}
+ * should not change the possible maximum Color value and the availability of the alpha channel of
+ * an image as well.
  */
 public abstract class RegularImageOperation implements IImageOperation {
   protected int height;
@@ -45,7 +47,8 @@ public abstract class RegularImageOperation implements IImageOperation {
    * To update the possible maximum Color value for an image.
    *
    * @param original the original possible maximum Color value
-   * @return the updated possible maximum Color value
+   * @return the original possible maximum Color value, as extending class of {@link
+   * RegularImageOperation} do not change the possible maximum Color value.
    */
   @Override
   public int updateMaxColorVal(int original) {
@@ -56,7 +59,8 @@ public abstract class RegularImageOperation implements IImageOperation {
    * To update the availability of the alpha channel of an image.
    *
    * @param original the original availability of the alpha channel of an image
-   * @return the updated availability of the alpha channel of an image
+   * @return the original availability of the alpha channel, as extending class of {@link
+   * RegularImageOperation} do not change the availability of the alpha channel of an image.
    */
   @Override
   public boolean updateAlphaChannel(boolean original) {

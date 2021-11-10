@@ -8,18 +8,35 @@ import model.operation.ANoAlphaOperation;
 import model.operation.function.IFilterFunction;
 import model.operation.opertor.filter.IFilterOperator;
 
-//TODO
-public class AFilterOperation extends ANoAlphaOperation {
+/**
+ * An abstract class that has the shared method to process the filtering operations. A map has keys
+ * of {@link IFilterFunction} is provided to retrieve appropriate {@link IFilterFunction} applied to
+ * the image.
+ */
+public abstract class AFilterOperation extends ANoAlphaOperation {
   protected final IFilterOperator filter;
   protected final Map<IFilterOperator, IFilterFunction> supportedFilter;
 
-  //TODO
+  /**
+   * To construct a {@link AFilterOperation} with the {@link IFilterOperator} that saves the filter
+   * kernel (as a matrix).
+   *
+   * @param filter the {@link IFilterOperator} the filter kernel (as a matrix).
+   */
   public AFilterOperation(IFilterOperator filter) {
     this.filter = filter;
     supportedFilter = new HashMap<>();
   }
 
-  //TODO
+  /**
+   * Perform filtering operations on the given {@code pixels}, the rule of filtering is provided by
+   * the {@link IFilterFunction}, delivered from the {@link #supportedFilter} by searching for the
+   * {@link IFilterOperator}
+   *
+   * @param pixels a 2-D {@code Array} of {@link Color} that represents an image being processed
+   * @return a filtered 2-D {@code Array} of {@link Color} representing an image, by the
+   * filtering rule provided by {@link IFilterFunction}.
+   */
   @Override
   protected Color[][] process(Color[][] pixels) {
     Color[][] filtered = new Color[this.height][this.width];

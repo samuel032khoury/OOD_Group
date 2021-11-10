@@ -2,15 +2,16 @@ package model.operation.color;
 
 import java.awt.Color;
 
-//TODO
 /**
- * Useful helper functions that will be used during image processing.
+ * A Utility class that provides common functions for performing operations.
  */
 public class OperationUtil {
 
   //TODO
+
   /**
    * Check if the color transform matrix provided is a valid one.
+   *
    * @param transformMatrix the matrix to check.
    * @throws IllegalArgumentException if the color transform matrix is not 3*3
    */
@@ -25,6 +26,7 @@ public class OperationUtil {
 
   /**
    * Check if the filter kernel matrix provided is a valid one.
+   *
    * @param kernel the matrix to check.
    * @throws IllegalArgumentException filter kernel matrix is not a square odd matrix.
    */
@@ -51,9 +53,11 @@ public class OperationUtil {
   }
 
   //TODO
+
   /**
    * Transform a pixel of color into another pixel of color, using color transform matrix.
-   * @param c the input pixel of color.
+   *
+   * @param c               the input pixel of color.
    * @param transformMatrix the color transform matrix.
    * @return a transformed color pixels.
    */
@@ -73,11 +77,13 @@ public class OperationUtil {
   }
 
   //TODO
+
   /**
-   * Transform a 2D array of color pixels into another 2D array of color pixels.
-   * This will be done using a filter kernel.
+   * Transform a 2D array of color pixels into another 2D array of color pixels. This will be done
+   * using a filter kernel.
+   *
    * @param original the input 2D array of color pixels
-   * @param kernel the filter kernel
+   * @param kernel   the filter kernel
    * @return a transformed 2D arrays.
    */
   public static Color[][] filtering(Color[][] original, double[][] kernel) {
@@ -140,10 +146,14 @@ public class OperationUtil {
     return filtered;
   }
 
-  //TODO
+  /**
+   * To bound the value of color components between 0-255.
+   * @param rgb a sequence of value of color components, in an order of rgb(a, if have).
+   * @return a list of valid (bounded between 0-255) values for color components.
+   */
   public static int[] giveValidColorValue(int... rgb) {
     for (int i = 0; i < rgb.length; i++) {
-      rgb[i] = Math.max(1, Math.min(255, rgb[i]));
+      rgb[i] = Math.max(0, Math.min(255, rgb[i]));
     }
     return rgb;
   }

@@ -3,6 +3,7 @@ package model.operation.visual;
 import java.awt.Color;
 
 import model.operation.ANoAlphaOperation;
+import model.operation.color.OperationUtil;
 
 
 //TODO
@@ -21,10 +22,11 @@ public class BrightnessOperation extends ANoAlphaOperation {
     for (int row = 0; row < this.height; row++) {
       for (int col = 0; col < this.width; col++) {
         Color currColor = pixels[row][col];
-        int newR = Math.max(0, Math.min(255, currColor.getRed() + value));
-        int newG = Math.max(0, Math.min(255, currColor.getGreen() + value));
-        int newB = Math.max(0, Math.min(255, currColor.getBlue() + value));
-        adjusted[row][col] = new Color(newR, newG, newB, currColor.getAlpha());
+        int[] newRGB = OperationUtil.giveValidColorValue(
+                currColor.getRed() + value,
+                currColor.getGreen() + value,
+                currColor.getBlue() + value);
+        adjusted[row][col] = new Color(newRGB[0], newRGB[1], newRGB[2], currColor.getAlpha());
       }
     }
     return adjusted;

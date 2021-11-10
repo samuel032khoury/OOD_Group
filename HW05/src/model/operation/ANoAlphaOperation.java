@@ -1,6 +1,6 @@
 package model.operation;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * To represent all {@link RegularImageOperation} that does not change the alpha value of an 
