@@ -36,11 +36,12 @@ darken 50 painting painting-darkened & save res/painting-darkened.ppm painting-d
 brighten 50 elephant elephant-brightened & save res/elephant-brightened.ppm elephant-brightened
 
 # > Processing command, please wait!
-# > Brightened image (value: 50) of painting has been created and is named elephant-brightened.
+# > Brightened image (value: 50) of elephant has been created and is named elephant-brightened.
 # > Image elephant-brightened has been exported to res/elephant-brightened.ppm.
 
 size
 
+# > Processing command, please wait!
 # > There are 7 images in the library!
 
 
@@ -57,7 +58,7 @@ load res/painting pic
 # > Processing command, please wait!
 # Please specify the file format followed by '.'!
 
-load res/painting.png pic
+load res/painting.heif pic
 
 # > Processing command, please wait!
 # This file extension is not supported!

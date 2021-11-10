@@ -19,13 +19,14 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  * Color}, and other meta information of an image, stored in a {@link ReadOnlyImageFile} object,
  * into an image file in a format corresponding to the provided extension.
  */
-public class UniWriter implements IWriter{
+public class UniWriter implements IWriter {
 
   private final boolean alpha;
 
   /**
-   * The constructor of a UniWriter, with options to specify whether the writer is going
-   * to generate an image with alpha or not.
+   * The constructor of a UniWriter, with options to specify whether the writer is going to generate
+   * an image with alpha or not.
+   *
    * @param alpha true if the image supports alpha format, false otherwise.
    */
   public UniWriter(boolean alpha) {
@@ -63,24 +64,26 @@ public class UniWriter implements IWriter{
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        image.setRGB(j,i, img.getColorAt(i,j).getRGB());
+        image.setRGB(j, i, img.getColorAt(i, j).getRGB());
       }
     }
 
     File file = new File(fileName);
-    if(!file.exists()) {
+
+    if (!file.getAbsoluteFile().getParentFile().canWrite()) {
       throw new IllegalStateException("Unable to create the destination file!");
     }
+
     String[] list = fileName.split("\\.");
 
-     String format = list[list.length - 1];
+    String format = list[list.length - 1];
 
-     if (Objects.equals(format, "bmp")) {
-       format = "BMP";
-     }
+    if (Objects.equals(format, "bmp")) {
+      format = "BMP";
+    }
 
     try {
-      System.out.println(ImageIO.write(image, format , file));
+      ImageIO.write(image, format, file);
     } catch (IOException e) {
       throw new IllegalStateException("An error occurs when trying to save the file!");
     }
