@@ -18,10 +18,20 @@ public final class ImageFileImpl implements ImageFile {
   private final boolean alphaChannel;
 
 //  protected Map<IChannelOperator, IColorTransformFunction> channelOperations;
+
+  /**
+   * Create a image with customized pixels.
+   * @param pixels the 2-D Color array that stores the data information for an image
+   */
   public ImageFileImpl(Color[][] pixels) {
     this(pixels, 255, false);
   }
 
+  /**
+   * A constructor with customized pixels and maxcolor.
+   * @param pixels the 2-D Color array that stores the data information for an image
+   * @param maxColorVal the possible maximum value for image's color channel
+   */
   public ImageFileImpl(Color[][] pixels, int maxColorVal) {
     this(pixels, maxColorVal, false);
   }

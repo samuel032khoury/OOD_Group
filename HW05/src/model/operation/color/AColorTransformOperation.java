@@ -8,6 +8,10 @@ import model.operation.ANoAlphaOperation;
 import model.operation.function.IColorTransformFunction;
 import model.operation.opertor.colortrans.IColorTransOperator;
 
+/**
+ * An abstract class to process the color transform operations.
+ * Put IColorTransformFunction in a map to keep the available color transform operations.
+ */
 public abstract class AColorTransformOperation extends ANoAlphaOperation {
   protected final IColorTransOperator operator;
   protected final Map<IColorTransOperator, IColorTransformFunction> supportedOperation;

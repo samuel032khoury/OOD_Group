@@ -8,7 +8,11 @@ import model.operation.ANoAlphaOperation;
 import model.operation.function.IFilterFunction;
 import model.operation.opertor.filter.IFilterOperator;
 
-public class AFilterOperation extends ANoAlphaOperation {
+/**
+ * A abstract class to process the color filter operation.
+ * Put IFilterFunction in a map to keep the available filters.
+ */
+public abstract class AFilterOperation extends ANoAlphaOperation {
   protected final IFilterOperator filter;
   protected final Map<IFilterOperator, IFilterFunction> supportedFilter;
 
