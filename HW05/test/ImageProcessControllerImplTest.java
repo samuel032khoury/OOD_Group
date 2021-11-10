@@ -172,7 +172,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did horizFlip", output.toString());
+    assertEquals("did class model.operation.visual.FlipOperation", output.toString());
   }
 
   @Test
@@ -182,7 +182,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did brighten with value 20", output.toString());
+    assertEquals("did class model.operation.visual.BrightnessOperation", output.toString());
   }
 
   @Test
@@ -192,7 +192,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did darken with value 20", output.toString());
+    assertEquals("did class model.operation.visual.BrightnessOperation", output.toString());
   }
 
   @Test
@@ -202,7 +202,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Blue", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -212,7 +212,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Red", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -222,7 +222,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Green", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -232,7 +232,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Luma", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -242,7 +242,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Value", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -252,7 +252,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Intensity", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -269,10 +269,12 @@ public class ImageProcessControllerImplTest {
 
   @Test
   public void testCommandSendCorrection11() {
-    in = new StringReader("save mock mock.jpg");
+    in = new StringReader("save mock.jpg mock");
     Appendable output = new StringBuilder();
-    model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = this.giveModel(model, in, view);
+    ImageLibModel model = new MockModel(output);
+    model.loadImage("mock", img);
+    IImageProcessController controller
+            = this.giveModel(model, in, view);
     controller.run();
     assertEquals("loaded mockpeek mock", output.toString());
   }
@@ -284,7 +286,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.FilterOperation", output.toString());
   }
 
   @Test
@@ -294,7 +296,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.FilterOperation", output.toString());
   }
 
   @Test
@@ -304,7 +306,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -314,7 +316,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.TintingOperation", output.toString());
   }
 
   @Test
@@ -324,8 +326,8 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Value"
-            + "did greyscale with operator Intensity", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation" +
+            "did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test

@@ -39,8 +39,8 @@ public class IGrayCommand extends ACommandTest {
   @Override
   public ImageFile[] provideOutputs() {
     return new ImageFile[]{new ImageFileImpl(new Color[][]{
-            {new Color(11, 11, 11), new Color(21, 21, 21), new Color(31, 31, 31)},
-            {new Color(41, 41, 41), new Color(51, 51, 51), new Color(61, 61, 61)}
+            {new Color(10, 10, 10), new Color(20, 20, 20), new Color(30, 30, 30)},
+            {new Color(40, 40, 40), new Color(50, 50, 50), new Color(60, 60, 60)}
     })};
   }
 
