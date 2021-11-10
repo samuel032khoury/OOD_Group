@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -71,8 +72,14 @@ public class UniWriter implements IWriter{
     }
     String[] list = fileName.split("\\.");
 
+     String format = list[list.length - 1];
+
+     if (Objects.equals(format, "bmp")) {
+       format = "BMP";
+     }
+
     try {
-      ImageIO.write(image, list[list.length - 1], file);
+      System.out.println(ImageIO.write(image, format , file));
     } catch (IOException e) {
       throw new IllegalStateException("An error occurs when trying to save the file!");
     }

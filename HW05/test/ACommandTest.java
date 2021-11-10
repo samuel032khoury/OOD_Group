@@ -81,6 +81,7 @@ public abstract class ACommandTest {
         fail("Program should not quit!");
       }
       ImageFile newImageFile = this.model.get(this.outputName());
+
       assertEquals(outputs[i], newImageFile);
       assertEquals(viewOutputs[i], out.toString());
     }

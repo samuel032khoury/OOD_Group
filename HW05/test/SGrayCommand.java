@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 import controller.command.color.GreyCommand;
+import controller.command.color.TintingCommand;
 import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
@@ -18,7 +19,7 @@ import model.operation.opertor.colortrans.TiltingOperator;
 public class SGrayCommand extends ACommandTest {
   @Override
   public ICommand provideCommand() {
-    return new GreyCommand(TiltingOperator.Sepia);
+    return new TintingCommand(TiltingOperator.Sepia);
   }
 
   @Override
@@ -40,15 +41,15 @@ public class SGrayCommand extends ACommandTest {
   @Override
   public ImageFile[] provideOutputs() {
     return new ImageFile[]{new ImageFileImpl(new Color[][]{
-            {new Color(10, 10, 10), new Color(20, 20, 20), new Color(30, 30, 30)},
-            {new Color(40, 40, 40), new Color(50, 50, 50), new Color(60, 60, 60)}
+            {new Color(14, 13, 10), new Color(28, 25, 19), new Color(41, 37, 28)},
+            {new Color(55, 49, 38), new Color(68, 61, 47), new Color(82, 73, 57)}
     })};
   }
 
   @Override
   public String[] viewOutputs() {
     return new String[]{
-        "> Red-component image of testImg has been created and is named resultImg.\n"};
+        "> Sepia image of testImg has been created and is named resultImg.\n"};
   }
 
   @Override

@@ -39,15 +39,15 @@ public class SharpenCommand extends ACommandTest {
   @Override
   public ImageFile[] provideOutputs() {
     return new ImageFile[]{new ImageFileImpl(new Color[][]{
-            {new Color(12, 12, 12), new Color(22, 22, 22), new Color(32, 32, 32)},
-            {new Color(42, 42, 42), new Color(52, 52, 52), new Color(62, 62, 62)}
+            {new Color(25, 26, 28), new Color(66, 67, 71), new Color(56, 56, 58)},
+            {new Color(47, 48, 51), new Color(89, 90, 93), new Color(78, 78, 81)}
     })};
   }
 
   @Override
   public String[] viewOutputs() {
     return new String[]{
-        "> Blue-component image of testImg has been created and is named resultImg.\n"};
+        "> Sharpening image of testImg has been created and is named resultImg.\n"};
   }
 
   @Override

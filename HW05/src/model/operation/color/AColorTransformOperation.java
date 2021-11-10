@@ -8,7 +8,11 @@ import model.operation.ANoAlphaOperation;
 import model.operation.function.IColorTransformFunction;
 import model.operation.opertor.colortrans.IColorTransOperator;
 
-//TODO
+/**
+ * An abstract class that has the shared method to process the color transform operations.
+ * A map has keys of {@link IColorTransOperator} is provided to retrieve appropriate
+ * {@link IColorTransformFunction} applied to the image.
+ */
 public abstract class AColorTransformOperation extends ANoAlphaOperation {
   protected final IColorTransOperator operator;
   protected final Map<IColorTransOperator, IColorTransformFunction> supportedOperation;

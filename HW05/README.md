@@ -136,5 +136,5 @@ changed the modifier in ImageProcessControllerImpl from private to protected
 
 change the code fo the main function to meet the criteria for starting a session
 
-
+further, abstract the test class to configure the controller used.
 

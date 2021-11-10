@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.awt.Color;
 import java.io.StringReader;
 
+import controller.controller.ImageProcessControllerImplV2;
 import utils.MockImage;
 import utils.MockModel;
 import controller.controller.IImageProcessController;
@@ -27,6 +28,12 @@ public class ImageProcessControllerImplTest {
   IImageProcessView view;
   Appendable out;
   Readable in;
+
+  private IImageProcessController giveModel(ImageLibModel model, Readable in, IImageProcessView view) {
+    return new ImageProcessControllerImplV2(model, in, view);
+  }
+
+
 
   @Before
   public void setUp() {
@@ -143,7 +150,7 @@ public class ImageProcessControllerImplTest {
   public void testCommandNotFound() {
     in = new StringReader("isNew w");
     model.loadImage("img1", img);
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
     assertEquals("\u001B[31mCommand not found!\u001B[0m\n", out.toString());
   }
@@ -153,9 +160,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("vertical-flip mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did vertiFlip", output.toString());
+    assertEquals("did class model.operation.visual.FlipOperation", output.toString());
   }
 
   @Test
@@ -163,9 +170,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("horizontal-flip mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did horizFlip", output.toString());
+    assertEquals("did class model.operation.visual.FlipOperation", output.toString());
   }
 
   @Test
@@ -173,9 +180,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("brighten 20 mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did brighten with value 20", output.toString());
+    assertEquals("did class model.operation.visual.BrightnessOperation", output.toString());
   }
 
   @Test
@@ -183,9 +190,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("darken 20 mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did darken with value 20", output.toString());
+    assertEquals("did class model.operation.visual.BrightnessOperation", output.toString());
   }
 
   @Test
@@ -193,9 +200,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("blue-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Blue", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -203,9 +210,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("red-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Red", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -213,9 +220,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("green-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Green", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -223,9 +230,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("luma-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Luma", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -233,9 +240,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("value-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Value", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -243,9 +250,9 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("intensity-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Intensity", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -255,19 +262,19 @@ public class ImageProcessControllerImplTest {
     ImageLibModel model = new MockModel(output);
     model.loadImage("mock", img);
     IImageProcessController controller
-            = new ImageProcessControllerImpl(model, in, view);
+            = this.giveModel(model, in, view);
     controller.run();
     assertEquals("loaded mock", output.toString());
   }
 
   @Test
   public void testCommandSendCorrection11() {
-    in = new StringReader("save mock mock");
+    in = new StringReader("save mock.jpg mock");
     Appendable output = new StringBuilder();
     ImageLibModel model = new MockModel(output);
     model.loadImage("mock", img);
     IImageProcessController controller
-            = new ImageProcessControllerImpl(model, in, view);
+            = this.giveModel(model, in, view);
     controller.run();
     assertEquals("loaded mockpeek mock", output.toString());
   }
@@ -276,48 +283,40 @@ public class ImageProcessControllerImplTest {
   public void testCommandSendCorrection12() {
     in = new StringReader("blur mock mock");
     Appendable output = new StringBuilder();
-    ImageLibModel model = new MockModel(output);
-    model.loadImage("mock", img);
-    IImageProcessController controller
-            = new ImageProcessControllerImpl(model, in, view);
+    model.loadImage("mock", new MockImage(output));
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.FilterOperation", output.toString());
   }
 
   @Test
   public void testCommandSendCorrection13() {
     in = new StringReader("sharpen mock mock");
     Appendable output = new StringBuilder();
-    ImageLibModel model = new MockModel(output);
-    model.loadImage("mock", img);
-    IImageProcessController controller
-            = new ImageProcessControllerImpl(model, in, view);
+    model.loadImage("mock", new MockImage(output));
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.FilterOperation", output.toString());
   }
 
   @Test
   public void testCommandSendCorrection14() {
     in = new StringReader("greyscale mock mock");
     Appendable output = new StringBuilder();
-    ImageLibModel model = new MockModel(output);
-    model.loadImage("mock", img);
-    IImageProcessController controller
-            = new ImageProcessControllerImpl(model, in, view);
+    model.loadImage("mock", new MockImage(output));
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
   public void testCommandSendCorrection15() {
     in = new StringReader("sepia mock mock");
     Appendable output = new StringBuilder();
-    ImageLibModel model = new MockModel(output);
-    model.loadImage("mock", img);
-    IImageProcessController controller
-            = new ImageProcessControllerImpl(model, in, view);
+    model.loadImage("mock", new MockImage(output));
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("did class model.operation.color.TintingOperation", output.toString());
   }
 
   @Test
@@ -325,17 +324,17 @@ public class ImageProcessControllerImplTest {
     in = new StringReader("value-component mock mockNew & intensity-component mock mockNew");
     Appendable output = new StringBuilder();
     model.loadImage("mock", new MockImage(output));
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did greyscale with operator Value"
-            + "did greyscale with operator Intensity", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation" +
+            "did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
   public void testGoThrough() {
     in = new StringReader("value-component img imgNew");
     model.loadImage("img", img);
-    IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
+    IImageProcessController controller = this.giveModel(model, in, view);
 
     controller.run();
     assertEquals(new ImageFileImpl(new Color[][]{

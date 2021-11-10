@@ -7,6 +7,11 @@ import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
 import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
 
 //TODO
+/**
+ * A concrete class of AColorTransformOperation, documented several available filters
+ * related to simple color transforms.
+ * This will be operated on ImageFile to get a colored version of images.
+ */
 public class GreyscaleOperation extends AColorTransformOperation {
 
   //TODO
