@@ -32,6 +32,12 @@ vertical-flip painting painting-vertical-flipped & save res/painting-vertical-fl
 # > Image painting-vertical-flipped has been exported to res/painting-vertical-flipped.ppm.
 # > Vertical flipped image of painting has been created and has overwritten painting-vertical-flipped.
 
+horizontal-flip elephant elephant-horizontal-flipped & save res/elephant-horizontal-flipped.png elephant-horizontal-flipped 
+
+# > Processing command, please wait!
+# > Vertical flipped image of elephant has been created and is named elephant-horizontal-flipped.
+# > Image elephant-horizontal-flipped has been exported to res/elephant-horizontal-flipped.png.
+
 value-component elephant elephant-value & save res/elephant-value.ppm elephant-value
 
 # > Processing command, please wait!
