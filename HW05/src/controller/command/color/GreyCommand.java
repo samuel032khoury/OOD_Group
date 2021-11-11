@@ -4,7 +4,6 @@ import java.util.Queue;
 
 import controller.command.macro.ACommand;
 import controller.command.macro.CommandUtil;
-import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import model.operation.color.GreyscaleOperation;
 import model.operation.opertor.colortrans.IColorTransOperator;
@@ -22,8 +21,8 @@ public class GreyCommand extends ACommand {
    * To construct a GreyCommand.
    *
    * @param operator A {@link IColorTransOperator}, expected by {@link #execute} for getting a color
-   *                 transform rule ({@code transformMatrix}) to be applied to the targeting {@link
-   *                 ImageFile}.
+   *                 transform rule ({@code transformMatrix}) to be applied to the targeting
+   *                 ImageFile
    */
   public GreyCommand(IColorTransOperator operator) {
     this(operator, "");
@@ -32,9 +31,9 @@ public class GreyCommand extends ACommand {
   /**
    * To construct a GreyCommand with an alternative operation name.
    *
-   * @param operator        A {@link IColorTransOperator}, expected by {@link #execute} for getting a color
-   *                        transform rule ({@code transformMatrix}) to be applied to the targeting {@link
-   *                        ImageFile}.
+   * @param operator        A {@link IColorTransOperator}, expected by {@link #execute} for getting
+   *                        a color transform rule ({@code transformMatrix}) to be applied to the
+   *                        targeting ImageFile
    * @param alternativeName the alternative name for the command.
    */
   public GreyCommand(IColorTransOperator operator, String alternativeName) {

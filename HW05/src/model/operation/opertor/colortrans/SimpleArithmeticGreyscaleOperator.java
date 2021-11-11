@@ -9,9 +9,9 @@ import model.operation.color.OperationUtil;
 public enum SimpleArithmeticGreyscaleOperator implements IColorTransOperator {
   Value(new double[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}),
   Luma(new double[][]{{0.2126, 0.7152, 0.0722},
-          {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}}),
+    {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}}),
   Intensity(new double[][]{{0.3333, 0.3333, 0.3333},
-          {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}});
+    {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}});
 
   private final double[][] transformMatrix;
 

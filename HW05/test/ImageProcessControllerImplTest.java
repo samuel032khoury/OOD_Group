@@ -29,7 +29,8 @@ public class ImageProcessControllerImplTest {
   Appendable out;
   Readable in;
 
-  private IImageProcessController giveModel(ImageLibModel model, Readable in, IImageProcessView view) {
+  private IImageProcessController giveModel(ImageLibModel model, Readable in,
+                                            IImageProcessView view) {
     return new ImageProcessControllerImplV2(model, in, view);
   }
 

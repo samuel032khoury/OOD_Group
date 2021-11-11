@@ -1,6 +1,6 @@
 package model.operation.function;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * A function interface that has a method consume an image represented by a 2-D {@code Array} of
@@ -14,7 +14,7 @@ public interface IFilterFunction {
    * @param original the image represented by a 2-D {@code Array} of {@link Color} being consumed
    * @param kernel   the filter kernel being applied to the {@code original}
    * @return a new image represented by a 2-D {@code Array} of {@link Color} modified according to
-   * the kernel
+   *         the kernel
    */
   Color[][] apply(Color[][] original, double[][] kernel);
 }

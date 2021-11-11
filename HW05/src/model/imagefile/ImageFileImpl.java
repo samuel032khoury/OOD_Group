@@ -1,6 +1,6 @@
 package model.imagefile;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -174,7 +174,8 @@ public final class ImageFileImpl implements ImageFile {
 
     ImageFileImpl that = (ImageFileImpl) o;
 
-    if (height != that.height || width != that.width || this.alphaChannel != that.alphaChannel || this.maxColorVal != that.maxColorVal) {
+    if (height != that.height || width != that.width ||
+            this.alphaChannel != that.alphaChannel || this.maxColorVal != that.maxColorVal) {
       return false;
     }
 

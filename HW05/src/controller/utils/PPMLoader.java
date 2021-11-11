@@ -1,6 +1,6 @@
 package controller.utils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;

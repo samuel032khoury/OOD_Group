@@ -1,6 +1,6 @@
 package model.operation;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Objects;
 
 /**
@@ -80,7 +80,7 @@ public abstract class RegularImageOperation implements IImageOperation {
    *
    * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
    * @return a processed 2-D {@code Array} of {@link Color} representing an image, by the operation
-   * rule provided by concrete classes.
+   *         rule provided by concrete classes.
    */
   protected abstract Color[][] process(Color[][] pixels);
 }

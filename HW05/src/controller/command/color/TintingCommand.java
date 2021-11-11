@@ -4,7 +4,6 @@ import java.util.Queue;
 
 import controller.command.macro.ACommand;
 import controller.command.macro.CommandUtil;
-import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import model.operation.color.TintingOperation;
 import model.operation.opertor.colortrans.IColorTransOperator;
@@ -21,8 +20,8 @@ public class TintingCommand extends ACommand {
    * To construct a Tinting Command.
    *
    * @param operator A {@link IColorTransOperator}, expected by {@link #execute} for getting a color
-   *                 transform rule ({@code transformMatrix}) to be applied to the targeting {@link
-   *                 ImageFile}.
+   *                 transform rule ({@code transformMatrix}) to be applied to the targeting
+   *                 ImageFile
    */
   public TintingCommand(IColorTransOperator operator) {
     this.operator = operator;

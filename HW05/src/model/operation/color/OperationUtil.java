@@ -1,6 +1,6 @@
 package model.operation.color;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * A Utility class that provides common functions for performing operations.
@@ -13,7 +13,8 @@ public class OperationUtil {
    * @param transformMatrix the matrix to check.
    * @throws IllegalArgumentException if the color transform matrix is not 3*3
    */
-  public static void checkColorTransformMatrix(double[][] transformMatrix) throws IllegalArgumentException {
+  public static void checkColorTransformMatrix(double[][] transformMatrix)
+          throws IllegalArgumentException {
     if (transformMatrix.length != 3 || transformMatrix[0].length != 3
             || transformMatrix[1].length != 3 || transformMatrix[2].length != 3) {
       throw new IllegalArgumentException("The Provided Color transformation matrix is invalid!");

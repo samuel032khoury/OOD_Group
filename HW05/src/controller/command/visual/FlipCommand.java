@@ -40,7 +40,8 @@ public class FlipCommand extends ACommand {
           throws IllegalStateException {
     CommandUtil util = new CommandUtil(currCommand());
     String descriptionOfEdit = currCommand() + " flipped image";
-    super.perform(util, new FlipOperation(verticalFlip), model, commandQueue, view, descriptionOfEdit);
+    super.perform(util, new FlipOperation(verticalFlip), model,
+            commandQueue, view, descriptionOfEdit);
   }
 
   /**

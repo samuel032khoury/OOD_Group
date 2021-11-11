@@ -1,6 +1,6 @@
 package model.operation.color;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,13 +29,14 @@ public abstract class AFilterOperation extends ANoAlphaOperation {
   }
 
   /**
-   * Perform filtering operations on the given {@code pixels}, the rule of filtering is provided by
-   * the {@link IFilterFunction}, delivered from the {@link #supportedFilter} by searching for the
+   * Perform filtering operations on the given {@code pixels}.
+   * the rule of filtering is provided by the {@link IFilterFunction},
+   * delivered from the {@link #supportedFilter} by searching for the
    * {@link IFilterOperator}
    *
    * @param pixels a 2-D {@code Array} of {@link Color} that represents an image being processed
    * @return a filtered 2-D {@code Array} of {@link Color} representing an image, by the
-   * filtering rule provided by {@link IFilterFunction}.
+   *         filtering rule provided by {@link IFilterFunction}.
    */
   @Override
   protected Color[][] process(Color[][] pixels) {

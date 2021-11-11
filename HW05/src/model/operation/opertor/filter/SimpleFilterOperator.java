@@ -2,7 +2,9 @@ package model.operation.opertor.filter;
 
 import model.operation.color.OperationUtil;
 
-//TODO
+/**
+ * A filter operator, that changes the pixels.
+ */
 public enum SimpleFilterOperator implements IFilterOperator {
   Blur(new double[][]{{1 / 16.0, 1 / 8.0, 1 / 16.0}, {1 / 8.0, 1 / 4.0, 1 / 8.0}, {1 / 16.0,
           1 / 8.0, 1 / 16.0}}),

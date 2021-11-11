@@ -5,8 +5,8 @@ import java.util.Queue;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
- * A Utility class that provides common functions for parsing command line inputs and generate
- * appropriate feedback messages
+ * A Utility class that provides common functions for parsing command line inputs.
+ * and generate appropriate feedback messages.
  */
 public class CommandUtil {
   // this field stores the current command, aiming to provide precise feedback when the arguments
@@ -29,7 +29,7 @@ public class CommandUtil {
    *
    * @param newImageName the {@link ReadOnlyImageFile} inspected in the library.
    * @return "is named" if the given {@link ReadOnlyImageFile} is newly created, or "has
-   * overwritten" if the {@link ReadOnlyImageFile} is pre-existed
+   *         overwritten" if the {@link ReadOnlyImageFile} is pre-existed
    */
   public String getConnection(ReadOnlyImageFile newImageName) {
     return newImageName == null ? " is named " : " has overwritten ";
