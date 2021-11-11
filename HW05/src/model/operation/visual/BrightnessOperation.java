@@ -6,17 +6,25 @@ import model.operation.ANoAlphaOperation;
 import model.operation.color.OperationUtil;
 
 /**
- * A operator that changes the brightness of the image.
+ * An operation that changes the brightness of the image.
  */
 public class BrightnessOperation extends ANoAlphaOperation {
   private final int value;
 
-  //TODO
+  /**
+   * To construct a BrightnessOperation.
+   * @param brighten if the operation is to brighten an image or darkens it.
+   * @param value how much to adjust the brightness.
+   */
   public BrightnessOperation(boolean brighten, int value) {
     this.value = value * (brighten ? 1 : -1);
   }
 
-  //TODO
+  /**
+   * Apply the BrightnessOperation on a 2-D {@code Array} of {@link Color}.
+   * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
+   * @return a processed 2-D {@code Array} of {@link Color}
+   */
   @Override
   protected Color[][] process(Color[][] pixels) {
     Color[][] adjusted = new Color[this.height][this.width];
