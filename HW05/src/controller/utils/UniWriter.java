@@ -1,20 +1,18 @@
 package controller.utils;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 /**
- * An implementation of {@link IWriter}, with support to convert a 2-D {@code Array} of {@link
+ * An implementation of {@link IWriter}, with support to convert a 2-D {@code Array} of {
  * Color}, and other meta information of an image, stored in a {@link ReadOnlyImageFile} object,
  * into an image file in a format corresponding to the provided extension.
  */
@@ -34,7 +32,7 @@ public class UniWriter implements IWriter {
 
 
   /**
-   * convert a {@link ImageFile} to a file and write into machine's file system.
+   * convert ImageFile to a file and write into machine's file system.
    *
    * @param img      the image file.
    * @param fileName the path to store the file.

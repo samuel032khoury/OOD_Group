@@ -8,7 +8,9 @@ import model.imagefile.ImageFile;
 
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * To test if the modules can load pictures correctly.
+ */
 public class LoadTest {
   @Test
   public void testGrey() throws Exception {

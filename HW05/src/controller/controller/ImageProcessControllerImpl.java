@@ -96,14 +96,14 @@ public class ImageProcessControllerImpl implements IImageProcessController {
         put("green-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Green));
         put("luma-component", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
         put("intensity-component",
-              () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
+            () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
         put("value-component",
-              () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Value));
+            () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Value));
         put("load", () -> new LoadCommand(new LoadSuffixManager()));
         put("save", () -> new SaveCommand(new WriteSuffixManager()));
         put("size", SizeCommand::new);
         put("QUIT", QuitCommand::new);
-    }};
+      }};
   }
 
   /**

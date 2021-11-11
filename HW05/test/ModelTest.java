@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +7,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
-import java.util.Arrays;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
@@ -16,7 +14,6 @@ import model.imagefile.ReadOnlyImageFile;
 import model.operation.color.FilterOperation;
 import model.operation.color.OperationUtil;
 import model.operation.opertor.filter.SimpleFilterOperator;
-import utils.MockChannelOperator;
 
 /**
  * To test the model for the project, including {@link ImageFile} model and {@link
@@ -123,18 +120,22 @@ public class ModelTest {
     assertEquals(OperationUtil.giveValidColorValue(blur11B)[0], actualBlur[1][1].getBlue());
 
     int sharpen11G = (int) (c00.getGreen() * sharpenKernel[1][1])
-            + (int) (c01.getGreen() * sharpenKernel[1][2]) + (int) (c02.getGreen() * sharpenKernel[1][3])
-            + (int) (c10.getGreen() * sharpenKernel[2][1]) + (int) (c11.getGreen() * sharpenKernel[2][2])
-            + (int) (c12.getGreen() * sharpenKernel[2][3]) + (int) (c20.getGreen() * sharpenKernel[3][1])
-            + (int) (c21.getGreen() * sharpenKernel[3][2]) + (int) (c22.getGreen() * sharpenKernel[3][3]);
+            + (int) (c01.getGreen() * sharpenKernel[1][2])
+            + (int) (c02.getGreen() * sharpenKernel[1][3])
+            + (int) (c10.getGreen() * sharpenKernel[2][1])
+            + (int) (c11.getGreen() * sharpenKernel[2][2])
+            + (int) (c12.getGreen() * sharpenKernel[2][3])
+            + (int) (c20.getGreen() * sharpenKernel[3][1])
+            + (int) (c21.getGreen() * sharpenKernel[3][2])
+            + (int) (c22.getGreen() * sharpenKernel[3][3]);
 
     assertEquals(OperationUtil.giveValidColorValue(sharpen11G)[0], actualSharpen[1][1].getGreen());
   }
 
-  @Test
-  public void TestColorTransformOperation() {
-
-  }
+//  @Test
+//  public void TestColorTransformOperation() {
+//
+//  }
 
   //  @Test
 //  public void TestVertiFlip() {
