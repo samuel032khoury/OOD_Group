@@ -34,11 +34,6 @@ public class UniLoader implements ILoader {
     this.maxColorVal = maxColorVal;
   }
 
-  public static void main(String[] args) {
-    ImageFile img = new UniLoader().loadFile("/Users/eric/Downloads/serbia-1.bmp ");
-    new UniWriter(false).write(img, "hi.bmp");
-  }
-
   /**
    * load a file from the machine's file system as a {@link ImageFile} object.
    *
