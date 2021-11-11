@@ -5,8 +5,9 @@ import java.awt.Color;
 import model.operation.ANoAlphaOperation;
 import model.operation.color.OperationUtil;
 
-
-//TODO
+/**
+ * A operator that changes the brightness of the image.
+ */
 public class BrightnessOperation extends ANoAlphaOperation {
   private final int value;
 

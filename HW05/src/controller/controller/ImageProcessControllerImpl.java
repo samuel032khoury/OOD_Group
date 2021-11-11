@@ -3,20 +3,20 @@ package controller.controller;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-import controller.command.macro.ICommand;
-import controller.command.visual.FlipCommand;
-import controller.command.visual.AdjustBrightnessCommand;
 import controller.command.color.GreyCommand;
 import controller.command.library.LoadCommand;
-import controller.command.macro.QuitCommand;
 import controller.command.library.SaveCommand;
 import controller.command.library.SizeCommand;
+import controller.command.macro.ICommand;
+import controller.command.macro.QuitCommand;
+import controller.command.visual.AdjustBrightnessCommand;
+import controller.command.visual.FlipCommand;
 import controller.utils.LoadSuffixManager;
 import controller.utils.QuitExecution;
 import controller.utils.WriteSuffixManager;
@@ -87,23 +87,23 @@ public class ImageProcessControllerImpl implements IImageProcessController {
     this.input = input;
     this.view = view;
     this.cmdMap = new HashMap<>() {{
-      put("vertical-flip", () -> new FlipCommand(true));
-      put("horizontal-flip", () -> new FlipCommand(false));
-      put("brighten", () -> new AdjustBrightnessCommand(true));
-      put("darken", () -> new AdjustBrightnessCommand(false));
-      put("blue-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Blue));
-      put("red-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Red));
-      put("green-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Green));
-      put("luma-component", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
-      put("intensity-component",
-              () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
-      put("value-component",
-              () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Value));
-      put("load", () -> new LoadCommand(new LoadSuffixManager()));
-      put("save", () -> new SaveCommand(new WriteSuffixManager()));
-      put("size", SizeCommand::new);
-      put("QUIT", QuitCommand::new);
-    }};
+        put("vertical-flip", () -> new FlipCommand(true));
+        put("horizontal-flip", () -> new FlipCommand(false));
+        put("brighten", () -> new AdjustBrightnessCommand(true));
+        put("darken", () -> new AdjustBrightnessCommand(false));
+        put("blue-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Blue));
+        put("red-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Red));
+        put("green-component", () -> new GreyCommand(SingleChannelGreyscaleOperator.Green));
+        put("luma-component", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma));
+        put("intensity-component",
+            () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Intensity));
+        put("value-component",
+            () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Value));
+        put("load", () -> new LoadCommand(new LoadSuffixManager()));
+        put("save", () -> new SaveCommand(new WriteSuffixManager()));
+        put("size", SizeCommand::new);
+        put("QUIT", QuitCommand::new);
+      }};
   }
 
   /**

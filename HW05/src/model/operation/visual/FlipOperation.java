@@ -4,7 +4,9 @@ import java.awt.Color;
 
 import model.operation.ANoAlphaOperation;
 
-//TODO
+/**
+ * An operation that flip the image.
+ */
 public class FlipOperation extends ANoAlphaOperation {
 
   // true when try to perform a vertical flip, false when a horizontal one.

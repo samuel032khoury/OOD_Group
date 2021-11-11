@@ -23,7 +23,7 @@ public abstract class RegularImageOperation implements IImageOperation {
    *                       applied.
    * @param pixels         a 2-D {@code Array} of {@link Color} that represents an image.
    * @return an updated 2-D {@code Array} of {@link Color} representing an image have been processed
-   * by an operation with the rule provided by {@link #process} from concrete classes.
+   *         by an operation with the rule provided by {@link #process} from concrete classes.
    */
   @Override
   public final Color[][] apply(boolean alphaSupported, Color[][] pixels) {
@@ -48,7 +48,7 @@ public abstract class RegularImageOperation implements IImageOperation {
    *
    * @param original the original possible maximum Color value
    * @return the original possible maximum Color value, as extending class of {@link
-   * RegularImageOperation} do not change the possible maximum Color value.
+   *         RegularImageOperation} do not change the possible maximum Color value.
    */
   @Override
   public int updateMaxColorVal(int original) {
@@ -60,7 +60,8 @@ public abstract class RegularImageOperation implements IImageOperation {
    *
    * @param original the original availability of the alpha channel of an image
    * @return the original availability of the alpha channel, as extending class of {@link
-   * RegularImageOperation} do not change the availability of the alpha channel of an image.
+   *         RegularImageOperation} do not change the availability of
+   *         the alpha channel of an image.
    */
   @Override
   public boolean updateAlphaChannel(boolean original) {
@@ -80,7 +81,7 @@ public abstract class RegularImageOperation implements IImageOperation {
    *
    * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
    * @return a processed 2-D {@code Array} of {@link Color} representing an image, by the operation
-   * rule provided by concrete classes.
+   *         rule provided by concrete classes.
    */
   protected abstract Color[][] process(Color[][] pixels);
 }

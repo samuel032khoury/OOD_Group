@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -238,6 +237,9 @@ public class ModelTest {
     Color[] loc3Luma = new Color[]{c7Luma, c8Luma, c9Luma};
     Color[][] expectedLuma = new Color[][]{loc1Luma, loc2Luma, loc3Luma};
     assertArrayEquals(expectedLuma, luma.apply(false, this.imgL));
+  }
+
+  private void assertArrayEquals(Color[][] expectedRed, Color[][] apply) {
   }
 
   @Test

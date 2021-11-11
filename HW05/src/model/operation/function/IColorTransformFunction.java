@@ -11,7 +11,7 @@ public interface IColorTransformFunction {
    * convert the provided {@link Color} to a new {@link Color} according to the {@code
    * transformMatrix}.
    *
-   * @param c the original color being consumed
+   * @param c               the original color being consumed
    * @param transformMatrix the transform matrix being applied to all color channel of the
    *                        provided {@code c}.
    * @return a new {@link Color} modified according to the transform matrix.

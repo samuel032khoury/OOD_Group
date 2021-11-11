@@ -19,8 +19,9 @@ public abstract class AImageProcessView implements IImageProcessView {
 
   /**
    * A fully customizable constructor.
+   *
    * @param output the appendable to write message.
-   * @param model the model to take in.
+   * @param model  the model to take in.
    * @throws IllegalArgumentException if output or model is null.
    */
   public AImageProcessView(Appendable output, ImageLibState model) throws IllegalArgumentException {
@@ -33,6 +34,7 @@ public abstract class AImageProcessView implements IImageProcessView {
 
   /**
    * A constructor that can set the model to take in.
+   *
    * @param model the model to take in.
    */
   public AImageProcessView(ImageLibState model) {
@@ -48,6 +50,7 @@ public abstract class AImageProcessView implements IImageProcessView {
 
   /**
    * To render a message {@code message} on the given {@link #output}.
+   *
    * @param message the message being rendered
    * @throws IllegalStateException if the render process fails
    */
@@ -62,6 +65,7 @@ public abstract class AImageProcessView implements IImageProcessView {
 
   /**
    * To render an error message {@code message} on the given {@link #output}.
+   *
    * @param message the error being rendered
    * @throws IllegalStateException if the render process fails
    */

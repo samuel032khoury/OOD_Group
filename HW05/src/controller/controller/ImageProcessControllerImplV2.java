@@ -4,15 +4,15 @@ import java.io.InputStreamReader;
 
 import controller.command.color.FilterCommand;
 import controller.command.color.GreyCommand;
-import controller.command.library.LoadCommand;
 import controller.command.color.TintingCommand;
+import controller.command.library.LoadCommand;
 import controller.command.library.SaveCommand;
 import controller.utils.LoadSuffixManagerV2;
 import controller.utils.WriteSuffixManagerV2;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
-import model.operation.opertor.colortrans.TiltingOperator;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
+import model.operation.opertor.colortrans.TiltingOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;

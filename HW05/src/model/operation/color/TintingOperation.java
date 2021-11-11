@@ -1,10 +1,10 @@
 package model.operation.color;
 
-import java.awt.Color;
+
 
 import model.imagefile.ImageFile;
-import model.operation.opertor.colortrans.TiltingOperator;
 import model.operation.opertor.colortrans.IColorTransOperator;
+import model.operation.opertor.colortrans.TiltingOperator;
 
 
 /**
@@ -18,7 +18,7 @@ public class TintingOperation extends AColorTransformOperation {
    * To construct a {@link TintingOperation}, which adds several tinting operations (along with the
    * corresponding rules/functions) to the {@link #supportedOperation}.
    *
-   * @param operator the demanded operator for {@link #process(Color[][])})} to apply on a {@link
+   * @param operator the demanded operator for {Color[][])})} to apply on a {@link
    *                 ImageFile}.
    */
   public TintingOperation(IColorTransOperator operator) {

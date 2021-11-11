@@ -4,8 +4,8 @@ import java.util.Queue;
 
 import controller.command.macro.ACommand;
 import controller.command.macro.CommandUtil;
-import model.operation.visual.BrightnessOperation;
 import model.library.ImageLibModel;
+import model.operation.visual.BrightnessOperation;
 import view.IImageProcessView;
 
 /**
@@ -41,7 +41,7 @@ public class AdjustBrightnessCommand extends ACommand {
       CommandUtil util = new CommandUtil(brighten ? "Brighten" : "Darken");
       int value = Integer.parseInt(util.getValidArgs(commandQueue));
       String descriptionOfEdit = currCommand() + " image (value: " + value + ")";
-      super.perform(util, new BrightnessOperation(brighten,value), model, commandQueue, view,
+      super.perform(util, new BrightnessOperation(brighten, value), model, commandQueue, view,
               descriptionOfEdit);
     } catch (NumberFormatException e) {
       throw new IllegalStateException("Expect an integer as the value for brightness adjustment, "

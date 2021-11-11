@@ -1,6 +1,5 @@
 package model.operation.color;
 
-import java.awt.Color;
 
 import model.imagefile.ImageFile;
 import model.operation.opertor.filter.IFilterOperator;
@@ -17,7 +16,7 @@ public class FilterOperation extends AFilterOperation {
    * To construct a {@link FilterOperation}, which adds available filters to the {@link
    * #supportedFilter}.
    *
-   * @param filter the demanded filter for {@link #process(Color[][])} to apply on a {@link
+   * @param filter the demanded filter for {Color[][])} to apply on a {@link
    *               ImageFile}.
    */
   public FilterOperation(IFilterOperator filter) {

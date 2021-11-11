@@ -1,6 +1,8 @@
 package model.operation.opertor.filter;
 
-//TODO
+/**
+ * A filter operator, that changes the pixels.
+ */
 public interface IFilterOperator {
 
   //TODO
