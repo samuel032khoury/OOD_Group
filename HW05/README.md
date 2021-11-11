@@ -129,12 +129,15 @@ Image "painting" citation: Photo by https://unsplash.com/photos/JLfem8ViKVA
 #### Changes
 
 ImagesFile do not include the operations within the object, the operations now moved to IImageOperation interface.
+The reason of it is that it is weird that the pictures contains the operations by themselves, and when new functions are added,
+new interfaces are declared and the ImageFile will be changed, which means a lot of the methods will be changed. In this way,
+it will be much better to understand and extend further actions. This changes does not violate the nvc pattern.
 
-restructure the package into smaller packages.
+restructure the package into smaller packages. So that it will be easier for people to understand the function of it.
 
-changed the modifier in ImageProcessControllerImpl from private to protected
+changed the modifier in ImageProcessControllerImpl from private to protected. So that it can be extended and reused.
 
 change the code fo the main function to meet the criteria for starting a session
 
-further, abstract the test class to configure the controller used.
+further, changed test class a bit to configure the controller used. In this way, when new controller is written, it will be easier to write tests.
 
