@@ -137,5 +137,7 @@ public class WriteTest {
     writer.write(img, "result.ppm");
     ImageFile img2 = loader.loadFile("result.ppm");
     assertEquals(img2, img);
+    File f = new File("result.ppm");
+    f.delete();
   }
 }
