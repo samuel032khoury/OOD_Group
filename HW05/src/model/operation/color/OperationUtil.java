@@ -142,7 +142,7 @@ public class OperationUtil {
   /**
    * To bound the value of color components between 0-255.
    *
-   * @param rgb a sequence of value of color components, in an order of rgb(a, if have).
+   * @param rgb a sequence of value of color components, in an order of rgb(alpha, if provided).
    * @return a list of valid (bounded between 0-255) values for color components.
    */
   public static int[] giveValidColorValue(int... rgb) {

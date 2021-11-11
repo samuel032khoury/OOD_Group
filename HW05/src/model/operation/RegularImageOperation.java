@@ -67,7 +67,6 @@ public abstract class RegularImageOperation implements IImageOperation {
     return original;
   }
 
-
   /**
    * To determine if a {@link RegularImageOperation} is an alpha related operation.
    *

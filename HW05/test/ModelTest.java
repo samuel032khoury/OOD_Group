@@ -4,13 +4,18 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 import model.imagefile.ReadOnlyImageFile;
+import model.operation.color.FilterOperation;
+import model.operation.color.OperationUtil;
+import model.operation.opertor.filter.SimpleFilterOperator;
 import utils.MockChannelOperator;
 
 /**
@@ -77,11 +82,58 @@ public class ModelTest {
   @Test
   public void TestCopyImage() {
     ImageFile actualCopy = this.imgF.copy();
-    assertFalse(this.imgF == actualCopy);
+    assertNotSame(this.imgF, actualCopy);
     assertFalse(sameContents(this.imgL, actualCopy, true));
     assertTrue(sameContents(this.imgL, actualCopy, false));
     assertEquals(imgF.getMaxColorVal(), actualCopy.getMaxColorVal());
     assertEquals(imgF.alpha(), actualCopy.alpha());
+  }
+
+  @Test
+  public void TestFilterOperation() {
+    FilterOperation blur = new FilterOperation(SimpleFilterOperator.Blur);
+    FilterOperation sharpen = new FilterOperation(SimpleFilterOperator.Sharpening);
+
+    Color[][] actualBlur = blur.apply(false, imgL);
+    Color[][] actualSharpen = sharpen.apply(false, imgL);
+
+    double[][] blurKernel = SimpleFilterOperator.Blur.getKernel();
+    double[][] sharpenKernel = SimpleFilterOperator.Sharpening.getKernel();
+
+    Color c00 = imgL[0][0];
+    Color c01 = imgL[0][1];
+    Color c10 = imgL[1][0];
+    Color c11 = imgL[1][1];
+
+    int blur00R = (int) (c00.getRed() * blurKernel[1][1]) + (int) (c01.getRed() * blurKernel[1][2])
+            + (int) (c10.getRed() * blurKernel[2][1]) + (int) (c11.getRed() * blurKernel[2][2]);
+    assertEquals(OperationUtil.giveValidColorValue(blur00R)[0], actualBlur[0][0].getRed());
+
+    Color c02 = imgL[0][2];
+    Color c12 = imgL[1][2];
+    Color c20 = imgL[2][0];
+    Color c21 = imgL[2][1];
+    Color c22 = imgL[2][2];
+
+    int blur11B = (int) (c00.getBlue() * blurKernel[0][0])
+            + (int) (c01.getBlue() * blurKernel[0][1]) + (int) (c02.getBlue() * blurKernel[0][2])
+            + (int) (c10.getBlue() * blurKernel[1][0]) + (int) (c11.getBlue() * blurKernel[1][1])
+            + (int) (c12.getBlue() * blurKernel[1][2]) + (int) (c20.getBlue() * blurKernel[2][0])
+            + (int) (c21.getBlue() * blurKernel[2][1]) + (int) (c22.getBlue() * blurKernel[2][2]);
+    assertEquals(OperationUtil.giveValidColorValue(blur11B)[0], actualBlur[1][1].getBlue());
+
+    int sharpen11G = (int) (c00.getGreen() * sharpenKernel[1][1])
+            + (int) (c01.getGreen() * sharpenKernel[1][2]) + (int) (c02.getGreen() * sharpenKernel[1][3])
+            + (int) (c10.getGreen() * sharpenKernel[2][1]) + (int) (c11.getGreen() * sharpenKernel[2][2])
+            + (int) (c12.getGreen() * sharpenKernel[2][3]) + (int) (c20.getGreen() * sharpenKernel[3][1])
+            + (int) (c21.getGreen() * sharpenKernel[3][2]) + (int) (c22.getGreen() * sharpenKernel[3][3]);
+
+    assertEquals(OperationUtil.giveValidColorValue(sharpen11G)[0], actualSharpen[1][1].getGreen());
+  }
+
+  @Test
+  public void TestColorTransformOperation() {
+
   }
 
   //  @Test
