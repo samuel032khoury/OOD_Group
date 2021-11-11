@@ -40,9 +40,9 @@
 
     - size
 
-  - A image can be processed, obviously, only if it's been loaded to the library using `load` command, with its identifiable name.
+  - An image can be processed, obviously, only if it's been loaded to the library using `load` command, with its identifiable name.
 - Commands above can be typed in line by line, with comment lines start with `#` be ignored. User can also give multiple command on the same line, using splitter `&` to separate. In this case, the command will be executed linearly, and if one fails, the error message will be thrown immediately and no longer process the remaining commands, asking users to correct the syntax and try again.
-  - Restrictions: Inspired by the termial.app on MacOS, we do the same thing to ask user not to put splitter at the begining of the line as it does not make sense to do nothing and then do something else, yet we allowed the splitter is put at the end of a line as users may want to execute a series of command but put the remaining of commands (after the splitter) on a different line.
+  - Restrictions: Inspired by the terminal.app on macOS, we do the same thing to ask user not to put splitter at the beginning of the line as it does not make sense to do nothing and then do something else, yet we allowed the splitter is put at the end of a line as users may want to execute a series of command but put the remaining of commands (after the splitter) on a different line.
 - Notes: multiple spaces between arguments are allowed and will be ignored, number of arguments need to be exact, both extra/insufficient input will cause a complaint from the program. 
 - Quit Command
 

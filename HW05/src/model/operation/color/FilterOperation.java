@@ -16,8 +16,7 @@ public class FilterOperation extends AFilterOperation {
    * To construct a {@link FilterOperation}, which adds available filters to the {@link
    * #supportedFilter}.
    *
-   * @param filter the demanded filter for {Color[][])} to apply on a {@link
-   *               ImageFile}.
+   * @param filter the demanded operator for {@link #process} to apply on a {@link ImageFile}.
    */
   public FilterOperation(IFilterOperator filter) {
     super(filter);

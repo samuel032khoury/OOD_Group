@@ -6,7 +6,7 @@ import model.operation.opertor.colortrans.IColorTransOperator;
  * A MockChannelOperator to introduce error in the test.
  */
 public enum MockChannelOperator implements IColorTransOperator {
-  mock;
+  Mock;
 
   @Override
   public double[][] getMatrix() {

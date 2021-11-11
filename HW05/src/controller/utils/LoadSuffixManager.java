@@ -5,6 +5,7 @@ package controller.utils;
  * to be loaded.
  */
 public class LoadSuffixManager extends ASuffixManager<ILoader> {
+
   /**
    * Construct an {@link ASuffixManager} for loading with support to ppm format.
    */

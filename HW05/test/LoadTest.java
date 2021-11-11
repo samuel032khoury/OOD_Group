@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class LoadTest {
   @Test
-  public void testGrey() throws Exception {
+  public void testGrey() {
     String[] path = new String[]{"test/pics/grey.png", "test/pics/grey.jpg",
       "test/pics/grey.bmp", "test/pics/grey.ppm"};
     String[] suffix = new String[]{"png", "jpg", "bmp", "ppm"};
@@ -26,7 +26,7 @@ public class LoadTest {
   }
 
   @Test
-  public void testRed() throws Exception {
+  public void testRed() {
     String[] path = new String[]{"test/pics/red.png", "test/pics/red.jpg",
       "test/pics/red.bmp", "test/pics/red.ppm"};
     String[] suffix = new String[]{"png", "jpg", "bmp", "ppm"};
@@ -41,7 +41,7 @@ public class LoadTest {
   }
 
   @Test
-  public void testBlue() throws Exception {
+  public void testBlue() {
     String[] path = new String[]{"test/pics/blue.png", "test/pics/blue.jpg",
       "test/pics/blue.bmp", "test/pics/blue.ppm"};
     String[] suffix = new String[]{"png", "jpg", "bmp", "ppm"};
@@ -56,7 +56,7 @@ public class LoadTest {
   }
 
   @Test
-  public void testGreen() throws Exception {
+  public void testGreen() {
     String[] path = new String[]{"test/pics/green.png", "test/pics/green.jpg",
       "test/pics/green.bmp", "test/pics/green.ppm"};
     String[] suffix = new String[]{"png", "jpg", "bmp", "ppm"};

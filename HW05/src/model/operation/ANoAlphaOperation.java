@@ -3,7 +3,6 @@ package model.operation;
 
 /**
  * To represent all {@link RegularImageOperation} that does not change the alpha value.
- * Of an image in the method of {Color[][])};
  */
 public abstract class ANoAlphaOperation extends RegularImageOperation {
 

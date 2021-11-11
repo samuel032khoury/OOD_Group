@@ -9,6 +9,7 @@ import controller.command.macro.ACommand;
  * command.
  */
 public abstract class InOutCommand extends ACommand {
+
   /**
    * To get the lower case extension of a file.
    *

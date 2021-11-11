@@ -17,7 +17,6 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  * into an image file in a format corresponding to the provided extension.
  */
 public class UniWriter implements IWriter {
-
   private final boolean alpha;
 
   /**

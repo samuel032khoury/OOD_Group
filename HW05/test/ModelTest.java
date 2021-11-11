@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
-import java.util.Arrays;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
@@ -19,7 +18,7 @@ import model.operation.color.OperationUtil;
 import model.operation.color.TintingOperation;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
 import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
-import model.operation.opertor.colortrans.TiltingOperator;
+import model.operation.opertor.colortrans.TintingOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 import model.operation.visual.BrightnessOperation;
 import model.operation.visual.FlipOperation;
@@ -113,7 +112,7 @@ public class ModelTest {
 
     int blur00R = (int) (c00.getRed() * blurKernel[1][1]) + (int) (c01.getRed() * blurKernel[1][2])
             + (int) (c10.getRed() * blurKernel[2][1]) + (int) (c11.getRed() * blurKernel[2][2]);
-    assertEquals(OperationUtil.giveValidColorValue(blur00R)[0], actualBlur[0][0].getRed());
+    assertEquals(OperationUtil.produceValidColorValue(blur00R)[0], actualBlur[0][0].getRed());
 
     Color c02 = imgL[0][2];
     Color c12 = imgL[1][2];
@@ -126,7 +125,7 @@ public class ModelTest {
             + (int) (c10.getBlue() * blurKernel[1][0]) + (int) (c11.getBlue() * blurKernel[1][1])
             + (int) (c12.getBlue() * blurKernel[1][2]) + (int) (c20.getBlue() * blurKernel[2][0])
             + (int) (c21.getBlue() * blurKernel[2][1]) + (int) (c22.getBlue() * blurKernel[2][2]);
-    assertEquals(OperationUtil.giveValidColorValue(blur11B)[0], actualBlur[1][1].getBlue());
+    assertEquals(OperationUtil.produceValidColorValue(blur11B)[0], actualBlur[1][1].getBlue());
 
     int sharpen11G = (int) (c00.getGreen() * sharpenKernel[1][1])
             + (int) (c01.getGreen() * sharpenKernel[1][2])
@@ -138,7 +137,7 @@ public class ModelTest {
             + (int) (c21.getGreen() * sharpenKernel[3][2])
             + (int) (c22.getGreen() * sharpenKernel[3][3]);
 
-    assertEquals(OperationUtil.giveValidColorValue(sharpen11G)[0], actualSharpen[1][1].getGreen());
+    assertEquals(OperationUtil.produceValidColorValue(sharpen11G)[0], actualSharpen[1][1].getGreen());
   }
 
   @Test
@@ -150,7 +149,7 @@ public class ModelTest {
     GreyscaleOperation intensity = new GreyscaleOperation(
             SimpleArithmeticGreyscaleOperator.Intensity);
     GreyscaleOperation value = new GreyscaleOperation(SimpleArithmeticGreyscaleOperator.Value);
-    TintingOperation sepia = new TintingOperation(TiltingOperator.Sepia);
+    TintingOperation sepia = new TintingOperation(TintingOperator.Sepia);
 
     Color c1Red = new Color(0, 0, 0);
     Color c2Red = new Color(100, 100, 100);

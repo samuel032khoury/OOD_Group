@@ -9,7 +9,7 @@ import controller.command.color.TintingCommand;
 import controller.command.macro.ICommand;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
-import model.operation.opertor.colortrans.TiltingOperator;
+import model.operation.opertor.colortrans.TintingOperator;
 
 /**
  * Class that tests the {@code red-component} command.
@@ -17,7 +17,7 @@ import model.operation.opertor.colortrans.TiltingOperator;
 public class SGrayCommand extends ACommandTest {
   @Override
   public ICommand provideCommand() {
-    return new TintingCommand(TiltingOperator.Sepia);
+    return new TintingCommand(TintingOperator.Sepia);
   }
 
   @Override

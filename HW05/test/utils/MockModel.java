@@ -19,7 +19,7 @@ public class MockModel implements ImageLibModel {
   @Override
   public void loadImage(String imageName, ImageFile imageFile) {
     try {
-      output.append("loaded " + imageName);
+      output.append("loaded ").append(imageName);
     } catch (IOException e) {
       throw new RuntimeException("can't write");
     }
@@ -39,7 +39,7 @@ public class MockModel implements ImageLibModel {
   @Override
   public ReadOnlyImageFile peek(String imageName) {
     try {
-      output.append("peek " + imageName);
+      output.append("Peek ").append(imageName);
     } catch (IOException e) {
       throw new RuntimeException("can't write");
     }

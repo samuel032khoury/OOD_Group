@@ -13,7 +13,6 @@ import view.IImageProcessView;
  * A command to load an image from the user's machine to the program's library .
  */
 public class LoadCommand extends InOutCommand {
-
   private final LoadSuffixManager loaderProvider;
 
   /**

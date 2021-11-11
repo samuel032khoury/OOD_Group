@@ -21,14 +21,14 @@ import static org.junit.Assert.assertTrue;
 public class WriteTest {
 
   private boolean compareImage(BufferedImage i1, BufferedImage i2) {
-    if ((i1.getHeight() != i2.getHeight()) ||  (i1.getWidth() != i2.getWidth())) {
+    if ((i1.getHeight() != i2.getHeight()) || (i1.getWidth() != i2.getWidth())) {
       return false;
     } else if (i1.getType() != i2.getType()) {
       return false;
     } else {
       for (int i = 0; i < i1.getHeight(); i++) {
         for (int j = 0; j < i2.getHeight(); j++) {
-          if (i1.getRGB(i,j) != (i2.getRGB(i,j))) {
+          if (i1.getRGB(i, j) != (i2.getRGB(i, j))) {
             return false;
           }
         }
@@ -54,7 +54,6 @@ public class WriteTest {
       BufferedImage image2 = ImageIO.read(f);
       assertTrue(compareImage(image1, image2));
 
-
       f.delete();
     }
   }
@@ -62,7 +61,7 @@ public class WriteTest {
   @Test
   public void testRed() throws Exception {
     String[] path = new String[]{"test/pics/red.png", "test/pics/red.jpg",
-      "test/pics/red.bmp"};
+            "test/pics/red.bmp"};
     String[] suffix = new String[]{"png", "jpg", "bmp"};
 
     for (int i = 0; i < path.length; i++) {
@@ -76,7 +75,6 @@ public class WriteTest {
       File f = new File(pathName);
       BufferedImage image2 = ImageIO.read(f);
       assertTrue(compareImage(image1, image2));
-
 
       f.delete();
     }
@@ -99,7 +97,6 @@ public class WriteTest {
       BufferedImage image2 = ImageIO.read(f);
       assertTrue(compareImage(image1, image2));
 
-
       f.delete();
     }
   }
@@ -107,7 +104,7 @@ public class WriteTest {
   @Test
   public void testGreen() throws Exception {
     String[] path = new String[]{"test/pics/green.png",
-      "test/pics/green.jpg", "test/pics/green.bmp"};
+            "test/pics/green.jpg", "test/pics/green.bmp"};
     String[] suffix = new String[]{"png", "jpg", "bmp"};
 
     for (int i = 0; i < path.length; i++) {
@@ -122,13 +119,12 @@ public class WriteTest {
       BufferedImage image2 = ImageIO.read(f);
       assertTrue(compareImage(image1, image2));
 
-
       f.delete();
     }
   }
 
   @Test
-  public void testPPM() throws Exception {
+  public void testPPM() {
     ILoader loader = new LoadSuffixManagerV2().provide("ppm");
     IWriter writer = new WriteSuffixManagerV2().provide("ppm");
     ImageFile img = loader.loadFile("test/pics/green.ppm");
@@ -136,6 +132,7 @@ public class WriteTest {
     ImageFile img2 = loader.loadFile("result.ppm");
     assertEquals(img2, img);
     File f = new File("result.ppm");
+
     f.delete();
   }
 }

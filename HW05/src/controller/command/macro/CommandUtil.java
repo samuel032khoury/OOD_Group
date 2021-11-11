@@ -63,7 +63,7 @@ public class CommandUtil {
   public void expectNoMoreArgs(Queue<String> commandQueue)
           throws IllegalStateException {
     if (!splitterOrNull(commandQueue)) {
-      throw new IllegalStateException("Too much arguments provided for "
+      throw new IllegalStateException("Too many arguments provided for "
               + currCommand.toLowerCase() + ", try again!");
     }
   }

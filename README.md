@@ -5,22 +5,15 @@
 - Files/Directories in `HW5/`
     - Source Code are in  `src/`
       - `controller/`
-        - `controller/`
-        - `command/`
-        - `util/`
       - `model/`
-        - `library/`
-        - `imageFile/`
-        - `operation/`
       - `view/`
-    - Tests are in `test/`
-    - Images provided by class are in `exampleRes/`
-    - Images found online are in `res/`
-    - Updated Class Diagram will be saved in `diag/` by the end of design.
-    - README file is in `README.md`.
-    - USEME file is in named `USEME.md` and will be **updated** by the end of implementation.
-    - Text-based script of commands is in `ImagProcScript.txt`.
-    
+    - Tests are in `test/`.
+    - Images provided by class are in `exampleRes/`.
+    - Images found online and example usage are in `res/`.
+    - Updated Class Diagram is in `res/`.
+    - README file is `README.md`.
+    - USEME file is named `USEME.md`.
+    - Text-based script of commands is in `res/ImagProcScript.txt`.
 - Implementation Notes
   - [x] Adherence to an MVC design
 

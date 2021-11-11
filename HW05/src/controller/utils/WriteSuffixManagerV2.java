@@ -5,6 +5,7 @@ package controller.utils;
  * saving given the demanded file extension.
  */
 public class WriteSuffixManagerV2 extends WriteSuffixManager {
+
   /**
    * Construct an {@link ASuffixManager} for file writing with support to bmp, jpg, png, jpeg
    * format.

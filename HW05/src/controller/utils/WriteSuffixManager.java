@@ -7,6 +7,7 @@ import model.imagefile.ImageFile;
  * is going to be saved as a .ppm file.
  */
 public class WriteSuffixManager extends ASuffixManager<IWriter> {
+
   /**
    * Construct an {@link ASuffixManager} for file writing with support to ppm format.
    */

@@ -25,8 +25,8 @@ public class OperationUtil {
    * Check if the filter kernel matrix provided is a valid one.
    *
    * @param kernel the matrix to check.
-   * @throws IllegalArgumentException filter kernel matrix is not a rectangular matrix with odd
-   *                                  rows and columns.
+   * @throws IllegalArgumentException filter kernel matrix is not a rectangular matrix with odd rows
+   *                                  and columns.
    */
   public static void checkKernel(double[][] kernel) throws IllegalArgumentException {
     boolean valid = false;
@@ -40,6 +40,7 @@ public class OperationUtil {
         for (double[] rows : kernel) {
           if (rows.length != width) {
             valid = false;
+            break;
           }
         }
       }
@@ -58,17 +59,16 @@ public class OperationUtil {
    * @return a transformed color pixels.
    */
   public static Color transform(Color c, double[][] transformMatrix) {
-    int[] result = new int[3];
     int red = c.getRed();
     int blue = c.getBlue();
     int green = c.getGreen();
-    result[0] = (int) (red * transformMatrix[0][0]
+    int redTransformed = (int) (red * transformMatrix[0][0]
             + green * transformMatrix[0][1] + blue * transformMatrix[0][2]);
-    result[1] = (int) (red * transformMatrix[1][0]
+    int greenTransformed = (int) (red * transformMatrix[1][0]
             + green * transformMatrix[1][1] + blue * transformMatrix[1][2]);
-    result[2] = (int) (red * transformMatrix[2][0]
+    int blueTransformed = (int) (red * transformMatrix[2][0]
             + green * transformMatrix[2][1] + blue * transformMatrix[2][2]);
-    result = giveValidColorValue(result);
+    int[] result = produceValidColorValue(redTransformed, greenTransformed, blueTransformed);
     return new Color(result[0], result[1], result[2], c.getAlpha());
   }
 
@@ -133,7 +133,7 @@ public class OperationUtil {
           }
         }
 
-        int[] rgb = OperationUtil.giveValidColorValue(r, g, b);
+        int[] rgb = OperationUtil.produceValidColorValue(r, g, b);
         filtered[i][j] = new Color(rgb[0], rgb[1], rgb[2], original[i][j].getAlpha());
       }
     }
@@ -146,10 +146,11 @@ public class OperationUtil {
    * @param rgb a sequence of value of color components, in an order of rgb(alpha, if provided).
    * @return a list of valid (bounded between 0-255) values for color components.
    */
-  public static int[] giveValidColorValue(int... rgb) {
+  public static int[] produceValidColorValue(int... rgb) {
+    int[] valid = new int[rgb.length];
     for (int i = 0; i < rgb.length; i++) {
-      rgb[i] = Math.max(0, Math.min(255, rgb[i]));
+      valid[i] = Math.max(0, Math.min(255, rgb[i]));
     }
-    return rgb;
+    return valid;
   }
 }

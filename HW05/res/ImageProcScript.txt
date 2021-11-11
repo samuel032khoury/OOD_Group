@@ -3,76 +3,76 @@
 
 # Programs start here, below are inputs to program. Comment lines represents prompts from the program.
 
-load res/painting.ppm painting
+load painting.ppm painting
 
 # > Processing command, please wait!
-# > Image file found at res/painting.ppm has been imported and is named painting.
+# > Image file found at painting.ppm has been imported and is named painting.
 
-red-component painting painting-red & load res/elephant.ppm elephant 
+red-component painting painting-red & load elephant.ppm elephant 
 
 # > Processing command, please wait!
 # > Red-component image of painting has been created and is named painting-red.
-# > Image file found at res/elephant.ppm has been imported and is named elephant.
+# > Image file found at elephant.ppm has been imported and is named elephant.
 
 green-component painting painting-green & blue-component painting painting-blue
 
 # > Green-component image of painting has been created and is named painting-green.
 # > Blue-component image of painting has been created and is named painting-blue.
 
-save res/painting-red.ppm painting-red & save res/painting-blue.ppm painting-blue & save res/painting-green.ppm painting-green
+save painting-red.ppm painting-red & save painting-blue.ppm painting-blue & save painting-green.ppm painting-green
 
-# > Image painting-red has been exported to res/painting-red.ppm.
-# > Image painting-blue has been exported to res/painting-blue.ppm.
-# > Image painting-green has been exported to res/painting-green.ppm.
+# > Image painting-red has been exported to painting-red.ppm.
+# > Image painting-blue has been exported to painting-blue.ppm.
+# > Image painting-green has been exported to painting-green.ppm.
 
-vertical-flip painting painting-vertical-flipped & save res/painting-vertical-flipped.ppm painting-vertical-flipped & vertical-flip painting painting-vertical-flipped
+vertical-flip painting painting-vertical-flipped & save painting-vertical-flipped.ppm painting-vertical-flipped & vertical-flip painting painting-vertical-flipped
 
 # > Processing command, please wait!
 # > Vertical flipped image of painting has been created and is named painting-vertical-flipped.
-# > Image painting-vertical-flipped has been exported to res/painting-vertical-flipped.ppm.
+# > Image painting-vertical-flipped has been exported to painting-vertical-flipped.ppm.
 # > Vertical flipped image of painting has been created and has overwritten painting-vertical-flipped.
 
-horizontal-flip elephant elephant-horizontal-flipped & save res/elephant-horizontal-flipped.png elephant-horizontal-flipped 
+horizontal-flip elephant elephant-horizontal-flipped & save elephant-horizontal-flipped.png elephant-horizontal-flipped 
 
 # > Processing command, please wait!
 # > Vertical flipped image of elephant has been created and is named elephant-horizontal-flipped.
-# > Image elephant-horizontal-flipped has been exported to res/elephant-horizontal-flipped.png.
+# > Image elephant-horizontal-flipped has been exported to elephant-horizontal-flipped.png.
 
-value-component elephant elephant-value & save res/elephant-value.ppm elephant-value
+value-component elephant elephant-value & save elephant-value.ppm elephant-value
 
 # > Processing command, please wait!
 # > Value-component image of elephant has been created and is named elephant-value.
-# > Image elephant-value has been exported to res/elephant-value.ppm.
+# > Image elephant-value has been exported to elephant-value.ppm.
 
-luma-component elephant elephant-luma & save res/elephant-luma.ppm elephant-luma & intensity-component elephant elephant-intensity & save res/elephant-intensity.ppm elephant-intensity
+luma-component elephant elephant-luma & save elephant-luma.ppm elephant-luma & intensity-component elephant elephant-intensity & save elephant-intensity.ppm elephant-intensity
 
 # > Luma-component image of elephant has been created and is named elephant-luma.
-# > Image elephant-luma has been exported to res/elephant-luma.ppm.
+# > Image elephant-luma has been exported to elephant-luma.ppm.
 # > Intensity-component image of elephant has been created and is named elephant-intensity.
-# > Image elephant-intensity has been exported to res/elephant-intensity.ppm.
+# > Image elephant-intensity has been exported to elephant-intensity.ppm.
 
-darken 50 painting painting-darkened & save res/painting-darkened.ppm painting-darkened
+darken 50 painting painting-darkened & save painting-darkened.ppm painting-darkened
 
 # > Processing command, please wait!
 # > Darkened image (value: 50) of painting has been created and is named painting-darkened.
-# > Image painting-darkened has been exported to res/painting-darkened.ppm.
+# > Image painting-darkened has been exported to painting-darkened.ppm.
 
-brighten 50 elephant elephant-brightened & save res/elephant-brightened.ppm elephant-brightened
+brighten 50 elephant elephant-brightened & save elephant-brightened.ppm elephant-brightened
 
 # > Processing command, please wait!
 # > Brightened image (value: 50) of elephant has been created and is named elephant-brightened.
-# > Image elephant-brightened has been exported to res/elephant-brightened.ppm.
+# > Image elephant-brightened has been exported to elephant-brightened.ppm.
 
 
-load res/broken-painting.png broken-painting
-
-# > Processing command, please wait!
-# > Image file found at res/broken-painting.png has been imported and is named broken-painting.
-
-blur broken-painting blured-broken-painting
+load broken-painting.png broken-painting
 
 # > Processing command, please wait!
-# > Blur image of broken-painting has been created and is named blured-broken-painting.
+# > Image file found at broken-painting.png has been imported and is named broken-painting.
+
+blur broken-painting blurred-broken-painting
+
+# > Processing command, please wait!
+# > Blur image of broken-painting has been created and is named blurred-broken-painting.
 
 sharpen elephant elephant-sharpen
 
@@ -84,38 +84,38 @@ sepia painting sepia-painting
 # > Processing command, please wait!
 # > Sepia image of painting has been created and is named sepia-painting.
 
-greyscale painting greyscal-painting
+greyscale painting greyscale-painting
 
 # > Processing command, please wait!
-# > Greyscale image of painting has been created and is named greyscal-painting.
+# > Greyscale image of painting has been created and is named greyscale-painting.
 
-save res/blured-broken-painting.png blured-broken-painting & save res/elephant-sharpen.jpeg elephant-sharpen &
-save res/sepia-painting.bmp sepia-painting & save res/greyscal-painting.jpg greyscal-painting
+save blurred-broken-painting.png blurred-broken-painting & save elephant-sharpen.jpeg elephant-sharpen &
+save sepia-painting.bmp sepia-painting & save greyscale-painting.jpg greyscale-painting
 
 # > Processing command, please wait!
-# > Image blured-broken-painting has been exported to res/blured-broken-painting.png.
-# > Image elephant-sharpen has been exported to res/elephant-sharpen.jpeg.
+# > Image blurred-broken-painting has been exported to blurred-broken-painting.png.
+# > Image elephant-sharpen has been exported to elephant-sharpen.jpeg.
 # > Processing command, please wait!
-# > Image sepia-painting has been exported to res/sepia-painting.bmp.
-# > Image greyscal-painting has been exported to res/greyscal-painting.jpg.
+# > Image sepia-painting has been exported to sepia-painting.bmp.
+# > Image greyscale-painting has been exported to greyscale-painting.jpg.
 
-brighten 100 broken-painting brighter-broken-painting & sepia brighter-broken-painting s-bbp & sharpen s-bbp ss-bbp & save res/ss-bbp.jpg ss-bbp
+brighten 100 broken-painting brighter-broken-painting & sepia brighter-broken-painting s-bbp & sharpen s-bbp ss-bbp & save ss-bbp.jpg ss-bbp
 
 # > Processing command, please wait!
 # > Brightened image (value: 100) of broken-painting has been created and is named brighter-broken-painting.
 # > Sepia image of brighter-broken-painting has been created and is named s-bbp.
 # > Sharpening image of s-bbp has been created and is named ss-bbp.
-# > Image ss-bbp has been exported to res/ss-bbp.jpg.
+# > Image ss-bbp has been exported to ss-bbp.jpg.
 
-load res/ss-bbp.jpg ss-bbp & load res/sepia-painting.bmp sepia-painting & load res/greyscal-painting.jpg greyscal-painting & load res/elephant-sharpen.jpeg elephant-sharpen
+load ss-bbp.jpg ss-bbp & load sepia-painting.bmp sepia-painting & load greyscale-painting.jpg greyscale-painting & load elephant-sharpen.jpeg elephant-sharpen
 
 # > Processing command, please wait!
-# > Image file found at res/ss-bbp.jpg has been imported and has overwritten ss-bbp.
-# > Image file found at res/sepia-painting.bmp has been imported and has overwritten sepia-painting.
-# > Image file found at res/greyscal-painting.jpg has been imported and has overwritten greyscal-painting.
-# > Image file found at res/elephant-sharpen.jpeg has been imported and has overwritten elephant-sharpen.
+# > Image file found at ss-bbp.jpg has been imported and has overwritten ss-bbp.
+# > Image file found at sepia-painting.bmp has been imported and has overwritten sepia-painting.
+# > Image file found at greyscale-painting.jpg has been imported and has overwritten greyscale-painting.
+# > Image file found at elephant-sharpen.jpeg has been imported and has overwritten elephant-sharpen.
 
-save res/ss-bbp-copy.jpg ss-bbp & save res/sepia-painting-copy.bmp sepia-painting & save res/greyscal-painting-copy.jpg greyscal-painting & save res/elephant-sharpen-copy.jpeg elephant-sharpen
+save ss-bbp-copy.jpg ss-bbp & save sepia-painting-copy.bmp sepia-painting & save greyscale-painting-copy.jpg greyscale-painting & save elephant-sharpen-copy.jpeg elephant-sharpen
 
 size
 
@@ -124,43 +124,44 @@ size
 
 ######### BAD INPUTS #########
 
+load painting.ppm 123
 
 load
 
 # > Processing command, please wait!
 # Insufficient argument for load, try again!
 
-load res/painting pic
+load painting pic
 
 # > Processing command, please wait!
 # Please specify the file format followed by '.'!
 
-load res/painting.heif pic
+load painting.heif pic
 
 # > Processing command, please wait!
 # This file extension is not supported!
 
-load res/non-exiting.ppm impossible
+load non-exiting.ppm impossible
 
 # > Processing command, please wait!
-# Unable to find PPM file named "res/non-exiting.ppm"! Please check the name or the path of the file is accurate and try again!
+# Unable to find PPM file named "non-exiting.ppm"! Please check the name or the path of the file is accurate and try again!
 
-load res/.ppm impossible
+load .ppm impossible
 
 # > Processing command, please wait!
 # Invalid File Name!
 
-load res/.hiddenFileHoweverIsValid.ppm butTheresNoSuchAFile
+load .hiddenFileHoweverIsValid.ppm butTheresNoSuchAFile
 
 # > Processing command, please wait!
-# Unable to find PPM file named "res/.hiddenFileHoweverIsValid.ppm"! Please check the name or the path of the file is accurate and try again!
+# Unable to find PPM file named ".hiddenFileHoweverIsValid.ppm"! Please check the name or the path of the file is accurate and try again!
 
-load res/painting.ppm pic TOOMUCHELEMENTS
+load painting.ppm pic TOO_MUCH_ELEMENTS
 
 # > Processing command, please wait!
-# Too much arguments provided for load, try again!
+# Too many arguments provided for load, try again!
 
-loud res/painting.ppm pic
+loud painting.ppm pic
 
 # Command not found!
 
@@ -179,7 +180,7 @@ brighten pic new
 # > Processing command, please wait!
 # Expect an integer as the value for brightness adjustment, but input is a string, try again!
 
-red-component painting painting-red & save res/painting-red painting-red & horizontal-flip painting-red thisWillNotPerformAsThePreviousCommandFails & NeitherWouldThis
+red-component painting painting-red & save painting-red painting-red & horizontal-flip painting-red thisWillNotPerformAsThePreviousCommandFails & NeitherWouldThis
 
 # > Processing command, please wait!
 # > Red-component image of painting has been created and has overwritten painting-red.
@@ -190,7 +191,7 @@ save /painting-red.ppm painting-red
 # > Processing command, please wait!
 # Unable to create the destination file!
 
-save res/noSuchImage.ppm noSuchImage
+save noSuchImage.ppm noSuchImage
 
 # > Processing command, please wait!
 # Unable to save because image noSuchImage cannot be found!
@@ -199,10 +200,10 @@ size
 # > Processing command, please wait!
 # > There are 20 images in the library!
 
-size this would fail because too much arguments
+size this would fail because too many arguments
 
 # > Processing command, please wait!
-# Too much arguments provided for size, try again!
+# Too many arguments provided for size, try again!
 
 QUIT & save /painting-red.ppm painting-red
 

@@ -12,7 +12,7 @@ import controller.utils.WriteSuffixManagerV2;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
-import model.operation.opertor.colortrans.TiltingOperator;
+import model.operation.opertor.colortrans.TintingOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 import view.IImageProcessView;
 import view.SimpleImageProcessViewImpl;
@@ -73,7 +73,7 @@ public class ImageProcessControllerImplV2 extends ImageProcessControllerImpl {
     this.cmdMap.put("sharpen", () -> new FilterCommand(SimpleFilterOperator.Sharpening));
     this.cmdMap.put("greyscale", () -> new GreyCommand(SimpleArithmeticGreyscaleOperator.Luma,
             "Greyscale"));
-    this.cmdMap.put("sepia", () -> new TintingCommand(TiltingOperator.Sepia));
+    this.cmdMap.put("sepia", () -> new TintingCommand(TintingOperator.Sepia));
     this.cmdMap.put("save", () -> new SaveCommand(new WriteSuffixManagerV2()));
     this.cmdMap.put("load", () -> new LoadCommand(new LoadSuffixManagerV2()));
   }

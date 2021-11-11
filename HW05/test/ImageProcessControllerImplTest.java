@@ -143,7 +143,7 @@ public class ImageProcessControllerImplTest {
     model.loadImage("img1", img);
     IImageProcessController controller = new ImageProcessControllerImpl(model, in, view);
     controller.run();
-    assertEquals("> Processing command, please wait!\n[31mToo much arguments provided for size, "
+    assertEquals("> Processing command, please wait!\n[31mToo many arguments provided for size, "
             + "try again![0m\n", out.toString());
   }
 
@@ -277,7 +277,7 @@ public class ImageProcessControllerImplTest {
     IImageProcessController controller
             = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("loaded mockpeek mock", output.toString());
+    assertEquals("loaded mockPeek mock", output.toString());
   }
 
   @Test

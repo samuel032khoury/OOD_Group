@@ -18,7 +18,7 @@ public final class ImageFileImpl implements ImageFile {
   private final boolean alphaChannel;
 
   /**
-   * Create a image with customized pixels.
+   * Create an image with customized pixels.
    *
    * @param pixels the 2-D Color array that stores the data information for an image
    */

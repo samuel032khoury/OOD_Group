@@ -40,7 +40,6 @@ public abstract class AFilterOperation extends ANoAlphaOperation {
    */
   @Override
   protected Color[][] process(Color[][] pixels) {
-    Color[][] filtered = new Color[this.height][this.width];
     if (!this.supportedFilter.containsKey(filter)) {
       throw new IllegalStateException("No such an filter can be found!");
     }

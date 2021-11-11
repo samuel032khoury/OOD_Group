@@ -1,15 +1,15 @@
 package model.operation.opertor.filter;
 
 /**
- * A filter operator, that changes the pixels. The matrix have a center, that is the place to change
- * the value, each time to apply a operation, the corresponding color pixels will be multiplied by
- * the weight in the matrix, and add to find the center pixels.
+ * Interface for enums, each enum member should represent a filter operation name and must have a
+ * {@code double[][]} kernel that contains the rule for filtering and image.
  */
 public interface IFilterOperator {
 
   /**
-   * Return the filter kernel of the operator.
-   * @return filter kernel of the operator.
+   * Get the filter kernel of an enum member.
+   *
+   * @return a {@code double[][]} representing the filter kernel of the enum member.
    */
   double[][] getKernel();
 }

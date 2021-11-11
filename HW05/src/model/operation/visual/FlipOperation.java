@@ -5,7 +5,8 @@ import java.awt.Color;
 import model.operation.ANoAlphaOperation;
 
 /**
- * An operation that flip the image.
+ * An implementation of {@link ANoAlphaOperation}, with the ability to flip a {@link
+ * model.imagefile.ImageFile} vertically or horizontally.
  */
 public class FlipOperation extends ANoAlphaOperation {
 
@@ -13,17 +14,21 @@ public class FlipOperation extends ANoAlphaOperation {
   private final boolean vertiFlip;
 
   /**
-   * To construct a FlipOperation.
-   * @param vertiFlip if the operation will flip the images vertically or not.
+   * To construct a FlipOperation, with the knowledge of the flipping direction.
+   *
+   * @param vertiFlip the indicator for the flipping direction
    */
   public FlipOperation(boolean vertiFlip) {
     this.vertiFlip = vertiFlip;
   }
 
   /**
-   * Apply the FlipOperation on a 2-D {@code Array} of {@link Color}.
+   * Create a flipped image, represented by a 2-D {@code Array} of {@link Color}, by applying the
+   * either {@link #vertiFlip} or {@link #vertiFlip} on the provided 2-D {@code Array} of
+   * {@link Color}.
+   *
    * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
-   * @return  processed 2-D {@code Array} of {@link Color}
+   * @return flipped 2-D {@code Array} of {@link Color}
    */
   @Override
   protected Color[][] process(Color[][] pixels) {
@@ -35,9 +40,10 @@ public class FlipOperation extends ANoAlphaOperation {
   }
 
   /**
-   * To vertically flip a image.
+   * Create a row-reversed 2-D {@code Array} of {@link Color} based on the provided one.
+   *
    * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
-   * @return processed 2-D {@code Array} of {@link Color}
+   * @return a vertical flipped 2-D {@code Array} of {@link Color}
    */
   private Color[][] vertiFlip(Color[][] pixels) {
     Color[][] vertiFlipped = new Color[this.height][];
@@ -48,9 +54,10 @@ public class FlipOperation extends ANoAlphaOperation {
   }
 
   /**
-   * To horizontally flip a image.
+   * Create a column-reversed 2-D {@code Array} of {@link Color} based on the provided one.
+   *
    * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
-   * @return processed 2-D {@code Array} of {@link Color}
+   * @return a horizontally flipped 2-D {@code Array} of {@link Color}
    */
   private Color[][] horizFlip(Color[][] pixels) {
     Color[][] horizFlipped = new Color[this.height][this.width];

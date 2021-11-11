@@ -10,7 +10,7 @@ import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
 /**
  * An implementation of {@link AColorTransformOperation}, with several available (greyscale)
  * operations added in the {@link #supportedOperation}, which can be applied to an {@link ImageFile}
- * to get a greyscaled version of images.
+ * to get a greyscale version of images.
  */
 public class GreyscaleOperation extends AColorTransformOperation {
 

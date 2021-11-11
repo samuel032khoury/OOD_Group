@@ -23,7 +23,6 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
  * information retrieved from the image) to build a {@link ImageFile}.
  */
 public class UniLoader implements ILoader {
-
   private final int maxColorVal;
 
   public UniLoader() {
