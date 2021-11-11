@@ -14,13 +14,12 @@ Current implementation of `ImageFile`, `ImageFileImpl`, uses a 2-D array of Colo
 (RGBA) color information, with the option if a ImageFileImpl object should be considered has a alpha channel, regardless of their original image format. It will also record the possible maximum value for Color. 
 Currently `IImageOperation` contains all the operations that can be preformed on the `ImageFile` which the interface have a method to take in a operation and produce a new image.
 
-~~As overwritten an existing image in the image library is allowed by design, all current methods for `ImageFile` are restricted not to mutate the provided  `ImageFile` itself, but only generate a new copy with modification. If users want to "mutate" the original image, they can simply overwrite the value of which the key they used to retrieve an image to process.~~
-Currently, our design of the `ImageFile` doesn't allow for overwrite it. However, there is no need to overwrite it as now the functions/operations are seperated from the ImageFile
+As overwritten an existing image in the `ImageLib` is allowed by design, all current methods for `ImageFile` are restricted not to mutate the provided  `ImageFile` itself, but only generate a new copy with modification. All modification is performed on a ==**deep copy**== of the original `ImageFile`, so the original  `ImageFile` and the information stored in it will not be mutated by all means. If users want to replace the value corresponding to the identifiable key, on the other hand, they can simply re-assign the value of which the key they used to retrieve an image to process.
 #### Operation
 
-Operation.operator.colortrans package contains an interface `IColorTransOperator` for enum classes. 
+`Operation.operator.colortrans` package contains an interface `IColorTransOperator` for enum classes. 
 Every enum member should be the name of a particular operation to convert a Color, by some defined rules, to another, which may have a modified RGB(A) value.
-Each `IColorTransOperator` contains a matrix that records the color transfer for a particular pixels. The matrix is defined in the enum creation and can be retrieved by calling getMatrix().
+Each `IColorTransOperator` contains a matrix that records the color transform for a particular pixels. The matrix is defined in the enum creation and can be retrieved by calling getMatrix().
 Currently, `GreyscaleOperation` are able to use `SimpleArithmeticGreyscaleOperator` and `SingleChannelGreyscaleOperator` declared.
 `TingingOperation` are able to use `TiltingOperator` declared.
 
