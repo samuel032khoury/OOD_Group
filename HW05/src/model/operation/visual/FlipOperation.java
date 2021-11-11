@@ -12,12 +12,19 @@ public class FlipOperation extends ANoAlphaOperation {
   // true when try to perform a vertical flip, false when a horizontal one.
   private final boolean vertiFlip;
 
-  //TODO
+  /**
+   * To construct a FlipOperation.
+   * @param vertiFlip if the operation will flip the images vertically or not.
+   */
   public FlipOperation(boolean vertiFlip) {
     this.vertiFlip = vertiFlip;
   }
 
-  //TODO
+  /**
+   * Apply the FlipOperation on a 2-D {@code Array} of {@link Color}.
+   * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
+   * @return  processed 2-D {@code Array} of {@link Color}
+   */
   @Override
   protected Color[][] process(Color[][] pixels) {
     if (vertiFlip) {
@@ -27,7 +34,11 @@ public class FlipOperation extends ANoAlphaOperation {
     }
   }
 
-  //TODO
+  /**
+   * To vertically flip a image.
+   * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
+   * @return processed 2-D {@code Array} of {@link Color}
+   */
   private Color[][] vertiFlip(Color[][] pixels) {
     Color[][] vertiFlipped = new Color[this.height][];
     for (int row = 0; row < this.height; row++) {
@@ -36,7 +47,11 @@ public class FlipOperation extends ANoAlphaOperation {
     return vertiFlipped;
   }
 
-  //TODO
+  /**
+   * To horizontally flip a image.
+   * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
+   * @return processed 2-D {@code Array} of {@link Color}
+   */
   private Color[][] horizFlip(Color[][] pixels) {
     Color[][] horizFlipped = new Color[this.height][this.width];
     for (int row = 0; row < this.height; row++) {

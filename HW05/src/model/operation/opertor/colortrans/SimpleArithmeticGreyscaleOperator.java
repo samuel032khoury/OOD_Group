@@ -16,13 +16,19 @@ public enum SimpleArithmeticGreyscaleOperator implements IColorTransOperator {
   private final double[][] transformMatrix;
 
 
-  //TODO
+  /**
+   * To construct a simple ArithmeticGreyscaleOperator using a transfer matrix.
+   * @param transformMatrix the matrix to supply.
+   */
   SimpleArithmeticGreyscaleOperator(double[][] transformMatrix) {
     OperationUtil.checkColorTransformMatrix(transformMatrix);
     this.transformMatrix = transformMatrix;
   }
 
-  //TODO
+  /**
+   * Return the color transform matrix of the operator.
+   * @return color transform matrix of the operator.
+   */
   @Override
   public double[][] getMatrix() {
     return this.transformMatrix;

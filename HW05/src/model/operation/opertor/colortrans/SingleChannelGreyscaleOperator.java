@@ -13,13 +13,19 @@ public enum SingleChannelGreyscaleOperator implements IColorTransOperator {
 
   private final double[][] transformMatrix;
 
-  //TODO
+  /**
+   * Construct a GreyscaleOperator.
+   * @param transformMatrix the matrix to initallize.
+   */
   SingleChannelGreyscaleOperator(double[][] transformMatrix) {
     OperationUtil.checkColorTransformMatrix(transformMatrix);
     this.transformMatrix = transformMatrix;
   }
 
-  //TODO
+  /**
+   * Return the color transform matrix of the operator.
+   * @return color transform matrix of the operator.
+   */
   @Override
   public double[][] getMatrix() {
     return this.transformMatrix;

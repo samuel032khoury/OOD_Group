@@ -10,13 +10,19 @@ public enum TiltingOperator implements IColorTransOperator {
 
   private final double[][] transformMatrix;
 
-  //TODO
+  /**
+   * Construct a TiltingOperator.
+   * @param transformMatrix the matrix to initialize.
+   */
   TiltingOperator(double[][] transformMatrix) {
     OperationUtil.checkColorTransformMatrix(transformMatrix);
     this.transformMatrix = transformMatrix;
   }
 
-  //TODO
+  /**
+   * Return the color transform matrix of the operator.
+   * @return color transform matrix of the operator.
+   */
   @Override
   public double[][] getMatrix() {
     return this.transformMatrix;

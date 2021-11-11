@@ -10,6 +10,9 @@ import model.operation.function.IColorTransformFunction;
  */
 public interface IColorTransOperator {
 
-  //TODO
+  /**
+   * Return the color transform of the operator.
+   * @return the color transform of the operator.
+   */
   double[][] getMatrix();
 }
