@@ -6,6 +6,7 @@ package view;
 public interface IImageProcessView {
   /**
    * To render a message.
+   *
    * @param message The message to render.
    * @throws IllegalStateException if unable to render a message.
    */
@@ -13,6 +14,7 @@ public interface IImageProcessView {
 
   /**
    * To render a error.
+   *
    * @param message The error to render.
    * @throws IllegalStateException if unable to render a error.
    */

@@ -1,6 +1,6 @@
 package model.imagefile;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * To represent an image that can only be viewed, but cannot apply operations or be copied.

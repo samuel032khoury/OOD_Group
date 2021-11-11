@@ -1,6 +1,6 @@
 package model.operation.function;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * A function interface that has a method consume an image represented by a 2-D {@code Array} of

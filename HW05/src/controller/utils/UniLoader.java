@@ -1,6 +1,6 @@
 package controller.utils;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +32,11 @@ public class UniLoader implements ILoader {
 
   public UniLoader(int maxColorVal) {
     this.maxColorVal = maxColorVal;
+  }
+
+  public static void main(String[] args) {
+    ImageFile img = new UniLoader().loadFile("/Users/eric/Downloads/serbia-1.bmp ");
+    new UniWriter(false).write(img, "hi.bmp");
   }
 
   /**
@@ -75,10 +80,5 @@ public class UniLoader implements ILoader {
     }
 
     return new ImageFileImpl(pixels, this.maxColorVal, alpha);
-  }
-
-  public static void main(String[] args) {
-    ImageFile img = new UniLoader().loadFile("/Users/eric/Downloads/serbia-1.bmp ");
-    new UniWriter(false).write(img, "hi.bmp");
   }
 }

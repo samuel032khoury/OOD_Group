@@ -1,9 +1,9 @@
 package model.operation;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
- * To represent all {@link RegularImageOperation} that does not change the alpha value of an 
+ * To represent all {@link RegularImageOperation} that does not change the alpha value of an
  * image in the method of {@link #process(Color[][])};
  */
 public abstract class ANoAlphaOperation extends RegularImageOperation {

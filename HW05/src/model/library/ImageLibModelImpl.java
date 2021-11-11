@@ -23,6 +23,7 @@ public class ImageLibModelImpl implements ImageLibModel {
 
   /**
    * A constructor that can set the map object of the library.
+   *
    * @param map the map to be set initially.
    */
   public ImageLibModelImpl(HashMap<String, ImageFile> map) {
@@ -39,7 +40,7 @@ public class ImageLibModelImpl implements ImageLibModel {
    * @param imageFile a {@link ImageFile} being loaded
    */
   @Override
-  public void loadImage(String imageName, ImageFile imageFile){
+  public void loadImage(String imageName, ImageFile imageFile) {
     imageLib.put(imageName, imageFile);
   }
 

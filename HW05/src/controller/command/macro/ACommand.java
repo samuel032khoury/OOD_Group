@@ -3,8 +3,8 @@ package controller.command.macro;
 import java.util.Queue;
 
 import model.imagefile.ImageFile;
-import model.operation.IImageOperation;
 import model.library.ImageLibModel;
+import model.operation.IImageOperation;
 import view.IImageProcessView;
 
 /**

@@ -1,6 +1,6 @@
 package model.imagefile;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -19,6 +19,7 @@ public final class ImageFileImpl implements ImageFile {
 
   /**
    * Create a image with customized pixels.
+   *
    * @param pixels the 2-D Color array that stores the data information for an image
    */
   public ImageFileImpl(Color[][] pixels) {
@@ -27,7 +28,8 @@ public final class ImageFileImpl implements ImageFile {
 
   /**
    * A constructor with customized pixels and possible maximum color value.
-   * @param pixels the 2-D Color array that stores the data information for an image
+   *
+   * @param pixels      the 2-D Color array that stores the data information for an image
    * @param maxColorVal the possible maximum value for image's color channel
    */
   public ImageFileImpl(Color[][] pixels, int maxColorVal) {

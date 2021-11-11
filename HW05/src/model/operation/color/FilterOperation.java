@@ -1,6 +1,6 @@
 package model.operation.color;
 
-import java.awt.Color;
+import java.awt.*;
 
 import model.imagefile.ImageFile;
 import model.operation.opertor.filter.IFilterOperator;

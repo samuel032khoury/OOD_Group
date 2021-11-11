@@ -1,6 +1,6 @@
 package model.operation.color;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * A Utility class that provides common functions for performing operations.
@@ -25,7 +25,7 @@ public class OperationUtil {
    *
    * @param kernel the matrix to check.
    * @throws IllegalArgumentException filter kernel matrix is not a rectangular matrix with odd
-   * rows and columns.
+   *                                  rows and columns.
    */
   public static void checkKernel(double[][] kernel) throws IllegalArgumentException {
     boolean valid = false;
@@ -132,7 +132,7 @@ public class OperationUtil {
           }
         }
 
-        int[] rgb = OperationUtil.giveValidColorValue((int) r, (int) g, (int) b);
+        int[] rgb = OperationUtil.giveValidColorValue(r, g, b);
         filtered[i][j] = new Color(rgb[0], rgb[1], rgb[2], original[i][j].getAlpha());
       }
     }

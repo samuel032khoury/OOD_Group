@@ -1,6 +1,6 @@
 package model.operation;
 
-import java.awt.Color;
+import java.awt.*;
 
 import model.imagefile.ImageFile;
 

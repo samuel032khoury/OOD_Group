@@ -1,6 +1,6 @@
 package model.operation.visual;
 
-import java.awt.Color;
+import java.awt.*;
 
 import model.operation.ANoAlphaOperation;
 import model.operation.color.OperationUtil;

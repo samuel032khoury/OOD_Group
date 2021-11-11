@@ -1,10 +1,10 @@
 package model.operation.color;
 
-import java.awt.Color;
+import java.awt.*;
 
 import model.imagefile.ImageFile;
-import model.operation.opertor.colortrans.TiltingOperator;
 import model.operation.opertor.colortrans.IColorTransOperator;
+import model.operation.opertor.colortrans.TiltingOperator;
 
 
 /**

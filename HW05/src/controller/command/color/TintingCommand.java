@@ -5,8 +5,8 @@ import java.util.Queue;
 import controller.command.macro.ACommand;
 import controller.command.macro.CommandUtil;
 import model.imagefile.ImageFile;
-import model.operation.color.TintingOperation;
 import model.library.ImageLibModel;
+import model.operation.color.TintingOperation;
 import model.operation.opertor.colortrans.IColorTransOperator;
 import view.IImageProcessView;
 
