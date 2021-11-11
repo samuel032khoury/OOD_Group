@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
-import java.util.Arrays;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
@@ -274,7 +273,7 @@ public class ModelTest {
 
     assertArrayEquals(vertiExpected, vertiActual);
     assertArrayEquals(hoirzExpected, hoirzActual);
-    for(int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
       assertArrayEquals(vertiExpected[0], vertiActual[0]);
       assertArrayEquals(hoirzExpected[0], hoirzActual[0]);
     }
@@ -367,19 +366,19 @@ public class ModelTest {
   @Test
   public void TestGetKernelANDGetTransformMatrix() {
     double[][] expectBlurKernel = (new double[][]{{1 / 16.0, 1 / 8.0, 1 / 16.0},
-            {1 / 8.0, 1 / 4.0, 1 / 8.0},
-            {1 / 16.0, 1 / 8.0, 1 / 16.0}});
+      {1 / 8.0, 1 / 4.0, 1 / 8.0},
+      {1 / 16.0, 1 / 8.0, 1 / 16.0}});
     double[][] expectedSharpeningKernel = new double[][]{
-            {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0},
-            {-1 / 8.0, 1 / 4.0, 1 / 4.0, 1 / 4.0, -1 / 8.0},
-            {-1 / 8.0, 1 / 4.0, 1, 1 / 4.0, -1 / 8.0},
-            {-1 / 8.0, 1 / 4.0, 1 / 4.0, 1 / 4.0, -1 / 8.0},
-            {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0}};
+      {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0},
+      {-1 / 8.0, 1 / 4.0, 1 / 4.0, 1 / 4.0, -1 / 8.0},
+      {-1 / 8.0, 1 / 4.0, 1, 1 / 4.0, -1 / 8.0},
+      {-1 / 8.0, 1 / 4.0, 1 / 4.0, 1 / 4.0, -1 / 8.0},
+      {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0}};
     double[][] expectedValueMatrix = new double[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
     double[][] expectedLumaMatrix = new double[][]{{0.2126, 0.7152, 0.0722},
-            {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
+      {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
     double[][] expectedIntensityMatrix = new double[][]{{0.3333, 0.3333, 0.3333},
-            {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
+      {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
     double[][] expectedRedMatrix = new double[][]{{1, 0, 0}, {1, 0, 0}, {1, 0, 0}};
     double[][] expectedGreenMatrix = new double[][]{{0, 1, 0}, {0, 1, 0}, {0, 1, 0}};
     double[][] expectedBlueMatrix = new double[][]{{0, 0, 1}, {0, 0, 1}, {0, 0, 1}};
