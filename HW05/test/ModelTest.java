@@ -239,9 +239,6 @@ public class ModelTest {
     assertArrayEquals(expectedLuma, luma.apply(false, this.imgL));
   }
 
-  private void assertArrayEquals(Color[][] expectedRed, Color[][] apply) {
-  }
-
   @Test
   public void TestFlipOperation() {
     FlipOperation verti = new FlipOperation(true);
@@ -257,9 +254,11 @@ public class ModelTest {
     Color[][] hoirzActual = horiz.apply(false, this.imgL);
 
     assertArrayEquals(vertiExpected, vertiActual);
-    assertNotSame(vertiExpected[0][0], vertiActual[0][0]);
     assertArrayEquals(hoirzExpected, hoirzActual);
-    assertNotSame(hoirzExpected[0][0], hoirzActual[0][0]);
+    for(int i = 0; i < 3; i++) {
+      assertArrayEquals(vertiExpected[0], vertiActual[0]);
+      assertArrayEquals(hoirzExpected[0], hoirzActual[0]);
+    }
   }
 
   @Test
@@ -362,12 +361,31 @@ public class ModelTest {
             {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
     double[][] expectedIntensityMatrix = new double[][]{{0.3333, 0.3333, 0.3333},
             {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
-    assertArrayEquals(expectBlurKernel, SimpleFilterOperator.Blur.getKernel());
-    assertArrayEquals(expectedSharpeningKernel, SimpleFilterOperator.Sharpening.getKernel());
-    assertArrayEquals(expectedValueMatrix, SimpleArithmeticGreyscaleOperator.Value.getMatrix());
-    assertArrayEquals(expectedLumaMatrix, SimpleArithmeticGreyscaleOperator.Luma.getMatrix());
-    assertArrayEquals(expectedIntensityMatrix,
-            SimpleArithmeticGreyscaleOperator.Intensity.getMatrix());
+    double[][] expectedRedMatrix = new double[][]{{1, 0, 0}, {1, 0, 0}, {1, 0, 0}};
+    double[][] expectedGreenMatrix = new double[][]{{0, 1, 0}, {0, 1, 0}, {0, 1, 0}};
+    double[][] expectedBlueMatrix = new double[][]{{0, 0, 1}, {0, 0, 1}, {0, 0, 1}};
+    for (int i = 0; i < 3; i++) {
+      assertArrayEquals(expectBlurKernel[i], SimpleFilterOperator.Blur.getKernel()[i], 0.0);
+      assertArrayEquals(expectedValueMatrix[i],
+              SimpleArithmeticGreyscaleOperator.Value.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedLumaMatrix[i],
+              SimpleArithmeticGreyscaleOperator.Luma.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedIntensityMatrix[i],
+              SimpleArithmeticGreyscaleOperator.Intensity.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedRedMatrix[i],
+              SingleChannelGreyscaleOperator.Red.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedGreenMatrix[i],
+              SingleChannelGreyscaleOperator.Green.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedBlueMatrix[i],
+              SingleChannelGreyscaleOperator.Blue.getMatrix()[i], 0.0);
+
+    }
+
+    for (int i = 0; i < 5; i++) {
+      assertArrayEquals(expectedSharpeningKernel[i],
+              SimpleFilterOperator.Sharpening.getKernel()[i], 0.0);
+    }
+
   }
 
 
