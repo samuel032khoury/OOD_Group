@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
@@ -15,8 +16,10 @@ import model.imagefile.ReadOnlyImageFile;
 import model.operation.color.FilterOperation;
 import model.operation.color.GreyscaleOperation;
 import model.operation.color.OperationUtil;
+import model.operation.color.TintingOperation;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
 import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
+import model.operation.opertor.colortrans.TiltingOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
 import model.operation.visual.BrightnessOperation;
 import model.operation.visual.FlipOperation;
@@ -147,6 +150,7 @@ public class ModelTest {
     GreyscaleOperation intensity = new GreyscaleOperation(
             SimpleArithmeticGreyscaleOperator.Intensity);
     GreyscaleOperation value = new GreyscaleOperation(SimpleArithmeticGreyscaleOperator.Value);
+    TintingOperation sepia = new TintingOperation(TiltingOperator.Sepia);
 
     Color c1Red = new Color(0, 0, 0);
     Color c2Red = new Color(100, 100, 100);
@@ -237,6 +241,21 @@ public class ModelTest {
     Color[] loc3Luma = new Color[]{c7Luma, c8Luma, c9Luma};
     Color[][] expectedLuma = new Color[][]{loc1Luma, loc2Luma, loc3Luma};
     assertArrayEquals(expectedLuma, luma.apply(false, this.imgL));
+
+    Color c1Sepia = new Color(0, 0, 0);
+    Color c2Sepia = new Color(135, 120, 93);
+    Color c3Sepia = new Color(255, 240, 187);
+    Color c4Sepia = new Color(124, 111, 86);
+    Color c5Sepia = new Color(255, 231, 180);
+    Color c6Sepia = new Color(57, 51, 39);
+    Color c7Sepia = new Color(95, 85, 66);
+    Color c8Sepia = new Color(149, 133,103);
+    Color c9Sepia = new Color(206, 183, 143);
+    Color[] loc1Sepia = new Color[]{c1Sepia, c2Sepia, c3Sepia};
+    Color[] loc2Sepia = new Color[]{c4Sepia, c5Sepia, c6Sepia};
+    Color[] loc3Sepia = new Color[]{c7Sepia, c8Sepia, c9Sepia};
+    Color[][] expectedSepia = new Color[][]{loc1Sepia, loc2Sepia, loc3Sepia};
+    assertArrayEquals(expectedSepia, sepia.apply(false, this.imgL));
   }
 
   @Test
@@ -378,7 +397,6 @@ public class ModelTest {
               SingleChannelGreyscaleOperator.Green.getMatrix()[i], 0.0);
       assertArrayEquals(expectedBlueMatrix[i],
               SingleChannelGreyscaleOperator.Blue.getMatrix()[i], 0.0);
-
     }
 
     for (int i = 0; i < 5; i++) {
