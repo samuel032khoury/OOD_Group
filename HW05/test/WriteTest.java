@@ -128,4 +128,14 @@ public class WriteTest {
       f.delete();
     }
   }
+
+  @Test
+  public void testPPM() throws Exception {
+    ILoader loader = new LoadSuffixManagerV2().provide("ppm");
+    IWriter writer = new WriteSuffixManagerV2().provide("ppm");
+    ImageFile img = loader.loadFile("test/pics/green.ppm");
+    writer.write(img, "result.ppm");
+    ImageFile img2 = loader.loadFile("result.ppm");
+    assertEquals(img2, img);
+  }
 }
