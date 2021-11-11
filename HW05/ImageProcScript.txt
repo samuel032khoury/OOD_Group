@@ -120,7 +120,7 @@ save res/ss-bbp-copy.jpg ss-bbp & save res/sepia-painting-copy.bmp sepia-paintin
 size
 
 # > Processing command, please wait!
-# > There are 7 images in the library!
+# > There are 20 images in the library!
 
 ######### BAD INPUTS #########
 
@@ -197,7 +197,7 @@ save res/noSuchImage.ppm noSuchImage
 
 size
 # > Processing command, please wait!
-# > There are 7 images in the library!
+# > There are 20 images in the library!
 
 size this would fail because too much arguments
 
