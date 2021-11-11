@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
@@ -12,8 +13,13 @@ import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 import model.imagefile.ReadOnlyImageFile;
 import model.operation.color.FilterOperation;
+import model.operation.color.GreyscaleOperation;
 import model.operation.color.OperationUtil;
+import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
+import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
+import model.operation.visual.BrightnessOperation;
+import model.operation.visual.FlipOperation;
 
 /**
  * To test the model for the project, including {@link ImageFile} model and {@link
@@ -132,170 +138,167 @@ public class ModelTest {
     assertEquals(OperationUtil.giveValidColorValue(sharpen11G)[0], actualSharpen[1][1].getGreen());
   }
 
-//  @Test
-//  public void TestColorTransformOperation() {
-//
-//  }
+  @Test
+  public void TestColorTransformOperation() {
+    GreyscaleOperation red = new GreyscaleOperation(SingleChannelGreyscaleOperator.Red);
+    GreyscaleOperation green = new GreyscaleOperation(SingleChannelGreyscaleOperator.Green);
+    GreyscaleOperation blue = new GreyscaleOperation(SingleChannelGreyscaleOperator.Blue);
+    GreyscaleOperation luma = new GreyscaleOperation(SimpleArithmeticGreyscaleOperator.Luma);
+    GreyscaleOperation intensity = new GreyscaleOperation(
+            SimpleArithmeticGreyscaleOperator.Intensity);
+    GreyscaleOperation value = new GreyscaleOperation(SimpleArithmeticGreyscaleOperator.Value);
 
-  //  @Test
-//  public void TestVertiFlip() {
-//    Color[][] expected = new Color[][]{this.loc3, this.loc2, this.loc1};
-//    ReadOnlyImageFile actual = this.imgF.vertiFlip();
-//    assertTrue(sameContents(expected, actual));
-//  }
-//
-//  @Test
-//  public void TestHorizFlip() {
-//    Color[] loc1Flip = new Color[]{this.c3, this.c2, this.c1};
-//    Color[] loc2Flip = new Color[]{this.c6, this.c5, this.c4};
-//    Color[] loc3Flip = new Color[]{this.c9, this.c8, this.c7};
-//    Color[][] expected = new Color[][]{loc1Flip, loc2Flip, loc3Flip};
-//    ReadOnlyImageFile actual = this.imgF.horizFlip();
-//    assertTrue(sameContents(expected, actual));
-//  }
-//
-//  @Test
-//  public void TestBrighten() {
-//    Color c1Brightened = new Color(50, 50, 50);
-//    Color c2Brightened = new Color(150, 150, 150);
-//    Color c3Brightened = new Color(250, 250, 250);
-//    Color c6Brightened = new Color(50, 100, 150);
-//    Color c4Brightened = new Color(100, 150, 200);
-//    Color c5Brightened = new Color(200, 250, 255);
-//    Color c7Brightened = new Color(173, 95, 117);
-//    Color c8Brightened = new Color(255, 106, 128);
-//    Color c9Brightened = new Color(184, 206, 228);
-//    Color[] loc1Brightened = new Color[]{c1Brightened, c2Brightened, c3Brightened};
-//    Color[] loc2Brightened = new Color[]{c4Brightened, c5Brightened, c6Brightened};
-//    Color[] loc3Brightened = new Color[]{c7Brightened, c8Brightened, c9Brightened};
-//    Color[][] expected = new Color[][]{loc1Brightened, loc2Brightened, loc3Brightened};
-//    ReadOnlyImageFile actual = imgF.brighten(50);
-//    assertTrue(sameContents(expected, actual));
-//  }
-//
-//  @Test
-//  public void TestDarken() {
-//    Color c1Darkened = new Color(0, 0, 0);
-//    Color c2Darkened = new Color(50, 50, 50);
-//    Color c3Darkened = new Color(150, 150, 150);
-//    Color c6Darkened = new Color(0, 0, 50);
-//    Color c4Darkened = new Color(0, 50, 100);
-//    Color c5Darkened = new Color(100, 150, 200);
-//    Color c7Darkened = new Color(73, 0, 17);
-//    Color c8Darkened = new Color(184, 6, 28);
-//    Color c9Darkened = new Color(84, 106, 128);
-//    Color[] loc1Darkened = new Color[]{c1Darkened, c2Darkened, c3Darkened};
-//    Color[] loc2Darkened = new Color[]{c4Darkened, c5Darkened, c6Darkened};
-//    Color[] loc3Darkened = new Color[]{c7Darkened, c8Darkened, c9Darkened};
-//    Color[][] expected = new Color[][]{loc1Darkened, loc2Darkened, loc3Darkened};
-//    ReadOnlyImageFile actual = imgF.darken(50);
-//    assertTrue(sameContents(expected, actual));
-//  }
-//
-//  @Test
-//  public void TestGreyScale() {
-//    Color c1Red = new Color(0, 0, 0);
-//    Color c2Red = new Color(100, 100, 100);
-//    Color c3Red = new Color(200, 200, 200);
-//    Color c6Red = new Color(0, 0, 0);
-//    Color c4Red = new Color(50, 50, 50);
-//    Color c5Red = new Color(150, 150, 150);
-//    Color c7Red = new Color(123, 123, 123);
-//    Color c8Red = new Color(234, 234, 234);
-//    Color c9Red = new Color(134, 134, 134);
-//    Color[] loc1Red = new Color[]{c1Red, c2Red, c3Red};
-//    Color[] loc2Red = new Color[]{c4Red, c5Red, c6Red};
-//    Color[] loc3Red = new Color[]{c7Red, c8Red, c9Red};
-//    Color[][] expectedRed = new Color[][]{loc1Red, loc2Red, loc3Red};
-//    ReadOnlyImageFile actualRed = imgF.greyscale(SingleChannelOperator.Red);
-//    assertTrue(sameContents(expectedRed, actualRed));
-//
-//    Color c1Green = new Color(0, 0, 0);
-//    Color c2Green = new Color(100, 100, 100);
-//    Color c3Green = new Color(200, 200, 200);
-//    Color c6Green = new Color(50, 50, 50);
-//    Color c4Green = new Color(100, 100, 100);
-//    Color c5Green = new Color(200, 200, 200);
-//    Color c7Green = new Color(45, 45, 45);
-//    Color c8Green = new Color(56, 56, 56);
-//    Color c9Green = new Color(156, 156, 156);
-//    Color[] loc1Green = new Color[]{c1Green, c2Green, c3Green};
-//    Color[] loc2Green = new Color[]{c4Green, c5Green, c6Green};
-//    Color[] loc3Green = new Color[]{c7Green, c8Green, c9Green};
-//    Color[][] expectedGreen = new Color[][]{loc1Green, loc2Green, loc3Green};
-//    ReadOnlyImageFile actualGreen = imgF.greyscale(SingleChannelOperator.Green);
-//    assertTrue(sameContents(expectedGreen, actualGreen));
-//
-//    Color c1Blue = new Color(0, 0, 0);
-//    Color c2Blue = new Color(100, 100, 100);
-//    Color c3Blue = new Color(200, 200, 200);
-//    Color c6Blue = new Color(100, 100, 100);
-//    Color c4Blue = new Color(150, 150, 150);
-//    Color c5Blue = new Color(250, 250, 250);
-//    Color c7Blue = new Color(67, 67, 67);
-//    Color c8Blue = new Color(78, 78, 78);
-//    Color c9Blue = new Color(178, 178, 178);
-//    Color[] loc1Blue = new Color[]{c1Blue, c2Blue, c3Blue};
-//    Color[] loc2Blue = new Color[]{c4Blue, c5Blue, c6Blue};
-//    Color[] loc3Blue = new Color[]{c7Blue, c8Blue, c9Blue};
-//    Color[][] expectedBlue = new Color[][]{loc1Blue, loc2Blue, loc3Blue};
-//    ReadOnlyImageFile actualBlue = imgF.greyscale(SingleChannelOperator.Blue);
-//    assertTrue(sameContents(expectedBlue, actualBlue));
-//
-//    Color c1Value = new Color(0, 0, 0);
-//    Color c2Value = new Color(100, 100, 100);
-//    Color c3Value = new Color(200, 200, 200);
-//    Color c6Value = new Color(100, 100, 100);
-//    Color c4Value = new Color(150, 150, 150);
-//    Color c5Value = new Color(250, 250, 250);
-//    Color c7Value = new Color(123, 123, 123);
-//    Color c8Value = new Color(234, 234, 234);
-//    Color c9Value = new Color(178, 178, 178);
-//    Color[] loc1Value = new Color[]{c1Value, c2Value, c3Value};
-//    Color[] loc2Value = new Color[]{c4Value, c5Value, c6Value};
-//    Color[] loc3Value = new Color[]{c7Value, c8Value, c9Value};
-//    Color[][] expectedValue = new Color[][]{loc1Value, loc2Value, loc3Value};
-//    ReadOnlyImageFile actualValue = imgF.greyscale(SimpleArithmeticChannelOperator.Value);
-//    assertTrue(sameContents(expectedValue, actualValue));
-//
-//    Color c1Intensity = new Color(0, 0, 0);
-//    Color c2Intensity = new Color(100, 100, 100);
-//    Color c3Intensity = new Color(200, 200, 200);
-//    Color c6Intensity = new Color(50, 50, 50);
-//    Color c4Intensity = new Color(100, 100, 100);
-//    Color c5Intensity = new Color(200, 200, 200);
-//    Color c7Intensity = new Color(78, 78, 78);
-//    Color c8Intensity = new Color(122, 122, 122);
-//    Color c9Intensity = new Color(156, 156, 156);
-//    Color[] loc1Intensity = new Color[]{c1Intensity, c2Intensity, c3Intensity};
-//    Color[] loc2Intensity = new Color[]{c4Intensity, c5Intensity, c6Intensity};
-//    Color[] loc3Intensity = new Color[]{c7Intensity, c8Intensity, c9Intensity};
-//    Color[][] expectedIntensity = new Color[][]{loc1Intensity, loc2Intensity, loc3Intensity};
-//    ReadOnlyImageFile actualIntensity = imgF.greyscale(SimpleArithmeticChannelOperator.Intensity);
-//    assertTrue(sameContents(expectedIntensity, actualIntensity));
-//
-//    Color c1Luma = new Color(0, 0, 0);
-//    Color c2Luma = new Color(100, 100, 100);
-//    Color c3Luma = new Color(200, 200, 200);
-//    Color c6Luma = new Color(42, 42, 42);
-//    Color c4Luma = new Color(92, 92, 92);
-//    Color c5Luma = new Color(192, 192, 192);
-//    Color c7Luma = new Color(63, 63, 63);
-//    Color c8Luma = new Color(95, 95, 95);
-//    Color c9Luma = new Color(152, 152, 152);
-//    Color[] loc1Luma = new Color[]{c1Luma, c2Luma, c3Luma};
-//    Color[] loc2Luma = new Color[]{c4Luma, c5Luma, c6Luma};
-//    Color[] loc3Luma = new Color[]{c7Luma, c8Luma, c9Luma};
-//    Color[][] expectedLuma = new Color[][]{loc1Luma, loc2Luma, loc3Luma};
-//    ReadOnlyImageFile actualLuma = imgF.greyscale(SimpleArithmeticChannelOperator.Luma);
-//    assertTrue(sameContents(expectedLuma, actualLuma));
-//  }
-//
-//  @Test(expected = IllegalStateException.class)
-//  public void TestEx() {
-//    imgF.greyscale(MockChannelOperator.mock);
-//  }
-//
+    Color c1Red = new Color(0, 0, 0);
+    Color c2Red = new Color(100, 100, 100);
+    Color c3Red = new Color(200, 200, 200);
+    Color c6Red = new Color(0, 0, 0);
+    Color c4Red = new Color(50, 50, 50);
+    Color c5Red = new Color(150, 150, 150);
+    Color c7Red = new Color(123, 123, 123);
+    Color c8Red = new Color(234, 234, 234);
+    Color c9Red = new Color(134, 134, 134);
+    Color[] loc1Red = new Color[]{c1Red, c2Red, c3Red};
+    Color[] loc2Red = new Color[]{c4Red, c5Red, c6Red};
+    Color[] loc3Red = new Color[]{c7Red, c8Red, c9Red};
+    Color[][] expectedRed = new Color[][]{loc1Red, loc2Red, loc3Red};
+    assertArrayEquals(expectedRed, red.apply(false, this.imgL));
+
+    Color c1Green = new Color(0, 0, 0);
+    Color c2Green = new Color(100, 100, 100);
+    Color c3Green = new Color(200, 200, 200);
+    Color c6Green = new Color(50, 50, 50);
+    Color c4Green = new Color(100, 100, 100);
+    Color c5Green = new Color(200, 200, 200);
+    Color c7Green = new Color(45, 45, 45);
+    Color c8Green = new Color(56, 56, 56);
+    Color c9Green = new Color(156, 156, 156);
+    Color[] loc1Green = new Color[]{c1Green, c2Green, c3Green};
+    Color[] loc2Green = new Color[]{c4Green, c5Green, c6Green};
+    Color[] loc3Green = new Color[]{c7Green, c8Green, c9Green};
+    Color[][] expectedGreen = new Color[][]{loc1Green, loc2Green, loc3Green};
+    assertArrayEquals(expectedGreen, green.apply(false, this.imgL));
+
+    Color c1Blue = new Color(0, 0, 0);
+    Color c2Blue = new Color(100, 100, 100);
+    Color c3Blue = new Color(200, 200, 200);
+    Color c6Blue = new Color(100, 100, 100);
+    Color c4Blue = new Color(150, 150, 150);
+    Color c5Blue = new Color(250, 250, 250);
+    Color c7Blue = new Color(67, 67, 67);
+    Color c8Blue = new Color(78, 78, 78);
+    Color c9Blue = new Color(178, 178, 178);
+    Color[] loc1Blue = new Color[]{c1Blue, c2Blue, c3Blue};
+    Color[] loc2Blue = new Color[]{c4Blue, c5Blue, c6Blue};
+    Color[] loc3Blue = new Color[]{c7Blue, c8Blue, c9Blue};
+    Color[][] expectedBlue = new Color[][]{loc1Blue, loc2Blue, loc3Blue};
+    assertArrayEquals(expectedBlue, blue.apply(false, this.imgL));
+
+    Color c1Value = new Color(0, 0, 0);
+    Color c2Value = new Color(100, 100, 100);
+    Color c3Value = new Color(200, 200, 200);
+    Color c6Value = new Color(100, 100, 100);
+    Color c4Value = new Color(150, 150, 150);
+    Color c5Value = new Color(250, 250, 250);
+    Color c7Value = new Color(123, 123, 123);
+    Color c8Value = new Color(234, 234, 234);
+    Color c9Value = new Color(178, 178, 178);
+    Color[] loc1Value = new Color[]{c1Value, c2Value, c3Value};
+    Color[] loc2Value = new Color[]{c4Value, c5Value, c6Value};
+    Color[] loc3Value = new Color[]{c7Value, c8Value, c9Value};
+    Color[][] expectedValue = new Color[][]{loc1Value, loc2Value, loc3Value};
+    assertArrayEquals(expectedValue, value.apply(false, this.imgL));
+
+    Color c1Intensity = new Color(0, 0, 0);
+    Color c2Intensity = new Color(99, 99, 99);
+    Color c3Intensity = new Color(199, 199, 199);
+    Color c6Intensity = new Color(49, 49, 49);
+    Color c4Intensity = new Color(99, 99, 99);
+    Color c5Intensity = new Color(199, 199, 199);
+    Color c7Intensity = new Color(78, 78, 78);
+    Color c8Intensity = new Color(122, 122, 122);
+    Color c9Intensity = new Color(155, 155, 155);
+    Color[] loc1Intensity = new Color[]{c1Intensity, c2Intensity, c3Intensity};
+    Color[] loc2Intensity = new Color[]{c4Intensity, c5Intensity, c6Intensity};
+    Color[] loc3Intensity = new Color[]{c7Intensity, c8Intensity, c9Intensity};
+    Color[][] expectedIntensity = new Color[][]{loc1Intensity, loc2Intensity, loc3Intensity};
+    assertArrayEquals(expectedIntensity, intensity.apply(false, this.imgL));
+
+    Color c1Luma = new Color(0, 0, 0);
+    Color c2Luma = new Color(100, 100, 100);
+    Color c3Luma = new Color(200, 200, 200);
+    Color c6Luma = new Color(42, 42, 42);
+    Color c4Luma = new Color(92, 92, 92);
+    Color c5Luma = new Color(192, 192, 192);
+    Color c7Luma = new Color(63, 63, 63);
+    Color c8Luma = new Color(95, 95, 95);
+    Color c9Luma = new Color(152, 152, 152);
+    Color[] loc1Luma = new Color[]{c1Luma, c2Luma, c3Luma};
+    Color[] loc2Luma = new Color[]{c4Luma, c5Luma, c6Luma};
+    Color[] loc3Luma = new Color[]{c7Luma, c8Luma, c9Luma};
+    Color[][] expectedLuma = new Color[][]{loc1Luma, loc2Luma, loc3Luma};
+    assertArrayEquals(expectedLuma, luma.apply(false, this.imgL));
+  }
+
+  @Test
+  public void TestFlipOperation() {
+    FlipOperation verti = new FlipOperation(true);
+    FlipOperation horiz = new FlipOperation(false);
+
+    Color[][] vertiExpected = new Color[][]{this.loc3, this.loc2, this.loc1};
+    Color[][] vertiActual = verti.apply(false, this.imgL);
+
+    Color[] loc1HorizFlip = new Color[]{this.c3, this.c2, this.c1};
+    Color[] loc2HorizFlip = new Color[]{this.c6, this.c5, this.c4};
+    Color[] loc3HorizFlip = new Color[]{this.c9, this.c8, this.c7};
+    Color[][] hoirzExpected = new Color[][]{loc1HorizFlip, loc2HorizFlip, loc3HorizFlip};
+    Color[][] hoirzActual = horiz.apply(false, this.imgL);
+
+    assertArrayEquals(vertiExpected, vertiActual);
+    assertArrayEquals(hoirzExpected, hoirzActual);
+    for(int i = 0; i < 3; i++) {
+      assertArrayEquals(vertiExpected[0], vertiActual[0]);
+      assertArrayEquals(hoirzExpected[0], hoirzActual[0]);
+    }
+  }
+
+  @Test
+  public void TestBrightenOperation() {
+    BrightnessOperation brighten = new BrightnessOperation(true, 50);
+    Color c1Brightened = new Color(50, 50, 50);
+    Color c2Brightened = new Color(150, 150, 150);
+    Color c3Brightened = new Color(250, 250, 250);
+    Color c6Brightened = new Color(50, 100, 150);
+    Color c4Brightened = new Color(100, 150, 200);
+    Color c5Brightened = new Color(200, 250, 255);
+    Color c7Brightened = new Color(173, 95, 117);
+    Color c8Brightened = new Color(255, 106, 128);
+    Color c9Brightened = new Color(184, 206, 228);
+    Color[] loc1Brightened = new Color[]{c1Brightened, c2Brightened, c3Brightened};
+    Color[] loc2Brightened = new Color[]{c4Brightened, c5Brightened, c6Brightened};
+    Color[] loc3Brightened = new Color[]{c7Brightened, c8Brightened, c9Brightened};
+    Color[][] expected = new Color[][]{loc1Brightened, loc2Brightened, loc3Brightened};
+    assertArrayEquals(expected, brighten.apply(false, imgL));
+  }
+
+  @Test
+  public void TestDarkenOperation() {
+    BrightnessOperation darken = new BrightnessOperation(false, 50);
+    Color c1Darkened = new Color(0, 0, 0);
+    Color c2Darkened = new Color(50, 50, 50);
+    Color c3Darkened = new Color(150, 150, 150);
+    Color c6Darkened = new Color(0, 0, 50);
+    Color c4Darkened = new Color(0, 50, 100);
+    Color c5Darkened = new Color(100, 150, 200);
+    Color c7Darkened = new Color(73, 0, 17);
+    Color c8Darkened = new Color(184, 6, 28);
+    Color c9Darkened = new Color(84, 106, 128);
+    Color[] loc1Darkened = new Color[]{c1Darkened, c2Darkened, c3Darkened};
+    Color[] loc2Darkened = new Color[]{c4Darkened, c5Darkened, c6Darkened};
+    Color[] loc3Darkened = new Color[]{c7Darkened, c8Darkened, c9Darkened};
+    Color[][] expected = new Color[][]{loc1Darkened, loc2Darkened, loc3Darkened};
+    assertArrayEquals(expected, darken.apply(false, imgL));
+  }
+
   @Test
   public void TestGetHeight() {
     assertEquals(3, imgF.getHeight());
@@ -342,11 +345,55 @@ public class ModelTest {
     assertEquals(c9, imgF.getColorAt(2, 2));
   }
 
-  private boolean sameContents(Color[][] imgL, ReadOnlyImageFile imgF, boolean refEqul) {
+  @Test
+  public void TestGetKernelANDGetTransformMatrix() {
+    double[][] expectBlurKernel = (new double[][]{{1 / 16.0, 1 / 8.0, 1 / 16.0},
+            {1 / 8.0, 1 / 4.0, 1 / 8.0},
+            {1 / 16.0, 1 / 8.0, 1 / 16.0}});
+    double[][] expectedSharpeningKernel = new double[][]{
+            {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0},
+            {-1 / 8.0, 1 / 4.0, 1 / 4.0, 1 / 4.0, -1 / 8.0},
+            {-1 / 8.0, 1 / 4.0, 1, 1 / 4.0, -1 / 8.0},
+            {-1 / 8.0, 1 / 4.0, 1 / 4.0, 1 / 4.0, -1 / 8.0},
+            {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0}};
+    double[][] expectedValueMatrix = new double[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    double[][] expectedLumaMatrix = new double[][]{{0.2126, 0.7152, 0.0722},
+            {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
+    double[][] expectedIntensityMatrix = new double[][]{{0.3333, 0.3333, 0.3333},
+            {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
+    double[][] expectedRedMatrix = new double[][]{{1, 0, 0}, {1, 0, 0}, {1, 0, 0}};
+    double[][] expectedGreenMatrix = new double[][]{{0, 1, 0}, {0, 1, 0}, {0, 1, 0}};
+    double[][] expectedBlueMatrix = new double[][]{{0, 0, 1}, {0, 0, 1}, {0, 0, 1}};
+    for (int i = 0; i < 3; i++) {
+      assertArrayEquals(expectBlurKernel[i], SimpleFilterOperator.Blur.getKernel()[i], 0.0);
+      assertArrayEquals(expectedValueMatrix[i],
+              SimpleArithmeticGreyscaleOperator.Value.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedLumaMatrix[i],
+              SimpleArithmeticGreyscaleOperator.Luma.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedIntensityMatrix[i],
+              SimpleArithmeticGreyscaleOperator.Intensity.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedRedMatrix[i],
+              SingleChannelGreyscaleOperator.Red.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedGreenMatrix[i],
+              SingleChannelGreyscaleOperator.Green.getMatrix()[i], 0.0);
+      assertArrayEquals(expectedBlueMatrix[i],
+              SingleChannelGreyscaleOperator.Blue.getMatrix()[i], 0.0);
+
+    }
+
+    for (int i = 0; i < 5; i++) {
+      assertArrayEquals(expectedSharpeningKernel[i],
+              SimpleFilterOperator.Sharpening.getKernel()[i], 0.0);
+    }
+
+  }
+
+
+  private boolean sameContents(Color[][] imgL, ReadOnlyImageFile imgF, boolean refEqual) {
     boolean same = true;
     for (int i = 0; i < imgF.getHeight(); i++) {
       for (int j = 0; j < imgF.getWidth(); j++) {
-        if (refEqul) {
+        if (refEqual) {
           same = same & imgF.getColorAt(i, j) == (imgL[i][j]);
         } else {
           same = same & imgF.getColorAt(i, j).equals(imgL[i][j]);
