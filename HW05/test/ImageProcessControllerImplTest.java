@@ -35,13 +35,12 @@ public class ImageProcessControllerImplTest {
   }
 
 
-
   @Before
   public void setUp() {
     model = new ImageLibModelImpl();
     img = new ImageFileImpl(new Color[][]{
-            {new Color(10,11,12), new Color(20,21,22), new Color(30,31,32)},
-            {new Color(40,41,42), new Color(50,51,52), new Color(60,61,62)}}
+            {new Color(10, 11, 12), new Color(20, 21, 22), new Color(30, 31, 32)},
+            {new Color(40, 41, 42), new Color(50, 51, 52), new Color(60, 61, 62)}}
     );
     out = new StringBuilder();
     view = new SimpleImageProcessViewImpl(out, model);
@@ -327,8 +326,8 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did class model.operation.color.GreyscaleOperation" +
-            "did class model.operation.color.GreyscaleOperation", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation"
+            + "did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test
@@ -339,8 +338,8 @@ public class ImageProcessControllerImplTest {
 
     controller.run();
     assertEquals(new ImageFileImpl(new Color[][]{
-            {new Color(12,12,12), new Color(22,22,22), new Color(32,32,32)},
-            {new Color(42,42,42), new Color(52,52,52), new Color(62,62,62)}
+            {new Color(12, 12, 12), new Color(22, 22, 22), new Color(32, 32, 32)},
+            {new Color(42, 42, 42), new Color(52, 52, 52), new Color(62, 62, 62)}
     }), model.get("imgNew"));
   }
 

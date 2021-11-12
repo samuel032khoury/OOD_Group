@@ -2,11 +2,10 @@ package model.operation;
 
 import java.awt.Color;
 
-import model.imagefile.ImageFile;
-
 /**
  * To represent an interfaces for operations that can be received by {@link
- * ImageFile#applyOperation}. The mechanism of an operation depends on specific implementations.
+ * model.imagefile.ImageFile#applyOperation}. The mechanism of an operation depends on specific
+ * implementations.
  */
 public interface IImageOperation {
 
@@ -17,8 +16,9 @@ public interface IImageOperation {
    * @param alphaSupported the availability of the alpha channel of an image to which the operation
    *                       applied.
    * @param pixels         a 2-D {@code Array} of {@link Color} that represents an image.
-   * @return an updated 2-D {@code Array} of {@link Color} representing an image have been processed
-   * by an operation. The operation depends on specific implementations.
+   * @return               an updated 2-D {@code Array} of {@link Color} representing an image
+   *                       have been processed by an operation. The operation depends on 
+   *                       specific implementations.
    */
   Color[][] apply(boolean alphaSupported, Color[][] pixels);
 

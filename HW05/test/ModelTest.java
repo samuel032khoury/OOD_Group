@@ -429,9 +429,9 @@ public class ModelTest {
             {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0}};
     double[][] expectedValueMatrix = new double[][]{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
     double[][] expectedLumaMatrix = new double[][]{{0.2126, 0.7152, 0.0722},
-          {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
+      {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
     double[][] expectedIntensityMatrix = new double[][]{{0.3333, 0.3333, 0.3333},
-          {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
+      {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
     double[][] expectedRedMatrix = new double[][]{{1, 0, 0}, {1, 0, 0}, {1, 0, 0}};
     double[][] expectedGreenMatrix = new double[][]{{0, 1, 0}, {0, 1, 0}, {0, 1, 0}};
     double[][] expectedBlueMatrix = new double[][]{{0, 0, 1}, {0, 0, 1}, {0, 0, 1}};
