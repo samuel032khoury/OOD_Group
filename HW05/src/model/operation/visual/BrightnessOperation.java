@@ -3,7 +3,7 @@ package model.operation.visual;
 import java.awt.Color;
 
 import model.operation.ANoAlphaOperation;
-import model.operation.color.OperationUtil;
+import model.operation.OperationUtil;
 
 /**
  * An implementation of {@link ANoAlphaOperation}, with the ability to adjust the brightness of a

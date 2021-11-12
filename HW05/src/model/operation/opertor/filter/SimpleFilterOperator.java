@@ -1,6 +1,6 @@
 package model.operation.opertor.filter;
 
-import model.operation.color.OperationUtil;
+import model.operation.OperationUtil;
 
 /**
  * To enumerate a set of filtering operators that can give various special effects to an image.

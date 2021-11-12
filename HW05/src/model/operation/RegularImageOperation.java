@@ -47,7 +47,7 @@ public abstract class RegularImageOperation implements IImageOperation {
    * To update the possible maximum Color value for an image.
    *
    * @param original the original possible maximum Color value
-   * @return the original possible maximum Color value, as extending class of {@link
+   * @return the original possible maximum Color value, as extending classes of {@link
    *         RegularImageOperation} do not change the possible maximum Color value.
    */
   @Override
@@ -59,7 +59,7 @@ public abstract class RegularImageOperation implements IImageOperation {
    * To update the availability of the alpha channel of an image.
    *
    * @param original the original availability of the alpha channel of an image
-   * @return the original availability of the alpha channel, as extending class of {@link
+   * @return the original availability of the alpha channel, as extending classes of {@link
    *         RegularImageOperation} do not change the availability of
    *         the alpha channel of an image.
    */

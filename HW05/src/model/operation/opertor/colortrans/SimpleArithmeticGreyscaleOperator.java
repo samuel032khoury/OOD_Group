@@ -1,6 +1,6 @@
 package model.operation.opertor.colortrans;
 
-import model.operation.color.OperationUtil;
+import model.operation.OperationUtil;
 
 /**
  * To enumerate a set of color transform operators that grayscale a {@link java.awt.Color} by

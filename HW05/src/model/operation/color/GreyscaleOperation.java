@@ -3,6 +3,7 @@ package model.operation.color;
 import java.awt.Color;
 
 import model.imagefile.ImageFile;
+import model.operation.OperationUtil;
 import model.operation.opertor.colortrans.IColorTransOperator;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
 import model.operation.opertor.colortrans.SingleChannelGreyscaleOperator;

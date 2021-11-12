@@ -1,4 +1,4 @@
-package model.operation.color;
+package model.operation;
 
 import java.awt.Color;
 
