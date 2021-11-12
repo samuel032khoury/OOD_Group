@@ -198,29 +198,29 @@ public class ModelTest {
     Color[] loc3Darkened = new Color[]{c7Darkened, c8Darkened, c9Darkened};
     this.expectedDarken50Array = new Color[][]{loc1Darkened, loc2Darkened, loc3Darkened};
 
-    Color c1Blurred = new Color(27,36,45);
-    Color c2Blurred = new Color(71,84,96);
-    Color c3Blurred = new Color(71,80,89);
-    Color c4Blurred = new Color(65,64,86);
-    Color c5Blurred = new Color(111,110,140);
-    Color c6Blurred = new Color(79,90,113);
-    Color c7Blurred = new Color(74,42,58);
-    Color c8Blurred = new Color(110,72,95);
-    Color c9Blurred = new Color(71,64,80);
+    Color c1Blurred = new Color(27, 36, 45);
+    Color c2Blurred = new Color(71, 84, 96);
+    Color c3Blurred = new Color(71, 80, 89);
+    Color c4Blurred = new Color(65, 64, 86);
+    Color c5Blurred = new Color(111, 110, 140);
+    Color c6Blurred = new Color(79, 90, 113);
+    Color c7Blurred = new Color(74, 42, 58);
+    Color c8Blurred = new Color(110, 72, 95);
+    Color c9Blurred = new Color(71, 64, 80);
     Color[] loc1Blurred = new Color[]{c1Blurred, c2Blurred, c3Blurred};
     Color[] loc2Blurred = new Color[]{c4Blurred, c5Blurred, c6Blurred};
     Color[] loc3Blurred = new Color[]{c7Blurred, c8Blurred, c9Blurred};
     this.expectedBlurArray = new Color[][]{loc1Blurred, loc2Blurred, loc3Blurred};
 
-    Color c1Sharpened = new Color(0,35,44);
-    Color c2Sharpened = new Color(136,204,232);
-    Color c3Sharpened = new Color(192,241,251);
-    Color c4Sharpened = new Color(158,148,211);
-    Color c5Sharpened = new Color(255,255,255);
-    Color c6Sharpened = new Color(180,209,255);
-    Color c7Sharpened = new Color(177,70,112);
-    Color c8Sharpened = new Color(255,156,225);
-    Color c9Sharpened = new Color(172,177,220);
+    Color c1Sharpened = new Color(0, 35, 44);
+    Color c2Sharpened = new Color(136, 204, 232);
+    Color c3Sharpened = new Color(192, 241, 251);
+    Color c4Sharpened = new Color(158, 148, 211);
+    Color c5Sharpened = new Color(255, 255, 255);
+    Color c6Sharpened = new Color(180, 209, 255);
+    Color c7Sharpened = new Color(177, 70, 112);
+    Color c8Sharpened = new Color(255, 156, 225);
+    Color c9Sharpened = new Color(172, 177, 220);
     Color[] loc1Sharpened = new Color[]{c1Sharpened, c2Sharpened, c3Sharpened};
     Color[] loc2Sharpened = new Color[]{c4Sharpened, c5Sharpened, c6Sharpened};
     Color[] loc3Sharpened = new Color[]{c7Sharpened, c8Sharpened, c9Sharpened};
@@ -307,7 +307,8 @@ public class ModelTest {
             + (int) (c21.getGreen() * sharpenKernel[3][2])
             + (int) (c22.getGreen() * sharpenKernel[3][3]);
 
-    assertEquals(OperationUtil.produceValidColorValue(sharpen11G)[0], actualSharpen[1][1].getGreen());
+    assertEquals(OperationUtil.produceValidColorValue(
+            sharpen11G)[0], actualSharpen[1][1].getGreen());
   }
 
   @Test
@@ -418,8 +419,8 @@ public class ModelTest {
   @Test
   public void TestGetKernelANDGetTransformMatrix() {
     double[][] expectBlurKernel = (new double[][]{{1 / 16.0, 1 / 8.0, 1 / 16.0},
-            {1 / 8.0, 1 / 4.0, 1 / 8.0},
-            {1 / 16.0, 1 / 8.0, 1 / 16.0}});
+        {1 / 8.0, 1 / 4.0, 1 / 8.0},
+        {1 / 16.0, 1 / 8.0, 1 / 16.0}});
     double[][] expectedSharpeningKernel = new double[][]{
             {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0},
             {-1 / 8.0, 1 / 4.0, 1 / 4.0, 1 / 4.0, -1 / 8.0},
@@ -428,9 +429,9 @@ public class ModelTest {
             {-1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0, -1 / 8.0}};
     double[][] expectedValueMatrix = new double[][]{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
     double[][] expectedLumaMatrix = new double[][]{{0.2126, 0.7152, 0.0722},
-            {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
+          {0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722}};
     double[][] expectedIntensityMatrix = new double[][]{{0.3333, 0.3333, 0.3333},
-            {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
+          {0.3333, 0.3333, 0.3333}, {0.3333, 0.3333, 0.3333}};
     double[][] expectedRedMatrix = new double[][]{{1, 0, 0}, {1, 0, 0}, {1, 0, 0}};
     double[][] expectedGreenMatrix = new double[][]{{0, 1, 0}, {0, 1, 0}, {0, 1, 0}};
     double[][] expectedBlueMatrix = new double[][]{{0, 0, 1}, {0, 0, 1}, {0, 0, 1}};
