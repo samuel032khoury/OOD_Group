@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.IOException;
+import java.util.Set;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
@@ -44,6 +45,11 @@ public class MockModel implements ImageLibModel {
       throw new RuntimeException("can't write");
     }
 
+    return null;
+  }
+
+  @Override
+  public Set<String> getAllImageName() {
     return null;
   }
 }

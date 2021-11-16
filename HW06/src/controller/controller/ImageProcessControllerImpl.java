@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import controller.command.color.GreyCommand;
@@ -32,9 +33,9 @@ import view.SimpleImageProcessViewImpl;
  * update the model according to the valid command.
  */
 public class ImageProcessControllerImpl implements IImageProcessController {
-  protected final ImageLibModel model;
-  protected final Readable input;
-  protected final IImageProcessView view;
+  private final ImageLibModel model;
+  private final Readable input;
+  private final IImageProcessView view;
   protected final Map<String, Supplier<ICommand>> cmdMap;
 
   /**

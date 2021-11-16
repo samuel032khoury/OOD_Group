@@ -1,5 +1,7 @@
 package model.library;
 
+import java.util.Set;
+
 import model.imagefile.ReadOnlyImageFile;
 
 /**
@@ -21,4 +23,7 @@ public interface ImageLibState {
    * @return a {@link ReadOnlyImageFile} if the search succeed, null if there isn't such an image.
    */
   ReadOnlyImageFile peek(String imageName);
+
+  //TODO
+  Set<String> getAllImageName();
 }

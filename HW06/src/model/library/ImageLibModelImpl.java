@@ -2,6 +2,7 @@ package model.library;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
@@ -80,5 +81,11 @@ public class ImageLibModelImpl implements ImageLibModel {
   @Override
   public ReadOnlyImageFile peek(String imageName) {
     return imageLib.get(imageName);
+  }
+
+  //TODO
+  @Override
+  public Set<String> getAllImageName() {
+    return imageLib.keySet();
   }
 }
