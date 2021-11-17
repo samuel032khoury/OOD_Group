@@ -15,4 +15,3 @@
       - The lagacy README file is `README(Lagacy).md`.
     - USEME file is named `USEME.md`.
     - Text-based script of commands is in `res/ImagProcScript.txt`.
-

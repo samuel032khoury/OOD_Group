@@ -47,9 +47,4 @@ public class MockModel implements ImageLibModel {
 
     return null;
   }
-
-  @Override
-  public Set<String> getAllImageName() {
-    return null;
-  }
 }
