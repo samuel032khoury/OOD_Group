@@ -82,10 +82,4 @@ public class ImageLibModelImpl implements ImageLibModel {
   public ReadOnlyImageFile peek(String imageName) {
     return imageLib.get(imageName);
   }
-
-  //TODO
-  @Override
-  public Set<String> getAllImageName() {
-    return imageLib.keySet();
-  }
 }

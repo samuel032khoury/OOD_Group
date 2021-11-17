@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.controller.ImageProcessControllerGUI;
@@ -19,7 +22,7 @@ import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
-public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener {
+public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, ListSelectionListener {
 
   private ImageLibState imageLib;
   private ImageProcessControllerGUI controller;
@@ -30,13 +33,18 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener {
   private JPanel colorButtonPanel;
   private JPanel visualButtonPanel;
   private JPanel ioButtonPanel;
+  private JPanel selectionListPanel;
   private List<JButton> allButton;
+  private Map<Integer, Integer>[] histogram;
+
+  private DefaultListModel<String> dataForListOfImageNames;
+  private JList<String> imageNamesJList;
 
   public IGUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet, ImageProcessControllerGUI controller) {
     super();
     setVisible(true);
     setTitle("Image Processing");
-    setSize(1024, 1024);
+    setSize(1520, 760);
     setLayout(new BorderLayout());
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -67,6 +75,19 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener {
     this.ioButtonPanel.setLayout(new BoxLayout(ioButtonPanel, BoxLayout.X_AXIS));
     this.ioButtonPanel.setAlignmentX(0);
 
+    this.selectionListPanel = new JPanel();
+    this.selectionListPanel.setBorder(BorderFactory.createTitledBorder("Library"));
+    this.selectionListPanel.setLayout(new BoxLayout(this.selectionListPanel, BoxLayout.X_AXIS));
+    this.selectionListPanel.setPreferredSize(new Dimension(230, 760));
+
+    this.dataForListOfImageNames = new DefaultListModel<>();
+    this.imageNamesJList = new JList<>(dataForListOfImageNames);
+    this.imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    this.imageNamesJList.addListSelectionListener(this);
+    this.selectionListPanel.add(new JScrollPane(imageNamesJList));
+    this.selectionListPanel.setAlignmentX(0);
+
+    mainPanel.add(selectionListPanel, BorderLayout.WEST);
     mainPanel.add(colorButtonPanel);
     mainPanel.add(visualButtonPanel);
     mainPanel.add(ioButtonPanel);
@@ -218,6 +239,9 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener {
     configButtons(this.imageLib.getLibSize());
     this.currImageName = newImageName;
     this.currImageFile = imageLib.peek(this.currImageName);
+    if (!dataForListOfImageNames.contains(newImageName)) {
+      this.dataForListOfImageNames.addElement(newImageName);
+    }
   }
 
   private String getInput(String prompt, String title) throws IllegalArgumentException {
@@ -234,5 +258,15 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener {
 
   private String getInput(String title) {
     return this.getInput("Please enter the name for the new Image:", title);
+  }
+
+  /**
+   * Called whenever the value of the selection changes.
+   *
+   * @param e the event that characterizes the change.
+   */
+  @Override
+  public void valueChanged(ListSelectionEvent e) {
+
   }
 }
