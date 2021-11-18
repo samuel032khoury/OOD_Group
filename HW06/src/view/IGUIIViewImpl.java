@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -23,7 +24,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JFileChooser;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -44,6 +44,7 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
   private final JPanel visualButtonPanel;
   private final JPanel ioButtonPanel;
   private final List<JButton> allButton;
+  private final JList<String> imageNamesJList;
   private final List<Map<Integer, Integer>> histogram;
 
   private final DefaultListModel<String> dataForListOfImageNames;
@@ -71,14 +72,14 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     JPanel libraryPanel = new JPanel();
     libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
     libraryPanel.setLayout(new BoxLayout(libraryPanel, BoxLayout.X_AXIS));
-    libraryPanel.setPreferredSize(new Dimension(230, 0));
+    libraryPanel.setPreferredSize(new Dimension(230, 230));
+    libraryPanel.setMinimumSize(new Dimension(230, 230));
     this.dataForListOfImageNames = new DefaultListModel<>();
-    JList<String> imageNamesJList = new JList<>(dataForListOfImageNames);
-    imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    imageNamesJList.addListSelectionListener(this);
-    imageNamesJList.setFocusable(false);
-    libraryPanel.add(new JScrollPane(imageNamesJList));
-    libraryPanel.setAlignmentX(0);
+    this.imageNamesJList = new JList<>(dataForListOfImageNames);
+    this.imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    this.imageNamesJList.addListSelectionListener(this);
+    this.imageNamesJList.setFocusable(false);
+    libraryPanel.add(new JScrollPane(this.imageNamesJList));
 
     this.allButton = new ArrayList<>();
     this.colorButtonPanel = new JPanel();
@@ -99,10 +100,18 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
 
     JPanel operationPanel = new JPanel();
     operationPanel.setLayout(new BoxLayout(operationPanel, BoxLayout.Y_AXIS));
-    operationPanel.add(libraryPanel);
     operationPanel.add(colorButtonPanel);
     operationPanel.add(visualButtonPanel);
     operationPanel.add(ioButtonPanel);
+    JScrollPane operationScrollablePanel = new JScrollPane(operationPanel);
+    operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
+    operationScrollablePanel.setMinimumSize(new Dimension(200, 0));
+    JPanel controlPanel = new JPanel();
+    controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+    libraryPanel.setAlignmentY(0);
+    operationScrollablePanel.setAlignmentY(0);
+    controlPanel.add(libraryPanel);
+    controlPanel.add(operationScrollablePanel);
 
     // Histogram Related
     Map<Integer, Integer> rChannel = new HashMap<>();
@@ -119,19 +128,20 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
     histogramPanel.setFocusable(false);
 
-    JPanel leftPanel = new JPanel();
-    leftPanel.add(histogramPanel);
-    leftPanel.setAlignmentX(0);
+    JPanel infoPanel = new JPanel();
+    infoPanel.add(histogramPanel);
+    infoPanel.setAlignmentX(0);
 
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-    mainPanel.add(leftPanel);
+    mainPanel.add(infoPanel);
     mainPanel.add(imagePanel);
-    mainPanel.add(operationPanel);
+    mainPanel.add(controlPanel);
 
     this.add(mainPanel);
     this.setFocusable(true);
     this.setVisible(true);
+    this.pack();
   }
 
   @SafeVarargs
@@ -185,6 +195,13 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     for (JButton iob : ioButtons) {
       this.ioButtonPanel.add(iob);
     }
+    //TODO: DELETE THIS AFTER ALL IMPLEMENTATION
+    JButton testButton = new JButton("Test");
+    testButton.setActionCommand("test");
+    testButton.setFocusable(false);
+    testButton.addActionListener(this);
+    this.ioButtonPanel.add(testButton);
+    //
   }
 
   private void configButtons(int libSize) {
@@ -278,6 +295,10 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
             this.renderError("Please input an integer for brightness adjustment!");
           }
           break;
+        //TODO: DELETE THIS AFTER ALL IMPLEMENTATION
+        case "test":
+          break;
+        //
         default:
           newImageName = this.getInput(title);
           controller.getArgsRun(action, currImageName, newImageName);
@@ -289,11 +310,16 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
 
   private void updateView(String newImageName) {
     configButtons(this.imageLib.getLibSize());
-    this.currImageName = newImageName;
-    this.currImageFile = imageLib.peek(this.currImageName);
     if (!dataForListOfImageNames.contains(newImageName)) {
       this.dataForListOfImageNames.addElement(newImageName);
     }
+    int selectionItemCount =  this.imageNamesJList.getModel().getSize();
+    this.imageNamesJList.getSelectionModel().setSelectionInterval(
+            selectionItemCount - 1, selectionItemCount - 1);
+    this.updatePreview();
+  }
+
+  private void updatePreview() {
   }
 
   private String getInput(String prompt, String title) throws IllegalArgumentException {
@@ -319,5 +345,10 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
    */
   @Override
   public void valueChanged(ListSelectionEvent e) {
+    if (!e.getValueIsAdjusting()) {
+      this.currImageName = imageNamesJList.getSelectedValue();
+      this.currImageFile = imageLib.peek(this.currImageName);
+      this.updatePreview();
+    }
   }
 }
