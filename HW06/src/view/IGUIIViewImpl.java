@@ -260,6 +260,7 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
       switch (action) {
         case "load":
           final JFileChooser fileExplorer = new JFileChooser(".");
+          fileExplorer.setDialogTitle("Load an image into the library...");
           FileNameExtensionFilter filter = new FileNameExtensionFilter(
                   "bmp/jpg/ppm/png", "BMP", "JPG", "JPEG", "PNG", "PPM");
           fileExplorer.setFileFilter(filter);
@@ -275,6 +276,8 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
           break;
         case "save":
           final JFileChooser fileSaver = new JFileChooser(".");
+          fileSaver.setDialogTitle("Save image " + currImageName + "...");
+          fileSaver.setSelectedFile(new File("untitled.png"));
           int saveApproveStatus = fileSaver.showSaveDialog(this);
           if (saveApproveStatus == JFileChooser.APPROVE_OPTION) {
             File f = fileSaver.getSelectedFile();
