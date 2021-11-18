@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JFileChooser;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -63,8 +64,8 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
 
     JPanel imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
-    imagePanel.setPreferredSize(new Dimension(700, 0));
-    imagePanel.setLayout(new FlowLayout());
+    imagePanel.setPreferredSize(new Dimension(800, 0));
+    imagePanel.setLayout(new BorderLayout());
     imagePanel.setFocusable(true);
 
     JPanel libraryPanel = new JPanel();
@@ -103,25 +104,28 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     operationPanel.add(visualButtonPanel);
     operationPanel.add(ioButtonPanel);
 
-
     // Histogram Related
-    Map<Integer,Integer> rChannel = new HashMap<>();
-    Map<Integer,Integer> gChannel = new HashMap<>();
-    Map<Integer,Integer> bChannel = new HashMap<>();
-    Map<Integer,Integer> iChannel = new HashMap<>();
+    Map<Integer, Integer> rChannel = new HashMap<>();
+    Map<Integer, Integer> gChannel = new HashMap<>();
+    Map<Integer, Integer> bChannel = new HashMap<>();
+    Map<Integer, Integer> iChannel = new HashMap<>();
     this.init8BitChannelMap(rChannel, gChannel, bChannel, iChannel);
     this.histogram = new ArrayList<>();
-    histogram.addAll(List.of(rChannel,gChannel, bChannel, iChannel));
+    histogram.addAll(List.of(rChannel, gChannel, bChannel, iChannel));
 
     JPanel histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
     histogramPanel.setPreferredSize(new Dimension(300, 300));
-    histogramPanel.setLayout(new FlowLayout());
+    histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
     histogramPanel.setFocusable(false);
+
+    JPanel leftPanel = new JPanel();
+    leftPanel.add(histogramPanel);
+    leftPanel.setAlignmentX(0);
 
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-    mainPanel.add(histogramPanel);
+    mainPanel.add(leftPanel);
     mainPanel.add(imagePanel);
     mainPanel.add(operationPanel);
 
@@ -131,10 +135,10 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
   }
 
   @SafeVarargs
-  private void init8BitChannelMap(Map<Integer,Integer>... maps){
+  private void init8BitChannelMap(Map<Integer, Integer>... maps) {
     int maxColorVal = 256;
-    for(Map<Integer,Integer> map : maps) {
-      for(int currVal = 0; currVal < maxColorVal; currVal++) {
+    for (Map<Integer, Integer> map : maps) {
+      for (int currVal = 0; currVal < maxColorVal; currVal++) {
         map.put(currVal, 0);
       }
     }
