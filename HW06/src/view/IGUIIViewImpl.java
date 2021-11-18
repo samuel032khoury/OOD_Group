@@ -1,6 +1,7 @@
 package view;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,7 +10,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -66,7 +66,7 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     JPanel imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
     imagePanel.setPreferredSize(new Dimension(800, 0));
-    imagePanel.setLayout(new BorderLayout());
+    imagePanel.setLayout(new java.awt.BorderLayout());
     imagePanel.setFocusable(true);
 
     JPanel libraryPanel = new JPanel();
