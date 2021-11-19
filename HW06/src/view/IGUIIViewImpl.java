@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -32,22 +30,22 @@ import controller.controller.ImageProcessControllerGUI;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
-
 public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, ListSelectionListener {
 
   private final ImageLibState imageLib;
   private final ImageProcessControllerGUI controller;
   private String currImageName;
   private ReadOnlyImageFile currImageFile;
+  private final List<List<Integer>> histogram;
 
+  private final List<JButton> allButton;
   private final JPanel colorButtonPanel;
   private final JPanel visualButtonPanel;
   private final JPanel ioButtonPanel;
-  private final List<JButton> allButton;
-  private final JList<String> imageNamesJList;
-  private final List<Map<Integer, Integer>> histogram;
 
+  private final JList<String> imageNamesJList;
   private final DefaultListModel<String> dataForListOfImageNames;
+
 
   public IGUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
                        ImageProcessControllerGUI controller) {
@@ -114,11 +112,11 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     controlPanel.add(operationScrollablePanel);
 
     // Histogram Related
-    Map<Integer, Integer> rChannel = new HashMap<>();
-    Map<Integer, Integer> gChannel = new HashMap<>();
-    Map<Integer, Integer> bChannel = new HashMap<>();
-    Map<Integer, Integer> iChannel = new HashMap<>();
-    this.init8BitChannelMap(rChannel, gChannel, bChannel, iChannel);
+    List<Integer> rChannel = new ArrayList<>();
+    List<Integer> gChannel = new ArrayList<>();
+    List<Integer> bChannel = new ArrayList<>();
+    List<Integer> iChannel = new ArrayList<>();
+    this.init8BitChannelList(rChannel, gChannel, bChannel, iChannel);
     this.histogram = new ArrayList<>();
     histogram.addAll(List.of(rChannel, gChannel, bChannel, iChannel));
 
@@ -145,11 +143,11 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
   }
 
   @SafeVarargs
-  private void init8BitChannelMap(Map<Integer, Integer>... maps) {
+  private void init8BitChannelList(List<Integer>... lists) {
     int maxColorVal = 256;
-    for (Map<Integer, Integer> map : maps) {
+    for (List<Integer> list : lists) {
       for (int currVal = 0; currVal < maxColorVal; currVal++) {
-        map.put(currVal, 0);
+        list.add(0);
       }
     }
   }
@@ -300,6 +298,7 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
           break;
         //TODO: DELETE THIS AFTER ALL IMPLEMENTATION
         case "test":
+          System.out.println(currImageName);
           break;
         //
         default:
@@ -316,13 +315,20 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     if (!dataForListOfImageNames.contains(newImageName)) {
       this.dataForListOfImageNames.addElement(newImageName);
     }
-    int selectionItemCount =  this.imageNamesJList.getModel().getSize();
-    this.imageNamesJList.getSelectionModel().setSelectionInterval(
-            selectionItemCount - 1, selectionItemCount - 1);
-    this.updatePreview();
+    int currItemIndex = this.dataForListOfImageNames.indexOf(newImageName);
+    this.imageNamesJList.getSelectionModel().setSelectionInterval(currItemIndex, currItemIndex);
+    this.updateVisual();
+  }
+
+  private void updateVisual() {
   }
 
   private void updatePreview() {
+
+  }
+
+  private void updateHistogram() {
+
   }
 
   private String getInput(String prompt, String title) throws IllegalArgumentException {
@@ -351,7 +357,7 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     if (!e.getValueIsAdjusting()) {
       this.currImageName = imageNamesJList.getSelectedValue();
       this.currImageFile = imageLib.peek(this.currImageName);
-      this.updatePreview();
+      this.updateVisual();
     }
   }
 }

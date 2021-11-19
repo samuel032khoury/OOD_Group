@@ -32,25 +32,27 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     if (commandQueue.isEmpty()) {
       return;
     }
-    Supplier<ICommand> sup = cmdMap.get(commandQueue.poll());
-    ICommand cmd = sup.get();
-
     try {
+      Supplier<ICommand> sup = cmdMap.get(commandQueue.poll());
+      ICommand cmd = sup.get();
       cmd.execute(this.model, commandQueue, this.view);
     } catch (IllegalStateException | QuitExecution e) {
       this.view.renderError(e.getMessage());
       commandQueue.clear();
+    } catch (NullPointerException e) {
+      this.view.renderError("No such an operation can be performed!");
+      commandQueue.clear();
     }
-  }
-
-  public static void main(String[] args) {
-    IImageProcessController controller = new ImageProcessControllerGUIImpl(new ImageLibModelImpl());
-    controller.run();
   }
 
   @Override
   public void getArgsRun(String... commandArgs) {
     Collections.addAll(this.commandQueue, commandArgs);
     this.run();
+  }
+
+  public static void main(String[] args) {
+    IImageProcessController controller = new ImageProcessControllerGUIImpl(new ImageLibModelImpl());
+    controller.run();
   }
 }
