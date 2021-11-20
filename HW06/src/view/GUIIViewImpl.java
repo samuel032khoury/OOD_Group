@@ -1,16 +1,17 @@
 package view;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -330,10 +331,20 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   }
 
   private void updateVisual() {
+    this.updatePreview();
+    this.updateHistogram();
   }
 
   private void updatePreview() {
-    imageLabel.setIcon(new ImageIcon("Jellyfish.jpg"));
+    int currWidth = this.currImageFile.getWidth();
+    int currHeight = this.currImageFile.getHeight();
+    BufferedImage currPreview = new BufferedImage(currWidth, currHeight, BufferedImage.TYPE_4BYTE_ABGR);
+    for(int i = 0; i < currWidth; i ++) {
+      for (int j= 0; j < currHeight; j++) {
+        currPreview.setRGB(i,j,currImageFile.getColorAt(j,i).getRGB());
+      }
+    }
+    this.imageLabel.setIcon(new ImageIcon(currPreview));
   }
 
   private void updateHistogram() {
