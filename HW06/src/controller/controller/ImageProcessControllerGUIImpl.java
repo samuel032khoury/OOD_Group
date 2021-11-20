@@ -10,7 +10,6 @@ import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import view.IGUIIView;
-import view.IGUIIViewImpl;
 
 public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements ImageProcessControllerGUI {
 
@@ -21,7 +20,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   public ImageProcessControllerGUIImpl(ImageLibModel model) {
     this.model = model;
     this.commandQueue = new ArrayDeque<>();
-    this.view = new IGUIIViewImpl(model, super.cmdMap.keySet(), this);
+    this.view = new view.GUIIViewImpl(model, super.cmdMap.keySet(), this);
   }
 
   /**

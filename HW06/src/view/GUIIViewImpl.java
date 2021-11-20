@@ -1,18 +1,21 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JList;
@@ -30,7 +33,7 @@ import controller.controller.ImageProcessControllerGUI;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
-public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, ListSelectionListener {
+public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, ListSelectionListener {
 
   private final ImageLibState imageLib;
   private final ImageProcessControllerGUI controller;
@@ -42,13 +45,14 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
   private final JPanel colorButtonPanel;
   private final JPanel visualButtonPanel;
   private final JPanel ioButtonPanel;
+  private final JLabel imageLabel;
 
   private final JList<String> imageNamesJList;
   private final DefaultListModel<String> dataForListOfImageNames;
 
 
-  public IGUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
-                       ImageProcessControllerGUI controller) {
+  public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
+                      ImageProcessControllerGUI controller) {
     super();
     this.setTitle("Image Processing");
     this.setMinimumSize(new Dimension(1320, 760));
@@ -64,8 +68,13 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
     JPanel imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
     imagePanel.setPreferredSize(new Dimension(800, 0));
-    imagePanel.setLayout(new java.awt.BorderLayout());
+    imagePanel.setLayout(new BorderLayout());
     imagePanel.setFocusable(true);
+
+    this.imageLabel = new JLabel();
+    this.imageLabel.setHorizontalAlignment(JLabel.CENTER);
+    JScrollPane imageScrollPane = new JScrollPane(this.imageLabel);
+    imagePanel.add(imageScrollPane);
 
     JPanel libraryPanel = new JPanel();
     libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
@@ -262,7 +271,7 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
           FileNameExtensionFilter filter = new FileNameExtensionFilter(
                   "bmp/jpg/ppm/png", "BMP", "JPG", "JPEG", "PNG", "PPM");
           fileExplorer.setFileFilter(filter);
-          int loadApproveStatus = fileExplorer.showOpenDialog(IGUIIViewImpl.this);
+          int loadApproveStatus = fileExplorer.showOpenDialog(GUIIViewImpl.this);
 
           if (loadApproveStatus == JFileChooser.APPROVE_OPTION) {
             File f = fileExplorer.getSelectedFile();
@@ -324,7 +333,7 @@ public class IGUIIViewImpl extends JFrame implements IGUIIView, ActionListener, 
   }
 
   private void updatePreview() {
-
+    imageLabel.setIcon(new ImageIcon("Jellyfish.jpg"));
   }
 
   private void updateHistogram() {
