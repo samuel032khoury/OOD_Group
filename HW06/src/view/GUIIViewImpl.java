@@ -280,7 +280,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
           if (loadApproveStatus == JFileChooser.APPROVE_OPTION) {
             File f = fileExplorer.getSelectedFile();
             String source = f.getAbsolutePath();
-            newImageName = this.getInput("Load image");
+            newImageName = this.getInput("Load image", f.getName().split("\\.")[0]);
             this.controller.getArgsRun(action, source, newImageName);
             updateView(newImageName);
           }
@@ -300,10 +300,10 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
         case "darken":
           try {
             Integer adjustmentMagnitude = Integer.parseInt(this.getInput(
-                    "Please enter the magnitude for the brightness adjustment:", title));
-            newImageName = this.getInput(title);
+                    "Please enter the magnitude for the brightness adjustment:", title, ""));
+            newImageName = this.getInput(title, this.currImageName + "-" + action + adjustmentMagnitude);
             controller.getArgsRun(action,
-                    String.valueOf(adjustmentMagnitude), currImageName, newImageName);
+                    String.valueOf(adjustmentMagnitude), this.currImageName, newImageName);
             updateView(newImageName);
           } catch (NumberFormatException exception) {
             this.renderError("Please input an integer for brightness adjustment!");
@@ -315,7 +315,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
           break;
         //
         default:
-          newImageName = this.getInput(title);
+          newImageName = this.getInput(title, this.currImageName + "-" + action);
           controller.getArgsRun(action, currImageName, newImageName);
           updateView(newImageName);
       }
@@ -365,7 +365,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     int horizontalOffset = 4;
     double xSeparation = (width - 2.0 * horizontalOffset) / ( histogram.get(0).size() - 1.0 );
     double ySeparation = (height - 2.0 * verticalOffset) / pixels ;
-    System.out.println(ySeparation);
 
     int[] pX = new int[256];
     for (int i = 0; i < histogram.get(0).size(); i ++) {
@@ -423,8 +422,8 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   }
 
 
-  private String getInput(String prompt, String title) throws IllegalArgumentException {
-    String valid = JOptionPane.showInputDialog(null, prompt, title, JOptionPane.PLAIN_MESSAGE);
+  private String getInput(String prompt, String title, String defaultName) throws IllegalArgumentException {
+    String valid = JOptionPane.showInputDialog(null,prompt,title,JOptionPane.PLAIN_MESSAGE,null,null,defaultName).toString();
     if (valid == null) {
       throw new IllegalArgumentException("Operation is interrupted!");
     }
@@ -435,8 +434,8 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     return valid.strip();
   }
 
-  private String getInput(String title) {
-    return this.getInput("Please enter the name for the new Image:", title);
+  private String getInput(String title, String defaultName) {
+    return this.getInput("Please enter the name for the new Image:", title, defaultName);
   }
 
   /**
