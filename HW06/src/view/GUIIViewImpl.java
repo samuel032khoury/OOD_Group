@@ -330,7 +330,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     }
     int currItemIndex = this.dataForListOfImageNames.indexOf(newImageName);
     this.imageNamesJList.getSelectionModel().setSelectionInterval(currItemIndex, currItemIndex);
-    this.updateVisual();
   }
 
   private void updateVisual() {
@@ -360,8 +359,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     int width = panel.getWidth();
     int height = panel.getHeight();
     int pixels = width * height;
-    System.out.println(pixels);
-    System.out.println(height);
     Graphics g = panel.getGraphics();
     g.clearRect(0,0,width,height);
     int verticalOffset = 3;
