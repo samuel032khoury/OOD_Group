@@ -1,8 +1,6 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -40,13 +38,14 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   private final ImageProcessControllerGUI controller;
   private String currImageName;
   private ReadOnlyImageFile currImageFile;
-  private final List<List<Integer>> histogram;
+  private List<List<Integer>> histogram;
 
   private final List<JButton> allButton;
   private final JPanel colorButtonPanel;
   private final JPanel visualButtonPanel;
   private final JPanel ioButtonPanel;
   private final JLabel imageLabel;
+  private final JPanel histogramPanel;
 
   private final JList<String> imageNamesJList;
   private final DefaultListModel<String> dataForListOfImageNames;
@@ -122,15 +121,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     controlPanel.add(operationScrollablePanel);
 
     // Histogram Related
-    List<Integer> rChannel = new ArrayList<>();
-    List<Integer> gChannel = new ArrayList<>();
-    List<Integer> bChannel = new ArrayList<>();
-    List<Integer> iChannel = new ArrayList<>();
-    this.init8BitChannelList(rChannel, gChannel, bChannel, iChannel);
-    this.histogram = new ArrayList<>();
-    histogram.addAll(List.of(rChannel, gChannel, bChannel, iChannel));
+    this.initHistogramList();
 
-    JPanel histogramPanel = new JPanel();
+    histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
     histogramPanel.setPreferredSize(new Dimension(300, 300));
     histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
@@ -150,6 +143,16 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     this.setFocusable(true);
     this.setVisible(true);
     this.pack();
+  }
+
+  private void initHistogramList() {
+    List<Integer> rChannel = new ArrayList<>();
+    List<Integer> gChannel = new ArrayList<>();
+    List<Integer> bChannel = new ArrayList<>();
+    List<Integer> iChannel = new ArrayList<>();
+    this.init8BitChannelList(rChannel, gChannel, bChannel, iChannel);
+    this.histogram = new ArrayList<>();
+    histogram.addAll(List.of(rChannel, gChannel, bChannel, iChannel));
   }
 
   @SafeVarargs
@@ -348,8 +351,80 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   }
 
   private void updateHistogram() {
-
+    this.initHistogramList();
+    this.surveyImage(this.histogram, this.currImageFile);
+    this.drawHistogram(this.histogramPanel, this.histogram);
   }
+
+  private void drawHistogram(JPanel panel, List<List<Integer>> histogram) {
+    int width = panel.getWidth();
+    int height = panel.getHeight();
+    int pixels = width * height;
+    System.out.println(pixels);
+    System.out.println(height);
+    Graphics g = panel.getGraphics();
+    g.clearRect(0,0,width,height);
+    int verticalOffset = 3;
+    int horizontalOffset = 4;
+    double xSeparation = (width - 2.0 * horizontalOffset) / ( histogram.get(0).size() - 1.0 );
+    double ySeparation = (height - 2.0 * verticalOffset) / pixels ;
+    System.out.println(ySeparation);
+
+    int[] pX = new int[256];
+    for (int i = 0; i < histogram.get(0).size(); i ++) {
+      pX[i] = (int) (verticalOffset + i * xSeparation);
+    }
+    int[] pYR = new int[256];
+    int[] pYG = new int[256];
+    int[] pYB = new int[256];
+    int[] pYI = new int[256];
+    for (int i = 0; i < histogram.get(0).size(); i ++) {
+      int numOfPixelR = histogram.get(0).get(i);
+      int numOfPixelG = histogram.get(1).get(i);
+      int numOfPixelB = histogram.get(2).get(i);
+      int numOfPixelI = histogram.get(3).get(i);
+      
+      pYR[i] = (int) (verticalOffset + (pixels - numOfPixelR) * ySeparation);
+      pYG[i] = (int) (verticalOffset + (pixels - numOfPixelG) * ySeparation);
+      pYB[i] = (int) (verticalOffset + (pixels - numOfPixelB) * ySeparation);
+      pYI[i] = (int) (verticalOffset + (pixels - numOfPixelI) * ySeparation);
+    }
+    g.setColor(new Color(255,0,0, 125));
+    g.drawPolyline(pX, pYR, pX.length);
+    g.setColor(new Color(0,255,0, 125));
+    g.drawPolyline(pX, pYG, pX.length);
+    g.setColor(new Color(0,0,255, 125));
+    g.drawPolyline(pX, pYB, pX.length);
+    g.setColor(new Color(255,255,255, 125));
+    g.drawPolyline(pX, pYI, pX.length);
+  }
+
+  // update the histogram (reference) given using the image file given.
+  private void surveyImage(List<List<Integer>> histogram, ReadOnlyImageFile imageFile) {
+
+    int currWidth = this.currImageFile.getWidth();
+    int currHeight = this.currImageFile.getHeight();
+
+    for(int i = 0; i < currWidth; i ++) {
+      for (int j= 0; j < currHeight; j++) {
+        Color color = this.currImageFile.getColorAt(j, i);
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+        int intensity = (red + green + blue) / 3;
+        List<Integer> redList = histogram.get(0);
+        List<Integer> greenList = histogram.get(1);
+        List<Integer> blueList = histogram.get(2);
+        List<Integer> intensityList = histogram.get(3);
+
+        redList.set(red, redList.get(red) + 1);
+        greenList.set(green, greenList.get(green) + 1);
+        blueList.set(blue, blueList.get(blue) + 1);
+        intensityList.set(intensity, intensityList.get(intensity) + 1);
+      }
+    }
+  }
+
 
   private String getInput(String prompt, String title) throws IllegalArgumentException {
     String valid = JOptionPane.showInputDialog(null, prompt, title, JOptionPane.PLAIN_MESSAGE);
