@@ -45,7 +45,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   private final JPanel visualButtonPanel;
   private final JPanel ioButtonPanel;
   private final JLabel imageLabel;
-  private final JPanel histogramPanel;
+  private final JPanel histogramGraph;
 
   private final JList<String> imageNamesJList;
   private final DefaultListModel<String> dataForListOfImageNames;
@@ -123,11 +123,14 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     // Histogram Related
     this.initHistogramList();
 
-    histogramPanel = new JPanel();
+    JPanel histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
     histogramPanel.setPreferredSize(new Dimension(300, 300));
     histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
     histogramPanel.setFocusable(false);
+
+    this.histogramGraph = new JPanel();
+    histogramPanel.add(histogramGraph);
 
     JPanel infoPanel = new JPanel();
     infoPanel.add(histogramPanel);
@@ -352,7 +355,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   private void updateHistogram() {
     this.initHistogramList();
     this.surveyImage(this.histogram, this.currImageFile);
-    this.drawHistogram(this.histogramPanel, this.histogram);
+    this.drawHistogram(this.histogramGraph, this.histogram);
   }
 
   private void drawHistogram(JPanel panel, List<List<Integer>> histogram) {
@@ -391,7 +394,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     g.drawPolyline(pX, pYG, pX.length);
     g.setColor(new Color(0,0,255, 125));
     g.drawPolyline(pX, pYB, pX.length);
-    g.setColor(new Color(255,255,255, 125));
+    g.setColor(new Color(125,125,125, 125));
     g.drawPolyline(pX, pYI, pX.length);
   }
 
