@@ -226,11 +226,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     this.imageNamesJList.getSelectionModel().setSelectionInterval(currItemIndex, currItemIndex);
   }
 
-  private void updateVisual() {
-    this.updatePreview();
-    this.updateHistogramGraph();
-  }
-
   private void updatePreview() {
     int currWidth = this.currImageFile.getWidth();
     int currHeight = this.currImageFile.getHeight();
@@ -476,7 +471,8 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     if (!e.getValueIsAdjusting()) {
       this.currImageName = imageNamesJList.getSelectedValue();
       this.currImageFile = imageLib.peek(this.currImageName);
-      this.updateVisual();
+      this.updatePreview();
+      this.updateHistogramGraph();
     }
   }
 }
