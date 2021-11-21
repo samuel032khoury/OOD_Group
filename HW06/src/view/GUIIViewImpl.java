@@ -215,6 +215,166 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   public void renderImage() {
   }
 
+
+  private void updateView(String newImageName) {
+    updateButtonAvailability(this.imageLib.getLibSize());
+    if (!dataForListOfImageNames.contains(newImageName)) {
+      this.dataForListOfImageNames.addElement(newImageName);
+    }
+    int currItemIndex = this.dataForListOfImageNames.indexOf(newImageName);
+    this.imageNamesJList.getSelectionModel().setSelectionInterval(currItemIndex, currItemIndex);
+  }
+
+  private void updateVisual() {
+    this.updatePreview();
+    this.updateHistogramGraph();
+  }
+
+  private void updatePreview() {
+    int currWidth = this.currImageFile.getWidth();
+    int currHeight = this.currImageFile.getHeight();
+    BufferedImage currPreview = new BufferedImage(currWidth,
+            currHeight, BufferedImage.TYPE_4BYTE_ABGR);
+    for (int i = 0; i < currWidth; i++) {
+      for (int j = 0; j < currHeight; j++) {
+        currPreview.setRGB(i, j, currImageFile.getColorAt(j, i).getRGB());
+      }
+    }
+    this.imageLabel.setIcon(new ImageIcon(currPreview));
+  }
+
+  private void updateHistogramGraph() {
+    this.updateHistogramList();
+    this.drawHistogram(this.histogramGraph, this.histogram);
+  }
+
+   // update the histogram (reference) given using the image file given.
+  private void updateHistogramList() {
+    int currWidth = this.currImageFile.getWidth();
+    int currHeight = this.currImageFile.getHeight();
+
+    List<Integer> redList = new ArrayList<>();
+    List<Integer> greenList = new ArrayList<>();
+    List<Integer> blueList = new ArrayList<>();
+    List<Integer> intensityList = new ArrayList<>();
+
+    for (List<Integer> list : List.of(redList, greenList, blueList, intensityList)) {
+      for (int currVal = 0; currVal < 256; currVal++) {
+        list.add(0);
+      }
+    }
+
+    for (int i = 0; i < currWidth; i++) {
+      for (int j = 0; j < currHeight; j++) {
+        Color color = this.currImageFile.getColorAt(j, i);
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+        int intensity = (red + green + blue) / 3;
+
+        redList.set(red, redList.get(red) + 1);
+        greenList.set(green, greenList.get(green) + 1);
+        blueList.set(blue, blueList.get(blue) + 1);
+        intensityList.set(intensity, intensityList.get(intensity) + 1);
+      }
+    }
+
+    for (int i = 0; i < 4; i++) {
+      this.histogram.set(i, List.of(redList, greenList, blueList, intensityList).get(i));
+    }
+  }
+
+  private int getMaxPixel(List<List<Integer>> histogram) {
+    int maxR = 0;
+    int maxG = 0;
+    int maxB = 0;
+    int maxI = 0;
+    List<Integer> redList = histogram.get(0);
+    List<Integer> greenList = histogram.get(1);
+    List<Integer> blueList = histogram.get(2);
+    List<Integer> intensityList = histogram.get(3);
+
+    for (int i = 0; i < histogram.get(0).size(); i++) {
+      if (redList.get(i) > maxR) {
+        maxR = redList.get(i);
+      }
+
+      if (greenList.get(i) > maxG) {
+        maxG = greenList.get(i);
+      }
+
+      if (blueList.get(i) > maxB) {
+        maxB = blueList.get(i);
+      }
+
+      if (intensityList.get(i) > maxI) {
+        maxI = intensityList.get(i);
+      }
+    }
+
+    return Math.max(Math.max(maxB, maxG), Math.max(maxI, maxR));
+  }
+
+  private void drawHistogram(JPanel panel, List<List<Integer>> histogram) {
+    int width = panel.getWidth();
+    int height = panel.getHeight();
+    int maxPixels = this.getMaxPixel(histogram);
+    Graphics g = panel.getGraphics();
+    g.clearRect(0, 0, width, height);
+    int verticalOffset = 10;
+    int horizontalOffset = 10;
+    double xSeparation = (width - 2.0 * horizontalOffset) / (histogram.get(0).size() - 1.0);
+    double ySeparation = (height - 2.0 * verticalOffset) / maxPixels;
+
+    int[] pX = new int[256];
+    for (int i = 0; i < 256; i++) {
+      pX[i] = (int) (horizontalOffset + i * xSeparation);
+    }
+    int[] pYR = new int[256];
+    int[] pYG = new int[256];
+    int[] pYB = new int[256];
+    int[] pYI = new int[256];
+    for (int i = 0; i < 256; i++) {
+      int numOfPixelR = histogram.get(0).get(i);
+      int numOfPixelG = histogram.get(1).get(i);
+      int numOfPixelB = histogram.get(2).get(i);
+      int numOfPixelI = histogram.get(3).get(i);
+
+      pYR[i] = (int) (verticalOffset + (maxPixels - numOfPixelR) * ySeparation);
+      pYG[i] = (int) (verticalOffset + (maxPixels - numOfPixelG) * ySeparation);
+      pYB[i] = (int) (verticalOffset + (maxPixels - numOfPixelB) * ySeparation);
+      pYI[i] = (int) (verticalOffset + (maxPixels - numOfPixelI) * ySeparation);
+    }
+    g.setColor(new Color(255, 0, 0, 125));
+    g.drawPolyline(pX, pYR, pX.length);
+    g.setColor(new Color(0, 255, 0, 125));
+    g.drawPolyline(pX, pYG, pX.length);
+    g.setColor(new Color(0, 0, 255, 125));
+    g.drawPolyline(pX, pYB, pX.length);
+    g.setColor(new Color(0, 0, 0, 200));
+    g.drawPolyline(pX, pYI, pX.length);
+  }
+
+
+  private String getInput(String prompt, String title, String defaultName)
+          throws IllegalArgumentException {
+    String valid = JOptionPane.showInputDialog(null, prompt, title,
+            JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
+    if (valid == null) {
+      throw new IllegalArgumentException("Operation is interrupted!");
+    }
+    if (valid.strip().equals("")) {
+      this.renderError("Input cannot be empty!");
+      throw new IllegalArgumentException("Input is empty!");
+    }
+    return valid.strip();
+  }
+
+  private String getInput(String title, String defaultName) {
+    return this.getInput("Please enter the name for the new Image:", title, defaultName);
+  }
+  
+
   /**
    * To render a message.
    *
@@ -304,164 +464,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
       }
     } catch (IllegalArgumentException ignored) {
     }
-  }
-
-  private void updateView(String newImageName) {
-    updateButtonAvailability(this.imageLib.getLibSize());
-    if (!dataForListOfImageNames.contains(newImageName)) {
-      this.dataForListOfImageNames.addElement(newImageName);
-    }
-    int currItemIndex = this.dataForListOfImageNames.indexOf(newImageName);
-    this.imageNamesJList.getSelectionModel().setSelectionInterval(currItemIndex, currItemIndex);
-  }
-
-  private void updateVisual() {
-    this.updatePreview();
-    this.updateHistogramGraph();
-  }
-
-  private void updatePreview() {
-    int currWidth = this.currImageFile.getWidth();
-    int currHeight = this.currImageFile.getHeight();
-    BufferedImage currPreview = new BufferedImage(currWidth,
-            currHeight, BufferedImage.TYPE_4BYTE_ABGR);
-    for (int i = 0; i < currWidth; i++) {
-      for (int j = 0; j < currHeight; j++) {
-        currPreview.setRGB(i, j, currImageFile.getColorAt(j, i).getRGB());
-      }
-    }
-    this.imageLabel.setIcon(new ImageIcon(currPreview));
-  }
-
-  private void updateHistogramGraph() {
-    this.updateHistogramList();
-    this.drawHistogram(this.histogramGraph, this.histogram);
-  }
-
-   // update the histogram (reference) given using the image file given.
-  private void updateHistogramList() {
-    int currWidth = this.currImageFile.getWidth();
-    int currHeight = this.currImageFile.getHeight();
-
-    List<Integer> redList = new ArrayList<>();
-    List<Integer> greenList = new ArrayList<>();
-    List<Integer> blueList = new ArrayList<>();
-    List<Integer> intensityList = new ArrayList<>();
-
-    for (List<Integer> list : List.of(redList, greenList, blueList, intensityList)) {
-      for (int currVal = 0; currVal < 256; currVal++) {
-        list.add(0);
-      }
-    }
-
-    for (int i = 0; i < currWidth; i++) {
-      for (int j = 0; j < currHeight; j++) {
-        Color color = this.currImageFile.getColorAt(j, i);
-        int red = color.getRed();
-        int green = color.getGreen();
-        int blue = color.getBlue();
-        int intensity = (red + green + blue) / 3;
-
-        redList.set(red, redList.get(red) + 1);
-        greenList.set(green, greenList.get(green) + 1);
-        blueList.set(blue, blueList.get(blue) + 1);
-        intensityList.set(intensity, intensityList.get(intensity) + 1);
-      }
-    }
-
-    for (int i = 0; i < 4; i++) {
-      this.histogram.set(i, List.of(redList, greenList, blueList, intensityList).get(i));
-    }
-  }
-  
-  private int getMaxPixel(List<List<Integer>> histogram) {
-    int maxR = 0;
-    int maxG = 0;
-    int maxB = 0;
-    int maxI = 0;
-    List<Integer> redList = histogram.get(0);
-    List<Integer> greenList = histogram.get(1);
-    List<Integer> blueList = histogram.get(2);
-    List<Integer> intensityList = histogram.get(3);
-
-    for (int i = 0; i < histogram.get(0).size(); i++) {
-      if (redList.get(i) > maxR) {
-        maxR = redList.get(i);
-      }
-
-      if (greenList.get(i) > maxG) {
-        maxG = greenList.get(i);
-      }
-
-      if (blueList.get(i) > maxB) {
-        maxB = blueList.get(i);
-      }
-
-      if (intensityList.get(i) > maxI) {
-        maxI = intensityList.get(i);
-      }
-    }
-
-    return Math.max(Math.max(maxB, maxG), Math.max(maxI, maxR));
-  }
-
-  private void drawHistogram(JPanel panel, List<List<Integer>> histogram) {
-    int width = panel.getWidth();
-    int height = panel.getHeight();
-    int maxPixels = this.getMaxPixel(histogram);
-    Graphics g = panel.getGraphics();
-    g.clearRect(0, 0, width, height);
-    int verticalOffset = 10;
-    int horizontalOffset = 10;
-    double xSeparation = (width - 2.0 * horizontalOffset) / (histogram.get(0).size() - 1.0);
-    double ySeparation = (height - 2.0 * verticalOffset) / maxPixels;
-
-    int[] pX = new int[256];
-    for (int i = 0; i < 256; i++) {
-      pX[i] = (int) (horizontalOffset + i * xSeparation);
-    }
-    int[] pYR = new int[256];
-    int[] pYG = new int[256];
-    int[] pYB = new int[256];
-    int[] pYI = new int[256];
-    for (int i = 0; i < 256; i++) {
-      int numOfPixelR = histogram.get(0).get(i);
-      int numOfPixelG = histogram.get(1).get(i);
-      int numOfPixelB = histogram.get(2).get(i);
-      int numOfPixelI = histogram.get(3).get(i);
-
-      pYR[i] = (int) (verticalOffset + (maxPixels - numOfPixelR) * ySeparation);
-      pYG[i] = (int) (verticalOffset + (maxPixels - numOfPixelG) * ySeparation);
-      pYB[i] = (int) (verticalOffset + (maxPixels - numOfPixelB) * ySeparation);
-      pYI[i] = (int) (verticalOffset + (maxPixels - numOfPixelI) * ySeparation);
-    }
-    g.setColor(new Color(255, 0, 0, 125));
-    g.drawPolyline(pX, pYR, pX.length);
-    g.setColor(new Color(0, 255, 0, 125));
-    g.drawPolyline(pX, pYG, pX.length);
-    g.setColor(new Color(0, 0, 255, 125));
-    g.drawPolyline(pX, pYB, pX.length);
-    g.setColor(new Color(0, 0, 0, 200));
-    g.drawPolyline(pX, pYI, pX.length);
-  }
-
-
-  private String getInput(String prompt, String title, String defaultName)
-          throws IllegalArgumentException {
-    String valid = JOptionPane.showInputDialog(null, prompt, title,
-            JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
-    if (valid == null) {
-      throw new IllegalArgumentException("Operation is interrupted!");
-    }
-    if (valid.strip().equals("")) {
-      this.renderError("Input cannot be empty!");
-      throw new IllegalArgumentException("Input is empty!");
-    }
-    return valid.strip();
-  }
-
-  private String getInput(String title, String defaultName) {
-    return this.getInput("Please enter the name for the new Image:", title, defaultName);
   }
 
   /**
