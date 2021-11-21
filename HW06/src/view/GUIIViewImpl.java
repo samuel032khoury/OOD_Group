@@ -183,6 +183,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     ioButtonPanel.setLayout(new BoxLayout(ioButtonPanel, BoxLayout.X_AXIS));
     ioButtonPanel.setAlignmentX(0);
 
+
     for (JButton cb : colorButtons) {
       colorButtonPanel.add(cb);
     }
@@ -248,7 +249,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     this.drawHistogram(this.histogramGraph, this.histogram);
   }
 
-   // update the histogram (reference) given using the image file given.
+  // update the histogram (reference) given using the image file given.
   private void updateHistogramList() {
     int currWidth = this.currImageFile.getWidth();
     int currHeight = this.currImageFile.getHeight();
@@ -355,25 +356,25 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     g.drawPolyline(pX, pYI, pX.length);
   }
 
-
   private String getInput(String prompt, String title, String defaultName)
           throws IllegalArgumentException {
-    String valid = JOptionPane.showInputDialog(null, prompt, title,
-            JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
-    if (valid == null) {
+    try {
+      String valid = JOptionPane.showInputDialog(null, prompt, title,
+              JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
+      if (valid.strip().equals("")) {
+        this.renderError("Input cannot be empty!");
+        throw new IllegalArgumentException("Input is empty!");
+      }
+      return valid.strip();
+    } catch (NullPointerException e) {
       throw new IllegalArgumentException("Operation is interrupted!");
     }
-    if (valid.strip().equals("")) {
-      this.renderError("Input cannot be empty!");
-      throw new IllegalArgumentException("Input is empty!");
-    }
-    return valid.strip();
   }
 
   private String getInput(String title, String defaultName) {
     return this.getInput("Please enter the name for the new Image:", title, defaultName);
   }
-  
+
 
   /**
    * To render a message.
@@ -410,7 +411,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    requestFocus();
     final String newImageName;
     String action = e.getActionCommand();
     String title = action + " the image " + currImageName;
