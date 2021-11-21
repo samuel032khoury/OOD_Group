@@ -1,6 +1,10 @@
 package view;
 
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -36,20 +40,17 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
 
   private final ImageLibState imageLib;
   private final ImageProcessControllerGUI controller;
-  private String currImageName;
-  private ReadOnlyImageFile currImageFile;
-  private List<List<Integer>> histogram;
+  private final List<List<Integer>> histogram;
 
   private final List<JButton> allButton;
-  private final JPanel colorButtonPanel;
-  private final JPanel visualButtonPanel;
-  private final JPanel ioButtonPanel;
   private final JLabel imageLabel;
   private final JPanel histogramGraph;
 
   private final JList<String> imageNamesJList;
   private final DefaultListModel<String> dataForListOfImageNames;
 
+  private String currImageName;
+  private ReadOnlyImageFile currImageFile;
 
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
                       ImageProcessControllerGUI controller) {
@@ -64,6 +65,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     this.controller = controller;
     this.currImageName = "";
     this.currImageFile = null;
+    this.allButton = new ArrayList<>();
 
     JPanel imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
@@ -88,31 +90,10 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     this.imageNamesJList.setFocusable(false);
     libraryPanel.add(new JScrollPane(this.imageNamesJList));
 
-    this.allButton = new ArrayList<>();
-    this.colorButtonPanel = new JPanel();
-    this.colorButtonPanel.setBorder(BorderFactory.createTitledBorder("Color Operation"));
-    this.colorButtonPanel.setLayout(new BoxLayout(colorButtonPanel, BoxLayout.Y_AXIS));
-
-    this.visualButtonPanel = new JPanel();
-    this.visualButtonPanel.setBorder(BorderFactory.createTitledBorder("Visual Operation"));
-    this.visualButtonPanel.setLayout(new BoxLayout(visualButtonPanel, BoxLayout.Y_AXIS));
-
-    this.ioButtonPanel = new JPanel();
-    this.ioButtonPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
-    this.ioButtonPanel.setLayout(new BoxLayout(ioButtonPanel, BoxLayout.X_AXIS));
-    this.ioButtonPanel.setAlignmentX(0);
-
-    this.createButtons(supportedCommandStringSet);
-    this.configButtons(this.imageLib.getLibSize());
-
-    JPanel operationPanel = new JPanel();
-    operationPanel.setLayout(new BoxLayout(operationPanel, BoxLayout.Y_AXIS));
-    operationPanel.add(colorButtonPanel);
-    operationPanel.add(visualButtonPanel);
-    operationPanel.add(ioButtonPanel);
-    JScrollPane operationScrollablePanel = new JScrollPane(operationPanel);
+    JScrollPane operationScrollablePanel = new JScrollPane(createOperationPanel(supportedCommandStringSet));
+    updateButtonAvailability(this.imageLib.getLibSize());
     operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
-    operationScrollablePanel.setMinimumSize(new Dimension(200, 0));
+    operationScrollablePanel.setMinimumSize(new Dimension(230, 0));
     JPanel controlPanel = new JPanel();
     controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
     libraryPanel.setAlignmentY(0);
@@ -121,7 +102,13 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     controlPanel.add(operationScrollablePanel);
 
     // Histogram Related
-    this.initHistogramList();
+    this.histogram = new ArrayList<>() {{
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+    }};
+//    this.initHistogramList();
 
     JPanel histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
@@ -148,33 +135,15 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     this.pack();
   }
 
-  private void initHistogramList() {
-    List<Integer> rChannel = new ArrayList<>();
-    List<Integer> gChannel = new ArrayList<>();
-    List<Integer> bChannel = new ArrayList<>();
-    List<Integer> iChannel = new ArrayList<>();
-    this.init8BitChannelList(rChannel, gChannel, bChannel, iChannel);
-    this.histogram = new ArrayList<>();
-    histogram.addAll(List.of(rChannel, gChannel, bChannel, iChannel));
-  }
 
-  @SafeVarargs
-  private void init8BitChannelList(List<Integer>... lists) {
-    int maxColorVal = 256;
-    for (List<Integer> list : lists) {
-      for (int currVal = 0; currVal < maxColorVal; currVal++) {
-        list.add(0);
-      }
-    }
-  }
-
-  private void createButtons(Set<String> supportedCommandStringSet) {
+  private JPanel createOperationPanel(Set<String> supportedCommandStringSet) {
     List<JButton> colorButtons = new ArrayList<>();
     List<JButton> componentButtons = new ArrayList<>();
     List<JButton> visualButtons = new ArrayList<>();
     List<JButton> ioButtons = new ArrayList<>();
+
     for (String command : supportedCommandStringSet) {
-      if ("QUIT, size".contains(command)) {
+      if ("(QUIT)(size)".contains(command)) {
         continue;
       }
 
@@ -184,41 +153,56 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
       b.addActionListener(this);
       b.setActionCommand(command);
 
-      if (command.equals("load") || command.equals("save")) {
+      if (("(load)(save)").contains(command)) {
         ioButtons.add(b);
       } else if (command.contains("component")) {
         componentButtons.add(b);
-      } else if (("blur, sharpen, sepia, greyscale").contains(command)) {
+      } else if (("(blur)(sharpen)(sepia)(greyscale)").contains(command)) {
         colorButtons.add(b);
       } else {
         visualButtons.add(b);
       }
     }
+
     ioButtons.sort(Comparator.comparing(AbstractButton::getText));
     componentButtons.sort(Comparator.comparing(AbstractButton::getText));
     colorButtons.sort(Comparator.comparing(AbstractButton::getText));
     visualButtons.sort(Comparator.comparing(AbstractButton::getText));
     colorButtons.addAll(componentButtons);
 
+    JPanel colorButtonPanel = new JPanel();
+    colorButtonPanel.setBorder(BorderFactory.createTitledBorder("Color Operation"));
+    colorButtonPanel.setLayout(new BoxLayout(colorButtonPanel, BoxLayout.Y_AXIS));
+
+    JPanel visualButtonPanel = new JPanel();
+    visualButtonPanel.setBorder(BorderFactory.createTitledBorder("Visual Operation"));
+    visualButtonPanel.setLayout(new BoxLayout(visualButtonPanel, BoxLayout.Y_AXIS));
+
+    JPanel ioButtonPanel = new JPanel();
+    ioButtonPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
+    ioButtonPanel.setLayout(new BoxLayout(ioButtonPanel, BoxLayout.X_AXIS));
+    ioButtonPanel.setAlignmentX(0);
+
     for (JButton cb : colorButtons) {
-      this.colorButtonPanel.add(cb);
+      colorButtonPanel.add(cb);
     }
     for (JButton vb : visualButtons) {
-      this.visualButtonPanel.add(vb);
+      visualButtonPanel.add(vb);
     }
     for (JButton iob : ioButtons) {
-      this.ioButtonPanel.add(iob);
+      ioButtonPanel.add(iob);
     }
-    //TODO: DELETE THIS AFTER ALL IMPLEMENTATION
-    JButton testButton = new JButton("Test");
-    testButton.setActionCommand("test");
-    testButton.setFocusable(false);
-    testButton.addActionListener(this);
-    this.ioButtonPanel.add(testButton);
-    //
+
+    JPanel operationPanel = new JPanel();
+    operationPanel.setLayout(new BoxLayout(operationPanel, BoxLayout.Y_AXIS));
+    operationPanel.add(colorButtonPanel);
+    operationPanel.add(visualButtonPanel);
+    operationPanel.add(ioButtonPanel);
+
+    return operationPanel;
   }
 
-  private void configButtons(int libSize) {
+  private void updateButtonAvailability(int libSize) {
     boolean enableAllButton = libSize > 0;
     for (JButton b : this.allButton) {
       if (!b.getText().equals("load")) {
@@ -312,22 +296,18 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
             this.renderError("Please input an integer for brightness adjustment!");
           }
           break;
-        //TODO: DELETE THIS AFTER ALL IMPLEMENTATION
-        case "test":
-          System.out.println(currImageName);
-          break;
-        //
         default:
           newImageName = this.getInput(title, this.currImageName + "-" + action);
           controller.getArgsRun(action, currImageName, newImageName);
           updateView(newImageName);
+          break;
       }
     } catch (IllegalArgumentException ignored) {
     }
   }
 
   private void updateView(String newImageName) {
-    configButtons(this.imageLib.getLibSize());
+    updateButtonAvailability(this.imageLib.getLibSize());
     if (!dataForListOfImageNames.contains(newImageName)) {
       this.dataForListOfImageNames.addElement(newImageName);
     }
@@ -337,27 +317,63 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
 
   private void updateVisual() {
     this.updatePreview();
-    this.updateHistogram();
+    this.updateHistogramGraph();
   }
 
   private void updatePreview() {
     int currWidth = this.currImageFile.getWidth();
     int currHeight = this.currImageFile.getHeight();
-    BufferedImage currPreview = new BufferedImage(currWidth, currHeight, BufferedImage.TYPE_4BYTE_ABGR);
-    for(int i = 0; i < currWidth; i ++) {
-      for (int j= 0; j < currHeight; j++) {
-        currPreview.setRGB(i,j,currImageFile.getColorAt(j,i).getRGB());
+    BufferedImage currPreview = new BufferedImage(currWidth,
+            currHeight, BufferedImage.TYPE_4BYTE_ABGR);
+    for (int i = 0; i < currWidth; i++) {
+      for (int j = 0; j < currHeight; j++) {
+        currPreview.setRGB(i, j, currImageFile.getColorAt(j, i).getRGB());
       }
     }
     this.imageLabel.setIcon(new ImageIcon(currPreview));
   }
 
-  private void updateHistogram() {
-    this.initHistogramList();
-    this.surveyImage(this.histogram, this.currImageFile);
+  private void updateHistogramGraph() {
+    this.updateHistogramList();
     this.drawHistogram(this.histogramGraph, this.histogram);
   }
 
+   // update the histogram (reference) given using the image file given.
+  private void updateHistogramList() {
+    int currWidth = this.currImageFile.getWidth();
+    int currHeight = this.currImageFile.getHeight();
+
+    List<Integer> redList = new ArrayList<>();
+    List<Integer> greenList = new ArrayList<>();
+    List<Integer> blueList = new ArrayList<>();
+    List<Integer> intensityList = new ArrayList<>();
+
+    for (List<Integer> list : List.of(redList, greenList, blueList, intensityList)) {
+      for (int currVal = 0; currVal < 256; currVal++) {
+        list.add(0);
+      }
+    }
+
+    for (int i = 0; i < currWidth; i++) {
+      for (int j = 0; j < currHeight; j++) {
+        Color color = this.currImageFile.getColorAt(j, i);
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+        int intensity = (red + green + blue) / 3;
+
+        redList.set(red, redList.get(red) + 1);
+        greenList.set(green, greenList.get(green) + 1);
+        blueList.set(blue, blueList.get(blue) + 1);
+        intensityList.set(intensity, intensityList.get(intensity) + 1);
+      }
+    }
+
+    for (int i = 0; i < 4; i++) {
+      this.histogram.set(i, List.of(redList, greenList, blueList, intensityList).get(i));
+    }
+  }
+  
   private int getMaxPixel(List<List<Integer>> histogram) {
     int maxR = 0;
     int maxG = 0;
@@ -392,72 +408,48 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
   private void drawHistogram(JPanel panel, List<List<Integer>> histogram) {
     int width = panel.getWidth();
     int height = panel.getHeight();
-    int maxPixels =this.getMaxPixel(histogram);
+    int maxPixels = this.getMaxPixel(histogram);
     Graphics g = panel.getGraphics();
-    g.clearRect(0,0,width,height);
+    g.clearRect(0, 0, width, height);
     int verticalOffset = 10;
     int horizontalOffset = 10;
-    double xSeparation = (width - 2.0 * horizontalOffset) / ( histogram.get(0).size() - 1.0 );
-    double ySeparation = (height - 2.0 * verticalOffset) / maxPixels ;
+    double xSeparation = (width - 2.0 * horizontalOffset) / (histogram.get(0).size() - 1.0);
+    double ySeparation = (height - 2.0 * verticalOffset) / maxPixels;
 
     int[] pX = new int[256];
-    for (int i = 0; i < histogram.get(0).size(); i ++) {
+    for (int i = 0; i < 256; i++) {
       pX[i] = (int) (horizontalOffset + i * xSeparation);
     }
     int[] pYR = new int[256];
     int[] pYG = new int[256];
     int[] pYB = new int[256];
     int[] pYI = new int[256];
-    for (int i = 0; i < histogram.get(0).size(); i ++) {
+    for (int i = 0; i < 256; i++) {
       int numOfPixelR = histogram.get(0).get(i);
       int numOfPixelG = histogram.get(1).get(i);
       int numOfPixelB = histogram.get(2).get(i);
       int numOfPixelI = histogram.get(3).get(i);
-      
+
       pYR[i] = (int) (verticalOffset + (maxPixels - numOfPixelR) * ySeparation);
       pYG[i] = (int) (verticalOffset + (maxPixels - numOfPixelG) * ySeparation);
       pYB[i] = (int) (verticalOffset + (maxPixels - numOfPixelB) * ySeparation);
       pYI[i] = (int) (verticalOffset + (maxPixels - numOfPixelI) * ySeparation);
     }
-    g.setColor(new Color(255,0,0, 125));
+    g.setColor(new Color(255, 0, 0, 125));
     g.drawPolyline(pX, pYR, pX.length);
-    g.setColor(new Color(0,255,0, 125));
+    g.setColor(new Color(0, 255, 0, 125));
     g.drawPolyline(pX, pYG, pX.length);
-    g.setColor(new Color(0,0,255, 125));
+    g.setColor(new Color(0, 0, 255, 125));
     g.drawPolyline(pX, pYB, pX.length);
-    g.setColor(new Color(0,0,0, 200));
+    g.setColor(new Color(0, 0, 0, 200));
     g.drawPolyline(pX, pYI, pX.length);
   }
 
-  // update the histogram (reference) given using the image file given.
-  private void surveyImage(List<List<Integer>> histogram, ReadOnlyImageFile imageFile) {
 
-    int currWidth = this.currImageFile.getWidth();
-    int currHeight = this.currImageFile.getHeight();
-
-    for(int i = 0; i < currWidth; i ++) {
-      for (int j= 0; j < currHeight; j++) {
-        Color color = this.currImageFile.getColorAt(j, i);
-        int red = color.getRed();
-        int green = color.getGreen();
-        int blue = color.getBlue();
-        int intensity = (red + green + blue) / 3;
-        List<Integer> redList = histogram.get(0);
-        List<Integer> greenList = histogram.get(1);
-        List<Integer> blueList = histogram.get(2);
-        List<Integer> intensityList = histogram.get(3);
-
-        redList.set(red, redList.get(red) + 1);
-        greenList.set(green, greenList.get(green) + 1);
-        blueList.set(blue, blueList.get(blue) + 1);
-        intensityList.set(intensity, intensityList.get(intensity) + 1);
-      }
-    }
-  }
-
-
-  private String getInput(String prompt, String title, String defaultName) throws IllegalArgumentException {
-    String valid = JOptionPane.showInputDialog(null,prompt,title,JOptionPane.PLAIN_MESSAGE,null,null,defaultName).toString();
+  private String getInput(String prompt, String title, String defaultName)
+          throws IllegalArgumentException {
+    String valid = JOptionPane.showInputDialog(null, prompt, title,
+            JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
     if (valid == null) {
       throw new IllegalArgumentException("Operation is interrupted!");
     }
