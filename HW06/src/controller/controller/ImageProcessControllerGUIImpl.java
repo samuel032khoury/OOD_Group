@@ -7,12 +7,13 @@ import java.util.function.Supplier;
 
 import controller.command.macro.ICommand;
 import controller.utils.QuitExecution;
+import model.imagefile.ImageFile;
+import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IGUIIView;
-import view.ViewListener;
 
 public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements
-        ImageProcessControllerGUI {
+        ViewLIstener {
 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;
@@ -56,8 +57,13 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   }
 
   @Override
-  public void getArgsRun(String... commandArgs) {
+  public void runEvent(String... commandArgs) {
     Collections.addAll(this.commandQueue, commandArgs);
     this.run();
+  }
+
+  @Override
+  public ReadOnlyImageFile requestPictureEvent(String pictureName) {
+    return this.model.peek(pictureName);
   }
 }

@@ -31,7 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controller.controller.ImageProcessControllerGUI;
+import controller.controller.ViewLIstener;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
@@ -39,7 +39,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
         ListSelectionListener {
 
   private final ImageLibState imageLib;
-  private final ImageProcessControllerGUI controller;
+  private final ViewLIstener controller;
 
   private final List<JButton> allButton;
   private String currImageName;
@@ -55,7 +55,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
 
 
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
-                      ImageProcessControllerGUI controller) {
+                      ViewLIstener controller) {
     super();
 
     // JFrame configuration
@@ -364,7 +364,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
             File f = fileExplorer.getSelectedFile();
             String source = f.getAbsolutePath();
             newImageName = this.getInput("Load image", f.getName().split("\\.")[0]);
-            this.controller.getArgsRun(action, source, newImageName);
+            this.controller.runEvent(action, source, newImageName);
             updateView(newImageName);
           }
           break;
@@ -376,7 +376,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
           if (saveApproveStatus == JFileChooser.APPROVE_OPTION) {
             File f = fileSaver.getSelectedFile();
             String destination = f.getAbsolutePath();
-            this.controller.getArgsRun(action, destination, currImageName);
+            this.controller.runEvent(action, destination, currImageName);
           }
           break;
         case "brighten":
@@ -386,7 +386,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
                     "Please enter the magnitude for the brightness adjustment:", title, ""));
             newImageName = this.getInput(title, this.currImageName + "-" + action
                     + adjustmentMagnitude);
-            controller.getArgsRun(action,
+            controller.runEvent(action,
                     String.valueOf(adjustmentMagnitude), this.currImageName, newImageName);
             updateView(newImageName);
           } catch (NumberFormatException exception) {
@@ -395,7 +395,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
           break;
         default:
           newImageName = this.getInput(title, this.currImageName + "-" + action);
-          controller.getArgsRun(action, currImageName, newImageName);
+          controller.runEvent(action, currImageName, newImageName);
           updateView(newImageName);
           break;
       }
@@ -412,7 +412,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
   public void valueChanged(ListSelectionEvent e) {
     if (!e.getValueIsAdjusting()) {
       this.currImageName = imageNamesJList.getSelectedValue();
-      this.currImageFile = imageLib.peek(this.currImageName);
+      this.currImageFile = this.controller.requestPictureEvent(currImageName);
       this.updatePreview();
       this.updateHistogramGraph();
     }
