@@ -63,40 +63,40 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
 
     this.imageLib = imageLib;
     this.controller = controller;
+    this.allButton = new ArrayList<>();
     this.currImageName = "";
     this.currImageFile = null;
-    this.allButton = new ArrayList<>();
-
-    JPanel imagePanel = new JPanel();
-    imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
-    imagePanel.setPreferredSize(new Dimension(800, 0));
-    imagePanel.setLayout(new BorderLayout());
-    imagePanel.setFocusable(true);
 
     this.imageLabel = new JLabel();
     this.imageLabel.setHorizontalAlignment(JLabel.CENTER);
-    JScrollPane imageScrollPane = new JScrollPane(this.imageLabel);
-    imagePanel.add(imageScrollPane);
 
-    JPanel libraryPanel = new JPanel();
-    libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
-    libraryPanel.setLayout(new BoxLayout(libraryPanel, BoxLayout.X_AXIS));
-    libraryPanel.setPreferredSize(new Dimension(230, 230));
-    libraryPanel.setMinimumSize(new Dimension(230, 230));
+    JPanel imagePanel = createImagePanel();
+
+
     this.dataForListOfImageNames = new DefaultListModel<>();
     this.imageNamesJList = new JList<>(dataForListOfImageNames);
     this.imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     this.imageNamesJList.addListSelectionListener(this);
     this.imageNamesJList.setFocusable(false);
-    libraryPanel.add(new JScrollPane(this.imageNamesJList));
 
+    // to create a library panel
+    JPanel libraryPanel = new JPanel();
+    libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
+    libraryPanel.setLayout(new BoxLayout(libraryPanel, BoxLayout.X_AXIS));
+    libraryPanel.setPreferredSize(new Dimension(230, 230));
+    libraryPanel.setMinimumSize(new Dimension(230, 230));
+    libraryPanel.add(new JScrollPane(this.imageNamesJList));
+    libraryPanel.setAlignmentY(0);
+
+
+    // to
     JScrollPane operationScrollablePanel = new JScrollPane(createOperationPanel(supportedCommandStringSet));
     updateButtonAvailability(this.imageLib.getLibSize());
     operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
     operationScrollablePanel.setMinimumSize(new Dimension(230, 0));
+
     JPanel controlPanel = new JPanel();
     controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
-    libraryPanel.setAlignmentY(0);
     operationScrollablePanel.setAlignmentY(0);
     controlPanel.add(libraryPanel);
     controlPanel.add(operationScrollablePanel);
@@ -108,7 +108,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
       add(new ArrayList<>());
       add(new ArrayList<>());
     }};
-//    this.initHistogramList();
 
     JPanel histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
@@ -116,7 +115,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
     histogramPanel.setFocusable(false);
 
-    this.histogramGraph = new JPanel();
+    this.histogramGraph = new HistogramPanel(this.histogram);
     histogramPanel.add(histogramGraph);
 
     JPanel infoPanel = new JPanel();
@@ -133,6 +132,17 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     this.setFocusable(true);
     this.setVisible(true);
     this.pack();
+  }
+
+  private JPanel createImagePanel() {
+    JPanel imagePanel = new JPanel();
+    imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
+    imagePanel.setPreferredSize(new Dimension(800, 0));
+    imagePanel.setLayout(new BorderLayout());
+    imagePanel.setFocusable(true);
+    JScrollPane imageScrollPane = new JScrollPane(this.imageLabel);
+    imagePanel.add(imageScrollPane);
+    return imagePanel;
   }
 
 
@@ -212,10 +222,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     }
   }
 
-  @Override
-  public void renderImage() {
-  }
-
 
   private void updateView(String newImageName) {
     updateButtonAvailability(this.imageLib.getLibSize());
@@ -241,7 +247,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
 
   private void updateHistogramGraph() {
     this.updateHistogramList();
-    this.drawHistogram(this.histogramGraph, this.histogram);
+    this.histogramGraph.repaint();
   }
 
   // update the histogram (reference) given using the image file given.
@@ -278,77 +284,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     for (int i = 0; i < 4; i++) {
       this.histogram.set(i, List.of(redList, greenList, blueList, intensityList).get(i));
     }
-  }
-
-  private int getMaxPixel(List<List<Integer>> histogram) {
-    int maxR = 0;
-    int maxG = 0;
-    int maxB = 0;
-    int maxI = 0;
-    List<Integer> redList = histogram.get(0);
-    List<Integer> greenList = histogram.get(1);
-    List<Integer> blueList = histogram.get(2);
-    List<Integer> intensityList = histogram.get(3);
-
-    for (int i = 0; i < histogram.get(0).size(); i++) {
-      if (redList.get(i) > maxR) {
-        maxR = redList.get(i);
-      }
-
-      if (greenList.get(i) > maxG) {
-        maxG = greenList.get(i);
-      }
-
-      if (blueList.get(i) > maxB) {
-        maxB = blueList.get(i);
-      }
-
-      if (intensityList.get(i) > maxI) {
-        maxI = intensityList.get(i);
-      }
-    }
-
-    return Math.max(Math.max(maxB, maxG), Math.max(maxI, maxR));
-  }
-
-  private void drawHistogram(JPanel panel, List<List<Integer>> histogram) {
-    int width = panel.getWidth();
-    int height = panel.getHeight();
-    int maxPixels = this.getMaxPixel(histogram);
-    Graphics g = panel.getGraphics();
-    g.clearRect(0, 0, width, height);
-    int verticalOffset = 10;
-    int horizontalOffset = 10;
-    double xSeparation = (width - 2.0 * horizontalOffset) / (histogram.get(0).size() - 1.0);
-    double ySeparation = (height - 2.0 * verticalOffset) / maxPixels;
-
-    int[] pX = new int[256];
-    for (int i = 0; i < 256; i++) {
-      pX[i] = (int) (horizontalOffset + i * xSeparation);
-    }
-    int[] pYR = new int[256];
-    int[] pYG = new int[256];
-    int[] pYB = new int[256];
-    int[] pYI = new int[256];
-    for (int i = 0; i < 256; i++) {
-      int numOfPixelR = histogram.get(0).get(i);
-      int numOfPixelG = histogram.get(1).get(i);
-      int numOfPixelB = histogram.get(2).get(i);
-      int numOfPixelI = histogram.get(3).get(i);
-
-      pYR[i] = (int) (verticalOffset + (maxPixels - numOfPixelR) * ySeparation);
-      pYG[i] = (int) (verticalOffset + (maxPixels - numOfPixelG) * ySeparation);
-      pYB[i] = (int) (verticalOffset + (maxPixels - numOfPixelB) * ySeparation);
-      pYI[i] = (int) (verticalOffset + (maxPixels - numOfPixelI) * ySeparation);
-    }
-    g.setColor(new Color(255, 0, 0, 125));
-    g.drawPolyline(pX, pYR, pX.length);
-    g.setColor(new Color(0, 255, 0, 125));
-    g.drawPolyline(pX, pYG, pX.length);
-    g.setColor(new Color(0, 0, 255, 125));
-    g.drawPolyline(pX, pYB, pX.length);
-    g.setColor(new Color(0, 0, 0, 200));
-    g.drawPolyline(pX, pYI, pX.length);
   }
 
   private String getInput(String prompt, String title, String defaultName)

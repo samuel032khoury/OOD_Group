@@ -16,6 +16,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;
   private final IGUIIView view;
+  private String currImageName;
 
   public ImageProcessControllerGUIImpl(ImageLibModel model) {
     this.model = model;

@@ -1,5 +1,4 @@
 package view;
 
-public interface IGUIIView extends IImageProcessView{
-  void renderImage();
+public interface IGUIIView extends IImageProcessView {
 }
