@@ -7,13 +7,12 @@ import java.util.function.Supplier;
 
 import controller.command.macro.ICommand;
 import controller.utils.QuitExecution;
-import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.IGUIIView;
 
 public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements
-        ViewLIstener {
+        ViewListener {
 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;

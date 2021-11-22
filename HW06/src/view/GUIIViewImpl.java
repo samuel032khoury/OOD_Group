@@ -31,7 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controller.controller.ViewLIstener;
+import controller.controller.ViewListener;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
@@ -39,7 +39,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
         ListSelectionListener {
 
   private final ImageLibState imageLib;
-  private final ViewLIstener controller;
+  private final ViewListener controller;
 
   private final List<JButton> allButton;
   private String currImageName;
@@ -55,7 +55,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
 
 
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
-                      ViewLIstener controller) {
+                      ViewListener controller) {
     super();
 
     // JFrame configuration
