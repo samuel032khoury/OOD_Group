@@ -29,7 +29,7 @@ public class BrightnessOperation extends ANoAlphaOperation {
    *
    * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
    * @return a new 2-D {@code Array} of {@link Color} with every channel of every {@link Color}
-   * increasing/decreasing the same magnitude
+   *         increasing/decreasing the same magnitude
    */
   @Override
   protected Color[][] process(Color[][] pixels) {

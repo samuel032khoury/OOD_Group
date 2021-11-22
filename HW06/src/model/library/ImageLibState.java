@@ -1,7 +1,5 @@
 package model.library;
 
-import java.util.Set;
-
 import model.imagefile.ReadOnlyImageFile;
 
 /**

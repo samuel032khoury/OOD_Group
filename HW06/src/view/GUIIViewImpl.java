@@ -35,7 +35,8 @@ import controller.controller.ImageProcessControllerGUI;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
-public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, ListSelectionListener {
+public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
+        ListSelectionListener {
 
   private final ImageLibState imageLib;
   private final ImageProcessControllerGUI controller;
@@ -86,11 +87,11 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
 
     // InfoPanel (with histogram graph) initialization & configuration
     this.histogramData = new ArrayList<>() {{
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-    }};
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+      }};
     JPanel histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
     histogramPanel.setPreferredSize(new Dimension(300, 300));
@@ -383,7 +384,8 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
           try {
             Integer adjustmentMagnitude = Integer.parseInt(this.getInput(
                     "Please enter the magnitude for the brightness adjustment:", title, ""));
-            newImageName = this.getInput(title, this.currImageName + "-" + action + adjustmentMagnitude);
+            newImageName = this.getInput(title, this.currImageName + "-" + action
+                    + adjustmentMagnitude);
             controller.getArgsRun(action,
                     String.valueOf(adjustmentMagnitude), this.currImageName, newImageName);
             updateView(newImageName);

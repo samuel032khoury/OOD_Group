@@ -11,9 +11,9 @@ public class HistogramGraphPanel extends JPanel {
 
   private final List<List<Integer>> histogramData;
 
-  HistogramGraphPanel(List<List<Integer>> _histogramData){
+  HistogramGraphPanel(List<List<Integer>> histogramData) {
     super();
-    this.histogramData = _histogramData;
+    this.histogramData = histogramData;
   }
 
   @Override
@@ -63,7 +63,7 @@ public class HistogramGraphPanel extends JPanel {
   }
 
   private int getMaxPixel() {
-    if (histogramData.get(0).size()==0) {
+    if (histogramData.get(0).size() == 0) {
       return 0;
     }
     final int maxR = Collections.max(this.histogramData.get(0));

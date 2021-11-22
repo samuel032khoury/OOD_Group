@@ -11,13 +11,22 @@ import model.library.ImageLibModel;
 import view.IGUIIView;
 import view.ViewListener;
 
-public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements ImageProcessControllerGUI, ViewListener {
+public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements
+        ImageProcessControllerGUI, ViewListener {
 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;
   private final IGUIIView view;
   private String currImageName;
 
+
+  /**
+   * To construct a {@link ImageProcessControllerGUIImpl} that interacts with a {@link
+   * ImageLibModel}, by the commands provided/updated from the {@link #commandQueue}, and visualize
+   * the graphics on a {@link IGUIIView}.
+   *
+   * @param model The {@link ImageLibModel} that this controller interacts with.
+   */
   public ImageProcessControllerGUIImpl(ImageLibModel model) {
     this.model = model;
     this.commandQueue = new ArrayDeque<>();

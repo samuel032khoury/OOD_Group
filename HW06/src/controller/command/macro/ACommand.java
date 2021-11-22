@@ -51,8 +51,8 @@ public abstract class ACommand implements ICommand {
     ImageFile imageFile = model.get(imageName);
     ImageFile newImageFile = imageFile.applyOperation(operation);
     model.loadImage(newImageName, newImageFile);
-    view.renderMessage(descriptionOfEdit + " of " + imageName +
-            " has been created and" + connection + newImageName + ".");
+    view.renderMessage(descriptionOfEdit + " of " + imageName
+            + " has been created and" + connection + newImageName + ".");
   }
 
   /**

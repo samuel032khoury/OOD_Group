@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.function.Supplier;
 
 import controller.command.color.GreyCommand;

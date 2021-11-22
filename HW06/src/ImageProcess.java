@@ -43,8 +43,8 @@ public class ImageProcess {
       }
     } else {
       throw new IllegalArgumentException("Unknown arguments! Use -file to run a "
-              + "text-based script, or use -text to enter interactive mode, or use GUI by providing " +
-              "no arguments ");
+              + "text-based script, or use -text to enter interactive mode, or use "
+              + "GUI by providing no arguments ");
     }
 
     controller.run();

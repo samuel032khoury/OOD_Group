@@ -2,7 +2,6 @@ package model.library;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
