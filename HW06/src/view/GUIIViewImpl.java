@@ -3,7 +3,6 @@ package view;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,45 +39,81 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
 
   private final ImageLibState imageLib;
   private final ImageProcessControllerGUI controller;
-  private final List<List<Integer>> histogram;
 
   private final List<JButton> allButton;
+  private String currImageName;
+  private ReadOnlyImageFile currImageFile;
+
   private final JLabel imageLabel;
-  private final JPanel histogramGraph;
+  private final JPanel histogramGraphPanel;
+  private final List<List<Integer>> histogramData;
 
   private final JList<String> imageNamesJList;
   private final DefaultListModel<String> dataForListOfImageNames;
 
-  private String currImageName;
-  private ReadOnlyImageFile currImageFile;
+
 
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
                       ImageProcessControllerGUI controller) {
     super();
+
+    // JFrame configuration
     this.setTitle("Image Processing");
     this.setMinimumSize(new Dimension(1320, 760));
     this.setLayout(new GridLayout(1, 3));
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
 
+    // Meta data variable assignment
     this.imageLib = imageLib;
     this.controller = controller;
     this.allButton = new ArrayList<>();
     this.currImageName = "";
     this.currImageFile = null;
 
+    //ImagePanel initialization & configuration
     this.imageLabel = new JLabel();
     this.imageLabel.setHorizontalAlignment(JLabel.CENTER);
-
     JPanel imagePanel = createImagePanel();
 
-
+    //ControlPanel initialization & configuration
     this.dataForListOfImageNames = new DefaultListModel<>();
     this.imageNamesJList = new JList<>(dataForListOfImageNames);
     this.imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     this.imageNamesJList.addListSelectionListener(this);
     this.imageNamesJList.setFocusable(false);
+    JPanel controlPanel = createControlPanel(supportedCommandStringSet);
 
+    // InfoPanel (with histogram graph) initialization & configuration
+    this.histogramData = new ArrayList<>() {{
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+    }};
+    JPanel histogramPanel = new JPanel();
+    histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
+    histogramPanel.setPreferredSize(new Dimension(300, 300));
+    histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
+    histogramPanel.setFocusable(false);
+    this.histogramGraphPanel = new HistogramGraphPanel(this.histogramData);
+    histogramPanel.add(this.histogramGraphPanel);
+    JPanel infoPanel = new JPanel();
+    infoPanel.add(histogramPanel);
+
+    // Collecting all sub-panels to the main panel
+    JPanel mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+    mainPanel.add(infoPanel);
+    mainPanel.add(imagePanel);
+    mainPanel.add(controlPanel);
+
+    this.add(mainPanel);
+    this.setFocusable(true);
+    this.pack();
+  }
+
+  private JPanel createControlPanel(Set<String> supportedCommandStringSet) {
     // to create a library panel
     JPanel libraryPanel = new JPanel();
     libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
@@ -89,8 +124,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     libraryPanel.setAlignmentY(0);
 
 
-    // to
-    JScrollPane operationScrollablePanel = new JScrollPane(createOperationPanel(supportedCommandStringSet));
+    // to create a scrollable operation panel
+    JScrollPane operationScrollablePanel = new JScrollPane(
+            createOperationPanel(supportedCommandStringSet));
     updateButtonAvailability(this.imageLib.getLibSize());
     operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
     operationScrollablePanel.setMinimumSize(new Dimension(230, 0));
@@ -100,38 +136,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     operationScrollablePanel.setAlignmentY(0);
     controlPanel.add(libraryPanel);
     controlPanel.add(operationScrollablePanel);
-
-    // Histogram Related
-    this.histogram = new ArrayList<>() {{
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-    }};
-
-    JPanel histogramPanel = new JPanel();
-    histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
-    histogramPanel.setPreferredSize(new Dimension(300, 300));
-    histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
-    histogramPanel.setFocusable(false);
-
-    this.histogramGraph = new HistogramPanel(this.histogram);
-    histogramPanel.add(histogramGraph);
-
-    JPanel infoPanel = new JPanel();
-    infoPanel.add(histogramPanel);
-    infoPanel.setAlignmentX(0);
-
-    JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-    mainPanel.add(infoPanel);
-    mainPanel.add(imagePanel);
-    mainPanel.add(controlPanel);
-
-    this.add(mainPanel);
-    this.setFocusable(true);
-    this.setVisible(true);
-    this.pack();
+    return controlPanel;
   }
 
   private JPanel createImagePanel() {
@@ -247,7 +252,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
 
   private void updateHistogramGraph() {
     this.updateHistogramList();
-    this.histogramGraph.repaint();
+    this.histogramGraphPanel.repaint();
   }
 
   // update the histogram (reference) given using the image file given.
@@ -282,7 +287,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
     }
 
     for (int i = 0; i < 4; i++) {
-      this.histogram.set(i, List.of(redList, greenList, blueList, intensityList).get(i));
+      this.histogramData.set(i, List.of(redList, greenList, blueList, intensityList).get(i));
     }
   }
 
@@ -409,5 +414,10 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener, L
       this.updatePreview();
       this.updateHistogramGraph();
     }
+  }
+
+  @Override
+  public void showView(boolean show) {
+    this.setVisible(show);
   }
 }

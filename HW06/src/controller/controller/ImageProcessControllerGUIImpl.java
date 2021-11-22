@@ -8,10 +8,10 @@ import java.util.function.Supplier;
 import controller.command.macro.ICommand;
 import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
-import model.library.ImageLibModelImpl;
 import view.IGUIIView;
+import view.ViewListener;
 
-public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements ImageProcessControllerGUI {
+public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements ImageProcessControllerGUI, ViewListener {
 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;
@@ -29,6 +29,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    */
   @Override
   public void run() {
+    this.view.showView(true);
     if (commandQueue.isEmpty()) {
       return;
     }
@@ -51,8 +52,13 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     this.run();
   }
 
-  public static void main(String[] args) {
-    IImageProcessController controller = new ImageProcessControllerGUIImpl(new ImageLibModelImpl());
-    controller.run();
+  @Override
+  public void updatePreview() {
+
+  }
+
+  @Override
+  public void updateHistogram() {
+
   }
 }
