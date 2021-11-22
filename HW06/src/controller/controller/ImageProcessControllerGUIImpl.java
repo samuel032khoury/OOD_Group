@@ -52,13 +52,5 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     this.run();
   }
 
-  @Override
-  public void updatePreview() {
 
-  }
-
-  @Override
-  public void updateHistogram() {
-
-  }
 }
