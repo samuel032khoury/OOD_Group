@@ -32,6 +32,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.controller.ViewListener;
+import controller.controller.ImageProcessControllerGUI;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
@@ -412,7 +413,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
   public void valueChanged(ListSelectionEvent e) {
     if (!e.getValueIsAdjusting()) {
       this.currImageName = imageNamesJList.getSelectedValue();
-      this.currImageFile = this.controller.requestPictureEvent(currImageName);
+      this.currImageFile = imageLib.peek(this.currImageName);
       this.updatePreview();
       this.updateHistogramGraph();
     }

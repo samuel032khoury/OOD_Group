@@ -12,7 +12,7 @@ import model.library.ImageLibModel;
 import view.IGUIIView;
 
 public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements
-        ViewListener {
+        ViewListener{
 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;
@@ -61,8 +61,9 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     this.run();
   }
 
+
   @Override
   public ReadOnlyImageFile requestPictureEvent(String pictureName) {
-    return this.model.peek(pictureName);
+    return null;
   }
 }
