@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.IOException;
-import java.util.Set;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;

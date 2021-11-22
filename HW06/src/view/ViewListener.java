@@ -1,11 +1,6 @@
 package view;
 
 public interface ViewListener {
-<<<<<<< HEAD
-  void updatePreview();
-
-  void updateHistogram();
-=======
   void loadEvent();
   void saveEvent();
   void adjustmentBrightnessEvent();
@@ -20,5 +15,4 @@ public interface ViewListener {
   void iComponentEvent();
   void vFlipEvent();
   void hFlipEvent();
->>>>>>> e8796536d6339ab9ce3e22b60e62b3a1071f9cb8
 }

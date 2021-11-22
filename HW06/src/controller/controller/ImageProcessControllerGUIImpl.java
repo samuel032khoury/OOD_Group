@@ -12,7 +12,7 @@ import view.IGUIIView;
 import view.ViewListener;
 
 public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements
-        ImageProcessControllerGUI, ViewListener {
+        ImageProcessControllerGUI {
 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;
@@ -60,6 +60,4 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     Collections.addAll(this.commandQueue, commandArgs);
     this.run();
   }
-
-
 }

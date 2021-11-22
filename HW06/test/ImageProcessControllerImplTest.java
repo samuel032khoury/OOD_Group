@@ -327,8 +327,8 @@ public class ImageProcessControllerImplTest {
     model.loadImage("mock", new MockImage(output));
     IImageProcessController controller = this.giveModel(model, in, view);
     controller.run();
-    assertEquals("did class model.operation.color.GreyscaleOperation" +
-            "did class model.operation.color.GreyscaleOperation", output.toString());
+    assertEquals("did class model.operation.color.GreyscaleOperation"
+            + "did class model.operation.color.GreyscaleOperation", output.toString());
   }
 
   @Test

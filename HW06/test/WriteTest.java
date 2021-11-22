@@ -104,7 +104,7 @@ public class WriteTest {
   @Test
   public void testGreen() throws Exception {
     String[] path = new String[]{"test/pics/green.png",
-            "test/pics/green.jpg", "test/pics/green.bmp"};
+        "test/pics/green.jpg", "test/pics/green.bmp"};
     String[] suffix = new String[]{"png", "jpg", "bmp"};
 
     for (int i = 0; i < path.length; i++) {
