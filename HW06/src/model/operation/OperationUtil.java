@@ -1,7 +1,5 @@
 package model.operation;
 
-import java.awt.Color;
-
 /**
  * A Utility class that provides common functions for performing operations.
  */

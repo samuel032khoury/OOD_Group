@@ -33,8 +33,14 @@ public class HistogramSurveyorImpl implements IHistogramSurveyor {
 
   /**
    * Provided a {@link ReadOnlyImageFile}, update the histogram data based on it.
+   *
+   * @param currImageFile the {@link ReadOnlyImageFile} that is inspecting
+   * @throws IllegalArgumentException when the provided {@code currImageFile}is null
    */
-  public void updateHistogramData(ReadOnlyImageFile currImageFile) {
+  public void updateHistogramData(ReadOnlyImageFile currImageFile) throws IllegalArgumentException {
+    if (currImageFile == null) {
+      throw new IllegalArgumentException("Invalid ImageFile being provided!");
+    }
     int currWidth = currImageFile.getWidth();
     int currHeight = currImageFile.getHeight();
 

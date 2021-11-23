@@ -56,8 +56,8 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {
     super();
 
-    if (imageLib == null || supportedCommandStringSet == null || actionListener == null ||
-            listSelectionListener == null) {
+    if (imageLib == null || supportedCommandStringSet == null || actionListener == null
+            || listSelectionListener == null) {
       throw new IllegalArgumentException("Illegal arguments for constructor!");
     }
 

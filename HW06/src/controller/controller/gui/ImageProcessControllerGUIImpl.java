@@ -234,7 +234,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    */
   @Override
   public void runEvent(String... commandArgs) throws IllegalArgumentException {
-    if(Arrays.asList(commandArgs).contains(null)) {
+    if (Arrays.asList(commandArgs).contains(null)) {
       throw new IllegalArgumentException("Invalid entry for command arguments!");
     }
     Collections.addAll(this.commandQueue, commandArgs);

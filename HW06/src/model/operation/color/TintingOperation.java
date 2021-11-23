@@ -1,7 +1,6 @@
 package model.operation.color;
 
 import model.imagefile.ImageFile;
-import model.operation.OperationUtil;
 import model.operation.opertor.colortrans.IColorTransOperator;
 import model.operation.opertor.colortrans.TintingOperator;
 
