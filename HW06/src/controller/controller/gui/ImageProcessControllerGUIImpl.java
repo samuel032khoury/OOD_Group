@@ -145,7 +145,16 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   }
 
   /**
-   * To run the controller, input/error handling depends on specific implementation.
+   * To perform an operation, by the arguments provided by the {@link #commandQueue}. It updates the
+   * {@link #model} and let view print error message whenever the command arguments
+   * provided is not valid (unsupported behavior/ unmatched arguments for a supported command).
+   * <p>Throwing messages for successful operation is dispatched to concrete class that implements
+   * {@link model.operation.IImageOperation} for specific feedback.
+   * <p> Updating {@link GUIIViewImpl}'s {@code JPanels} is not in the scope of this method's
+   * functionality, as it's more reasonable for {@code JPanel} to refresh after a list-selection
+   * event is triggered, not after a run is completed.
+   *
+   * @see ImageLibrarySelectionListener#valueChanged
    */
   @Override
   public void run() {
@@ -166,6 +175,11 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     }
   }
 
+  /**
+   * Run the controller with the provided operation arguments.
+   *
+   * @param commandArgs a sequence of arguments for running an operation
+   */
   @Override
   public void runEvent(String... commandArgs) {
     Collections.addAll(this.commandQueue, commandArgs);
