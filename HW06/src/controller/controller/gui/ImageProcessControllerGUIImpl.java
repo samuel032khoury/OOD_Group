@@ -29,7 +29,6 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   private final IGUIIView view;
   private String currImageName;
 
-
   /**
    * To construct a {@link ImageProcessControllerGUIImpl} that interacts with a {@link
    * ImageLibModel}, by the commands provided/updated from the {@link #commandQueue}, and visualize

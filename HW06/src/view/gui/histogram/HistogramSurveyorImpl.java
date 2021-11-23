@@ -1,4 +1,4 @@
-package view.utils;
+package view.gui.histogram;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.List;
 
 import model.imagefile.ReadOnlyImageFile;
 
-public class Surveyor implements ISurveyor{
+public class HistogramSurveyorImpl implements IHistogramSurveyor {
 
   private final List<List<Integer>> histogramData;
 
-  public Surveyor(List<List<Integer>> histogramData){
+  public HistogramSurveyorImpl(List<List<Integer>> histogramData){
     this.histogramData = histogramData;
   }
 

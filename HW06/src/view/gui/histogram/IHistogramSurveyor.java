@@ -1,7 +1,7 @@
-package view.utils;
+package view.gui.histogram;
 
 import model.imagefile.ReadOnlyImageFile;
 
-public interface ISurveyor {
+public interface IHistogramSurveyor {
   void updateHistogramList(ReadOnlyImageFile currImageFile);
 }

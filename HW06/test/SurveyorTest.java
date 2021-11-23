@@ -7,8 +7,8 @@ import java.util.List;
 
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
-import view.utils.ISurveyor;
-import view.utils.Surveyor;
+import view.gui.histogram.IHistogramSurveyor;
+import view.gui.histogram.HistogramSurveyorImpl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +17,7 @@ public class SurveyorTest {
   ImageFile file;
   Color[][] color;
   List<List<Integer>> histogramData;
-  ISurveyor surveyor;
+  IHistogramSurveyor surveyor;
 
   @Before
   public void init() {
@@ -28,7 +28,7 @@ public class SurveyorTest {
       add(new ArrayList<>());
     }};
 
-    surveyor = new Surveyor(this.histogramData);
+    surveyor = new HistogramSurveyorImpl(this.histogramData);
 
   }
 

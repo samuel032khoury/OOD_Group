@@ -3,7 +3,6 @@ package view.gui;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -29,8 +28,9 @@ import javax.swing.event.ListSelectionListener;
 
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
-import view.utils.ISurveyor;
-import view.utils.Surveyor;
+import view.gui.histogram.HistogramGraphPanel;
+import view.gui.histogram.IHistogramSurveyor;
+import view.gui.histogram.HistogramSurveyorImpl;
 
 public class GUIIViewImpl extends JFrame implements IGUIIView {
 
@@ -46,7 +46,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   private final List<List<Integer>> histogramData;
   private final JPanel histogramGraphPanel;
 
-  private final ISurveyor surveyor;
+  private final IHistogramSurveyor surveyor;
 
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {
@@ -85,7 +85,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     JPanel histogramPanel = initHistogramPanel();
     JPanel infoPanel = new JPanel();
     infoPanel.add(histogramPanel);
-    this.surveyor = new Surveyor(this.histogramData);
+    this.surveyor = new HistogramSurveyorImpl(this.histogramData);
 
 
     // Collect all sub-panels to the main panel
@@ -281,42 +281,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   public void updateHistogramGraph() {
     this.surveyor.updateHistogramList(this.currImageFile);
     this.histogramGraphPanel.repaint();
-  }
-
-  // update the histogram (reference) given using the image file given.
-  private void updateHistogramList() {
-    int currWidth = this.currImageFile.getWidth();
-    int currHeight = this.currImageFile.getHeight();
-
-    List<Integer> redList = new ArrayList<>();
-    List<Integer> greenList = new ArrayList<>();
-    List<Integer> blueList = new ArrayList<>();
-    List<Integer> intensityList = new ArrayList<>();
-
-    for (List<Integer> list : List.of(redList, greenList, blueList, intensityList)) {
-      for (int currVal = 0; currVal < 256; currVal++) {
-        list.add(0);
-      }
-    }
-
-    for (int i = 0; i < currWidth; i++) {
-      for (int j = 0; j < currHeight; j++) {
-        Color color = this.currImageFile.getColorAt(j, i);
-        int red = color.getRed();
-        int green = color.getGreen();
-        int blue = color.getBlue();
-        int intensity = (red + green + blue) / 3;
-
-        redList.set(red, redList.get(red) + 1);
-        greenList.set(green, greenList.get(green) + 1);
-        blueList.set(blue, blueList.get(blue) + 1);
-        intensityList.set(intensity, intensityList.get(intensity) + 1);
-      }
-    }
-
-    for (int i = 0; i < 4; i++) {
-      this.histogramData.set(i, List.of(redList, greenList, blueList, intensityList).get(i));
-    }
   }
 
 

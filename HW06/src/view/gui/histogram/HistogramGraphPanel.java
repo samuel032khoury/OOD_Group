@@ -1,4 +1,4 @@
-package view.gui;
+package view.gui.histogram;
 
 import java.awt.Graphics;
 import java.awt.Color;
@@ -11,7 +11,7 @@ public class HistogramGraphPanel extends JPanel {
 
   private final List<List<Integer>> histogramData;
 
-  HistogramGraphPanel(List<List<Integer>> histogramData) {
+  public HistogramGraphPanel(List<List<Integer>> histogramData) {
     super();
     this.histogramData = histogramData;
   }
