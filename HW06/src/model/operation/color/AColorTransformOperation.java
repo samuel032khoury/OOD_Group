@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.operation.ANoAlphaOperation;
+import model.operation.OperationUtil;
 import model.operation.function.IColorTransformFunction;
 import model.operation.opertor.colortrans.IColorTransOperator;
 
@@ -53,5 +54,27 @@ public abstract class AColorTransformOperation extends ANoAlphaOperation {
       }
     }
     return greyScaled;
+  }
+
+  /**
+   * Transform a pixel of color into another pixel of color, using color transform matrix.
+   *
+   * @param c               the input pixel of color.
+   * @param transformMatrix the color transform matrix.
+   * @return a transformed color pixels.
+   */
+  protected Color transform(Color c, double[][] transformMatrix) {
+    int red = c.getRed();
+    int blue = c.getBlue();
+    int green = c.getGreen();
+    int redTransformed = (int) (red * transformMatrix[0][0]
+            + green * transformMatrix[0][1] + blue * transformMatrix[0][2]);
+    int greenTransformed = (int) (red * transformMatrix[1][0]
+            + green * transformMatrix[1][1] + blue * transformMatrix[1][2]);
+    int blueTransformed = (int) (red * transformMatrix[2][0]
+            + green * transformMatrix[2][1] + blue * transformMatrix[2][2]);
+    int[] result = OperationUtil.produceValidColorValue(
+            redTransformed, greenTransformed, blueTransformed);
+    return new Color(result[0], result[1], result[2], c.getAlpha());
   }
 }

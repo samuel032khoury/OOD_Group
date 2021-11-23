@@ -22,6 +22,6 @@ public class TintingOperation extends AColorTransformOperation {
    */
   public TintingOperation(IColorTransOperator operator) {
     super(operator);
-    supportedOperation.put(TintingOperator.Sepia, OperationUtil::transform);
+    supportedOperation.put(TintingOperator.Sepia, super::transform);
   }
 }

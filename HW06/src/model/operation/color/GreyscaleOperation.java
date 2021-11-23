@@ -24,17 +24,17 @@ public class GreyscaleOperation extends AColorTransformOperation {
    */
   public GreyscaleOperation(IColorTransOperator operator) {
     super(operator);
-    supportedOperation.put(SingleChannelGreyscaleOperator.Red, (OperationUtil::transform));
-    supportedOperation.put(SingleChannelGreyscaleOperator.Blue, (OperationUtil::transform));
-    supportedOperation.put(SingleChannelGreyscaleOperator.Green, (OperationUtil::transform));
+    supportedOperation.put(SingleChannelGreyscaleOperator.Red, (super::transform));
+    supportedOperation.put(SingleChannelGreyscaleOperator.Blue, (super::transform));
+    supportedOperation.put(SingleChannelGreyscaleOperator.Green, (super::transform));
     supportedOperation.put(SimpleArithmeticGreyscaleOperator.Intensity,
-            (OperationUtil::transform));
+            (super::transform));
     supportedOperation.put(SimpleArithmeticGreyscaleOperator.Value, ((c, m) -> {
       final int value = Math.max(c.getRed(), Math.max(c.getGreen(), c.getBlue()));
       return new Color(value, value, value);
     }));
     supportedOperation.put(SimpleArithmeticGreyscaleOperator.Luma,
-            (OperationUtil::transform));
+            (super::transform));
 
   }
 

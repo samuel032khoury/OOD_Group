@@ -21,7 +21,7 @@ public class FilterOperation extends AFilterOperation {
    */
   public FilterOperation(IFilterOperator filter) {
     super(filter);
-    supportedFilter.put(SimpleFilterOperator.Blur, OperationUtil::filtering);
-    supportedFilter.put(SimpleFilterOperator.Sharpening, OperationUtil::filtering);
+    supportedFilter.put(SimpleFilterOperator.Blur, super::filtering);
+    supportedFilter.put(SimpleFilterOperator.Sharpening, super::filtering);
   }
 }
