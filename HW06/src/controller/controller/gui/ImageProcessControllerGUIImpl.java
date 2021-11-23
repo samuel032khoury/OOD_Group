@@ -33,6 +33,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   private final Queue<String> commandQueue;
   private final IGUIIView view;
   private String currImageName;
+  protected ActionListener listener;
 
   /**
    * To construct a {@link ImageProcessControllerGUIImpl} that interacts with a {@link
@@ -44,8 +45,9 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   public ImageProcessControllerGUIImpl(ImageLibModel model) {
     this.model = model;
     this.commandQueue = new ArrayDeque<>();
+    this.listener = new ImageProcessActionListener();
     this.view = new GUIIViewImpl(model, super.cmdMap.keySet(),
-            new ImageProcessActionListener(), new ImageLibrarySelectionListener());
+            this.listener, new ImageLibrarySelectionListener());
   }
 
   /**
