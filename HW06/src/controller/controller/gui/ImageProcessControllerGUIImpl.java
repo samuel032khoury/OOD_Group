@@ -175,6 +175,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    * selection  list is selected.
    */
   private class ImageLibrarySelectionListener implements ListSelectionListener {
+
     /**
      * To update the currImageName, as well as refreshing the view panel to display the current
      * preview image and diagram, whenever a new item in the selection list is selected.

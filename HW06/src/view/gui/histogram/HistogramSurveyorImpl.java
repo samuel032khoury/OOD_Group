@@ -23,7 +23,7 @@ public class HistogramSurveyorImpl implements IHistogramSurveyor {
    * @throws IllegalArgumentException when the provided list is null or is not of size of 4.
    */
   public HistogramSurveyorImpl(List<List<Integer>> histogramData) throws IllegalArgumentException {
-    if(histogramData == null){
+    if (histogramData == null) {
       throw new IllegalArgumentException("Fail to specify a list that contains histogram data!");
     } else if (histogramData.size() != 4) {
       throw new IllegalArgumentException("Invalid number of histogram channels!");

@@ -3,13 +3,11 @@ import org.junit.Test;
 
 import java.awt.event.ActionEvent;
 
-import controller.controller.gui.ImageProcessControllerGUI;
 import model.library.ImageLibModelImpl;
 import utils.MockControllerGUI;
-import utils.MockModel;
-import view.gui.GUIIViewImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Due to project structures, please manually run all tests here.
@@ -20,7 +18,7 @@ public class GUIIViewImplTest {
   Appendable output;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     this.output = new StringBuilder();
     this.controller = new MockControllerGUI(new ImageLibModelImpl(), output);
 
