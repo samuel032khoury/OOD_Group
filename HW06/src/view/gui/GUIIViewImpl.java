@@ -32,6 +32,9 @@ import view.gui.histogram.HistogramGraphPanel;
 import view.gui.histogram.IHistogramSurveyor;
 import view.gui.histogram.HistogramSurveyorImpl;
 
+/**
+ * TODO.
+ */
 public class GUIIViewImpl extends JFrame implements IGUIIView {
 
   private final ImageLibState imageLib;
@@ -43,11 +46,12 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   private final DefaultListModel<String> dataForListOfImageNames;
   private final JList<String> imageNamesJList;
 
-  private final List<List<Integer>> histogramData;
+  private final IHistogramSurveyor surveyor;
   private final JPanel histogramGraphPanel;
 
-  private final IHistogramSurveyor surveyor;
-
+  /**
+   * TODO.
+   */
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {
     super();
@@ -75,17 +79,19 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
 
 
     // InfoPanel (Histogram graph) initialization & configuration
-    this.histogramData = new ArrayList<>() {{
+    List<List<Integer>> histogramData = new ArrayList<>() {
+      {
         add(new ArrayList<>());
         add(new ArrayList<>());
         add(new ArrayList<>());
         add(new ArrayList<>());
-      }};
-    this.histogramGraphPanel = new HistogramGraphPanel(this.histogramData);
+      }
+    };
+    this.histogramGraphPanel = new HistogramGraphPanel(histogramData);
     JPanel histogramPanel = initHistogramPanel();
     JPanel infoPanel = new JPanel();
     infoPanel.add(histogramPanel);
-    this.surveyor = new HistogramSurveyorImpl(this.histogramData);
+    this.surveyor = new HistogramSurveyorImpl(histogramData);
 
 
     // Collect all sub-panels to the main panel
@@ -106,6 +112,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     this.pack();
   }
 
+  /**
+   * TODO.
+   */
   private JPanel initImagePanel() {
     JPanel imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
@@ -117,6 +126,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     return imagePanel;
   }
 
+  /**
+   * TODO.
+   */
   private JPanel initButtonOperationPanel(
           Set<String> supportedCommandStringSet, ActionListener actionListener) {
     // Lists for button classification
@@ -186,6 +198,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     return operationPanel;
   }
 
+  /**
+   * TODO.
+   */
   private JPanel initControlPanel(JPanel operationPanel) {
     // to create a library panel
     JPanel libraryPanel = new JPanel();
@@ -210,6 +225,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     return controlPanel;
   }
 
+  /**
+   * TODO.
+   */
   private JPanel initHistogramPanel() {
     JPanel histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
@@ -220,6 +238,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     return histogramPanel;
   }
 
+  /**
+   * TODO.
+   */
   private void updateButtonAvailability(int libSize) {
     boolean enableAllButton = libSize > 0;
     for (JButton b : this.allButton) {
@@ -229,6 +250,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     }
   }
 
+  /**
+   * TODO.
+   */
   @Override
   public void updateViewMeta(String newImageName) {
     updateButtonAvailability(this.imageLib.getLibSize());
@@ -240,16 +264,25 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     this.currImageFile = this.imageLib.peek(newImageName);
   }
 
+  /**
+   * TODO.
+   */
   @Override
   public int getSaveStatus(JFileChooser fileExplorer) {
     return fileExplorer.showSaveDialog(this);
   }
 
+  /**
+   * TODO.
+   */
   @Override
   public int getLoadStatus(JFileChooser fileExplorer) {
     return fileExplorer.showOpenDialog(this);
   }
 
+  /**
+   * TODO.
+   */
   @Override
   public String getCurrImage() {
     String currSelection = this.imageNamesJList.getSelectedValue();
@@ -257,12 +290,18 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     return currSelection;
   }
 
+  /**
+   * TODO.
+   */
   @Override
   public String dialogGetInput(String prompt, String title, String defaultName) {
     return JOptionPane.showInputDialog(this, prompt, title,
                 JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
   }
 
+  /**
+   * TODO.
+   */
   @Override
   public void updatePreviewImage() {
     int currWidth = this.currImageFile.getWidth();
@@ -277,6 +316,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     this.imageLabel.setIcon(new ImageIcon(currPreview));
   }
 
+  /**
+   * TODO.
+   */
   @Override
   public void updateHistogramGraph() {
     this.surveyor.updateHistogramList(this.currImageFile);
@@ -285,7 +327,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
 
 
   /**
-   * To render a message.
+   * To render a message for successful operation in a pop-up window.
    *
    * @param message The message to render.
    * @throws IllegalStateException if unable to render a message.
@@ -298,7 +340,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * To render a error.
+   * To render an error in a pop-up window.
    *
    * @param message The error to render.
    * @throws IllegalStateException if unable to render a error.
@@ -310,6 +352,10 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
             "An error occurred!", JOptionPane.ERROR_MESSAGE);
   }
 
+  /**
+   * To switch the visibility of the View window.
+   * @param show true if to show, false if not.
+   */
   @Override
   public void showView(boolean show) {
     this.setVisible(show);

@@ -15,17 +15,38 @@ public interface IGUIIView extends IImageProcessView {
    */
   void showView(boolean show);
 
+  /**
+   * TODO.
+   */
   void updateViewMeta(String newImageName);
 
+  /**
+   * TODO.
+   */
   int getSaveStatus(JFileChooser fileExplorer);
 
+  /**
+   * TODO.
+   */
   int getLoadStatus(JFileChooser fileExplorer);
 
+  /**
+   * TODO.
+   */
   String getCurrImage();
 
+  /**
+   * TODO.
+   */
   String dialogGetInput(String prompt, String title, String defaultName);
 
+  /**
+   * TODO.
+   */
   void updatePreviewImage();
 
+  /**
+   * TODO.
+   */
   void updateHistogramGraph();
 }

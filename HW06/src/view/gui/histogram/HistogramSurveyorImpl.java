@@ -1,19 +1,28 @@
 package view.gui.histogram;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.imagefile.ReadOnlyImageFile;
 
+/**
+ * TODO.
+ */
 public class HistogramSurveyorImpl implements IHistogramSurveyor {
 
   private final List<List<Integer>> histogramData;
 
-  public HistogramSurveyorImpl(List<List<Integer>> histogramData){
+  /**
+   * TODO.
+   */
+  public HistogramSurveyorImpl(List<List<Integer>> histogramData) {
     this.histogramData = histogramData;
   }
 
+  /**
+   * TODO.
+   */
   public void updateHistogramList(ReadOnlyImageFile currImageFile) {
     int currWidth = currImageFile.getWidth();
     int currHeight = currImageFile.getHeight();

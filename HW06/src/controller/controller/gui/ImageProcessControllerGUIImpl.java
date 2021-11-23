@@ -21,6 +21,11 @@ import model.library.ImageLibModel;
 import view.gui.IGUIIView;
 import view.gui.GUIIViewImpl;
 
+/**
+ * To represent a controller that interacts with a graphic user interface, {@link #view}, and a
+ * {@link ImageLibModel}. This controller update the {@link #model} according to the user's action
+ * on the {@link #view} and render back the updated graphics on it.
+ */
 public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 implements
         ImageProcessControllerGUI {
 
@@ -43,13 +48,14 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
             new ImageProcessActionListener(), new ImageLibrarySelectionListener());
   }
 
+  /**
+   * TODO.
+   */
   private class ImageProcessActionListener implements ActionListener {
 
-
     /**
-     * Invoked when an action occurs.
-     *
-     * @param e the event to be processed
+     * TODO.
+     * @param e TODO
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -108,6 +114,14 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
       }
     }
 
+    /**
+     * TODO.
+     * @param prompt   TODO
+     * @param title   TODO
+     * @param defaultName   TODO
+     * @return   TODO
+     * @throws IllegalArgumentException   TODO
+     */
     private String getInput(String prompt, String title, String defaultName)
             throws IllegalArgumentException {
       try {
@@ -122,16 +136,24 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
       }
     }
 
+    /**
+     * TODO.
+     * @param title   TODO
+     * @param defaultName   TODO
+     * @return   TODO
+     */
     private String getInput(String title, String defaultName) {
       return this.getInput("Please enter the name for the new Image:", title, defaultName);
     }
   }
 
+  /**
+   * TODO.
+   */
   private class ImageLibrarySelectionListener implements ListSelectionListener {
     /**
-     * Called whenever the value of the selection changes.
-     *
-     * @param e the event that characterizes the change.
+     * TODO.
+     * @param e TODO
      */
     @Override
     public void valueChanged(ListSelectionEvent e) {
@@ -147,9 +169,11 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    * To perform an operation, by the arguments provided by the {@link #commandQueue}. It updates the
    * {@link #model} and let view print error message whenever the command arguments
    * provided is not valid (unsupported behavior/ unmatched arguments for a supported command).
+   *
    * <p>Throwing messages for successful operation is dispatched to concrete class that implements
    * {@link model.operation.IImageOperation} for specific feedback.
-   * <p> Updating {@link GUIIViewImpl}'s {@code JPanels} is not in the scope of this method's
+   *
+   * <p>Updating {@link GUIIViewImpl}'s {@code JPanels} is not in the scope of this method's
    * functionality, as it's more reasonable for {@code JPanel} to refresh after a list-selection
    * event is triggered, not after a run is completed.
    *

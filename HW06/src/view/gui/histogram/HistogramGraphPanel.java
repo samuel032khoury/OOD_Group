@@ -7,21 +7,33 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+/**
+ * TODO.
+ */
 public class HistogramGraphPanel extends JPanel {
 
   private final List<List<Integer>> histogramData;
 
+  /**
+   * TODO.
+   */
   public HistogramGraphPanel(List<List<Integer>> histogramData) {
     super();
     this.histogramData = histogramData;
   }
 
+  /**
+   * TODO.
+   */
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     drawHistogram(g);
   }
 
+  /**
+   * TODO.
+   */
   private void drawHistogram(Graphics g) {
     final int width = this.getWidth();
     final int height = this.getHeight();
@@ -62,6 +74,9 @@ public class HistogramGraphPanel extends JPanel {
     g.drawPolyline(pX, pYI, pX.length);
   }
 
+  /**
+   * TODO.
+   */
   private int getMaxPixel() {
     if (histogramData.get(0).size() == 0) {
       return 0;
