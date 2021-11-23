@@ -32,8 +32,10 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   private final ImageLibModel model;
   private final Queue<String> commandQueue;
   private final IGUIIView view;
+  protected final ActionListener actionlistener;
+  protected final ListSelectionListener selectionListener;
+
   private String currImageName;
-  protected ActionListener listener;
 
   /**
    * To construct a {@link ImageProcessControllerGUIImpl} that interacts with a {@link
@@ -41,13 +43,18 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    * the graphics on a {@link IGUIIView}.
    *
    * @param model The {@link ImageLibModel} that this controller interacts with.
+   * @throws IllegalArgumentException when the provided model is null
    */
   public ImageProcessControllerGUIImpl(ImageLibModel model) {
+    if (model == null) {
+      throw new IllegalArgumentException("Invalid model!");
+    }
     this.model = model;
     this.commandQueue = new ArrayDeque<>();
-    this.listener = new ImageProcessActionListener();
+    this.actionlistener = new ImageProcessActionListener();
+    this.selectionListener = new ImageLibrarySelectionListener();
     this.view = new GUIIViewImpl(model, super.cmdMap.keySet(),
-            this.listener, new ImageLibrarySelectionListener());
+            this.actionlistener, this.selectionListener);
   }
 
   /**
@@ -153,7 +160,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
      *
      * @param title       the title of the pop-up dialog
      * @param defaultName the default value put in the input box on pop-up dialog
-     * @return            an input as a String received from the pop-up dialog
+     * @return an input as a String received from the pop-up dialog
      * @see #getInput(String, String, String)
      */
     private String getInput(String title, String defaultName) {

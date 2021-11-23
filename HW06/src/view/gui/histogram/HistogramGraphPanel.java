@@ -8,14 +8,16 @@ import java.util.List;
 import javax.swing.JPanel;
 
 /**
- * TODO.
+ * To represent a re-drawable {@link JPanel} to display histogram graphs.
  */
 public class HistogramGraphPanel extends JPanel {
 
   private final List<List<Integer>> histogramData;
 
   /**
-   * TODO.
+   * To generate a {@link HistogramGraphPanel} with the given {@code histogramData}. The contents of
+   * {@code histogramData} is updated by the {@link IHistogramSurveyor} who has the access of its
+   * reference. The {@link #drawHistogram} draws the histogram based on this data.
    */
   public HistogramGraphPanel(List<List<Integer>> histogramData) {
     super();
@@ -23,7 +25,7 @@ public class HistogramGraphPanel extends JPanel {
   }
 
   /**
-   * TODO.
+   * To paint on the provided {@link Graphics}, specifically this is drawing a histogram.
    */
   @Override
   protected void paintComponent(Graphics g) {
@@ -32,7 +34,8 @@ public class HistogramGraphPanel extends JPanel {
   }
 
   /**
-   * TODO.
+   * To draw a histogram graph on the provided {@link Graphics}, according to the current entry of
+   * {@link #histogramData}.
    */
   private void drawHistogram(Graphics g) {
     final int width = this.getWidth();
@@ -75,7 +78,7 @@ public class HistogramGraphPanel extends JPanel {
   }
 
   /**
-   * TODO.
+   * To find the maximum frequency in the current {@code histogramData}, for scaling purpose.
    */
   private int getMaxPixel() {
     if (histogramData.get(0).size() == 0) {

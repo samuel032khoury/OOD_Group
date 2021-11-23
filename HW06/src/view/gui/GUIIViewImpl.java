@@ -321,7 +321,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
    */
   @Override
   public void updateHistogramGraph() {
-    this.surveyor.updateHistogramList(this.currImageFile);
+    this.surveyor.updateHistogramData(this.currImageFile);
     this.histogramGraphPanel.repaint();
   }
 

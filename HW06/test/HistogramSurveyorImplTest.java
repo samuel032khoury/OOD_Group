@@ -43,7 +43,7 @@ public class HistogramSurveyorImplTest {
         {new Color(101, 101,103), new Color(4, 2,2), new Color(1, 101,103)}};
     // 101 2 2 102 3 68
     this.file = new ImageFileImpl(this.color);
-    this.surveyor.updateHistogramList(this.file);
+    this.surveyor.updateHistogramData(this.file);
 
     int valueR100 = this.histogramData.get(0).get(100);
     assertEquals(1, valueR100);

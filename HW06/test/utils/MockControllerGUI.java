@@ -36,6 +36,6 @@ public class MockControllerGUI extends ImageProcessControllerGUIImpl {
   }
 
   public void performAction(ActionEvent event) {
-    this.listener.actionPerformed(event);
+    this.actionlistener.actionPerformed(event);
   }
 }

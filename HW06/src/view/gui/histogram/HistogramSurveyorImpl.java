@@ -7,23 +7,34 @@ import java.util.List;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
- * TODO.
+ * To represent a surveyor that updates the data for drawing a histogram. This implementation uses a
+ * list containing 4 integer lists, in an order of red-Channel, green-Channel, blue-Channel, and
+ * intensity-Channel, to store that data for the histogram.
  */
 public class HistogramSurveyorImpl implements IHistogramSurveyor {
 
   private final List<List<Integer>> histogramData;
 
   /**
-   * TODO.
+   * To construct a {@link HistogramSurveyorImpl} with the given {@code histogramData} of size 4.
+   *
+   * @param histogramData a list containing 4 integer lists, in an order of red-Channel,
+   *                      green-Channel, blue-Channel, and intensity-Channel
+   * @throws IllegalArgumentException when the provided list is null or is not of size of 4.
    */
-  public HistogramSurveyorImpl(List<List<Integer>> histogramData) {
+  public HistogramSurveyorImpl(List<List<Integer>> histogramData) throws IllegalArgumentException {
+    if(histogramData == null){
+      throw new IllegalArgumentException("Fail to specify a list that contains histogram data!");
+    } else if (histogramData.size() != 4) {
+      throw new IllegalArgumentException("Invalid number of histogram channels!");
+    }
     this.histogramData = histogramData;
   }
 
   /**
    * TODO.
    */
-  public void updateHistogramList(ReadOnlyImageFile currImageFile) {
+  public void updateHistogramData(ReadOnlyImageFile currImageFile) {
     int currWidth = currImageFile.getWidth();
     int currHeight = currImageFile.getHeight();
 
