@@ -29,6 +29,8 @@ import javax.swing.event.ListSelectionListener;
 
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
+import view.utils.ISurveyor;
+import view.utils.Surveyor;
 
 public class GUIIViewImpl extends JFrame implements IGUIIView {
 
@@ -43,6 +45,8 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
 
   private final List<List<Integer>> histogramData;
   private final JPanel histogramGraphPanel;
+
+  private final ISurveyor surveyor;
 
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {
@@ -81,6 +85,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     JPanel histogramPanel = initHistogramPanel();
     JPanel infoPanel = new JPanel();
     infoPanel.add(histogramPanel);
+    this.surveyor = new Surveyor(this.histogramData);
 
 
     // Collect all sub-panels to the main panel
@@ -274,7 +279,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
 
   @Override
   public void updateHistogramGraph() {
-    this.updateHistogramList();
+    this.surveyor.updateHistogramList(this.currImageFile);
     this.histogramGraphPanel.repaint();
   }
 
