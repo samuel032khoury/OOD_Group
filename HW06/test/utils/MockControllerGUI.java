@@ -25,7 +25,7 @@ public class MockControllerGUI extends ImageProcessControllerGUIImpl {
     for (String arg : commandArgs) {
       try {
         this.output.append(arg);
-        this.output.append(" ");
+        this.output.append("#¥#");
       } catch (IOException e) {
         throw new RuntimeException("can't write");
       }

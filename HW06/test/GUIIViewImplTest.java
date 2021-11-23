@@ -27,13 +27,57 @@ public class GUIIViewImplTest {
   }
 
   @Test
-  public void testButtons1() {
+  public void testButtonsBrighten() {
     try {
       this.controller.performAction(new ActionEvent(this.controller, 10, "brighten"));
       // please manually choose 10 and press two enters
     } catch (Exception e) {
-      assertEquals("brighten 10 null null-brighten10 ", this.output.toString());
+      assertEquals("brighten#¥#10#¥#null#¥#null-brighten10#¥#", this.output.toString());
     }
 
+  }
+
+  @Test
+  public void testButtonsDarken() {
+    try {
+      this.controller.performAction(new ActionEvent(this.controller, 10, "darken"));
+      // please manually choose 10 and press two enters
+    } catch (Exception e) {
+      assertEquals("darken#¥#10#¥#null#¥#null-darken10#¥#", this.output.toString());
+    }
+  }
+
+  @Test
+  public void testButtonsLoad() {
+    try {
+      this.controller.performAction(new ActionEvent(this.controller, 10, "load"));
+      // please manually /res/elephant.ppm and press one enter
+    } catch (Exception e) {
+      String[] responseList = this.output.toString().split("#¥#");
+
+      assertEquals("load", responseList[0]);
+      assertTrue( responseList[1].endsWith("elephant.ppm"));
+      assertEquals("elephant", responseList[2]);
+    }
+  }
+
+  @Test
+  public void testButtonsSave() {
+    this.controller.performAction(new ActionEvent(this.controller, 10, "save"));
+    // please save at hw6/
+    String[] responseList = this.output.toString().split("#¥#");
+    assertEquals("save", responseList[0]);
+    assertTrue( responseList[1].endsWith("untitled.png"));
+    assertEquals("null", responseList[2]);
+  }
+
+  @Test
+  public void testButtonsArbitrary() {
+    try {
+      this.controller.performAction(new ActionEvent(this.controller, 10, "anything"));
+      // please simply press enter
+    } catch (Exception e) {
+      assertEquals("anything#¥#null#¥#null-anything#¥#", this.output.toString());
+    }
   }
 }
