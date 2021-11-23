@@ -23,7 +23,7 @@ public class HistogramSurveyorImpl implements IHistogramSurveyor {
    * @throws IllegalArgumentException when the provided list is null or is not of size of 4.
    */
   public HistogramSurveyorImpl(List<List<Integer>> histogramData) throws IllegalArgumentException {
-    if(histogramData == null){
+    if (histogramData == null) {
       throw new IllegalArgumentException("Fail to specify a list that contains histogram data!");
     } else if (histogramData.size() != 4) {
       throw new IllegalArgumentException("Invalid number of histogram channels!");
@@ -32,9 +32,15 @@ public class HistogramSurveyorImpl implements IHistogramSurveyor {
   }
 
   /**
-   * TODO.
+   * Provided a {@link ReadOnlyImageFile}, update the histogram data based on it.
+   *
+   * @param currImageFile the {@link ReadOnlyImageFile} that is inspecting
+   * @throws IllegalArgumentException when the provided {@code currImageFile}is null
    */
-  public void updateHistogramData(ReadOnlyImageFile currImageFile) {
+  public void updateHistogramData(ReadOnlyImageFile currImageFile) throws IllegalArgumentException {
+    if (currImageFile == null) {
+      throw new IllegalArgumentException("Invalid ImageFile being provided!");
+    }
     int currWidth = currImageFile.getWidth();
     int currHeight = currImageFile.getHeight();
 

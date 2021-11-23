@@ -18,9 +18,18 @@ public class HistogramGraphPanel extends JPanel {
    * To generate a {@link HistogramGraphPanel} with the given {@code histogramData}. The contents of
    * {@code histogramData} is updated by the {@link IHistogramSurveyor} who has the access of its
    * reference. The {@link #drawHistogram} draws the histogram based on this data.
+   *
+   * @param histogramData a list containing 4 integer lists, in an order of red-Channel,
+   *                      green-Channel, blue-Channel, and intensity-Channel
+   * @throws IllegalArgumentException when the provided list is null or is not of size of 4.
    */
-  public HistogramGraphPanel(List<List<Integer>> histogramData) {
+  public HistogramGraphPanel(List<List<Integer>> histogramData) throws IllegalArgumentException {
     super();
+    if (histogramData == null) {
+      throw new IllegalArgumentException("Fail to specify a list that contains histogram data!");
+    } else if (histogramData.size() != 4) {
+      throw new IllegalArgumentException("Invalid number of histogram channels!");
+    }
     this.histogramData = histogramData;
   }
 

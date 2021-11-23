@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Queue;
 import java.util.function.Supplier;
@@ -45,7 +46,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    * @param model The {@link ImageLibModel} that this controller interacts with.
    * @throws IllegalArgumentException when the provided model is null
    */
-  public ImageProcessControllerGUIImpl(ImageLibModel model) {
+  public ImageProcessControllerGUIImpl(ImageLibModel model) throws IllegalArgumentException {
     if (model == null) {
       throw new IllegalArgumentException("Invalid model!");
     }
@@ -175,6 +176,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    * selection  list is selected.
    */
   private class ImageLibrarySelectionListener implements ListSelectionListener {
+
     /**
      * To update the currImageName, as well as refreshing the view panel to display the current
      * preview image and diagram, whenever a new item in the selection list is selected.
@@ -228,9 +230,13 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
    * Run the controller with the provided operation arguments.
    *
    * @param commandArgs a sequence of arguments for running an operation
+   * @throws IllegalArgumentException when the provided commandArgs contains null
    */
   @Override
-  public void runEvent(String... commandArgs) {
+  public void runEvent(String... commandArgs) throws IllegalArgumentException {
+    if (Arrays.asList(commandArgs).contains(null)) {
+      throw new IllegalArgumentException("Invalid entry for command arguments!");
+    }
     Collections.addAll(this.commandQueue, commandArgs);
     this.run();
   }

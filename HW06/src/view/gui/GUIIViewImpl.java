@@ -56,6 +56,11 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {
     super();
 
+    if (imageLib == null || supportedCommandStringSet == null || actionListener == null
+            || listSelectionListener == null) {
+      throw new IllegalArgumentException("Illegal arguments for constructor!");
+    }
+
     // Meta data variable assignment
     this.imageLib = imageLib;
     this.allButton = new ArrayList<>();
@@ -296,7 +301,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   @Override
   public String dialogGetInput(String prompt, String title, String defaultName) {
     return JOptionPane.showInputDialog(this, prompt, title,
-                JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
+            JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
   }
 
   /**
@@ -354,6 +359,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
 
   /**
    * To switch the visibility of the View window.
+   *
    * @param show true if to show, false if not.
    */
   @Override
