@@ -5,7 +5,7 @@ import java.util.Queue;
 import controller.command.macro.CommandUtil;
 import controller.command.macro.ICommand;
 import model.library.ImageLibModel;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command to get the size of (image loaded to) the library.

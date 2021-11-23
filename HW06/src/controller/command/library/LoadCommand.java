@@ -7,7 +7,7 @@ import controller.utils.ILoader;
 import controller.utils.LoadSuffixManager;
 import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command to load an image from the user's machine to the program's library .

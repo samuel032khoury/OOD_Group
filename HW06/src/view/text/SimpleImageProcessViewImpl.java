@@ -1,4 +1,4 @@
-package view;
+package view.text;
 
 import model.library.ImageLibState;
 

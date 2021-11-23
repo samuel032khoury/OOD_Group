@@ -1,13 +1,11 @@
-package view;
+package view.gui;
 
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,23 +25,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JFileChooser;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controller.controller.ViewListener;
-import controller.controller.ImageProcessControllerGUI;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibState;
 
-public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
-        ListSelectionListener {
+public class GUIIViewImpl extends JFrame implements IGUIIView {
 
   private final ImageLibState imageLib;
-  private final ViewListener controller;
 
   private final List<JButton> allButton;
-  private String currImageName;
+
   private ReadOnlyImageFile currImageFile;
 
   private final JLabel imageLabel;
@@ -54,9 +46,8 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
   private final DefaultListModel<String> dataForListOfImageNames;
 
 
-
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
-                      ViewListener controller) {
+                      ActionListener actionListener, ListSelectionListener listSelectionListener) {
     super();
 
     // JFrame configuration
@@ -68,9 +59,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
 
     // Meta data variable assignment
     this.imageLib = imageLib;
-    this.controller = controller;
     this.allButton = new ArrayList<>();
-    this.currImageName = "";
     this.currImageFile = null;
 
     //ImagePanel initialization & configuration
@@ -82,17 +71,17 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
     this.dataForListOfImageNames = new DefaultListModel<>();
     this.imageNamesJList = new JList<>(dataForListOfImageNames);
     this.imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    this.imageNamesJList.addListSelectionListener(this);
+    this.imageNamesJList.addListSelectionListener(listSelectionListener);
     this.imageNamesJList.setFocusable(false);
-    JPanel controlPanel = createControlPanel(supportedCommandStringSet);
+    JPanel controlPanel = createControlPanel(this.createOperationPanel(supportedCommandStringSet, actionListener));
 
     // InfoPanel (with histogram graph) initialization & configuration
     this.histogramData = new ArrayList<>() {{
-        add(new ArrayList<>());
-        add(new ArrayList<>());
-        add(new ArrayList<>());
-        add(new ArrayList<>());
-      }};
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+    }};
     JPanel histogramPanel = new JPanel();
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
     histogramPanel.setPreferredSize(new Dimension(300, 300));
@@ -115,7 +104,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
     this.pack();
   }
 
-  private JPanel createControlPanel(Set<String> supportedCommandStringSet) {
+  private JPanel createControlPanel(JPanel operationPanel) {
     // to create a library panel
     JPanel libraryPanel = new JPanel();
     libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
@@ -127,8 +116,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
 
 
     // to create a scrollable operation panel
-    JScrollPane operationScrollablePanel = new JScrollPane(
-            createOperationPanel(supportedCommandStringSet));
+    JScrollPane operationScrollablePanel = new JScrollPane(operationPanel);
     updateButtonAvailability(this.imageLib.getLibSize());
     operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
     operationScrollablePanel.setMinimumSize(new Dimension(230, 0));
@@ -153,7 +141,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
   }
 
 
-  private JPanel createOperationPanel(Set<String> supportedCommandStringSet) {
+  private JPanel createOperationPanel(Set<String> supportedCommandStringSet, ActionListener actionListener) {
     List<JButton> colorButtons = new ArrayList<>();
     List<JButton> componentButtons = new ArrayList<>();
     List<JButton> visualButtons = new ArrayList<>();
@@ -167,7 +155,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
       JButton b = new JButton(command);
       this.allButton.add(b);
       b.setFocusable(false);
-      b.addActionListener(this);
+      b.addActionListener(actionListener);
       b.setActionCommand(command);
 
       if (("(load)(save)").contains(command)) {
@@ -229,17 +217,41 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
     }
   }
 
-
-  private void updateView(String newImageName) {
+  @Override
+  public void updateViewMeta(String newImageName) {
     updateButtonAvailability(this.imageLib.getLibSize());
     if (!dataForListOfImageNames.contains(newImageName)) {
       this.dataForListOfImageNames.addElement(newImageName);
     }
     int currItemIndex = this.dataForListOfImageNames.indexOf(newImageName);
     this.imageNamesJList.getSelectionModel().setSelectionInterval(currItemIndex, currItemIndex);
+    this.currImageFile = this.imageLib.peek(newImageName);
   }
 
-  private void updatePreview() {
+  @Override
+  public int getSaveStatus(JFileChooser fileExplorer) {
+    return fileExplorer.showSaveDialog(this);
+  }
+
+  @Override
+  public int getLoadStatus(JFileChooser fileExplorer) {
+    return fileExplorer.showOpenDialog(this);
+  }
+
+  @Override
+  public String getCurrImage() {
+    String currSelection = this.imageNamesJList.getSelectedValue();
+    this.currImageFile = this.imageLib.peek(currSelection);
+    return currSelection;
+  }
+
+  @Override
+  public String dialogGetInput(String prompt, String title, String defaultName) {
+    return JOptionPane.showInputDialog(this, prompt, title,
+                JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
+  }
+
+  public void updatePreviewImage() {
     int currWidth = this.currImageFile.getWidth();
     int currHeight = this.currImageFile.getHeight();
     BufferedImage currPreview = new BufferedImage(currWidth,
@@ -252,7 +264,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
     this.imageLabel.setIcon(new ImageIcon(currPreview));
   }
 
-  private void updateHistogramGraph() {
+  public void updateHistogramGraph() {
     this.updateHistogramList();
     this.histogramGraphPanel.repaint();
   }
@@ -293,25 +305,6 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
     }
   }
 
-  private String getInput(String prompt, String title, String defaultName)
-          throws IllegalArgumentException {
-    try {
-      String valid = JOptionPane.showInputDialog(null, prompt, title,
-              JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
-      if (valid.strip().equals("")) {
-        this.renderError("Input cannot be empty!");
-        throw new IllegalArgumentException("Input is empty!");
-      }
-      return valid.strip();
-    } catch (NullPointerException e) {
-      throw new IllegalArgumentException("Operation is interrupted!");
-    }
-  }
-
-  private String getInput(String title, String defaultName) {
-    return this.getInput("Please enter the name for the new Image:", title, defaultName);
-  }
-
 
   /**
    * To render a message.
@@ -321,10 +314,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
    */
   @Override
   public void renderMessage(String message) throws IllegalStateException {
-    JOptionPane.showMessageDialog(null,
+    JOptionPane.showMessageDialog(this,
             "<html><body><p style='width: 400px;'>" + message + "</p></body></html>",
-            "Operation Completed!",
-            JOptionPane.PLAIN_MESSAGE);
+            "Operation Completed!", JOptionPane.PLAIN_MESSAGE);
   }
 
   /**
@@ -335,88 +327,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView, ActionListener,
    */
   @Override
   public void renderError(String message) throws IllegalStateException {
-    JOptionPane.showMessageDialog(null,
+    JOptionPane.showMessageDialog(this,
             "<html><body><p style='width: 200px;'>" + message + "</p></body></html>",
-            "An error occurred!",
-            JOptionPane.ERROR_MESSAGE);
-  }
-
-  /**
-   * Invoked when an action occurs.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    final String newImageName;
-    String action = e.getActionCommand();
-    String title = action + " the image " + currImageName;
-    try {
-      switch (action) {
-        case "load":
-          final JFileChooser fileExplorer = new JFileChooser(".");
-          fileExplorer.setDialogTitle("Load an image into the library...");
-          FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                  "bmp/jpg/ppm/png", "BMP", "JPG", "JPEG", "PNG", "PPM");
-          fileExplorer.setFileFilter(filter);
-          int loadApproveStatus = fileExplorer.showOpenDialog(GUIIViewImpl.this);
-
-          if (loadApproveStatus == JFileChooser.APPROVE_OPTION) {
-            File f = fileExplorer.getSelectedFile();
-            String source = f.getAbsolutePath();
-            newImageName = this.getInput("Load image", f.getName().split("\\.")[0]);
-            this.controller.runEvent(action, source, newImageName);
-            updateView(newImageName);
-          }
-          break;
-        case "save":
-          final JFileChooser fileSaver = new JFileChooser(".");
-          fileSaver.setDialogTitle("Save image " + currImageName + "...");
-          fileSaver.setSelectedFile(new File("untitled.png"));
-          int saveApproveStatus = fileSaver.showSaveDialog(this);
-          if (saveApproveStatus == JFileChooser.APPROVE_OPTION) {
-            File f = fileSaver.getSelectedFile();
-            String destination = f.getAbsolutePath();
-            this.controller.runEvent(action, destination, currImageName);
-          }
-          break;
-        case "brighten":
-        case "darken":
-          try {
-            Integer adjustmentMagnitude = Integer.parseInt(this.getInput(
-                    "Please enter the magnitude for the brightness adjustment:", title, ""));
-            newImageName = this.getInput(title, this.currImageName + "-" + action
-                    + adjustmentMagnitude);
-            controller.runEvent(action,
-                    String.valueOf(adjustmentMagnitude), this.currImageName, newImageName);
-            updateView(newImageName);
-          } catch (NumberFormatException exception) {
-            this.renderError("Please input an integer for brightness adjustment!");
-          }
-          break;
-        default:
-          newImageName = this.getInput(title, this.currImageName + "-" + action);
-          controller.runEvent(action, currImageName, newImageName);
-          updateView(newImageName);
-          break;
-      }
-    } catch (IllegalArgumentException ignored) {
-    }
-  }
-
-  /**
-   * Called whenever the value of the selection changes.
-   *
-   * @param e the event that characterizes the change.
-   */
-  @Override
-  public void valueChanged(ListSelectionEvent e) {
-    if (!e.getValueIsAdjusting()) {
-      this.currImageName = imageNamesJList.getSelectedValue();
-      this.currImageFile = imageLib.peek(this.currImageName);
-      this.updatePreview();
-      this.updateHistogramGraph();
-    }
+            "An error occurred!", JOptionPane.ERROR_MESSAGE);
   }
 
   @Override

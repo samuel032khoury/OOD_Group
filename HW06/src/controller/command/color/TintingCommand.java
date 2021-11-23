@@ -7,7 +7,7 @@ import controller.command.macro.CommandUtil;
 import model.library.ImageLibModel;
 import model.operation.color.TintingOperation;
 import model.operation.opertor.colortrans.IColorTransOperator;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command that tints an image by performing a color transform rule/matrix provided by the given

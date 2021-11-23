@@ -1,12 +1,13 @@
-package controller.controller;
+package controller.controller.gui;
 
-import model.imagefile.ImageFile;
 import model.imagefile.ReadOnlyImageFile;
 
 /**
  * To represent an image process controller specifically for GUI which can responds user's actions.
  */
-public interface ViewListener {
+public interface ImageProcessControllerGUI {
+
   void runEvent(String... commandArgs);
-  ReadOnlyImageFile requestPictureEvent(String pictureName);
+
+  void updateCurrImageName(String currImageName);
 }

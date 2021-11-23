@@ -2,9 +2,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 
-import controller.controller.IImageProcessController;
-import controller.controller.ImageProcessControllerGUIImpl;
-import controller.controller.ImageProcessControllerImplV2;
+import controller.controller.text.IImageProcessController;
+import controller.controller.gui.ImageProcessControllerGUIImpl;
+import controller.controller.text.ImageProcessControllerImplV2;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 

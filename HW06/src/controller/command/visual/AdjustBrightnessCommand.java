@@ -6,7 +6,7 @@ import controller.command.macro.ACommand;
 import controller.command.macro.CommandUtil;
 import model.library.ImageLibModel;
 import model.operation.visual.BrightnessOperation;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command to adjust brightness of an image. With a boolean indicating the adjustment direction.

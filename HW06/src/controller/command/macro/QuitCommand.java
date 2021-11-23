@@ -4,7 +4,7 @@ import java.util.Queue;
 
 import controller.utils.QuitExecution;
 import model.library.ImageLibModel;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command to quit the program.

@@ -4,8 +4,8 @@ import org.junit.Test;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
 import utils.FakeAppendable;
-import view.IImageProcessView;
-import view.SimpleImageProcessViewImpl;
+import view.text.IImageProcessView;
+import view.text.SimpleImageProcessViewImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

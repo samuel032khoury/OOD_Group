@@ -1,4 +1,4 @@
-package view;
+package view.text;
 
 /**
  * An interface for a view that will be used to render message or render error.

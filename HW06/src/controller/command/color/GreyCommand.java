@@ -7,7 +7,7 @@ import controller.command.macro.CommandUtil;
 import model.library.ImageLibModel;
 import model.operation.color.GreyscaleOperation;
 import model.operation.opertor.colortrans.IColorTransOperator;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command that greys an image by unifying all channels with a value provided by the given {@link

@@ -1,4 +1,4 @@
-package controller.controller;
+package controller.controller.text;
 
 /**
  * To represent an image process controller which can receive the commands from users and perform

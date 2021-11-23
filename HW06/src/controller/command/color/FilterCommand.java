@@ -8,7 +8,7 @@ import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import model.operation.color.FilterOperation;
 import model.operation.opertor.filter.IFilterOperator;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command that applies a filter to an image by performing a kernel provided by the given {@link

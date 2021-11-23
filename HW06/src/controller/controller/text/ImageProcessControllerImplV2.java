@@ -1,4 +1,4 @@
-package controller.controller;
+package controller.controller.text;
 
 import java.io.InputStreamReader;
 
@@ -14,8 +14,8 @@ import model.library.ImageLibModelImpl;
 import model.operation.opertor.colortrans.SimpleArithmeticGreyscaleOperator;
 import model.operation.opertor.colortrans.TintingOperator;
 import model.operation.opertor.filter.SimpleFilterOperator;
-import view.IImageProcessView;
-import view.SimpleImageProcessViewImpl;
+import view.text.IImageProcessView;
+import view.text.SimpleImageProcessViewImpl;
 
 /**
  * To represent an image process controller that has a command set to deal with user inputs, and

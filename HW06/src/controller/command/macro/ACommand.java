@@ -5,7 +5,7 @@ import java.util.Queue;
 import model.imagefile.ImageFile;
 import model.library.ImageLibModel;
 import model.operation.IImageOperation;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * An abstract class for command supported by the image process program.

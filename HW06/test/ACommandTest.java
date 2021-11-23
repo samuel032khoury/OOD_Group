@@ -9,8 +9,8 @@ import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
-import view.IImageProcessView;
-import view.SimpleImageProcessViewImpl;
+import view.text.IImageProcessView;
+import view.text.SimpleImageProcessViewImpl;
 
 import java.util.ArrayList;
 import java.util.Queue;

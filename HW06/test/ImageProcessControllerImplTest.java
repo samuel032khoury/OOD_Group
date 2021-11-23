@@ -4,17 +4,17 @@ import org.junit.Test;
 import java.awt.Color;
 import java.io.StringReader;
 
-import controller.controller.ImageProcessControllerImplV2;
+import controller.controller.text.ImageProcessControllerImplV2;
 import utils.MockImage;
 import utils.MockModel;
-import controller.controller.IImageProcessController;
-import controller.controller.ImageProcessControllerImpl;
+import controller.controller.text.IImageProcessController;
+import controller.controller.text.ImageProcessControllerImpl;
 import model.imagefile.ImageFile;
 import model.imagefile.ImageFileImpl;
 import model.library.ImageLibModel;
 import model.library.ImageLibModelImpl;
-import view.IImageProcessView;
-import view.SimpleImageProcessViewImpl;
+import view.text.IImageProcessView;
+import view.text.SimpleImageProcessViewImpl;
 
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;

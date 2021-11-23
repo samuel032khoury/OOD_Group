@@ -7,7 +7,7 @@ import controller.utils.IWriter;
 import controller.utils.WriteSuffixManager;
 import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
-import view.IImageProcessView;
+import view.text.IImageProcessView;
 
 /**
  * A command to save an image from the program's library to the user's machine.
