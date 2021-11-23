@@ -26,19 +26,20 @@ import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
+import controller.controller.gui.ImageProcessControllerGUI;
 import model.imagefile.ReadOnlyImageFile;
-import model.library.ImageLibState;
 import view.gui.histogram.HistogramGraphPanel;
 import view.gui.histogram.IHistogramSurveyor;
 import view.gui.histogram.HistogramSurveyorImpl;
 
 /**
- * TODO.
+ * To represent a graphic view for an image processing tool, which allows user to import/edit/save
+ * images using clickable triggers. This view is also able to display preview images and histograms.
  */
 public class GUIIViewImpl extends JFrame implements IGUIIView {
 
-  private final ImageLibState imageLib;
   private final List<JButton> allButton;
+  private final ImageProcessControllerGUI controller;
   private ReadOnlyImageFile currImageFile;
 
   private final JLabel imageLabel;
@@ -51,18 +52,22 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
 
   /**
    * TODO.
+   * @param controller TODO.
+   * @param supportedCommandStringSet TODO.
+   * @param actionListener TODO.
+   * @param listSelectionListener TODO.
    */
-  public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
+  public GUIIViewImpl(ImageProcessControllerGUI controller, Set<String> supportedCommandStringSet,
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {
     super();
 
-    if (imageLib == null || supportedCommandStringSet == null || actionListener == null
+    if (controller == null || supportedCommandStringSet == null || actionListener == null
             || listSelectionListener == null) {
       throw new IllegalArgumentException("Illegal arguments for constructor!");
     }
 
     // Meta data variable assignment
-    this.imageLib = imageLib;
+    this.controller = controller;
     this.allButton = new ArrayList<>();
     this.currImageFile = null;
 
@@ -118,7 +123,11 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * To initialize a scrollable and resizable {@link JPanel} reserved for displaying preview
+   * images.
+   *
+   * @return an initialized, scrollable and resizable {@link JPanel} reserved for displaying preview
+   *         images.
    */
   private JPanel initImagePanel() {
     JPanel imagePanel = new JPanel();
@@ -132,7 +141,15 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * To initialize a {@link JPanel} containing all operation triggers (buttons). An operation is
+   * defined and put in this panel only if it shows up in the provided {@code
+   * supportedCommandStringSet}.
+   *
+   * @param supportedCommandStringSet the command set supported by the {@link
+   *                                  ImageProcessControllerGUI} that interacts with this
+   *                                  {@link IGUIIView}
+   * @param actionListener            the {@link ActionListener} that hears from operation triggers
+   * @return an initialized {@link JPanel} containing all operation triggers (buttons).
    */
   private JPanel initButtonOperationPanel(
           Set<String> supportedCommandStringSet, ActionListener actionListener) {
@@ -204,7 +221,12 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * To initialize a {@link JPanel} reserved for placing selection lists and scrollable panel
+   * containing operation buttons.
+   *
+   * @param operationPanel the {@link JPanel} that contains all the operation triggers (buttons).
+   * @return an initialized {@link JPanel} reserved for placing selection lists and scrollable panel
+   *         that contains operation triggers (buttons).
    */
   private JPanel initControlPanel(JPanel operationPanel) {
     // to create a library panel
@@ -218,7 +240,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
 
     // to create a scrollable (button) operation panel
     JScrollPane operationScrollablePanel = new JScrollPane(operationPanel);
-    updateButtonAvailability(this.imageLib.getLibSize());
+    updateButtonAvailability(this.controller.libIsEmpty());
     operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
     operationScrollablePanel.setMinimumSize(new Dimension(230, 0));
 
@@ -231,7 +253,9 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * To initialize a size-fixed {@link JPanel} reserved for displaying histogram.
+   *
+   * @return an initialized size-fixed {@link JPanel} reserved for displaying histogram.
    */
   private JPanel initHistogramPanel() {
     JPanel histogramPanel = new JPanel();
@@ -244,33 +268,51 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * Update buttons availability based on the size of the {@link model.library.ImageLibModel}. If
+   * the {@code ImageLibModel} is empty, grey out all buttons except {@code load} button, otherwise
+   * enable all buttons.
    */
-  private void updateButtonAvailability(int libSize) {
-    boolean enableAllButton = libSize > 0;
+  private void updateButtonAvailability(boolean libIsEmpty) {
     for (JButton b : this.allButton) {
       if (!b.getText().equals("load")) {
-        b.setEnabled(enableAllButton);
+        b.setEnabled(!libIsEmpty);
       }
     }
   }
 
   /**
-   * TODO.
+   * Based on the name of the new image view panel currently displays, {@code newImageName}, update
+   * view's meta information that listed below.
+   * <ul>
+   * <li>the selection list contents based on all imported images
+   * <li>the selection highlight shown up in the selection list
+   * <li>the reference of currently working on {@link ReadOnlyImageFile}
+   * </ul>
+   *
+   * @param newImageName the name of the image that the view panel is about to display
    */
   @Override
   public void updateViewMeta(String newImageName) {
-    updateButtonAvailability(this.imageLib.getLibSize());
+    updateButtonAvailability(this.controller.libIsEmpty());
     if (!dataForListOfImageNames.contains(newImageName)) {
       this.dataForListOfImageNames.addElement(newImageName);
     }
     int currItemIndex = this.dataForListOfImageNames.indexOf(newImageName);
     this.imageNamesJList.getSelectionModel().setSelectionInterval(currItemIndex, currItemIndex);
-    this.currImageFile = this.imageLib.peek(newImageName);
+    this.currImageFile = this.controller.requestImage(newImageName);
   }
 
   /**
-   * TODO.
+   * To get the save file status after saving a file with {@link JFileChooser}.
+   *
+   * @param fileExplorer the delegated {@link JFileChooser}
+   * @return the return state of the file chooser on pop-down:
+   * <ul>
+   * <li>JFileChooser.CANCEL_OPTION
+   * <li>JFileChooser.APPROVE_OPTION
+   * <li>JFileChooser.ERROR_OPTION if an error occurs or the
+   *                  dialog is dismissed
+   * </ul>
    */
   @Override
   public int getSaveStatus(JFileChooser fileExplorer) {
@@ -278,7 +320,15 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * To get the open file status after selecting a file with {@link JFileChooser}.
+   * @param fileExplorer  the delegated JFileChooser
+   * @return the return state of the file chooser on pop-down:
+   * <ul>
+   * <li>JFileChooser.CANCEL_OPTION
+   * <li>JFileChooser.APPROVE_OPTION
+   * <li>JFileChooser.ERROR_OPTION if an error occurs or the
+   *                  dialog is dismissed
+   * </ul>
    */
   @Override
   public int getLoadStatus(JFileChooser fileExplorer) {
@@ -286,17 +336,24 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * Get the name of the image currently being worked on.
+   *
+   * @return the name of the image currently being worked on
    */
   @Override
   public String getCurrImage() {
     String currSelection = this.imageNamesJList.getSelectedValue();
-    this.currImageFile = this.imageLib.peek(currSelection);
+    this.currImageFile = this.controller.requestImage(currSelection);
     return currSelection;
   }
 
   /**
-   * TODO.
+   *  Post a dialog in a {@link JPanel} form and gets user's inputs.
+   *
+   * @param prompt      the prompt for the pop-up dialog
+   * @param title       the title of the pop-up dialog
+   * @param defaultName the default value put in the input box on the pop-up dialog
+   * @return an input as a String received from the pop-up dialog
    */
   @Override
   public String dialogGetInput(String prompt, String title, String defaultName) {
@@ -305,7 +362,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * Update the preview image shown on the view.
    */
   @Override
   public void updatePreviewImage() {
@@ -322,7 +379,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   }
 
   /**
-   * TODO.
+   * Update the histogram graph shown on the view.
    */
   @Override
   public void updateHistogramGraph() {

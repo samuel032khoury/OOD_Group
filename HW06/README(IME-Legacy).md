@@ -1,4 +1,4 @@
-# Image Process Assignment
+# IME README (Legacy)
 
 ## Model
 

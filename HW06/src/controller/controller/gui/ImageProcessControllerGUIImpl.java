@@ -18,6 +18,7 @@ import controller.command.macro.ICommand;
 import controller.controller.text.ImageProcessControllerImplV2;
 import controller.utils.QuitExecution;
 
+import model.imagefile.ReadOnlyImageFile;
 import model.library.ImageLibModel;
 import view.gui.IGUIIView;
 import view.gui.GUIIViewImpl;
@@ -54,7 +55,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     this.commandQueue = new ArrayDeque<>();
     this.actionlistener = new ImageProcessActionListener();
     this.selectionListener = new ImageLibrarySelectionListener();
-    this.view = new GUIIViewImpl(model, super.cmdMap.keySet(),
+    this.view = new GUIIViewImpl(this, super.cmdMap.keySet(),
             this.actionlistener, this.selectionListener);
   }
 
@@ -137,7 +138,7 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
      *
      * @param prompt      the prompt for the pop-up dialog
      * @param title       the title of the pop-up dialog
-     * @param defaultName the default value put in the input box on pop-up dialog
+     * @param defaultName the default value put in the input box on the pop-up dialog
      * @return an input as a String received from the pop-up dialog
      * @throws IllegalArgumentException if the input is empty or the input session is interrupted
      * @see IGUIIView#dialogGetInput(String, String, String)
@@ -157,10 +158,10 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     }
 
     /**
-     * To get user's input from a pop-up dialog, with a default prompt that ask rename.
+     * To get user's input from a pop-up dialog, with a default prompt that ask for renaming.
      *
      * @param title       the title of the pop-up dialog
-     * @param defaultName the default value put in the input box on pop-up dialog
+     * @param defaultName the default value put in the input box on the pop-up dialog
      * @return an input as a String received from the pop-up dialog
      * @see #getInput(String, String, String)
      */
@@ -239,5 +240,28 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     }
     Collections.addAll(this.commandQueue, commandArgs);
     this.run();
+  }
+
+  /**
+  * To get a {@link ReadOnlyImageFile} that linked with an identifiable image name.
+  *
+  * @param imageName the name of the requested {@link ReadOnlyImageFile} stored in the model
+  * @return a {@link ReadOnlyImageFile} that is identifiable by the provided {@code imageName} in
+  *         the model
+  */
+  @Override
+  public ReadOnlyImageFile requestImage(String imageName) {
+    return this.model.peek(imageName);
+  }
+
+  /**
+   * Determine if the {@link #model} interacts with this controller is empty (has no {@link
+   * model.imagefile.ImageFile} entry).
+   *
+   * @return true if the {@link #model} is empty
+   */
+  @Override
+  public boolean libIsEmpty() {
+    return this.model.getLibSize() == 0;
   }
 }

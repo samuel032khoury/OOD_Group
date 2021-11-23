@@ -1,10 +1,12 @@
 # USEME
 
+[TOC]
+
 ### Command Line Level Input
 
-- If one wants to have a text-based script as input, they should put "-f" for the first argument, indicating they will pass a (f)ile to the program. The file path should be the second argument.
-- If one wants to interact with the program by typing command during the session, they should put no argument in the command line, indicating they will manually manage and process the image.
-- Note: The command script is saved in the root directory of the project and is named as `ImageProcScript.txt`. Graders can run this file by using ==`-f ImageProcScript.txt`== command line arguments.
+- If one wants to have a text-based script as input, they should put "-file" for the first argument, indicating they will pass a script to the program. The file path should be the second argument.
+- If one wants to interact with the program by typing command during the session, they should put "-text" for the first argument in the command line, indicating they will interactively manage and process the image through inputing text.
+- If one wants to interact with the program through GUI, run the program without any arguments.
 
 ##### †Error Handling
 
@@ -12,7 +14,7 @@
 
 ---
 
-### Program Level Input
+### Text-mode : Program Level Input
 
 - Supported Commands
 
@@ -48,18 +50,39 @@
 
   - To minimize the chance that user accidentally quit the program or throw away the unperformed operations, we ask user to use the capitalized `QUIT ` to quit the program, and this operation has to be the **last** argument on a line.
 
-##### † Error Handling - All the following will cause a complaint from the program. The program will print specific informative message without quitting itself and allows users to try again.
+##### † Error Handling 
 
-- Insufficient arguments for a command.
-- Too many arguments  for a command.
-- User types in an unknown command.
-- User doesn't specify the extension of the image file when loading.
-- User gives an invalid file name which starts with "." and immediately followed by a file extension 
-  when loading.
-- User load an image with unsupported extension.
-- User provide an image that cannot be found from the machine's file system.
-- User try to process a non-existing file in the library.
-- When darkening/brightened an image, users fail to specify the value of the adjustment.
-- Try to save a file to a read-only directory.
-- The process of loading a file is interrupted.
-- The process of saving a file is interrupted.
+- All the following will cause a complaint from the program. The program will print specific informative message without quitting itself and allows users to try again.
+    - Insufficient arguments for a command.
+    - Too many arguments  for a command.
+    - User types in an unknown command.
+    - User doesn't specify the extension of the image file when loading.
+    - User gives an invalid file name which starts with "." and immediately followed by a file extension 
+      when loading.
+    - User load an image with unsupported extension.
+    - User provide an image that cannot be found from the machine's file system.
+    - User try to process a non-existing file in the library.
+    - When darkening/brightened an image, users fail to specify the value of the adjustment.
+    - Try to save a file to a read-only directory.
+    - The process of loading a file is interrupted.
+    - The process of saving a file is interrupted.
+
+---
+
+### Script-mode
+
+The command script and example images are saved (and zipped) in the `res/imagesAndScript/` directory. The text script is named as `ImageProcScript.txt`. Graders can run this file <u>**under the ``res/imagesAndScript/`**</u> by inputting in the command line 
+
+``imagesAndScript % java -jar ../HW06.jar -file ImageProcScript.txt``
+
+##### † Error Handling 
+
+- Same as §Text-mode, see above.
+
+---
+
+### GUI-mode: Tutorial
+
+##### † Error Handling 
+
+- Errors will be thrown under the same circumstances as the §Text-mode mentioned, yet GUI supports to render an error with a pop-up alert window.
