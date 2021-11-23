@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Queue;
 import java.util.function.Supplier;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -170,10 +170,5 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   public void runEvent(String... commandArgs) {
     Collections.addAll(this.commandQueue, commandArgs);
     this.run();
-  }
-
-  @Override
-  public void updateCurrImageName(String currImageName) {
-    this.currImageName = currImageName;
   }
 }

@@ -1,6 +1,6 @@
 package view.gui;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 
 import view.text.IImageProcessView;
 

@@ -33,22 +33,62 @@ import model.library.ImageLibState;
 public class GUIIViewImpl extends JFrame implements IGUIIView {
 
   private final ImageLibState imageLib;
-
   private final List<JButton> allButton;
-
   private ReadOnlyImageFile currImageFile;
 
   private final JLabel imageLabel;
-  private final JPanel histogramGraphPanel;
-  private final List<List<Integer>> histogramData;
 
-  private final JList<String> imageNamesJList;
   private final DefaultListModel<String> dataForListOfImageNames;
+  private final JList<String> imageNamesJList;
 
+  private final List<List<Integer>> histogramData;
+  private final JPanel histogramGraphPanel;
 
   public GUIIViewImpl(ImageLibState imageLib, Set<String> supportedCommandStringSet,
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {
     super();
+
+    // Meta data variable assignment
+    this.imageLib = imageLib;
+    this.allButton = new ArrayList<>();
+    this.currImageFile = null;
+
+
+    //ImagePanel initialization & configuration
+    this.imageLabel = new JLabel();
+    this.imageLabel.setHorizontalAlignment(JLabel.CENTER);
+    JPanel imagePanel = initImagePanel();
+
+
+    //ControlPanel (SelectionList + Buttons) initialization & configuration
+    this.dataForListOfImageNames = new DefaultListModel<>();
+    this.imageNamesJList = new JList<>(dataForListOfImageNames);
+    this.imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    this.imageNamesJList.addListSelectionListener(listSelectionListener);
+    this.imageNamesJList.setFocusable(false);
+    JPanel controlPanel = initControlPanel(
+            this.initButtonOperationPanel(supportedCommandStringSet, actionListener));
+
+
+    // InfoPanel (Histogram graph) initialization & configuration
+    this.histogramData = new ArrayList<>() {{
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+      }};
+    this.histogramGraphPanel = new HistogramGraphPanel(this.histogramData);
+    JPanel histogramPanel = initHistogramPanel();
+    JPanel infoPanel = new JPanel();
+    infoPanel.add(histogramPanel);
+
+
+    // Collect all sub-panels to the main panel
+    JPanel mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+    mainPanel.add(infoPanel);
+    mainPanel.add(imagePanel);
+    mainPanel.add(controlPanel);
 
     // JFrame configuration
     this.setTitle("Image Processing");
@@ -56,80 +96,12 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     this.setLayout(new GridLayout(1, 3));
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
-
-    // Meta data variable assignment
-    this.imageLib = imageLib;
-    this.allButton = new ArrayList<>();
-    this.currImageFile = null;
-
-    //ImagePanel initialization & configuration
-    this.imageLabel = new JLabel();
-    this.imageLabel.setHorizontalAlignment(JLabel.CENTER);
-    JPanel imagePanel = createImagePanel();
-
-    //ControlPanel initialization & configuration
-    this.dataForListOfImageNames = new DefaultListModel<>();
-    this.imageNamesJList = new JList<>(dataForListOfImageNames);
-    this.imageNamesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    this.imageNamesJList.addListSelectionListener(listSelectionListener);
-    this.imageNamesJList.setFocusable(false);
-    JPanel controlPanel = createControlPanel(this.createOperationPanel(supportedCommandStringSet, actionListener));
-
-    // InfoPanel (with histogram graph) initialization & configuration
-    this.histogramData = new ArrayList<>() {{
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-    }};
-    JPanel histogramPanel = new JPanel();
-    histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
-    histogramPanel.setPreferredSize(new Dimension(300, 300));
-    histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
-    histogramPanel.setFocusable(false);
-    this.histogramGraphPanel = new HistogramGraphPanel(this.histogramData);
-    histogramPanel.add(this.histogramGraphPanel);
-    JPanel infoPanel = new JPanel();
-    infoPanel.add(histogramPanel);
-
-    // Collecting all sub-panels to the main panel
-    JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-    mainPanel.add(infoPanel);
-    mainPanel.add(imagePanel);
-    mainPanel.add(controlPanel);
-
     this.add(mainPanel);
     this.setFocusable(true);
     this.pack();
   }
 
-  private JPanel createControlPanel(JPanel operationPanel) {
-    // to create a library panel
-    JPanel libraryPanel = new JPanel();
-    libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
-    libraryPanel.setLayout(new BoxLayout(libraryPanel, BoxLayout.X_AXIS));
-    libraryPanel.setPreferredSize(new Dimension(230, 230));
-    libraryPanel.setMinimumSize(new Dimension(230, 230));
-    libraryPanel.add(new JScrollPane(this.imageNamesJList));
-    libraryPanel.setAlignmentY(0);
-
-
-    // to create a scrollable operation panel
-    JScrollPane operationScrollablePanel = new JScrollPane(operationPanel);
-    updateButtonAvailability(this.imageLib.getLibSize());
-    operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
-    operationScrollablePanel.setMinimumSize(new Dimension(230, 0));
-
-    JPanel controlPanel = new JPanel();
-    controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
-    operationScrollablePanel.setAlignmentY(0);
-    controlPanel.add(libraryPanel);
-    controlPanel.add(operationScrollablePanel);
-    return controlPanel;
-  }
-
-  private JPanel createImagePanel() {
+  private JPanel initImagePanel() {
     JPanel imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Preview"));
     imagePanel.setPreferredSize(new Dimension(800, 0));
@@ -140,18 +112,19 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     return imagePanel;
   }
 
-
-  private JPanel createOperationPanel(Set<String> supportedCommandStringSet, ActionListener actionListener) {
+  private JPanel initButtonOperationPanel(
+          Set<String> supportedCommandStringSet, ActionListener actionListener) {
+    // Lists for button classification
     List<JButton> colorButtons = new ArrayList<>();
     List<JButton> componentButtons = new ArrayList<>();
     List<JButton> visualButtons = new ArrayList<>();
     List<JButton> ioButtons = new ArrayList<>();
 
+    // Button classification
     for (String command : supportedCommandStringSet) {
       if ("(QUIT)(size)".contains(command)) {
         continue;
       }
-
       JButton b = new JButton(command);
       this.allButton.add(b);
       b.setFocusable(false);
@@ -208,6 +181,40 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     return operationPanel;
   }
 
+  private JPanel initControlPanel(JPanel operationPanel) {
+    // to create a library panel
+    JPanel libraryPanel = new JPanel();
+    libraryPanel.setBorder(BorderFactory.createTitledBorder("Library"));
+    libraryPanel.setLayout(new BoxLayout(libraryPanel, BoxLayout.X_AXIS));
+    libraryPanel.setPreferredSize(new Dimension(230, 230));
+    libraryPanel.setMinimumSize(new Dimension(230, 230));
+    libraryPanel.add(new JScrollPane(this.imageNamesJList));
+    libraryPanel.setAlignmentY(0);
+
+    // to create a scrollable (button) operation panel
+    JScrollPane operationScrollablePanel = new JScrollPane(operationPanel);
+    updateButtonAvailability(this.imageLib.getLibSize());
+    operationScrollablePanel.setBorder(BorderFactory.createTitledBorder("Operations"));
+    operationScrollablePanel.setMinimumSize(new Dimension(230, 0));
+
+    JPanel controlPanel = new JPanel();
+    controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+    operationScrollablePanel.setAlignmentY(0);
+    controlPanel.add(libraryPanel);
+    controlPanel.add(operationScrollablePanel);
+    return controlPanel;
+  }
+
+  private JPanel initHistogramPanel() {
+    JPanel histogramPanel = new JPanel();
+    histogramPanel.setBorder(BorderFactory.createTitledBorder("Histogram"));
+    histogramPanel.setPreferredSize(new Dimension(300, 300));
+    histogramPanel.setLayout(new BoxLayout(histogramPanel, BoxLayout.X_AXIS));
+    histogramPanel.setFocusable(false);
+    histogramPanel.add(this.histogramGraphPanel);
+    return histogramPanel;
+  }
+
   private void updateButtonAvailability(int libSize) {
     boolean enableAllButton = libSize > 0;
     for (JButton b : this.allButton) {
@@ -251,6 +258,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
                 JOptionPane.PLAIN_MESSAGE, null, null, defaultName).toString();
   }
 
+  @Override
   public void updatePreviewImage() {
     int currWidth = this.currImageFile.getWidth();
     int currHeight = this.currImageFile.getHeight();
@@ -264,6 +272,7 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
     this.imageLabel.setIcon(new ImageIcon(currPreview));
   }
 
+  @Override
   public void updateHistogramGraph() {
     this.updateHistogramList();
     this.histogramGraphPanel.repaint();
