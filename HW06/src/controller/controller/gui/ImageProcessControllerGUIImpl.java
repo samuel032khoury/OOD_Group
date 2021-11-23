@@ -51,13 +51,21 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   }
 
   /**
-   * TODO.
+   * To represent an {@link ActionListener} for the {@link IGUIIView} that use this controller. It
+   * receives actions/pop-up window inputs and responds to these actions by performing appropriate
+   * operations by the inputs(arguments) it receives, and updating the latest (if there is)
+   * meta-info onto the view panel.
    */
   private class ImageProcessActionListener implements ActionListener {
 
     /**
-     * TODO.
-     * @param e TODO
+     * To respond a set of pre-defined actions, throwing input panels for getting more arguments
+     * being needed to perform an operation, finally pass all the arguments to the controller to run
+     * and update the latest (if there is) meta-info onto the view panel.
+     *
+     * @param e an {@link ActionEvent} a user triggered on the view panel.
+     * @see #runEvent
+     * @see IGUIIView#updateViewMeta
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -117,12 +125,14 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     }
 
     /**
-     * TODO.
-     * @param prompt   TODO
-     * @param title   TODO
-     * @param defaultName   TODO
-     * @return   TODO
-     * @throws IllegalArgumentException   TODO
+     * To get user's input from a pop-up dialog.
+     *
+     * @param prompt      the prompt for the pop-up dialog
+     * @param title       the title of the pop-up dialog
+     * @param defaultName the default value put in the input box on pop-up dialog
+     * @return an input as a String received from the pop-up dialog
+     * @throws IllegalArgumentException if the input is empty or the input session is interrupted
+     * @see IGUIIView#dialogGetInput(String, String, String)
      */
     private String getInput(String prompt, String title, String defaultName)
             throws IllegalArgumentException {
@@ -139,10 +149,12 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
     }
 
     /**
-     * TODO.
-     * @param title   TODO
-     * @param defaultName   TODO
-     * @return   TODO
+     * To get user's input from a pop-up dialog, with a default prompt that ask rename.
+     *
+     * @param title       the title of the pop-up dialog
+     * @param defaultName the default value put in the input box on pop-up dialog
+     * @return            an input as a String received from the pop-up dialog
+     * @see #getInput(String, String, String)
      */
     private String getInput(String title, String defaultName) {
       return this.getInput("Please enter the name for the new Image:", title, defaultName);
@@ -150,12 +162,17 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
   }
 
   /**
-   * TODO.
+   * To represent an {@link ListSelectionListener} for the {@link IGUIIView} that use this
+   * controller. It listens to a list and update the {@link #currImageName}, as well as refreshing
+   * the view panel to display the current preview image and diagram, whenever a new item in the
+   * selection  list is selected.
    */
   private class ImageLibrarySelectionListener implements ListSelectionListener {
     /**
-     * TODO.
-     * @param e TODO
+     * To update the currImageName, as well as refreshing the view panel to display the current
+     * preview image and diagram, whenever a new item in the selection list is selected.
+     *
+     * @param e an {@link ListSelectionEvent} triggered by a list selection action
      */
     @Override
     public void valueChanged(ListSelectionEvent e) {
@@ -169,8 +186,8 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
 
   /**
    * To perform an operation, by the arguments provided by the {@link #commandQueue}. It updates the
-   * {@link #model} and let view print error message whenever the command arguments
-   * provided is not valid (unsupported behavior/ unmatched arguments for a supported command).
+   * {@link #model} and let view print error message whenever the command arguments provided is not
+   * valid (unsupported behavior/ unmatched arguments for a supported command).
    *
    * <p>Throwing messages for successful operation is dispatched to concrete class that implements
    * {@link model.operation.IImageOperation} for specific feedback.
