@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,10 @@ import view.gui.histogram.HistogramSurveyorImpl;
 
 import static org.junit.Assert.assertEquals;
 
-public class SurveyorTest {
+/**
+ * To test the functionality of a {@link HistogramSurveyorImpl}.
+ */
+public class HistogramSurveyorImplTest {
 
   ImageFile file;
   Color[][] color;
@@ -21,12 +24,14 @@ public class SurveyorTest {
 
   @Before
   public void init() {
-    this.histogramData = new ArrayList<>() {{
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-    }};
+    this.histogramData = new ArrayList<>() {
+      {
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+        add(new ArrayList<>());
+      }
+    };
 
     surveyor = new HistogramSurveyorImpl(this.histogramData);
 
@@ -35,7 +40,7 @@ public class SurveyorTest {
   @Test
   public void testSurveyor() {
     this.color = new Color[][]{{new Color(100, 101,102), new Color(1, 2,3), new Color(1, 2,3)},
-            {new Color(101, 101,103), new Color(4, 2,2), new Color(1, 101,103)}};
+        {new Color(101, 101,103), new Color(4, 2,2), new Color(1, 101,103)}};
     // 101 2 2 102 3 68
     this.file = new ImageFileImpl(this.color);
     this.surveyor.updateHistogramList(this.file);
