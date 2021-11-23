@@ -30,6 +30,7 @@ public class GUIIViewImplTest {
   public void testButtonsBrighten() {
     try {
       this.controller.performAction(new ActionEvent(this.controller, 10, "brighten"));
+      assertEquals("brighten#¥#10#¥#null#¥#null-brighten10#¥#", this.output.toString());
       // please manually choose 10 and press two enters
     } catch (Exception e) {
       assertEquals("brighten#¥#10#¥#null#¥#null-brighten10#¥#", this.output.toString());
@@ -41,6 +42,7 @@ public class GUIIViewImplTest {
   public void testButtonsDarken() {
     try {
       this.controller.performAction(new ActionEvent(this.controller, 10, "darken"));
+      assertEquals("darken#¥#10#¥#null#¥#null-darken10#¥#", this.output.toString());
       // please manually choose 10 and press two enters
     } catch (Exception e) {
       assertEquals("darken#¥#10#¥#null#¥#null-darken10#¥#", this.output.toString());
