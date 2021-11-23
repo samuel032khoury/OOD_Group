@@ -32,7 +32,7 @@ public class HistogramSurveyorImpl implements IHistogramSurveyor {
   }
 
   /**
-   * TODO.
+   * Provided a {@link ReadOnlyImageFile}, update the histogram data based on it.
    */
   public void updateHistogramData(ReadOnlyImageFile currImageFile) {
     int currWidth = currImageFile.getWidth();

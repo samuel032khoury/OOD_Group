@@ -7,7 +7,9 @@ import model.imagefile.ReadOnlyImageFile;
  */
 public interface IHistogramSurveyor {
   /**
-   * TODO.
+   * Provided a {@link ReadOnlyImageFile}, update the histogram data based on it.
+   *
+   * @param currImageFile the {@link ReadOnlyImageFile} that is inspecting
    */
   void updateHistogramData(ReadOnlyImageFile currImageFile);
 }
