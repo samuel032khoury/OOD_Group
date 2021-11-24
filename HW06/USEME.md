@@ -83,6 +83,80 @@ The command script and example images are saved (and zipped) in the `res/imagesA
 
 ### GUI-mode: Tutorial
 
+1. StartPage:
+  ![StartPage](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwskpng9j31ai0u00uh.jpg)
+
+2. Press "load" to import an image:
+  ![Load pop up](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwtfqpzoj310s0u0gqf.jpg)
+
+3. Import painting.ppm from res/:
+  ![Rename at loading](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwujwrx1j30mw0ee3z2.jpg)
+  -  Empty input will leads to an alert window saying "Input cannot be empty"
+  	![Screen Shot 9](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwvsogl4j30se0fuq3h.jpg)
+
+4. Use the default name for the newly imported image "painting":
+  ![Load succeed](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwwrwrsej311g0fgjsl.jpg)
+
+5. Image Preview & Histogram: 
+   ![original image preview](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwz0a27tj31ai0u0wh1.jpg)
+   - program will always auto select to the newly imported image after a load operation
+
+6. Press green-component button, rename the newly created image:
+
+   ![green-component rename window](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx0bc4guj30mw0ee0tg.jpg)
+
+   - Program always append the current operation to the name of the current processing image and use it as the default name of the newly created image.
+
+7. Green-component image preview:
+
+   ![green-component image preview](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx2z806ej314c0q1ac2.jpg)
+
+   - program will always, again, auto select to the newly created image after a operation.
+
+8. brighten image "painting":
+
+   ![input adjustment maginitude](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx9ypl1bj30sw0eedgm.jpg)
+
+   - No default value for magnitude as it highly depends on user's decition
+
+   - If the input is empty, alert window will pop up:
+
+   - ![Screen Shot 9](https://tva1.sinaimg.cn/large/008i3skNgy1gwpxcsj308j30se0fuq3h.jpg)
+
+     ​	
+
+   - If the input is not pure numer, another alert window will pop up:
+
+     ![Screen Shot 10](https://tva1.sinaimg.cn/large/008i3skNgy1gwpxcwu96kj30se0fuwf5.jpg)
+
+9. Rename the brightened image, autonaming includes the adjustment magnitude:
+
+   ![Brighten Renaming](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx9f6p17j30mw0ee3z6.jpg)
+
+10. Feedback after brighten:
+
+   ![brighten succeed](https://tva1.sinaimg.cn/large/008i3skNgy1gwpxe95czdj311g0dot9i.jpg)
+
+11. After doing sepia on the latest image, we have the view window as follows:
+
+    ![painting-brighten10-sepia preview](https://tva1.sinaimg.cn/large/008i3skNgy1gwpy3td82kj31ai0u040y.jpg)
+
+12. Try to save this image (by pressing save button):
+
+    ![dialogue](https://tva1.sinaimg.cn/large/008i3skNgy1gwpya1skscj30ie0f0gmt.jpg)
+
+    - Image will always have a default name "untitled.png" as the file name, yet user can edit the file name however they want, as well as the file extension as long as the it's supported by the program (currently, we support png/jpg/ppm/bmp)
+
+13. Save succeed feedback:
+
+    ![Screen Shot 2](https://tva1.sinaimg.cn/large/008i3skNgy1gwpyanecgfj30iq06uglq.jpg)
+
+14. Inspect saved image:
+
+    ​	![Screen Shot 3](https://tva1.sinaimg.cn/large/008i3skNgy1gwpyas31bpj30so0f8dgu.jpg)
+
 ##### † Error Handling 
 
-- Errors will be thrown under the same circumstances as the §Text-mode mentioned, yet GUI supports to render an error with a pop-up alert window.
+- The tutorial example above has already presented a few.
+
+- Basically, errors will be thrown under the same circumstances as the §Text-mode mentioned, yet GUI supports to render an error with a pop-up alert window.
