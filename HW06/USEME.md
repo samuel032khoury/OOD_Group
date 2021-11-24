@@ -5,7 +5,7 @@
 ### Command Line Level Input
 
 - If one wants to have a text-based script as input, they should put "-file" for the first argument, indicating they will pass a script to the program. The file path should be the second argument.
-- If one wants to interact with the program by typing command during the session, they should put "-text" for the first argument in the command line, indicating they will interactively manage and process the image through inputing text.
+- If one wants to interact with the program by typing command during the session, they should put "-text" for the first argument in the command line, indicating they will interactively manage and process the image through inputting text.
 - If one wants to interact with the program through GUI, run the program without any arguments.
 
 ##### †Error Handling
@@ -91,16 +91,18 @@ The command script and example images are saved (and zipped) in the `res/imagesA
 
 3. Import painting.ppm from res/:
   ![Rename at loading](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwujwrx1j30mw0ee3z2.jpg)
-  -  Empty input will leads to an alert window saying "Input cannot be empty"
-  	![Screen Shot 9](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwvsogl4j30se0fuq3h.jpg)
-
+  
+  -  Empty input will lead to an alert window saying "Input cannot be empty"
+  	![empty entry error](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwvsogl4j30se0fuq3h.jpg)
+  
 4. Use the default name for the newly imported image "painting":
   ![Load succeed](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwwrwrsej311g0fgjsl.jpg)
 
 5. Image Preview & Histogram: 
    ![original image preview](https://tva1.sinaimg.cn/large/008i3skNgy1gwpwz0a27tj31ai0u0wh1.jpg)
+   
    - program will always auto select to the newly imported image after a load operation
-
+   
 6. Press green-component button, rename the newly created image:
 
    ![green-component rename window](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx0bc4guj30mw0ee0tg.jpg)
@@ -111,25 +113,25 @@ The command script and example images are saved (and zipped) in the `res/imagesA
 
    ![green-component image preview](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx2z806ej314c0q1ac2.jpg)
 
-   - program will always, again, auto select to the newly created image after a operation.
+   - program will always, again, auto select to the newly created image after an operation.
 
 8. brighten image "painting":
 
-   ![input adjustment maginitude](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx9ypl1bj30sw0eedgm.jpg)
+   ![input adjustment magnitude](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx9ypl1bj30sw0eedgm.jpg)
 
-   - No default value for magnitude as it highly depends on user's decition
+   - No default value for magnitude as it highly depends on user's decision
 
    - If the input is empty, alert window will pop up:
 
-   - ![Screen Shot 9](https://tva1.sinaimg.cn/large/008i3skNgy1gwpxcsj308j30se0fuq3h.jpg)
+   - ![empty entry error](https://tva1.sinaimg.cn/large/008i3skNgy1gwpxcsj308j30se0fuq3h.jpg)
 
      ​	
 
-   - If the input is not pure numer, another alert window will pop up:
+   - If the input is not pure number, another alert window will pop up:
 
-     ![Screen Shot 10](https://tva1.sinaimg.cn/large/008i3skNgy1gwpxcwu96kj30se0fuwf5.jpg)
+     ![nan error](https://tva1.sinaimg.cn/large/008i3skNgy1gwpxcwu96kj30se0fuwf5.jpg)
 
-9. Rename the brightened image, autonaming includes the adjustment magnitude:
+9. Rename the brightened image, auto-naming includes the adjustment magnitude:
 
    ![Brighten Renaming](https://tva1.sinaimg.cn/large/008i3skNgy1gwpx9f6p17j30mw0ee3z6.jpg)
 
@@ -143,17 +145,17 @@ The command script and example images are saved (and zipped) in the `res/imagesA
 
 12. Try to save this image (by pressing save button):
 
-    ![dialogue](https://tva1.sinaimg.cn/large/008i3skNgy1gwpya1skscj30ie0f0gmt.jpg)
+    ![save dialogue](https://tva1.sinaimg.cn/large/008i3skNgy1gwpya1skscj30ie0f0gmt.jpg)
 
-    - Image will always have a default name "untitled.png" as the file name, yet user can edit the file name however they want, as well as the file extension as long as the it's supported by the program (currently, we support png/jpg/ppm/bmp)
+    - Image will always have a default name "untitled.png" as the file name, yet user can edit the file name however they want, as well as the file extension as long as it's supported by the program (currently, we support png/jpg/ppm/bmp)
 
 13. Save succeed feedback:
 
-    ![Screen Shot 2](https://tva1.sinaimg.cn/large/008i3skNgy1gwpyanecgfj30iq06uglq.jpg)
+    ![Save succeed](https://tva1.sinaimg.cn/large/008i3skNgy1gwpyanecgfj30iq06uglq.jpg)
 
 14. Inspect saved image:
 
-    ​	![Screen Shot 3](https://tva1.sinaimg.cn/large/008i3skNgy1gwpyas31bpj30so0f8dgu.jpg)
+    ​	![Inspecting saved image](https://tva1.sinaimg.cn/large/008i3skNgy1gwpyas31bpj30so0f8dgu.jpg)
 
 ##### † Error Handling 
 
