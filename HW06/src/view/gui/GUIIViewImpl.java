@@ -51,11 +51,15 @@ public class GUIIViewImpl extends JFrame implements IGUIIView {
   private final JPanel histogramGraphPanel;
 
   /**
-   * TODO.
-   * @param controller TODO.
-   * @param supportedCommandStringSet TODO.
-   * @param actionListener TODO.
-   * @param listSelectionListener TODO.
+   * To construct a GUIViewImpl with three function division - info panel, preview panel, and
+   * control panel. Constructor also assigns the given controller to this view for updating purpose.
+   * @param controller the controller that interacts with this view
+   * @param supportedCommandStringSet the set of string specifies currently supporting command for
+   *                                  button initialization and configuration purpose
+   * @param actionListener the {@link ActionListener} that hears from the triggers in the control
+   *                       panel
+   * @param listSelectionListener the {@link ActionListener} that hears from the list selection
+   *                              action in the library panel placed in the control panel
    */
   public GUIIViewImpl(ImageProcessControllerGUI controller, Set<String> supportedCommandStringSet,
                       ActionListener actionListener, ListSelectionListener listSelectionListener) {

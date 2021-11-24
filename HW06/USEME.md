@@ -69,9 +69,9 @@
 
 ---
 
-### Script-mode
+### Script-mode: How to run the script
 
-The command script and example images are saved (and zipped) in the `res/imagesAndScript/` directory. The text script is named as `ImageProcScript.txt`. Graders can run this file <u>**under the ``res/imagesAndScript/`**</u> by inputting in the command line 
+The command script and example images are saved (and zipped) in the `res/imagesAndScript/` directory. The text script is named as `ImageProcScript.txt`. Graders can run this file ==<u>under the res/imagesAndScript/</u>== by inputting in the command line 
 
 ``imagesAndScript % java -jar ../HW06.jar -file ImageProcScript.txt``
 
