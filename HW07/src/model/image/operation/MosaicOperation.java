@@ -7,19 +7,19 @@ import model.image.Image;
 import model.image.pixel.Pixel;
 
 public class MosaicOperation implements ImageOperation {
-  int seedNum;
-  ArrayList<SeedNode> listOSeed;
+  private final int seedNum;
+  private final ArrayList<SeedNode> listOSeed;
 
   public MosaicOperation(int seedNum) {
     this.seedNum = seedNum;
-    listOSeed = new ArrayList<>();
+    this.listOSeed = new ArrayList<>();
   }
 
   @Override
   public Image apply(Image img) {
-    Image imgCp = img.copy();
-    int height = imgCp.getHeight();
-    int width = imgCp.getWidth();
+    Image copy = img.copy();
+    int height = copy.getHeight();
+    int width = copy.getWidth();
     for (int i = 0; i < seedNum; i++) {
       int randX = (int) ((Math.random() * height));
       int randY = (int) ((Math.random() * width));
@@ -28,7 +28,9 @@ public class MosaicOperation implements ImageOperation {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Pixel pix = imgCp.getPixel(i, j);
+        Pixel pix = copy.getPixel(i, j);
+        // find a nearest node,
+        // add pix to node,
         listOSeed.sort(new NodeComparator(i, j));
         listOSeed.get(0).include(pix);
       }
@@ -38,29 +40,29 @@ public class MosaicOperation implements ImageOperation {
        node.average();
     }
 
-    return imgCp;
+    return copy;
   }
 
-  protected class SeedNode {
-   ArrayList<Pixel> list;
-   int x;
-   int y;
+  private final class SeedNode {
+   private final int x;
+   private final int y;
+   private final ArrayList<Pixel> list;
 
    public SeedNode(int x, int y) {
-     this.list = new ArrayList<>();
      this.x = x;
      this.y = y;
+     this.list = new ArrayList<>();
    }
 
-    double calculateDis(int x, int y) {
+   private double calculateDis(int x, int y) {
      return Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2));
    }
 
-   void include(Pixel p) {
+   private void include(Pixel p) {
      list.add(p);
    }
 
-   void average() {
+   private void average() {
      int sumRed = 0;
      int sumGreen = 0;
      int sumBlue = 0;
@@ -80,8 +82,8 @@ public class MosaicOperation implements ImageOperation {
   }
 
   protected class NodeComparator implements Comparator<SeedNode> {
-    int x;
-    int y;
+    private final int x;
+    private final int y;
 
     public NodeComparator(int x, int y) {
       this.x = x;
@@ -95,5 +97,4 @@ public class MosaicOperation implements ImageOperation {
       return (difference > 0)? 1 : (difference == 0)? 0 : -1;
     }
   }
-
 }
