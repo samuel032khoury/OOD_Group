@@ -25,7 +25,6 @@ public class MosaicOperation implements ImageOperation {
       int randY = (int) ((Math.random() * width));
       listOSeed.add(new SeedNode(randX, randY));
     }
-    System.out.println(listOSeed);
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
