@@ -68,7 +68,6 @@ public class ImageProcessorGui
   // JFrame components
   private JList<String> handlersDropdown;
   private JScrollPane currentImg;
-
   private JTextField extraArgsBox;
 
   /**
