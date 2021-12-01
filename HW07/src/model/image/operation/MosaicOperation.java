@@ -20,6 +20,7 @@ public class MosaicOperation implements ImageOperation {
     Image copy = img.copy();
     int height = copy.getHeight();
     int width = copy.getWidth();
+    Pair<Double, SeedNode> currClosestNode;
     for (int i = 0; i < seedNum; i++) {
       int randX = (int) ((Math.random() * height));
       int randY = (int) ((Math.random() * width));
@@ -28,11 +29,16 @@ public class MosaicOperation implements ImageOperation {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
+        SeedNode firstNode = listOSeed.get(0);
+        currClosestNode = new Pair<>(firstNode.calculateDis(i,j), firstNode);
+        for(SeedNode currNode : listOSeed) {
+          double currDistance = currNode.calculateDis(i,j);
+          if (currDistance < currClosestNode.getKey()) {
+            currClosestNode.resetPair(currDistance, currNode);
+          }
+        }
         Pixel pix = copy.getPixel(i, j);
-        // find a nearest node,
-        // add pix to node,
-        listOSeed.sort(new NodeComparator(i, j));
-        listOSeed.get(0).include(pix);
+        currClosestNode.getVal().include(pix);
       }
     }
 
@@ -95,6 +101,29 @@ public class MosaicOperation implements ImageOperation {
       final double difference =  node1.calculateDis(this.x, this.y)
               - node2.calculateDis(this.x, this.y);
       return (difference > 0)? 1 : (difference == 0)? 0 : -1;
+    }
+  }
+
+  private class Pair<K, V> {
+    private K key;
+    private V value;
+
+    public Pair(K key, V value) {
+      this.key = key;
+      this.value = value;
+    }
+
+    private K getKey() {
+      return key;
+    }
+
+    private V getVal() {
+      return value;
+    }
+
+    private void resetPair(K key, V value) {
+      this.key = key;
+      this.value = value;
     }
   }
 }
