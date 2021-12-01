@@ -7,6 +7,7 @@ import controller.command.color.GreyCommand;
 import controller.command.color.TintingCommand;
 import controller.command.library.LoadCommand;
 import controller.command.library.SaveCommand;
+import controller.command.visual.MosaicCommand;
 import controller.utils.LoadSuffixManagerV2;
 import controller.utils.WriteSuffixManagerV2;
 import model.library.ImageLibModel;
@@ -76,5 +77,6 @@ public class ImageProcessControllerImplV2 extends ImageProcessControllerImpl {
     this.cmdMap.put("sepia", () -> new TintingCommand(TintingOperator.Sepia));
     this.cmdMap.put("save", () -> new SaveCommand(new WriteSuffixManagerV2()));
     this.cmdMap.put("load", () -> new LoadCommand(new LoadSuffixManagerV2()));
+    this.cmdMap.put("mosaic", MosaicCommand::new);
   }
 }

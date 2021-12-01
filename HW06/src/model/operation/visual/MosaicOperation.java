@@ -1,31 +1,34 @@
-package model.image.operation;
+package model.operation.visual;
 
+import java.awt.*;
 import java.util.ArrayList;
 
-import model.image.Image;
-import model.image.pixel.Pixel;
+import model.operation.ANoAlphaOperation;
+import model.operation.RegularImageOperation;
 
-public class MosaicOperation implements ImageOperation {
+public class MosaicOperation extends ANoAlphaOperation {
   private final int seedNum;
   private final ArrayList<SeedNode> listOSeed;
 
   public MosaicOperation(int seedNum) {
-    if(seedNum < 1) {
-      throw new IllegalArgumentException("Invalid mosaic seed number!");
-    }
     this.seedNum = seedNum;
     this.listOSeed = new ArrayList<>();
   }
-
+  /**
+   * Perform operations on the given {@code pixels}, the operation rule depends on specific
+   * implementations.
+   *
+   * @param pixels a 2-D {@code Array} of {@link Color} that represents an image
+   * @return a processed 2-D {@code Array} of {@link Color} representing an image, by the operation
+   * rule provided by concrete classes.
+   */
   @Override
-  public Image apply(Image img) {
-    Image copy = img.copy();
-    int height = copy.getHeight();
-    int width = copy.getWidth();
+  protected Color[][] process(Color[][] pixels) {
+    Color[][] adjusted = pixels.clone();
     Pair<Double, SeedNode> currClosestNode;
     for (int i = 0; i < seedNum; i++) {
-      int randX = (int) ((Math.random() * height));
-      int randY = (int) ((Math.random() * width));
+      int randX = (int) ((Math.random() * this.height));
+      int randY = (int) ((Math.random() * this.width));
       listOSeed.add(new SeedNode(randX, randY));
     }
 
@@ -34,59 +37,59 @@ public class MosaicOperation implements ImageOperation {
         SeedNode firstNode = listOSeed.get(0);
         currClosestNode = new Pair<>(firstNode.calculateDis(i, j), firstNode);
         for(SeedNode currNode : listOSeed) {
-          if (currClosestNode.getKey() == 0) {
-            break;
-          }
           double currDistance = currNode.calculateDis(i,j);
           if (currDistance < currClosestNode.getKey()) {
             currClosestNode.resetPair(currDistance, currNode);
           }
         }
-        currClosestNode.getVal().include(copy.getPixel(i, j));
+        currClosestNode.getVal().include(new Point(i,j), adjusted[i][j]);
       }
     }
 
     for (SeedNode node : listOSeed) {
-       node.average();
+       node.pasteTile(adjusted);
     }
 
-    return copy;
+    return adjusted;
   }
+
+
 
   private static final class SeedNode {
    private final int x;
    private final int y;
-   private final ArrayList<Pixel> list;
+   private final ArrayList<Color> colorList;
+   private final ArrayList<Point> pointList;
 
    public SeedNode(int x, int y) {
      this.x = x;
      this.y = y;
-     this.list = new ArrayList<>();
+     this.colorList = new ArrayList<>();
+     this.pointList = new ArrayList<>();
    }
 
    private double calculateDis(int x, int y) {
      return Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2));
    }
 
-   private void include(Pixel p) {
-     list.add(p);
+   private void include(Point p, Color c) {
+     pointList.add(p);
+     colorList.add(c);
    }
 
-   private void average() {
+   private void pasteTile(Color[][] image) {
      int sumRed = 0;
      int sumGreen = 0;
      int sumBlue = 0;
      int counter = 0;
-     for (Pixel p : list) {
-       sumRed += p.getRed();
-       sumGreen += p.getGreen();
-       sumBlue += p.getBlue();
+     for (Color c : colorList) {
+       sumRed += c.getRed();
+       sumGreen += c.getGreen();
+       sumBlue += c.getBlue();
        counter += 1;
      }
-     for (Pixel p : list) {
-       p.setRed(sumRed / counter);
-       p.setGreen(sumGreen / counter);
-       p.setBlue(sumBlue / counter);
+     for (Point p : pointList) {
+       image[p.x][p.y] = new Color(sumRed / counter,sumGreen / counter,sumBlue / counter);
      }
    }
   }

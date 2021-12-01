@@ -123,6 +123,19 @@ public class ImageProcessControllerGUIImpl extends ImageProcessControllerImplV2 
               view.renderError("Please input an integer for brightness adjustment!");
             }
             break;
+            case "mosaic":
+            try {
+              Integer seed = Integer.parseInt(this.getInput(
+                      "Please enter the mosaic seed (min seed :1):", title, ""));
+              newImageName = this.getInput(title, currImageName + "-" + action
+                      + seed);
+              runEvent(action,
+                      String.valueOf(seed), currImageName, newImageName);
+              view.updateViewMeta(newImageName);
+            } catch (NumberFormatException exception) {
+              view.renderError("Please input an integer for brightness adjustment!");
+            }
+            break;
           default:
             newImageName = this.getInput(title, currImageName + "-" + action);
             runEvent(action, currImageName, newImageName);
