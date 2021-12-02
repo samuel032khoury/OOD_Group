@@ -2,6 +2,7 @@ package view.component;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -12,7 +13,11 @@ import javax.swing.JScrollPane;
  * The visual image box component that contains the image currently displayed.
  */
 public class ImageBox extends JPanel {
-
+  /**
+   * Generate an image box on GUI with the provided path of the image to render.
+   *
+   * @param imagePath the path of the image to render.
+   */
   public ImageBox(String imagePath) {
     super();
 

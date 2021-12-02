@@ -62,7 +62,7 @@ public class HistogramBox extends JPanel {
 
     // we use a green channel histogram here, because all histograms will have the same size
     // in other words, we could choose to use any histogram, and that wouldn't change the result
-    int COUNTS_SIZE = new GreenChannelHistogram(img).getCounts().size();
+    int countSize = new GreenChannelHistogram(img).getCounts().size();
 
     // adds grid lines and the hatch marks on the y-axis
     for (int i = 0; i < Y_DIVISIONS + 1; i++) {
@@ -71,7 +71,7 @@ public class HistogramBox extends JPanel {
       int y0 = getHeight() - ((i * (getHeight() - PADDING * 2 - LABEL_PADDING)) / Y_DIVISIONS
           + PADDING + LABEL_PADDING);
 
-      if (COUNTS_SIZE > 0) {
+      if (countSize > 0) {
         g2.setColor(GRID_COLOR);
         g2.drawLine(PADDING + LABEL_PADDING + 1 + POINT_SIZE, y0, getWidth() - PADDING, y0);
         g2.setColor(Color.BLACK);
@@ -88,13 +88,13 @@ public class HistogramBox extends JPanel {
     }
 
     // now we do the exact same thing, but for the x-axis
-    for (int i = 0; i < COUNTS_SIZE; i++) {
-      if (COUNTS_SIZE > 1) {
-        int x0 = i * (getWidth() - PADDING * 2 - LABEL_PADDING) / (COUNTS_SIZE - 1) + PADDING
+    for (int i = 0; i < countSize; i++) {
+      if (countSize > 1) {
+        int x0 = i * (getWidth() - PADDING * 2 - LABEL_PADDING) / (countSize - 1) + PADDING
             + LABEL_PADDING;
         int y0 = getHeight() - PADDING - LABEL_PADDING;
         int y1 = y0 - POINT_SIZE;
-        if ((i % ((int) ((COUNTS_SIZE / 20.0)) + 1)) == 0) {
+        if ((i % ((int) ((countSize / 20.0)) + 1)) == 0) {
           g2.setColor(GRID_COLOR);
           g2.drawLine(x0, getHeight() - PADDING - LABEL_PADDING - 1 - POINT_SIZE, x0, PADDING);
           g2.setColor(Color.BLACK);
@@ -127,12 +127,12 @@ public class HistogramBox extends JPanel {
    */
   private void drawPoints(Graphics2D g2, Map<Integer, Integer> points, Color lineColor) {
 
-    int MAX_SCORE = getMaxScore();
+    int maxScore = getMaxScore();
 
     // compute the scale of this histogram
     double xScale = ((double) getWidth() - (2 * PADDING) - LABEL_PADDING) / (points.size() - 1);
     double yScale =
-        ((double) getHeight() - 2 * PADDING - LABEL_PADDING) / (MAX_SCORE - MIN_SCORE);
+        ((double) getHeight() - 2 * PADDING - LABEL_PADDING) / (maxScore - MIN_SCORE);
 
     List<Point> graphPoints = new ArrayList<>();
     for (int i = 0; i < points.size(); i++) {

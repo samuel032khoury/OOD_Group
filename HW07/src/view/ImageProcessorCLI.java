@@ -5,7 +5,6 @@ import controller.ImageProcessorControllerImpl;
 import controller.handler.ImageProcessCommandHandler;
 import controller.transfer.ImageTransferType;
 import controller.transfer.ImageTransferer;
-import view.ImageProcessorView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class ImageProcessorCLI implements ImageProcessorView {
 
   private final Scanner inputScanner;
   private final Appendable output;
-  private final List<ImageProcessCommandHandler> commandHandlers; // currently supported commands
+  private final List<ImageProcessCommandHandler> commandHandlers; // currently, supported commands
   private final Map<ImageTransferType, ImageTransferer> imageLoaders; // image type loaders
   private final ImageProcessorController controller; // application state manager
 

@@ -3,9 +3,7 @@ package view;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import model.image.RGBImage;
 import view.component.ControlsBox;
-import view.component.HistogramBox;
 import view.component.ImageBox;
 
 /**
@@ -26,11 +24,11 @@ public class GUIMainView extends JFrame {
     // add all the components
     JPanel imageBox = new ImageBox(imagePath); // TODO: add tabs with multiple pictures later
     JPanel controlsBox = new ControlsBox();
-//    JPanel histogramBox = new HistogramBox();
+    //JPanel histogramBox = new HistogramBox();
 
     add(imageBox);
     add(controlsBox);
-//    add(histogramBox);
+    //add(histogramBox);
   }
 
   /**

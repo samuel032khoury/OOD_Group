@@ -62,9 +62,8 @@ public class ImageProcessorGui
   private static final String LOAD_ACTION = "load";
   private static final String SAVE_ACTION = "save";
   private static final String CURRENT_IMAGE_NAME = "current";
-  private static final String NOT_FOUND_URL =
-      "https://www.flexx.co/assets/camaleon_cms/" +
-          "image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
+  private static final String NOT_FOUND_URL = "https://www.flexx.co/assets/camaleon_cms/"
+          + "image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
   // JFrame components
   private JList<String> handlersDropdown;
   private JScrollPane currentImg;

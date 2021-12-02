@@ -49,7 +49,7 @@ public class BrightenCommandHandler implements ImageProcessCommandHandler {
     // get the image from the cached list
     Image img = getImage.apply(imageName);
     addImage.accept(targetImageName,
-        new BrightenOperation(brightenAmount).apply(img));
+        new BrightenOperation(brightenAmount) .apply(img));
   }
 
   @Override
