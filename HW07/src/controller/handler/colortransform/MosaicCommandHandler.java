@@ -34,6 +34,10 @@ public class MosaicCommandHandler implements ImageProcessCommandHandler {
     String imageName = args.get(0);
     String targetImageName = args.get(1);
 
+    if (imageName.isEmpty() || targetImageName.isEmpty()) {
+      throw new IllegalArgumentException("Image names cannot be empty");
+    }
+
     int seedNum = Integer.parseInt(args.get(2));
 
     // get the image from the cached list
