@@ -1,29 +1,31 @@
-package model.image.operation;
+package model.image.operation.colortransform;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import model.image.Image;
+import model.image.operation.ImageOperation;
 import model.image.pixel.Pixel;
 
 /**
  * Performs a mosaic operation on a given image. A mosaic operation applies the mosaic effect onto a
- * given image by clustering pixels into provided {@code seedNum} fragments(tiles).
+ * given image by clustering pixels into provided {@code seedTotal} fragments(tiles).
  */
 public class MosaicOperation implements ImageOperation {
-  private final int seedNum;
+  private final int seedTotal;
   private final ArrayList<SeedNode> listOSeed;
 
   /**
    * Creates a new mosaic operation instance.
    *
-   * @param seedNum the number of seed for mosaic. In general, the larger this number is, the more
+   * @param seedTotal the number of seed for mosaic. In general, the larger this number is, the more
    *                recognizable the resulted image is.
    */
-  public MosaicOperation(int seedNum) {
-    if (seedNum < 1) {
+  public MosaicOperation(int seedTotal) {
+    if (seedTotal < 1) {
       throw new IllegalArgumentException("Invalid mosaic seed number!");
     }
-    this.seedNum = seedNum;
+    this.seedTotal = seedTotal;
     this.listOSeed = new ArrayList<>();
   }
 
@@ -32,11 +34,22 @@ public class MosaicOperation implements ImageOperation {
     Image copy = img.copy();
     int height = copy.getHeight();
     int width = copy.getWidth();
+    if (seedTotal > height * width) {
+      throw new IllegalArgumentException("The mosaic seed may be too large for the provide image!");
+    }
     Pair<Double, SeedNode> currClosestNode;
-    for (int i = 0; i < seedNum; i++) {
+
+    int seedCounter = 0;
+    while(seedCounter < seedTotal) {
       int randX = (int) ((Math.random() * height));
       int randY = (int) ((Math.random() * width));
-      listOSeed.add(new SeedNode(randX, randY));
+      SeedNode currSeedNode = new SeedNode(randX, randY);
+      if(!listOSeed.contains(currSeedNode)) {
+        listOSeed.add(currSeedNode);
+        seedCounter ++;
+      } else {
+        continue;
+      }
     }
 
     for (int i = 0; i < height; i++) {
@@ -108,6 +121,19 @@ public class MosaicOperation implements ImageOperation {
         p.setGreen(sumGreen / counter);
         p.setBlue(sumBlue / counter);
       }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      SeedNode seedNode = (SeedNode) o;
+      return x == seedNode.x && y == seedNode.y;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(x, y);
     }
   }
 

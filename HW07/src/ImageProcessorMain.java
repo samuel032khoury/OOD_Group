@@ -3,7 +3,7 @@ import controller.arguments.ImageProcessorArgumentType;
 import controller.arguments.OutputRedirectArgument;
 import controller.arguments.ScriptFileArgument;
 import controller.arguments.TextArgument;
-import controller.handler.MosaicCommandHandler;
+import controller.handler.colortransform.MosaicCommandHandler;
 import view.ImageProcessorView;
 import view.ImageProcessorGui;
 import view.ImageProcessorCLI;

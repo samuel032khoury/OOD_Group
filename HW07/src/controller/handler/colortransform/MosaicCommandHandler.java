@@ -1,20 +1,21 @@
-package controller.handler;
+package controller.handler.colortransform;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import controller.handler.ImageProcessCommandHandler;
 import model.image.Image;
-import model.image.operation.MosaicOperation;
+import model.image.operation.colortransform.MosaicOperation;
 
 /**
  * Handles the command "mosaic".
  *
  * <p>"mosaic" command applies the mosaic effect onto the given image. More specifically, given an
  * integer as the mosaic seed, it randomly generates a corresponding number of {@link
- * model.image.operation.MosaicOperation.SeedNode} on the image, and partitions the image into
+ * MosaicOperation.SeedNode} on the image, and partitions the image into
  * (at most) that amount fragments (tiles) has the same color, by clustering every pixel to its
- * nearest {@link model.image.operation.MosaicOperation.SeedNode}.
+ * nearest {@link MosaicOperation.SeedNode}.
  *
  * <p>This is, however, a command handler, which means that this class will parse the command and
  * delegate the actual transformation process to {@link MosaicOperation}.

@@ -8,6 +8,8 @@ intensity-component parrot res/parrot-intensity.jpg
 brighten parrot res/parrot-brighten.jpg 10
 brighten parrot res/parrot-darken.jpg -20
 horizontal-flip parrot res/parrot-horizontal.jpg
+mosaic parrot res/parrot-mosaic-100.jpg 100
+mosaic parrot res/parrot-mosaic-1000.jpg 1000
 vertical-flip parrot res/parrot-vertical.jpg
 sepia parrot res/parrot-sepia.jpg
 blur parrot res/parrot-blurry.jpg
