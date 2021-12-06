@@ -40,11 +40,11 @@ public class MosaicOperation implements ImageOperation {
     Pair<Double, SeedNode> currClosestNode;
 
     int seedCounter = 0;
-    while(seedCounter < seedTotal) {
+    while (seedCounter < seedTotal) {
       int randX = (int) ((Math.random() * height));
       int randY = (int) ((Math.random() * width));
       SeedNode currSeedNode = new SeedNode(randX, randY);
-      if(!listOSeed.contains(currSeedNode)) {
+      if (!listOSeed.contains(currSeedNode)) {
         listOSeed.add(currSeedNode);
         seedCounter ++;
       } else {
@@ -125,8 +125,12 @@ public class MosaicOperation implements ImageOperation {
 
     @Override
     public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
       SeedNode seedNode = (SeedNode) o;
       return x == seedNode.x && y == seedNode.y;
     }

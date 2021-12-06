@@ -64,22 +64,22 @@ public class ImageProcessorCLITest {
     StringBuilder output = new StringBuilder();
     ImageProcessorCLI cli = getNewSampleCli(new StringReader("q\n"), output);
 
-    String expectedWelcomeAndHelp = "Welcome to our image processor tool!\n" +
-        "\n" +
-        "Supported Commands:\n" +
-        "- load: load [image-path] [image-name]\n" +
-        "- save: save [image-path] [image-name]\n" +
-        "\n" +
-        "Supported File Types:\n" +
-        "- BMP\n" +
-        "- GIF\n" +
-        "- JPEG\n" +
-        "- JPG\n" +
-        "- PNG\n" +
-        "- TIF\n" +
-        "- TIFF\n" +
-        "- WBMP\n" +
-        "- PPM";
+    String expectedWelcomeAndHelp = "Welcome to our image processor tool!\n"
+        + "\n"
+        + "Supported Commands:\n"
+        + "- load: load [image-path] [image-name]\n"
+        + "- save: save [image-path] [image-name]\n"
+        + "\n"
+        + "Supported File Types:\n"
+        + "- BMP\n"
+        + "- GIF\n"
+        + "- JPEG\n"
+        + "- JPG\n"
+        + "- PNG\n"
+        + "- TIF\n"
+        + "- TIFF\n"
+        + "- WBMP\n"
+        + "- PPM";
 
     cli.run();
     assertTrue(output.toString().startsWith(expectedWelcomeAndHelp));
@@ -185,47 +185,47 @@ public class ImageProcessorCLITest {
     testCli.run();
 
     String expectedControllerOutput =
-        "Handling command: [load, this-image, that-image]\n" +
-            "Handling command: [save, that-image, this-image-2]\n";
+        "Handling command: [load, this-image, that-image]\n"
+            + "Handling command: [save, that-image, this-image-2]\n";
     assertEquals(expectedControllerOutput, controllerOutput.toString());
 
-    String expectedCliOutput = "Welcome to our image processor tool!\n" +
-        "\n" +
-        "Supported Commands:\n" +
-        "- load: load [image-path] [image-name]\n" +
-        "- save: save [image-path] [image-name]\n" +
-        "\n" +
-        "Supported File Types:\n" +
-        "- BMP\n" +
-        "- GIF\n" +
-        "- JPEG\n" +
-        "- JPG\n" +
-        "- PNG\n" +
-        "- TIF\n" +
-        "- TIFF\n" +
-        "- WBMP\n" +
-        "- PPM\n" +
-        "\n" +
-        "Enter a command followed by 'enter'...\n" +
-        "Enter a command followed by 'enter'...\n" +
-        "Failed to handle [test-throw]: testing throw\n" +
-        "Supported Commands:\n" +
-        "- load: load [image-path] [image-name]\n" +
-        "- save: save [image-path] [image-name]\n" +
-        "\n" +
-        "Supported File Types:\n" +
-        "- BMP\n" +
-        "- GIF\n" +
-        "- JPEG\n" +
-        "- JPG\n" +
-        "- PNG\n" +
-        "- TIF\n" +
-        "- TIFF\n" +
-        "- WBMP\n" +
-        "- PPM\n" +
-        "\n" +
-        "Enter a command followed by 'enter'...\n" +
-        "Enter a command followed by 'enter'...\n";
+    String expectedCliOutput = "Welcome to our image processor tool!\n"
+        + "\n"
+        + "Supported Commands:\n"
+        + "- load: load [image-path] [image-name]\n"
+        + "- save: save [image-path] [image-name]\n"
+        + "\n"
+        + "Supported File Types:\n"
+        + "- BMP\n"
+        + "- GIF\n"
+        + "- JPEG\n"
+        + "- JPG\n"
+        + "- PNG\n"
+        + "- TIF\n"
+        + "- TIFF\n"
+        + "- WBMP\n"
+        + "- PPM\n"
+        + "\n"
+        + "Enter a command followed by 'enter'...\n"
+        + "Enter a command followed by 'enter'...\n"
+        + "Failed to handle [test-throw]: testing throw\n"
+        + "Supported Commands:\n"
+        + "- load: load [image-path] [image-name]\n"
+        + "- save: save [image-path] [image-name]\n"
+        + "\n"
+        + "Supported File Types:\n"
+        + "- BMP\n"
+        + "- GIF\n"
+        + "- JPEG\n"
+        + "- JPG\n"
+        + "- PNG\n"
+        + "- TIF\n"
+        + "- TIFF\n"
+        + "- WBMP\n"
+        + "- PPM\n"
+        + "\n"
+        + "Enter a command followed by 'enter'...\n"
+        + "Enter a command followed by 'enter'...\n";
     assertEquals(expectedCliOutput, cliOutput.toString());
   }
 

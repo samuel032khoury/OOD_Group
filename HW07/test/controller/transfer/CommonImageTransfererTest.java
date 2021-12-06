@@ -60,14 +60,14 @@ public class CommonImageTransfererTest {
   @Test
   public void itShouldListFileTypes() {
     CommonImageTransferer newTransferer = new CommonImageTransferer();
-    String expected = "- BMP\n" +
-        "- GIF\n" +
-        "- JPEG\n" +
-        "- JPG\n" +
-        "- PNG\n" +
-        "- TIF\n" +
-        "- TIFF\n" +
-        "- WBMP";
+    String expected = "- BMP\n"
+        + "- GIF\n"
+        + "- JPEG\n"
+        + "- JPG\n"
+        + "- PNG\n"
+        + "- TIF\n"
+        + "- TIFF\n"
+        + "- WBMP";
     assertEquals(expected, newTransferer.getFileTypes());
   }
 }

@@ -6,7 +6,6 @@ import controller.arguments.ImageProcessorArgumentType;
 import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Test;
 
