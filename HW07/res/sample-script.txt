@@ -1,20 +1,20 @@
-load res/parrot.jpg parrot
-red-component parrot res/parrot-red.jpg
-blue-component parrot res/parrot-blue.jpg
-green-component parrot res/parrot-green.jpg
-value-component parrot res/parrot-value.jpg
-luma-component parrot res/parrot-luma.jpg
-intensity-component parrot res/parrot-intensity.jpg
-brighten parrot res/parrot-brighten.jpg 10
-brighten parrot res/parrot-darken.jpg -20
-horizontal-flip parrot res/parrot-horizontal.jpg
-mosaic parrot res/parrot-mosaic-100.jpg 100
-mosaic parrot res/parrot-mosaic-1000.jpg 1000
-vertical-flip parrot res/parrot-vertical.jpg
-sepia parrot res/parrot-sepia.jpg
-blur parrot res/parrot-blurry.jpg
-blur res/parrot-blurry.jpg res/parrot-really-blurry.jpg
-sharpen parrot res/parrot-sharp.jpg
-sharpen res/parrot-sharp.jpg res/parrot-really-sharp.jpg
-save res/parrot.jpeg parrot
+load ./parrot.jpg parrot
+red-component parrot ./parrot-red.jpg
+blue-component parrot ./parrot-blue.jpg
+green-component parrot ./parrot-green.jpg
+value-component parrot ./parrot-value.jpg
+luma-component parrot ./parrot-luma.jpg
+intensity-component parrot ./parrot-intensity.jpg
+brighten parrot ./parrot-brighten.jpg 10
+brighten parrot ./parrot-darken.jpg -20
+horizontal-flip parrot ./parrot-horizontal.jpg
+mosaic parrot ./parrot-mosaic-100.jpg 100
+mosaic parrot ./parrot-mosaic-1000.jpg 1000
+vertical-flip parrot ./parrot-vertical.jpg
+sepia parrot ./parrot-sepia.jpg
+blur parrot ./parrot-blurry.jpg
+blur ./parrot-blurry.jpg ./parrot-really-blurry.jpg
+sharpen parrot ./parrot-sharp.jpg
+sharpen ./parrot-sharp.jpg ./parrot-really-sharp.jpg
+save ./parrot.jpeg parrot
 q

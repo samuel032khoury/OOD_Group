@@ -1,7 +1,8 @@
-package controller.handler;
-
 import static org.junit.Assert.assertTrue;
 
+import controller.handler.ImageProcessCommandHandler;
+import controller.handler.LoadCommandHandler;
+import controller.handler.SaveCommandHandler;
 import controller.handler.colortransform.ValueComponentCommandHandler;
 import controller.handler.colortransform.linear.SepiaCommandHandler;
 import controller.handler.colortransform.linear.grayscale.BlueComponentCommandHandler;

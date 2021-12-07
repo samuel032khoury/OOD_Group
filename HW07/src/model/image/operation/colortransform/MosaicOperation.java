@@ -47,8 +47,6 @@ public class MosaicOperation implements ImageOperation {
       if (!listOSeed.contains(currSeedNode)) {
         listOSeed.add(currSeedNode);
         seedCounter ++;
-      } else {
-        continue;
       }
     }
 

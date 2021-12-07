@@ -1,16 +1,19 @@
-package controller.handler.colortransform;
-
 import org.junit.Test;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import controller.handler.colortransform.MosaicCommandHandler;
 import model.image.Image;
 
-import static controller.handler.ImageProcessCommandHandlerTest.SAMPLE_IMAGE;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * To test if the mosaic command handler works correctly.
+ */
 public class MosaicCommandHandlerTest {
 
 
@@ -43,7 +46,7 @@ public class MosaicCommandHandlerTest {
 
   private boolean itInvalidatesArgumentSizes(List<String> args) {
     try {
-      HANDLER.process(args, (str) -> SAMPLE_IMAGE, (str, img) -> {
+      HANDLER.process(args, (str) -> ImageProcessCommandHandlerTest.SAMPLE_IMAGE, (str, img) -> {
       });
       return false;
     } catch (IllegalArgumentException e) {
@@ -62,7 +65,7 @@ public class MosaicCommandHandlerTest {
 
   private boolean itInvalidatesEmptyImageNames(List<String> args) {
     try {
-      HANDLER.process(args, (str) -> SAMPLE_IMAGE, (str, img) -> {
+      HANDLER.process(args, (str) -> ImageProcessCommandHandlerTest.SAMPLE_IMAGE, (str, img) -> {
       });
       return false;
     } catch (IllegalArgumentException e) {
@@ -77,7 +80,7 @@ public class MosaicCommandHandlerTest {
     StringBuilder output = new StringBuilder();
     Function<String, Image> imageGetter = (imgName) -> {
       output.append("Getting ").append(imgName).append("\n");
-      return SAMPLE_IMAGE;
+      return ImageProcessCommandHandlerTest.SAMPLE_IMAGE;
     };
     BiConsumer<String, Image> imageSetter = (imgName, img) ->
             output.append("Setting ").append(imgName).append(" to img");

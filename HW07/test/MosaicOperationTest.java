@@ -1,17 +1,17 @@
-package model.image.operation;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import model.AbstractModelTest;
 import model.image.Image;
 import model.image.operation.colortransform.MosaicOperation;
 import model.image.pixel.Pixel;
 import model.image.pixel.RGBPixel;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+/**
+ * To test the mosaic operation.
+ */
 public class MosaicOperationTest extends AbstractModelTest {
 
   @Test
@@ -48,25 +48,25 @@ public class MosaicOperationTest extends AbstractModelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testOperationException() {
-    Image newImage = new MosaicOperation(5).apply(img);
+    new MosaicOperation(5).apply(img);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testOperationException1() {
-    Image newImage = new MosaicOperation(0).apply(img);
+    new MosaicOperation(0).apply(img);
   }
 
 
   private int checkImageCluster(Image image) {
-    ArrayList<Pixel> RGBPixelList = new ArrayList<>();
+    ArrayList<Pixel> rgbPixelList = new ArrayList<>();
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 2; j++) {
         Pixel p = image.getPixel(i,j);
-        if (!RGBPixelList.contains(p)) {
-          RGBPixelList.add(p);
+        if (!rgbPixelList.contains(p)) {
+          rgbPixelList.add(p);
         }
       }
     }
-    return RGBPixelList.size();
+    return rgbPixelList.size();
   }
 }
