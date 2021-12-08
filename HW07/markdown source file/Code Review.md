@@ -6,7 +6,7 @@
 
 The design is good overall. Multiple levels of abstraction were made to reduce code duplication, command design pattern was also widely used for future extension. Component-specific critique will be put in different sections below.
 
-### Model
+### I. Model
 
 The model has three levels - the state manager (/the temp cache/image library), the image itself, and the pixels that construct images. 
 
@@ -30,13 +30,27 @@ One heads-up would be both Image interface and Pixel interface may not be extens
 
 Operation package was clearly organized and classified so that future implementor (like us) would know where the new operations should go, which keeps the coherence of the whole project. Common code and helper methods were abstracted out for different operation classes, which reduces the code duplication and lessen the required code for new operations. I found both grayscale operation and convolution operation were designed in a highly extensible way - they only require implementer to overwrite one method/provide a convolution kernel, definitely a good practice.
 
-### Controller
+### II. Controller
+
+#### Handler
+
+Handlers process the program level input and ask an appropriate operation to update the model. This part is nicely done!
 
 #### CLI & Script
 
+As we will mention [below](#Limitation \(Implementation Issue of View\)) (I recommend reading the linked review below before proceeding to this section), it has to be the controller's responsibility to run the program, by the MVC principle, so the controller needs to have a run method, yet currently the `run()` is put in the view.
+
+As for the existing methods, since `fetchImage` and `cacheImage` are not directly recive arguments from a readable stream, nor any I/O involved, and they are manipulating the model, I would suggest put them into the model; the `loadFile` and `storeFileIfPossible` , on the other hand, have I/O involved, but essentially they are things have to be **handled** by a controller (but doesn't have to be this particluar CLI one), so it would be better to put them into handler package.
+
 #### GUI
 
-### View
+The ImageProcessorGUI wasn't used or implemented for this project. But as we mention [below](#Limitation \(Implementation Issue of View\)), the GUI should use a GUI controller to communicate the model and the view, as well as accept (click/select) events.
+
+**Here we will assume the project is going to be fixed so the controller runs the program.**
+
+The reason a different controller is needed is the graphical view would emit signals(list selection event) back to the controller, and accept users' inputs(brighten value/mosaic seed). In this case, the controller has to be capable of processing signals and receiving inputs from the view. The arguments parsing checking for the GUI controller can be looser than the CLI controller, as this controller is less likely to recive wrong inputs (particularly invalid operation command), becuase only the supported operations are visible and clickable in the GUI view.
+
+### III. View
 
 The view for both CLI and GUI are able to render a graceful user interface: CLI interface has a help menu, input prompt, and error message feedback; GUI has a program window and clickable items as event triggers. Both of them are visually decent, yet from the implementation perspective, they may violate some design principle, see [Implementation Issue of View](#Limitation \(Implementation Issue of View\)).
 
@@ -108,7 +122,11 @@ The graphic user interface supports basic I/O, image processing, and image previ
 
   However, this will introduce another issue: `valueChanged()` will not be triggered if the user select the same item again, and this in effect prevents them to repeat the same operation.
 
-### Extensibility
+###### Action Listener
+
+- See [Implementation Issue of View](#Limitation \(Implementation Issue of View\)).
+
+### IV. Extensibility
 
 The program is overall highly extensible benefit by the clear structure. 
 
@@ -120,19 +138,19 @@ The program is overall highly extensible benefit by the clear structure.
 
 ## Implementation critique
 
-### Strength
+### I. Strength
 
 It's been observed that the code has a very clear package structure and a relatively understandable hierarchy of inheritance. Every class is implementing a well-designed interface and doesn't leak any implementation details as all public methods return abstraction. Common code was abstracted out to reduce duplication. Most methods have a relative small size and only do one thing.
 
-### Limitation (Implementation Issue of View)
+### II. Limitation (Implementation Issue of View)
 
 - During the inspection of the main class, we found main ask the view to run the program. By the definition of MVC, it should be the **controller** updates the models and views by accepting input and performing the corresponding actions. View is merely the means of displaying objects within an application, without directly manipulating the model. Therefore, all arguments parsing components (for CLI)/ event listening components (for GUI) should be put in the controller package. 
   - For CLI, view should only be capable to render the message and error. Note here, again, view is just a displaying unit, so it doesn't know what exact message to render until it receives that message from the controller. That is saying, it's also **controller's** job to **supply** the name of the supported command of its command set[^2] and ask the view to print out.
   - For GUI, view should only construct the program window that renders the image and presents clickable items, while not to provide any functionality to respond to the event, even these events are triggered within the view.
-    - We would suggest when adding the `ListSelectionListener`(for JList) or `EventListener`(for buttons), instead of setting the view itself as the Listener, set a Listener object (an instance of the class who implements the `ListSelectionListener`/`EventListener`) who is considered as a controller component. That will also imply you don't have to make the view implement the `Listener` interfaces.
+    - We would suggest when adding the `ListSelectionListener`(for JList) or `EventListener`(for buttons), instead of setting the view itself as the Listener, set a Listener object (an instance of the class who implements the `ListSelectionListener`/`EventListener`) who is considered as a controller component. That will also imply view doesn't have to implement the `Listener` interfaces.
     - That "Listener class" can be put in the GUI controller as a private inner class, which can be instantiated in GUI controller's constructor, at the point of initializing the associative GUIView (so the view will need an additional argument for construction, i.e. the `Listener` that is going to be set as the listener of view's triggers) of the controller, and is dispatched to hear events from the view panel. We recommend this, instead of letting the new GUI controller implements multiple interfaces, is because the alternative way may lead to casting at the point the program needs view's controller object as an instance of `ListSelectionListener`. Take the advantage of inner class, these listeners can still pass the arguments they receive from the view to the controller and let the controller perform the operation.
 
-### Improvement Suggestion
+### III. Improvement Suggestion
 
 - Multiple abstract classes exists just for scoping purpose, yet not providing any abstractions (`AbstractGeometricCommandHandler`/ `AbstractComponentCommandHandler`), nor does any method only accepts the sub-scope object as an argument. Thus, these abstract classes can be trivial in terms of code implementation, and may be safely dropped.
 
